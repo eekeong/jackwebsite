@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的购物车 | 万能教 Jack 老师 - 高转化极简购物车</title>
+  <link rel="stylesheet" href="css/style.css?v=1.0.4">
+</head>
+
+<body class="light-theme">
+
+  <!-- =============================================
+       NAVBAR (Unified Premium Component)
+       ============================================= -->
+  <nav class="navbar scrolled" id="navbar" role="navigation" aria-label="主导航">
+    <div class="nav-container">
+      <!-- Logo -->
+      <a href="index.html" class="nav-logo" id="navLogo" aria-label="万能教 Jack 老师 首页">
+        <img src="images/Jack_logo.png" alt="万能教Jack老师" class="nav-logo-img" />
+        <span class="nav-logo-main">万能教JACK老师</span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <div class="nav-menu" role="menubar">
+        <a href="index.html" class="nav-link" role="menuitem">首页</a>
+        <!-- <a href="about.html" class="nav-link" role="menuitem">关于</a> -->
+        <a href="shop.html" class="nav-link" role="menuitem">课程</a>
+        <a href="schedule.html" class="nav-link" role="menuitem">上课时间</a>
+        <a href="index.html#faq" class="nav-link" role="menuitem">FAQ</a>
+      </div>
+
+      <!-- Action Icons -->
+      <div class="nav-actions">
+        <!-- Cart -->
+        <button class="nav-icon-btn" id="navCartBtn" aria-label="购物车" title="购物车" onclick="openCart()">
+          <div style="position:relative; display:inline-flex;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="22" height="22">
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+            </svg>
+            <span class="cart-badge cart-count" id="navCartBadge" aria-label="购物车商品数量">0</span>
+          </div>
+        </button>
+
+        <!-- Student Login - Filled Pink Button -->
+        <button class="btn-nav-login" id="navLoginBtn" onclick="openLogin()" aria-label="学生登录">学生登录</button>
+      </div>
+
+      <!-- Hamburger (Mobile) -->
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Dropdown Menu (Unified) -->
+  <div class="mobile-menu" id="mobileMenu" role="menu" aria-hidden="true">
+    <a href="index.html" role="menuitem" onclick="closeMobileMenu()">首页</a>
+    <!-- <a href="about.html" role="menuitem" onclick="closeMobileMenu()">关于</a> -->
+    <a href="shop.html" role="menuitem" onclick="closeMobileMenu()">课程</a>
+    <a href="schedule.html" role="menuitem" onclick="closeMobileMenu()">上课时间</a>
+    <a href="index.html#faq" role="menuitem" onclick="closeMobileMenu()">FAQ</a>
+    <a href="shop.html" role="menuitem" onclick="closeMobileMenu()"
+      style="color: var(--pink); margin-top: 8px; display: block; font-size: 0.95rem;">立即选课 →</a>
+  </div>
+
+  <div class="container" style="padding-top: 40px; min-height: 70vh;">
+    <h1
+      style="font-family: var(--font-title); font-size: 24px; color: var(--dark); margin-bottom: 20px; border-bottom: 2px solid var(--pink-pale); padding-bottom: 10px;">
+      🛒 您的购物车
+    </h1>
+
+    <!-- Empty Cart Fallback -->
+    <div id="cart-empty-view" style="display:none; text-align:center; padding: 60px 20px;" class="checkout-form-box">
+      <span style="font-size: 64px;">🛒</span>
+      <h2 style="font-family: var(--font-title); font-size: 20px; color: var(--text-main); margin-top: 20px;">您的购物车空空如也！
+      </h2>
+      <p style="color: var(--grey-muted); font-size:14px; margin: 10px 0 25px 0;">赶快去我们的课程商城为自己挑选几门最强 Sejarah 冲刺课程吧！</p>
+      <a href="shop.html" class="btn btn-primary" style="padding: 12px 30px;">👉 立即前往课程商城选课</a>
+    </div>
+
+    <!-- Active Cart Layout -->
+    <div id="cart-active-view" class="cart-layout">
+      <!-- Left Column: Items List -->
+      <div id="cart-items-list" class="cart-items">
+        <!-- 动态注入加购的课程 -->
+      </div>
+
+      <!-- Right Column: Summary Card -->
+      <aside class="cart-summary">
+        <h2
+          style="font-family: var(--font-title); font-size: 18px; color: var(--text-main); margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+          费用明细</h2>
+
+        <div class="summary-row">
+          <span>商品小计 (Subtotal)</span>
+          <span id="summary-subtotal">RM 0.00</span>
+        </div>
+
+        <!-- Promo Coupon Display Area -->
+        <div id="summary-promo-row" class="summary-row" style="display:none; color: var(--pink); font-weight: 700;">
+          <span id="summary-promo-label">优惠券折扣</span>
+          <span id="summary-promo-value">-RM 0.00</span>
+        </div>
+
+        <!-- Coupon Form -->
+        <div class="promo-form">
+          <input type="text" id="promo-code-input" class="promo-input" placeholder="输入折扣券 (例如 JACKEARLY)">
+          <button id="btn-apply-promo" class="btn btn-secondary btn-sm"
+            style="border-radius: var(--radius-sm);">应用</button>
+        </div>
+        <div id="promo-status-msg" style="font-size: 11px; margin-top:-15px; margin-bottom:15px; display:none;"></div>
+
+        <div class="summary-row total">
+          <span>应付总额 (Total)</span>
+          <span id="summary-total">RM 0.00</span>
+        </div>
+
+        <div
+          style="background-color: var(--warning-light); color: var(--warning); border: 1px solid rgba(249, 115, 22, 0.2); padding: 12px; border-radius: var(--radius-md); font-size: 11px; line-height: 1.5; margin-bottom: 20px;">
+          ⚠️ <b>付款提醒</b>：请在点击结算前，确认每门课程的上课日期和 Form 年级。付款成功后将立即发送 WhatsApp 激活说明。
+        </div>
+
+        <a href="checkout.html" class="btn btn-primary btn-full" style="font-size: 16px;">💳 前往安全结账 ➔</a>
+        <a href="shop.html" class="btn btn-outline-purple btn-full btn-sm" style="margin-top: 10px;">继续选课</a>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Sticky Navigation Bar -->
+  <div class="bottom-sticky-bar">
+    <a href="index.html" class="sticky-nav-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </svg>
+      <span>首页</span>
+    </a>
+    <a href="shop.html" class="sticky-nav-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="9"></rect>
+        <rect x="14" y="3" width="7" height="5"></rect>
+        <rect x="14" y="12" width="7" height="9"></rect>
+        <rect x="3" y="16" width="7" height="5"></rect>
+      </svg>
+      <span>选课商城</span>
+    </a>
+    <a href="cart.html" class="sticky-nav-item active">
+      <div style="position: relative;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <span class="cart-count" style="top: -6px; right: -8px;">0</span>
+      </div>
+      <span>购物车</span>
+    </a>
+    <a href="https://wa.me/60123456789?text=我想咨询Jack老师的历史课程" target="_blank" class="sticky-nav-item"
+      style="color: var(--success);">
+      <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+        <path
+          d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.262 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.66.986 3.288 1.488 4.674 1.49 5.345 0 9.771-4.342 9.774-9.673.002-2.583-1.002-5.01-2.827-6.837-1.823-1.826-4.249-2.83-6.834-2.831-5.345 0-9.769 4.341-9.773 9.671-.002 1.94.512 3.826 1.492 5.503l-.979 3.575 3.673-.963zm11.96-5.834c-.267-.134-1.583-.78-1.827-.869-.243-.088-.422-.132-.599.135-.178.266-.689.867-.844 1.045-.156.177-.311.199-.579.066-.268-.134-1.13-.417-2.153-1.328-.795-.71-1.333-1.586-1.489-1.854-.156-.266-.017-.41.117-.543.12-.12.267-.31.401-.466.133-.155.178-.266.266-.443.089-.178.045-.333-.022-.467-.067-.133-.599-1.442-.821-1.974-.216-.52-.452-.45-.623-.459-.16-.008-.344-.01-.527-.01-.184 0-.483.069-.735.345-.252.276-.962.94-.962 2.292 0 1.352.983 2.658 1.121 2.836.137.178 1.933 2.951 4.683 4.137.654.282 1.165.45 1.562.576.657.21 1.256.18 1.728.11.526-.078 1.583-.647 1.806-1.272.223-.625.223-1.162.156-1.272-.067-.11-.244-.199-.512-.332z" />
+      </svg>
+      <span>WhatsApp</span>
+    </a>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const emptyView = document.getElementById("cart-empty-view");
+      const activeView = document.getElementById("cart-active-view");
+      const itemsContainer = document.getElementById("cart-items-list");
+
+      const subtotalText = document.getElementById("summary-subtotal");
+      const promoRow = document.getElementById("summary-promo-row");
+      const promoLabel = document.getElementById("summary-promo-label");
+      const promoValue = document.getElementById("summary-promo-value");
+      const totalText = document.getElementById("summary-total");
+
+      const promoInput = document.getElementById("promo-code-input");
+      const applyPromoBtn = document.getElementById("btn-apply-promo");
+      const promoStatusMsg = document.getElementById("promo-status-msg");
+
+      function renderCart() {
+        const items = Cart.getDetails();
+
+        if (items.length === 0) {
+          emptyView.style.display = "block";
+          activeView.style.display = "none";
+          return;
+        } else {
+          emptyView.style.display = "none";
+          activeView.style.display = "grid";
+        }
+
+        // 渲染加购课程项列表
+        itemsContainer.innerHTML = "";
+        items.forEach(item => {
+          if (!item) return;
+          const card = document.createElement("div");
+          card.className = "cart-item";
+
+          const formVal = item.form || "Form 1-5 适用";
+          const titleVal = item.title || "专属课程/教材";
+          const timeVal = item.time || "随买随看";
+          const priceVal = typeof item.price === "number" ? item.price : parseFloat(item.price || 0);
+
+          card.innerHTML = `
+            <div style="width: 70px; height: 45px; background: linear-gradient(135deg, var(--pink-light) 0%, var(--pink) 100%); border-radius: var(--radius-sm); display:flex; justify-content:center; align-items:center; color: var(--white); font-size: 20px; flex-shrink:0;">
+              📖
+            </div>
+            <div class="cart-item-info">
+              <span class="badge badge-form" style="margin-bottom: 5px;">${formVal}</span>
+              <h3 class="cart-item-title">${titleVal}</h3>
+              <p style="font-size: 11px; color: var(--grey-muted); margin-top:3px;">⏰ 上课时间：${timeVal}</p>
+            </div>
+            <div class="cart-item-price">RM ${priceVal.toFixed(2)}</div>
+            <button onclick="handleRemoveItem('${item.id}')" class="btn-remove" title="从购物车移出">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+            </button>
+          `;
+          itemsContainer.appendChild(card);
+        });
+
+        // 渲染账单明细数据
+        const subtotal = Cart.getSubtotal();
+        const promo = Cart.getPromo();
+        const total = Cart.getTotal();
+
+        subtotalText.textContent = `RM ${subtotal.toFixed(2)}`;
+
+        if (promo) {
+          promoRow.style.display = "flex";
+          promoLabel.textContent = `优惠券 (${promo.code})`;
+
+          if (promo.type === "flat") {
+            promoValue.textContent = `-RM ${promo.value.toFixed(2)}`;
+          } else {
+            const discountAmount = subtotal * (promo.value / 100);
+            promoValue.textContent = `-RM ${discountAmount.toFixed(2)} (${promo.value}%)`;
+          }
+
+          promoStatusMsg.style.display = "block";
+          promoStatusMsg.style.color = "var(--success)";
+          promoStatusMsg.innerHTML = `已应用：${promo.label} <button onclick="handleRemovePromo()" style="background:none; border:none; color:var(--pink); font-size:10px; font-weight:700; margin-left:8px; cursor:pointer; text-decoration:underline;">移除</button>`;
+        } else {
+          promoRow.style.display = "none";
+          promoStatusMsg.style.display = "none";
+        }
+
+        totalText.textContent = `RM ${total.toFixed(2)}`;
+
+        // 同步顶部微标数量
+        Cart.updateUI();
+      }
+
+      // 处理移除单项商品
+      window.handleRemoveItem = function (id) {
+        Cart.remove(id);
+        renderCart();
+      };
+
+      // 绑定优惠券应用
+      applyPromoBtn.addEventListener("click", () => {
+        const code = promoInput.value;
+        if (!code) return;
+        const res = Cart.applyPromo(code);
+
+        promoStatusMsg.style.display = "block";
+        if (res.success) {
+          promoInput.value = "";
+          renderCart();
+        } else {
+          promoStatusMsg.style.color = "var(--pink)";
+          promoStatusMsg.textContent = res.message;
+        }
+      });
+
+      // 处理移除优惠券
+      window.handleRemovePromo = function () {
+        Cart.removePromo();
+        renderCart();
+      };
+
+      // 初始化渲染
+      renderCart();
+    });
+  </script>
+</body>
+
+</html>

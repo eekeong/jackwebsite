@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sejarah 正课班 | 万能教 Jack 老师</title>
+  <meta name="description" content="Sejarah正课班 - 中五考前冲刺班">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Nunito:wght@400;600;700;800;900;1000&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css?v=1.0.4">
+
+  <style>
+    /* =============================================
+       PREMIUM E-COMMERCE DETAIL PAGE
+       ============================================= */
+    :root {
+      --detail-bg: #ffffff;
+      --detail-surface: #fdfdfd;
+      --pink: #FC0C97;
+      --pink-light: rgba(252, 12, 151, 0.05);
+      --pink-hover: #e00b86;
+      --text-dark: #111111;
+      --text-muted: #888888;
+      --border-light: #f0f0f0;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.04);
+      --font-en: 'Nunito', sans-serif;
+      --font-zh: 'Noto Sans SC', sans-serif;
+    }
+
+    body {
+      background: var(--detail-bg);
+      color: var(--text-dark);
+    }
+
+    .detail-container {
+      max-width: 1200px;
+      margin: 120px auto 60px auto;
+      padding: 0 24px;
+    }
+
+    /* ── BREADCRUMBS ── */
+    .breadcrumbs {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 30px;
+      font-family: var(--font-en);
+    }
+    .breadcrumbs a {
+      color: var(--pink);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .breadcrumbs a:hover {
+      opacity: 0.8;
+    }
+
+    /* ── TWO COLUMN HERO ── */
+    .product-hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 60px;
+      margin-bottom: 80px;
+    }
+
+    @media (max-width: 900px) {
+      .product-hero {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+
+    /* Left: Gallery */
+    .gallery-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .main-image-container {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--detail-surface);
+      border: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .main-image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: opacity 0.3s ease;
+    }
+    .thumbnail-track {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+    }
+    .thumbnail-track::-webkit-scrollbar { display: none; }
+    .thumb-item {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+      background: var(--detail-surface);
+    }
+    .thumb-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .thumb-item.active {
+      border-color: var(--pink);
+      opacity: 1;
+    }
+    .thumb-item:not(.active) {
+      opacity: 0.6;
+    }
+    .thumb-item:hover:not(.active) {
+      opacity: 0.9;
+    }
+
+    /* Right: Product Info */
+    .product-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .product-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--pink);
+      background: var(--pink-light);
+      padding: 6px 12px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      align-self: flex-start;
+    }
+    .product-title {
+      font-family: var(--font-en);
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 900;
+      line-height: 1.2;
+      margin: 0 0 8px 0;
+      letter-spacing: -0.02em;
+    }
+    .product-subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin: 0 0 24px 0;
+      font-weight: 500;
+    }
+    
+    .price-block {
+      display: flex;
+      align-items: baseline;
+      justify-content: flex-start;
+      gap: 12px;
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .current-price {
+      font-family: var(--font-en);
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--pink);
+    }
+    .original-price {
+      font-family: var(--font-en);
+      font-size: 18px;
+      font-weight: 600;
+      color: #bbbbbb;
+      text-decoration: line-through;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      column-gap: 24px;
+      row-gap: 16px;
+      margin-bottom: 32px;
+      font-size: 14px;
+    }
+    .meta-label {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .meta-val {
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .features-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 40px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .features-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    .features-list svg {
+      color: var(--pink);
+      flex-shrink: 0;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 16px;
+      margin-top: auto;
+    }
+    .btn-buy {
+      flex: 1;
+      background: var(--pink);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 800;
+      font-family: var(--font-en);
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .btn-buy:hover {
+      background: var(--pink-hover);
+      transform: translateY(-2px);
+    }
+    .btn-cart {
+      flex: 1;
+      background: transparent;
+      color: var(--text-dark);
+      border: 2px solid var(--border-light);
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 800;
+      font-family: var(--font-en);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-cart:hover {
+      border-color: var(--text-dark);
+    }
+
+    .plan-options {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .plan-btn {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid var(--border-light);
+      border-radius: 12px;
+      background: var(--detail-surface);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .plan-btn.active {
+      border-color: var(--pink);
+      color: var(--pink);
+      background: var(--pink-light);
+    }
+
+    /* ── TABS SECTION ── */
+    .tabs-wrapper {
+      margin-bottom: 80px;
+    }
+    .tabs-nav {
+      display: flex;
+      gap: 32px;
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 40px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tabs-nav::-webkit-scrollbar { display: none; }
+    
+    .tab-btn {
+      background: none;
+      border: none;
+      padding: 0 0 16px 0;
+      font-size: 15px;
+      font-weight: 800;
+      font-family: var(--font-en);
+      color: var(--text-muted);
+      cursor: pointer;
+      position: relative;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+    .tab-btn::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--pink);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    .tab-btn.active {
+      color: var(--text-dark);
+    }
+    .tab-btn.active::after {
+      transform: scaleX(1);
+    }
+
+    .tab-pane {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+    .tab-pane.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .desc-content {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #444;
+      max-width: 800px;
+    }
+    .desc-content h3 {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin: 32px 0 16px 0;
+    }
+    .desc-content h3:first-child { margin-top: 0; }
+    .desc-content p { margin-bottom: 16px; }
+
+    /* FAQ Accordion */
+    .faq-item {
+      border-bottom: 1px solid var(--border-light);
+      padding: 24px 16px;
+      background: var(--detail-surface);
+      margin-bottom: 12px;
+      border-radius: 12px;
+    }
+    .faq-q {
+      font-weight: 800;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-dark);
+      line-height: 1.4;
+    }
+    .faq-q svg {
+      transition: transform 0.3s;
+    }
+    .faq-item.open .faq-q svg {
+      transform: rotate(180deg);
+    }
+    .faq-a {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-top: 16px;
+      padding-right: 24px;
+      display: none;
+    }
+    .faq-item.open .faq-a {
+      display: block;
+    }
+
+    /* ── RELATED PRODUCTS ── */
+    .related-section {
+      padding-top: 60px;
+      border-top: 1px solid var(--border-light);
+      margin-bottom: 80px;
+    }
+    .related-title {
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 32px;
+      font-family: var(--font-en);
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 900px) {
+      .related-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 600px) {
+      .related-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .rel-card {
+      background: var(--detail-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      text-decoration: none;
+      display: block;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .rel-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-soft);
+      border-color: transparent;
+    }
+    .rel-card-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      background: #f5f5f5;
+    }
+    .rel-card-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin: 0 0 4px 0;
+    }
+    .rel-card-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* ── MOBILE STICKY CTA ── */
+    .mobile-sticky-cta {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--border-light);
+      padding: 12px 20px;
+      z-index: 100;
+    }
+    @media (max-width: 768px) {
+      .cta-group { display: none; } /* Hide desktop CTA */
+      .mobile-sticky-cta {
+        display: flex;
+        gap: 12px;
+      }
+      .mobile-sticky-cta button {
+        flex: 1;
+        padding: 14px;
+        font-size: 15px;
+        border-radius: 10px;
+      }
+
+    /* ---- Services Grid for Related Courses ---- */
+    :root {
+      --card-bg: #f0eeeb;
+      --card-hover-bg: #e8e5e0;
+      --card-radius: 28px;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    @media (max-width: 600px) {
+      .services-grid {
+        gap: 12px;
+      }
+    }
+    .service-card {
+      background: var(--card-bg);
+      border-radius: var(--card-radius);
+      padding: 28px 28px 24px 28px;
+      display: flex;
+      flex-direction: column;
+      height: 320px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      animation: shopCardFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .service-card:hover {
+      background: var(--card-hover-bg);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+    }
+    @media (max-width: 600px) {
+      .service-card {
+        height: 220px;
+        padding: 14px;
+        border-radius: 18px;
+      }
+    }
+    .service-card-images {
+      flex-grow: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .service-img-back,
+    .service-img-front {
+      position: absolute;
+      width: 180px;
+      max-height: 200px;
+      height: auto;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      object-fit: contain;
+    }
+    .service-img-back { transform: rotate(-6deg); }
+    .service-img-front { transform: rotate(3deg); }
+    .service-card:hover .service-img-back { transform: rotate(-10deg) scale(1.05); }
+    .service-card:hover .service-img-front { transform: rotate(5deg) scale(1.05); }
+    @media (max-width: 600px) {
+      .service-img-back,
+      .service-img-front { width: 105px; }
+    }
+    .service-card-footer {
+      margin-top: auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .service-card-text { flex: 1; }
+    .service-card-title {
+      font-family: 'Nunito', 'Noto Sans SC', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: #1a1a1a;
+      line-height: 1.3;
+      margin: 0 0 2px 0;
+    }
+    .service-card-sub {
+      font-family: 'Noto Sans SC', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: #999;
+      margin: 0;
+    }
+    @media (max-width: 600px) {
+      .service-card-title { font-size: 11px; }
+      .service-card-sub { font-size: 9px; }
+    }
+    .service-card-arrow {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.25s ease, transform 0.25s ease;
+    }
+    .service-card:hover .service-card-arrow {
+      background: var(--pink);
+      transform: rotate(-45deg);
+    }
+    .service-card:hover .service-card-arrow svg { stroke: #fff; }
+    
+    @keyframes shopCardFadeUp {
+      0% { opacity: 0; transform: translate3d(0, 40px, 0); }
+      100% { opacity: 1; transform: translate3d(0, 0, 0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =============================================
+       NAVBAR (Reused from shop.html)
+       ============================================= -->
+  <nav class="navbar scrolled" id="navbar" role="navigation" aria-label="主导航">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo" id="navLogo" aria-label="万能教 Jack 老师 首页">
+        <img src="images/Jack_logo.png" alt="万能教Jack老师" class="nav-logo-img" />
+        <span class="nav-logo-main">万能教JACK老师</span>
+      </a>
+
+      <div class="nav-menu" role="menubar">
+        <a href="index.html" class="nav-link" role="menuitem">首页</a>
+        <!-- <a href="about.html" class="nav-link" role="menuitem">关于</a> -->
+        <a href="shop.html" class="nav-link nav-link-active" role="menuitem">课程</a>
+        <a href="schedule.html" class="nav-link" role="menuitem">上课时间</a>
+        <a href="index.html#faq" class="nav-link" role="menuitem">FAQ</a>
+      </div>
+
+      <div class="nav-actions">
+        <button class="nav-icon-btn" id="navCartBtn" aria-label="购物车" onclick="openCart()">
+          <div style="position:relative; display:inline-flex;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+            </svg>
+            <span class="cart-badge cart-count" id="navCartBadge">0</span>
+          </div>
+        </button>
+        <button class="btn-nav-login" id="navLoginBtn" onclick="openLogin()">学生登录</button>
+      </div>
+
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu" role="menu" aria-hidden="true">
+    <a href="index.html" role="menuitem" onclick="closeMobileMenu()">首页</a>
+    <!-- <a href="about.html" role="menuitem" onclick="closeMobileMenu()">关于</a> -->
+    <a href="shop.html" role="menuitem" onclick="closeMobileMenu()" style="color: var(--pink);">课程</a>
+    <a href="schedule.html" role="menuitem" onclick="closeMobileMenu()">上课时间</a>
+    <a href="index.html#faq" role="menuitem" onclick="closeMobileMenu()">FAQ</a>
+  </div>
+
+  <!-- =============================================
+       MAIN CONTENT
+       ============================================= -->
+  <main class="detail-container">
+    
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs">
+      <a href="index.html">首页</a> / <a href="shop.html">课程</a> / <span style="color:#111;">Sejarah正课班</span>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="product-hero">
+      
+      <!-- Left: Gallery -->
+      <div class="gallery-wrapper">
+        <div class="main-image-container" id="mainMediaContainer">
+          <img id="mainImg" src="images/Card_Photo/IMG_7567 (1).png" alt="Sejarah正课班 主图" />
+          <video id="mainVid" src="" controls playsinline webkit-playsinline style="display:none; width:100%; height:100%; object-fit:contain; background:#000;"></video>
+        </div>
+        <div class="thumbnail-track">
+          <!-- Image Thumb -->
+          <div class="thumb-item active" onclick="swapMedia(this, 'image', 'images/Card_Photo/IMG_7567 (1).png')">
+            <img src="images/Card_Photo/IMG_7567 (1).png" alt="缩略图1" />
+          </div>
+          <!-- Video Thumb -->
+          <div class="thumb-item" onclick="swapMedia(this, 'video', 'images/SMJK HWA LIAN JACK CROP.mp4')" style="position:relative;">
+            <img src="images/product-course.png" alt="视频预览" />
+            <div style="position:absolute; inset:0; background:rgba(0,0,0,0.3); display:flex; align-items:center; justify-content:center;">
+              <svg width="24" height="24" fill="#fff" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <!-- Image Thumb 2 -->
+          <div class="thumb-item" onclick="swapMedia(this, 'image', 'images/Card_Photo/card4-students-A.png')">
+            <img src="images/Card_Photo/card4-students-A.png" alt="缩略图3" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Info -->
+      <div class="product-info">
+        <span class="product-label">Best Seller</span>
+        <h1 class="product-title">Sejarah正课班</h1>
+        <p class="product-subtitle">中五考前冲刺班</p>
+
+        <!-- Plan Options -->
+        <div class="plan-options">
+          <button class="plan-btn active" onclick="selectPlan(this, 'RM49.00', 'RM99.00')">1个月通行证</button>
+          <button class="plan-btn" onclick="selectPlan(this, 'RM129.00', 'RM297.00')">3个月通行证</button>
+        </div>
+
+        <div class="price-block">
+          <span class="current-price">RM49.00</span>
+          <span class="original-price">RM99.00</span>
+        </div>
+
+        <div class="meta-grid">
+          <span class="meta-label">授课方式</span>
+          <span class="meta-val">Zoom 直播课</span>
+          
+          <span class="meta-label">课程时长</span>
+          <span class="meta-val">1.5 小时</span>
+          
+          <span class="meta-label">适合对象</span>
+          <span class="meta-val">Form 1 - Form 5</span>
+        </div>
+
+        <ul class="features-list">
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            配套高画质彩色 PDF 与实体资料邮寄
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            课后提供高清录像回放复习
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            专属 WhatsApp 学习答疑辅导
+          </li>
+        </ul>
+
+        <div class="cta-group">
+          <button class="btn-cart" onclick="Cart.add('sej-regular');Cart.updateUI();">加入购物车</button>
+          <button class="btn-buy" onclick="Cart.add('sej-regular');window.location.href='checkout.html'">立即报名</button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Tabs Section -->
+    <section class="tabs-wrapper">
+      <div class="tabs-nav">
+        <button class="tab-btn active" onclick="switchTab(this, 'tab-desc')">课程详情 (Description)</button>
+        <button class="tab-btn" onclick="switchTab(this, 'tab-review')">学员见证</button>
+        <button class="tab-btn" onclick="switchTab(this, 'tab-faq')">常见问题 FAQ</button>
+      </div>
+
+      <!-- Content 1 -->
+      <div id="tab-desc" class="tab-pane active desc-content">
+        <h3>关于本课程</h3>
+        <p>死记硬背记不住、主观大题不会拆解、感觉历史拿不到方向？这是专为基础薄弱以及想要冲刺A+的同学设计的Sejarah冲刺班。</p>
+        <p>Jack 老师通过15年的教学经验，总结出“万能解题法”，用最接地气的小故事把硬核大纲讲活，让你一听就会，做题思路爆棚。</p>
+        
+        <h3>上课大纲</h3>
+        <ul>
+          <li>第一阶段：核心历史事件梳理与脉络构建</li>
+          <li>第二阶段：高频考点预测与 KBAT 答题套路解析</li>
+          <li>第三阶段：历年真题实战演练与丢分盲区排雷</li>
+        </ul>
+      </div>
+
+      <!-- Content 3 (Testimonials) -->
+      <div id="tab-review" class="tab-pane desc-content">
+        <h3>来自学生的真实反馈</h3>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top:24px;">
+          <!-- Photo Review -->
+          <div style="background:var(--detail-surface); border:1px solid var(--border-light); border-radius:16px; overflow:hidden;">
+            <img src="images/Card_Photo/card4-students-A.png" style="width:100%; height:180px; object-fit:cover;" />
+            <div style="padding:16px;">
+              <p style="margin:0; font-size:14px; color:#444;">“这是我上过最轻松的历史课！不用再死背年份了，老师的口诀和故事太有效了，这次 Trial 直接从不及格跳到了 A-。”</p>
+              <div style="margin-top:12px; font-weight:800; font-size:13px; color:var(--pink);">王同学 (Form 5)</div>
+            </div>
+          </div>
+          <!-- Video Review -->
+          <div style="background:var(--detail-surface); border:1px solid var(--border-light); border-radius:16px; overflow:hidden;">
+            <video src="images/SMJK HWA LIAN JACK CROP.mp4" controls playsinline webkit-playsinline style="width:100%; height:180px; object-fit:cover; background:#000;"></video>
+            <div style="padding:16px;">
+              <p style="margin:0; font-size:14px; color:#444;">“以前看到 KBAT 题就头痛，现在完全知道该怎么下笔拿满分，感谢老师的套路解析。”</p>
+              <div style="margin-top:12px; font-weight:800; font-size:13px; color:var(--pink);">李同学 (Form 5)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content 4 -->
+      <div id="tab-faq" class="tab-pane">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">购买后什么时候可以开始上课？ <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+          <div class="faq-a">付款成功后，您将在24小时内收到带有专属学习链接和材料的 WhatsApp 通知，点击即可接入课堂系统。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">如果有课程冲突没法看直播怎么办？ <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+          <div class="faq-a">不用担心，所有直播课程在结束后都会上传高清回放，您可以随时随地反复观看，直到 SPM 考试结束。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">讲义是实体书还是 PDF？ <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+          <div class="faq-a">我们会提供高画质彩色 PDF 供您下载。如果您选择了包含实体材料的套餐，我们也会安排邮寄到您家。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Products -->
+    <section class="related-section" style="padding-bottom: 60px;">
+      <div class="container" style="max-width: 900px;">
+        <h2 class="related-title" style="text-align:center; font-size:28px; margin-bottom:30px; border-bottom:none;">你可能也需要</h2>
+        <div class="services-grid" id="relatedCardsGrid"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Mobile Sticky CTA -->
+  <div class="mobile-sticky-cta">
+    <button class="btn-cart" onclick="Cart.add('sej-regular');Cart.updateUI();">加入购物车</button>
+    <button class="btn-buy" onclick="Cart.add('sej-regular');window.location.href='checkout.html'">立即报名</button>
+  </div>
+
+  <!-- =============================================
+       FOOTER
+       ============================================= -->
+  <footer role="contentinfo" aria-label="页脚">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo" id="footerLogo" style="text-decoration:none; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+            <img src="images/Jack_logo.png" alt="万能教Jack老师" class="nav-logo-img" style="height: 32px; width: auto; object-fit: contain;" />
+            <span class="nav-logo-main" style="font-family: var(--font-en); font-size: 20px; font-weight: 800; color: #fff;">万能教JACK老师</span>
+          </a>
+          <p class="footer-tagline">专为 SPM 学生打造的历史科课程，简单直接，让基础再弱的学生也能找到方向，冲出好成绩！</p>
+        </div>
+        <div>
+          <h3 class="footer-col-title">首页</h3>
+          <ul class="footer-links">
+            <li><a href="shop.html">课程</a></li>
+            <!-- <li><a href="about.html">关于</a></li> -->
+            <li><a href="schedule.html">上课时间</a></li>
+            <li><a href="index.html#faq">常见问题</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer-col-title">联系我们</h3>
+          <ul class="footer-links">
+            <li><a href="https://wa.me/60123456789" target="_blank" style="display:inline-flex; align-items:center;"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" style="vertical-align:-3px; margin-right:6px; color:#25D366;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.262 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.66.986 3.288 1.488 4.674 1.49 5.345 0 9.771-4.342 9.774-9.673.002-2.583-1.002-5.01-2.827-6.837-1.823-1.826-4.249-2.83-6.834-2.831-5.345 0-9.769 4.341-9.773 9.671-.002 1.94.512 3.826 1.492 5.503l-.979 3.575 3.673-.963zm11.96-5.834c-.267-.134-1.583-.78-1.827-.869-.243-.088-.422-.132-.599.135-.178.266-.689.867-.844 1.045-.156.177-.311.199-.579.066-.268-.134-1.13-.417-2.153-1.328-.795-.71-1.333-1.586-1.489-1.854-.156-.266-.017-.41.117-.543.12-.12.267-.31.401-.466.133-.155.178-.266.266-.443.089-.178.045-.333-.022-.467-.067-.133-.599-1.442-.821-1.974-.216-.52-.452-.45-.623-.459-.16-.008-.344-.01-.527-.01-.184 0-.483.069-.735.345-.252.276-.962.94-.962 2.292 0 1.352.983 2.658 1.121 2.836.137.178 1.933 2.951 4.683 4.137.654.282 1.165.45 1.562.576.657.21 1.256.18 1.728.11.526-.078 1.583-.647 1.806-1.272.223-.625.223-1.162.156-1.272-.067-.11-.244-.199-.512-.332z"/></svg>WhatsApp 客服</a></li>
+374:             <li><a href="#" style="display:inline-flex; align-items:center;"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px; margin-right:6px; color:#EA4335;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>电邮联系</a></li>
+375:             <li><a href="#" style="display:inline-flex; align-items:center;"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" style="vertical-align:-3px; margin-right:6px; color:#1877F2;"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>Facebook</a></li>
+376:             <li><a href="#" style="display:inline-flex; align-items:center;"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" style="vertical-align:-3px; margin-right:6px; color:#E1306C;"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051C.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-divider" aria-hidden="true"></div>
+      <div class="footer-bottom">
+        <p>© 2026 <span class="footer-pink">万能教 Jack 老师</span>. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js?v=1.0.4"></script>
+  <script src="js/main.js?v=1.0.4"></script>
+  <script>
+    // ── 动态与交互脚本 ── //
+    let currentCourseId = null;
+    let selectedPlanTier = "1m"; // "1m" or "3m"
+
+    // Gallery Swap (Image/Video)
+    function swapMedia(thumbEl, type, src) {
+      document.querySelectorAll('.thumb-item').forEach(el => el.classList.remove('active'));
+      thumbEl.classList.add('active');
+      
+      const imgEl = document.getElementById('mainImg');
+      const vidEl = document.getElementById('mainVid');
+      
+      if (type === 'image') {
+        vidEl.style.display = 'none';
+        vidEl.pause();
+        imgEl.style.display = 'block';
+        imgEl.src = src;
+      } else {
+        imgEl.style.display = 'none';
+        vidEl.style.display = 'block';
+        vidEl.src = src;
+        vidEl.play();
+      }
+    }
+
+    // Tabs Switching
+    function switchTab(btn, paneId) {
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+      
+      btn.classList.add('active');
+      document.getElementById(paneId).classList.add('active');
+    }
+
+    // FAQ Accordion Toggle
+    function toggleFaq(el) {
+      const item = el.parentElement;
+      item.classList.toggle('open');
+    }
+
+    // Dynamic Loader on DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Get Course ID from URL
+      const params = new URLSearchParams(window.location.search);
+      let courseId = params.get('id') || 'sej-regular';
+      
+      // Keep track of plan tier suffix
+      const is3mInput = typeof courseId === "string" && courseId.endsWith("-3m");
+      const baseCourseId = is3mInput ? courseId.slice(0, -3) : courseId;
+      selectedPlanTier = is3mInput ? "3m" : "1m";
+
+      // 2. Fetch Course Data from DB
+      const course = CourseDB.getById(courseId);
+      if (!course) {
+        alert("抱歉，该课程不存在或已下架！");
+        window.location.href = 'shop.html';
+        return;
+      }
+      currentCourseId = baseCourseId;
+
+      // 3. Update SEO Metadata & Page Document Title
+      document.title = `${course.title} | 万能教 Jack 老师`;
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute('content', `${course.title} - ${course.subtitle || course.notes || ""}`);
+      }
+
+      // 4. Breadcrumbs Path Text
+      const breadcrumbSpan = document.querySelector(".breadcrumbs span");
+      if (breadcrumbSpan) {
+        breadcrumbSpan.textContent = course.title;
+      }
+
+      // 5. Header Title & Badge & Subtitle
+      document.querySelector(".product-title").textContent = course.title;
+      document.querySelector(".product-subtitle").textContent = course.subtitle || course.notes || "";
+      
+      const badgeLabel = document.querySelector(".product-label");
+      if (badgeLabel) {
+        if (course.badge) {
+          badgeLabel.style.display = "inline-block";
+          badgeLabel.textContent = course.badge;
+        } else {
+          badgeLabel.style.display = "none";
+        }
+      }
+
+      // 6. Meta Specifications Grid (授课方式, 时长, 对象)
+      const metaVals = document.querySelectorAll(".meta-val");
+      if (metaVals.length >= 3) {
+        metaVals[0].textContent = course.teachingMethod || "Zoom 直播授课";
+        metaVals[1].textContent = course.duration || "1.5 小时";
+        metaVals[2].textContent = course.targetAudience || "Form 1 - Form 5";
+      }
+
+      // 7. Features Highlights (Bullet items)
+      const featuresUl = document.querySelector(".features-list");
+      if (featuresUl) {
+        featuresUl.innerHTML = "";
+        const features = course.features || [];
+        features.forEach(feat => {
+          const li = document.createElement("li");
+          li.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> ${feat}`;
+          featuresUl.appendChild(li);
+        });
+      }
+
+      // 8. Gallery Media Track
+      const track = document.querySelector(".thumbnail-track");
+      if (track) {
+        track.innerHTML = "";
+        const gallery = course.galleryMedia || [];
+        gallery.forEach((media, idx) => {
+          const thumb = document.createElement("div");
+          thumb.className = `thumb-item ${idx === 0 ? 'active' : ''}`;
+          
+          if (media.type === 'video') {
+            thumb.setAttribute("onclick", `swapMedia(this, 'video', '${media.src}')`);
+            thumb.style.position = "relative";
+            thumb.innerHTML = `
+              <img src="images/product-course.png" alt="视频预览" />
+              <div style="position:absolute; inset:0; background:rgba(0,0,0,0.3); display:flex; align-items:center; justify-content:center;">
+                <svg width="24" height="24" fill="#fff" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>`;
+          } else {
+            thumb.setAttribute("onclick", `swapMedia(this, 'image', '${media.src}')`);
+            thumb.innerHTML = `<img src="${media.src}" alt="缩略图${idx + 1}" onerror="this.src='images/product-course.png';" />`;
+          }
+          track.appendChild(thumb);
+        });
+
+        // Set first gallery media item as main preview
+        const mainImg = document.getElementById("mainImg");
+        const mainVid = document.getElementById("mainVid");
+        if (gallery.length > 0) {
+          const first = gallery[0];
+          if (first.type === 'video') {
+            mainImg.style.display = "none";
+            mainVid.style.display = "block";
+            mainVid.src = first.src;
+          } else {
+            mainVid.style.display = "none";
+            mainImg.style.display = "block";
+            mainImg.src = first.src;
+          }
+        }
+      }
+
+      // 9. Tiered Pricing toggles setup
+      const planContainer = document.querySelector(".plan-options");
+      if (planContainer) {
+        planContainer.innerHTML = "";
+        
+        const price1 = course.price1Month || course.price || 0;
+        const orig1 = course.originalPrice1Month || course.originalPrice || 0;
+        const price3 = course.price3Month || 0;
+        const orig3 = course.originalPrice3Month || 0;
+
+        // Create 1 month button
+        const btn1 = document.createElement("button");
+        btn1.className = `plan-btn ${selectedPlanTier === "1m" ? 'active' : ''}`;
+        btn1.textContent = "1个月通行证";
+        btn1.onclick = () => selectPlan(btn1, "1m", price1, orig1);
+        planContainer.appendChild(btn1);
+
+        // Create 3 month button if configured (>0)
+        if (price3 > 0) {
+          const btn3 = document.createElement("button");
+          btn3.className = `plan-btn ${selectedPlanTier === "3m" ? 'active' : ''}`;
+          btn3.textContent = "3个月通行证";
+          btn3.onclick = () => selectPlan(btn3, "3m", price3, orig3);
+          planContainer.appendChild(btn3);
+          
+          planContainer.style.display = "flex";
+        } else {
+          // If no 3-month package, hide plan container
+          planContainer.style.display = "none";
+        }
+
+        // Initialize Price display values
+        const currentP = selectedPlanTier === "3m" ? price3 : price1;
+        const origP = selectedPlanTier === "3m" ? orig3 : orig1;
+        const currentPriceEl = document.querySelector('.current-price');
+        const originalPriceEl = document.querySelector('.original-price');
+        if (currentPriceEl) currentPriceEl.textContent = `RM${currentP.toFixed(2)}`;
+        if (originalPriceEl) originalPriceEl.textContent = `RM${origP.toFixed(2)}`;
+      }
+
+      // 10. Dynamic checkout cart triggers
+      updateCtaButtons();
+
+      // 11. Tab 1: Description render
+      const tabDesc = document.getElementById("tab-desc");
+      if (tabDesc) {
+        tabDesc.innerHTML = "";
+        
+        const aboutTitle = document.createElement("h3");
+        aboutTitle.textContent = course.descAboutTitle || "关于本课程";
+        tabDesc.appendChild(aboutTitle);
+
+        const paragraphs = (course.descAboutText || "").split("\n");
+        paragraphs.forEach((pText, index) => {
+          if (index > 0) tabDesc.appendChild(document.createElement("br"));
+          const p = document.createElement("p");
+          p.textContent = pText;
+          tabDesc.appendChild(p);
+        });
+
+        const syllabusTitle = document.createElement("h3");
+        syllabusTitle.style.marginTop = "40px";
+        syllabusTitle.textContent = course.descSyllabusTitle || "上课大纲";
+        tabDesc.appendChild(syllabusTitle);
+
+        const syllabusUl = document.createElement("ul");
+        syllabusUl.style.listStyleType = "none";
+        syllabusUl.style.paddingLeft = "0";
+
+        const syllabusItems = course.descSyllabusText 
+          ? course.descSyllabusText.split("\n").map(l => l.trim()).filter(Boolean)
+          : [];
+          
+        syllabusItems.forEach(item => {
+          const li = document.createElement("li");
+          li.style.marginBottom = "12px";
+          li.style.display = "flex";
+          li.style.alignItems = "center";
+          li.style.gap = "8px";
+          li.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--pink);"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg> <span>${item}</span>`;
+          syllabusUl.appendChild(li);
+        });
+        tabDesc.appendChild(syllabusUl);
+      }
+
+      // 12. Tab 2: Testimonials grid
+      const tabReview = document.getElementById("tab-review");
+      if (tabReview) {
+        tabReview.innerHTML = "";
+        const reviewsTitle = document.createElement("h3");
+        reviewsTitle.textContent = "来自学生的真实提分见证";
+        tabReview.appendChild(reviewsTitle);
+
+        const reviewsGrid = document.createElement("div");
+        reviewsGrid.style.display = "grid";
+        reviewsGrid.style.gridTemplateColumns = "repeat(auto-fit, minmax(280px, 1fr))";
+        reviewsGrid.style.gap = "20px";
+        reviewsGrid.style.marginTop = "24px";
+
+        const testimonials = course.testimonials || [];
+        testimonials.forEach(testi => {
+          const card = document.createElement("div");
+          card.style.background = "var(--detail-surface)";
+          card.style.border = "1px solid var(--border-light)";
+          card.style.borderRadius = "20px";
+          card.style.overflow = "hidden";
+          card.style.boxShadow = "var(--shadow-soft)";
+
+          if (testi.type === "video") {
+            card.innerHTML = `
+              <video src="${testi.src}" controls playsinline webkit-playsinline style="width:100%; aspect-ratio:16/9; height:auto; object-fit:contain; background:#000; display:block; border:none;"></video>
+              <div style="padding:20px;">
+                <p style="margin:0; font-size:14px; color:#333; line-height:1.6; font-style:italic;">${testi.text}</p>
+                <div style="margin-top:16px; font-weight:800; font-size:13px; color:var(--pink); font-family:var(--font-zh);">${testi.name}</div>
+              </div>`;
+          } else {
+            card.innerHTML = `
+              <img src="${testi.src}" style="width:100%; aspect-ratio:16/9; height:auto; object-fit:contain; background:#000; display:block; border:none;" onerror="this.style.display='none';" />
+
+              <div style="padding:20px;">
+                <p style="margin:0; font-size:14px; color:#333; line-height:1.6; font-style:italic;">${testi.text}</p>
+                <div style="margin-top:16px; font-weight:800; font-size:13px; color:var(--pink); font-family:var(--font-zh);">${testi.name}</div>
+              </div>`;
+          }
+          reviewsGrid.appendChild(card);
+        });
+        tabReview.appendChild(reviewsGrid);
+      }
+
+      // 13. Tab 3: FAQs accordions
+      const tabFaq = document.getElementById("tab-faq");
+      if (tabFaq) {
+        tabFaq.innerHTML = "";
+        const faqs = course.faqs || [];
+        faqs.forEach(faq => {
+          const item = document.createElement("div");
+          item.className = "faq-item";
+          item.innerHTML = `
+            <div class="faq-q" onclick="toggleFaq(this)" style="display:flex; justify-content:space-between; align-items:center; width:100%; cursor:pointer; font-weight:700; padding:18px 24px;">
+              <span>${faq.q}</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s;"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <div class="faq-a" style="padding: 0 24px 18px 24px; color:#555; line-height:1.6;">${faq.a}</div>
+          `;
+          tabFaq.appendChild(item);
+        });
+      }
+
+      // 14. Render Related Courses
+      const relatedGrid = document.getElementById("relatedCardsGrid");
+      if (relatedGrid) {
+        let shopCards = [];
+        try {
+          shopCards = JSON.parse(localStorage.getItem('jackShopCards')) || [];
+        } catch(e) {}
+        
+        // If empty, load default shop cards logic
+        if (shopCards.length === 0) {
+          shopCards = [
+            {
+              id: 'sej-regular',
+              title: 'Sejarah 正课班',
+              subtitle: 'Form 1–5',
+              imgBack: 'images/Card_Photo/IMG_7567 (1).png',
+              imgFront: 'images/Card_Photo/card4-students-A.png',
+              link: 'course-detail.html?id=sej-regular'
+            },
+            {
+              id: 'sej-obj-200',
+              title: '「会说话」Sejarah OBJ 200题宝典',
+              subtitle: 'Form 5',
+              imgBack: 'images/product-book.png',
+              imgFront: 'images/Card_Photo/2.png',
+              link: 'course-detail.html?id=sej-obj-200'
+            },
+            {
+              id: 'sej-trial-f5',
+              title: 'Sejarah SPM 攻攻班',
+              subtitle: 'Form 5',
+              imgBack: 'images/product-course.png',
+              imgFront: 'images/Card_Photo/60.png',
+              link: 'course-detail.html?id=sej-trial-f5'
+            },
+            {
+              id: 'sej-bundle',
+              title: 'Sejarah 万能宝典',
+              subtitle: 'Form 4–5',
+              imgBack: 'images/product-bundle.png',
+              imgFront: 'images/Jack Ler2 (1).png',
+              link: 'course-detail.html?id=sej-bundle'
+            }
+          ];
+        }
+
+        // e-commerce logic: find courses with same form, excluding current
+        let related = shopCards.filter(c => c.id !== course.id && (c.subtitle && course.form && c.subtitle.includes(course.form.replace(/[^0-9]/g, ""))));
+        if (related.length === 0) {
+          related = shopCards.filter(c => c.id !== course.id);
+        }
+        
+        // Take up to 2 related courses
+        related = related.slice(0, 2);
+
+        relatedGrid.innerHTML = '';
+        related.forEach((c, index) => {
+          const ARROW_SVG = `<svg width="16" height="16" fill="none" stroke="#333" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>`;
+          let cardLink = c.link || `course-detail.html?id=${c.id}`;
+          if (cardLink === 'course-detail.html' || cardLink === 'course-details.html') {
+            cardLink = `course-detail.html?id=${c.id}`;
+          }
+
+          const el = document.createElement('a');
+          el.href = cardLink;
+          el.className = 'service-card';
+          el.style.animationDelay = (index * 0.12) + 's';
+          
+          const imgBack = c.imgBack || 'images/Card_Photo/IMG_7567 (1).png';
+          const imgFront = c.imgFront || 'images/Card_Photo/card4-students-A.png';
+          
+          el.innerHTML = `
+            <div class="service-card-images">
+              <img class="service-img-back" src="${imgBack}" alt="${c.title}" onerror="this.style.background='linear-gradient(135deg,#FC0C97,#8b5cf6)';this.onerror=null;this.src='';" />
+              <img class="service-img-front" src="${imgFront}" alt="${c.title}" onerror="this.style.background='linear-gradient(135deg,#8b5cf6,#FC0C97)';this.onerror=null;this.src='';" />
+            </div>
+            <div class="service-card-footer">
+              <div class="service-card-text">
+                <h3 class="service-card-title">${c.title}</h3>
+                <p class="service-card-sub">${c.subtitle || ''}</p>
+              </div>
+              <div class="service-card-arrow">${ARROW_SVG}</div>
+            </div>`;
+          relatedGrid.appendChild(el);
+        });
+      }
+
+      Cart.updateUI();
+    });
+
+    // Helper: pricing plan selector toggles
+    function selectPlan(btn, tier, price, originalPrice) {
+      document.querySelectorAll('.plan-btn').forEach(el => el.classList.remove('active'));
+      btn.classList.add('active');
+      
+      selectedPlanTier = tier;
+      
+      const currentPriceEl = document.querySelector('.current-price');
+      const originalPriceEl = document.querySelector('.original-price');
+      if (currentPriceEl) currentPriceEl.textContent = `RM${price.toFixed(2)}`;
+      if (originalPriceEl) originalPriceEl.textContent = `RM${originalPrice.toFixed(2)}`;
+
+      updateCtaButtons();
+    }
+
+    // Helper: Bind cart and checkout buttons triggers
+    function updateCtaButtons() {
+      const activeId = selectedPlanTier === "3m" ? `${currentCourseId}-3m` : currentCourseId;
+      
+      document.querySelectorAll(".cta-group, .mobile-sticky-cta").forEach(container => {
+        const cartBtn = container.querySelector(".btn-cart");
+        const buyBtn = container.querySelector(".btn-buy");
+        
+        if (cartBtn) {
+          cartBtn.setAttribute("onclick", `Cart.add('${activeId}');Cart.updateUI();`);
+        }
+        if (buyBtn) {
+          buyBtn.setAttribute("onclick", `Cart.add('${activeId}');window.location.href='checkout.html'`);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

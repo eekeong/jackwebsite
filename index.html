@@ -1,0 +1,2308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="关于 Jack 老师 | 万能教 Sejarah 创始人。16年专注大马中学历史科备考，首位荣获东盟记录华人历史名师，带领数万名学子逆袭冲 A！" />
+  <title>关于 Jack 老师 | 现代历史科教育个人品牌</title>
+
+  <!-- Google Fonts & Custom CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Nunito:wght@400;600;700;800;900;1000&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css?v=1.0.4" />
+
+  <!-- Custom inline CSS to perfectly align new elements with style.css and index.html UI system -->
+  <style>
+    /* Main Background & Accent Configurations */
+    .about-landing {
+      background: var(--white);
+      color: var(--dark);
+    }
+
+    /* Premium animations for floating elements */
+    @keyframes float-slow {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(1deg);
+      }
+
+      50% {
+        transform: translateY(-8px) rotate(-1deg);
+      }
+    }
+
+    @keyframes float-medium {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(-1deg);
+      }
+
+      50% {
+        transform: translateY(-12px) rotate(1deg);
+      }
+    }
+
+    @keyframes ticker {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    @keyframes heroFadeUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes heroScaleUp {
+      0% { opacity: 0; transform: scale(0.85) translateY(20px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .hero-title-anim { animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
+    .hero-desc-anim { animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.15s; opacity: 0; }
+    .hero-btn-anim { animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.3s; opacity: 0; }
+    .hero-photo-anim { animation: heroScaleUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s; opacity: 0; }
+    .hero-float-wrapper-1 { animation: heroScaleUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.5s; opacity: 0; }
+    .hero-float-wrapper-2 { animation: heroScaleUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.7s; opacity: 0; }
+    .hero-float-wrapper-3 { animation: heroScaleUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.9s; opacity: 0; }
+
+    .animate-float-1 {
+      animation: float-slow 7s ease-in-out infinite;
+    }
+
+    .animate-float-2 {
+      animation: float-medium 8s ease-in-out infinite 0.5s;
+    }
+
+    .animate-float-3 {
+      animation: float-slow 9s ease-in-out infinite 1s;
+    }
+
+    .animate-float-4 {
+      animation: float-medium 6s ease-in-out infinite 1.5s;
+    }
+
+    /* Horizontal scrolling strip */
+    .ticker-bar {
+      width: 100%;
+      background: var(--dark);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 16px 0;
+      overflow: hidden;
+    }
+
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: ticker 25s linear infinite;
+    }
+
+    .ticker-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-title);
+      font-size: 14px;
+      font-weight: 850;
+      color: var(--gray-muted);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-right: 48px;
+    }
+
+    .ticker-icon {
+      color: var(--pink);
+      width: 16px;
+      height: 16px;
+      stroke-width: 2.5;
+    }
+
+    /* Recommended Courses Grid */
+    .rec-courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .rec-course-card {
+      background: var(--off-white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--r-lg);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all var(--t-normal) var(--ease);
+      position: relative;
+    }
+
+    .rec-course-card:hover {
+      border-color: var(--pink-glow-strong);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Student testimonials block slider */
+    .success-slider {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--r-xl);
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      align-items: center;
+      margin-top: 48px;
+    }
+
+    @media (min-width: 992px) {
+      .success-slider {
+        flex-direction: row;
+        padding: 48px;
+        gap: 48px;
+      }
+    }
+
+    .success-video-box {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      border: 1px solid var(--gray-200);
+      position: relative;
+      background: var(--dark);
+    }
+
+    @media (min-width: 992px) {
+      .success-video-box {
+        width: 50%;
+      }
+    }
+
+    /* FAQs accordion styling */
+    .faq-wrapper {
+      max-width: 800px;
+      margin: 48px auto 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .faq-card {
+      border: 1px solid var(--gray-200);
+      border-radius: var(--r-md);
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    .faq-hdr {
+      width: 100%;
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 800;
+      font-size: 15px;
+      color: var(--dark);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      transition: background var(--t-fast);
+    }
+
+    .faq-hdr:hover {
+      background: var(--off-white);
+    }
+
+    .faq-body {
+      padding: 0 24px 20px 24px;
+      font-size: 13.5px;
+      color: var(--gray-light);
+      line-height: 1.65;
+      display: none;
+      border-top: 1px solid var(--gray-100);
+      padding-top: 16px;
+    }
+
+    @media (min-width: 992px) {
+      .hero-grid {
+        grid-template-columns: 1.2fr 1fr !important;
+      }
+    }
+
+    .mobile-text { display: none; }
+
+    /* =========================================
+       Mobile-specific Adjustments (No Desktop Changes)
+       ========================================= */
+    @media (max-width: 768px) {
+      .desktop-text { display: none !important; }
+      .mobile-text { display: inline !important; }
+      
+      /* Slow down hero animations on mobile */
+      .hero-title-anim { animation-duration: 1.5s !important; animation-delay: 0.2s !important; }
+      .hero-desc-anim { animation-duration: 1.5s !important; animation-delay: 0.6s !important; }
+      .hero-btn-anim { animation-duration: 1.5s !important; animation-delay: 1.0s !important; }
+      .hero-photo-anim { animation-duration: 2.0s !important; animation-delay: 1.2s !important; }
+      .hero-float-wrapper-1 { animation-duration: 1.5s !important; animation-delay: 1.8s !important; }
+      .hero-float-wrapper-2 { animation-duration: 1.5s !important; animation-delay: 2.1s !important; }
+      .hero-float-wrapper-3 { animation-duration: 1.5s !important; animation-delay: 2.4s !important; }
+      
+      /* 1. Reduce large section paddings */
+      section[style*="padding: 100px 0"], 
+      section[style*="padding: 90px 0"] {
+        padding: 50px 0 !important;
+      }
+      section[style*="padding-bottom: 90px"] {
+        padding-bottom: 50px !important;
+      }
+      section[style*="padding: 65px 0 0 0;"] {
+        padding-top: 115px !important; /* Increase gap between menubar and hero title by +30px more */
+      }
+      
+      /* 2. Reduce large gaps/margins in section headers */
+      .hero-grid {
+        gap: 0px !important; /* Reduce gap between text and photo drastically */
+      }
+      div[style*="margin-bottom: 60px"] {
+        margin-bottom: 30px !important;
+      }
+      div[style*="margin: 0 auto 40px auto"] {
+        margin-bottom: 24px !important;
+      }
+      div.lg-col-7 {
+        padding-bottom: 0px !important; 
+        margin-bottom: 0px !important;
+      }
+
+      /* Reduce font sizes by roughly 2px globally on mobile */
+      h3[style*="font-size: 26px"] { font-size: 24px !important; }
+      p[style*="font-size: 15px"] { font-size: 13px !important; }
+      h3[style*="font-size: 22px"] { font-size: 20px !important; }
+      span[style*="font-size: 13.5px"] { font-size: 11.5px !important; }
+      p[style*="font-size: 1.1rem"] { font-size: 0.95rem !important; }
+      p[style*="font-size: 1.15rem"] { font-size: 1rem !important; }
+      .faq-hdr { font-size: 13px !important; }
+      .faq-body { font-size: 11.5px !important; }
+      .course-title { font-size: 16px !important; }
+      .course-desc { font-size: 12px !important; }
+      .testimonial-text-desc { font-size: 12px !important; }
+      .section-subtitle { font-size: 14px !important; }
+      .school-title { font-size: 20px !important; }
+      .school-desc { font-size: 13px !important; }
+
+      /* 3. Make all pain bubbles fit in one screen on mobile */
+      .bubble-container {
+        flex-wrap: wrap !important;
+        overflow-x: visible !important;
+        justify-content: center !important;
+        padding-bottom: 10px !important;
+        gap: 6px !important;
+      }
+      .bubble-lg { width: 95px !important; height: 95px !important; font-size: 10px !important; padding: 2px !important; line-height: 1.2 !important; }
+      .bubble-md { width: 80px !important; height: 80px !important; font-size: 9px !important; padding: 2px !important; line-height: 1.2 !important; }
+      .bubble-sm { width: 70px !important; height: 70px !important; font-size: 8.5px !important; padding: 2px !important; line-height: 1.2 !important; }
+      .pain-bubble {
+        margin: 0 !important;
+        flex: none !important;
+        /* Removed transform: none to restore floating animations */
+        word-break: keep-all !important; /* Help prevent awkward wrapping */
+      }
+      
+      /* 4. Section 7 Image below title (above tabs) */
+      .sec7-interactive-layout {
+        display: flex !important;
+        flex-direction: column-reverse !important;
+        gap: 30px !important;
+      }
+      .sec7-showcase-container {
+        width: 100% !important;
+        height: 300px !important; /* Fix collapsed image */
+        flex-shrink: 0 !important;
+      }
+
+      /* 5. Make testimonials display horizontally scrollable like a slider on mobile */
+      .testimonials-grid-container {
+        height: auto !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        mask-image: none !important;
+        -webkit-mask-image: none !important;
+        padding: 20px 0 40px 0 !important;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+      }
+      .testimonials-grid-container::-webkit-scrollbar {
+        display: none;
+      }
+      .testimonials-column-wrapper {
+        display: contents !important; /* Flatten children into grid container */
+        animation: none !important; /* Stop vertical scroll animation */
+      }
+      .t-col-hide-md, .t-col-hide-lg {
+        display: contents !important; /* Show all hidden columns' children */
+      }
+      .testimonial-card-item {
+        flex: 0 0 auto !important;
+        scroll-snap-align: center;
+        min-width: 280px !important;
+        max-width: 280px !important;
+        height: auto !important;
+        margin-right: 20px;
+        transform: none !important; /* Prevent hover transform issues on touch */
+      }
+
+      /* 3. Fix highlight text rendering (prevent thick borders and overlapping) */
+      span[style*="border-bottom: 3px solid var(--pink)"],
+      span[style*="border-bottom: 2px solid var(--pink)"] {
+        border-bottom-width: 2px !important;
+        padding-bottom: 0px !important;
+        display: inline-block !important;
+        line-height: 1.2 !important;
+        margin-top: 4px !important;
+      }
+      
+      /* Section 2 Title Mobile Enhancements */
+      .mobile-only-br {
+        display: block !important;
+      }
+      .sec2-highlight {
+        font-size: 2.8rem !important; /* Enlarge '世界会听你的' by ~15px */
+        margin-top: 8px !important;
+      }
+
+      /* Section 3 Cards Height Adjustment */
+      div[style*="height: 320px; border-radius: 24px;"] {
+        height: 310px !important;
+      }
+      
+      /* Scale down very large headings slightly to fit highlights better */
+      h2[style*="clamp(2rem, 5vw, 3rem)"],
+      h2[style*="clamp(1.8rem, 4vw, 2.8rem)"] {
+        font-size: 1.8rem !important;
+        line-height: 1.35 !important;
+      }
+
+      /* Mobile Hero Buttons and Badge adjustments */
+      .hero-btn-anim {
+        flex-direction: column !important;
+      }
+      .hero-btn-anim .btn {
+        width: 100% !important;
+        box-sizing: border-box;
+      }
+      #asean-badge {
+        right: calc(12% - 20px) !important;
+      }
+
+      /* Reduce size of floating labels on mobile */
+      .hero-float-wrapper-1 > div,
+      .hero-float-wrapper-2 > div,
+      .hero-float-wrapper-3 > div {
+        padding: 8px 16px !important;
+        gap: 6px !important;
+      }
+      .hero-float-wrapper-1 span,
+      .hero-float-wrapper-2 span,
+      .hero-float-wrapper-3 span {
+        font-size: 11px !important;
+      }
+      .hero-float-wrapper-2 span span {
+        font-size: 9px !important;
+      }
+      .hero-float-wrapper-2 svg {
+        width: 14px !important;
+        height: 14px !important;
+      }
+
+      /* Specific positioning adjustments for mobile only */
+      #float-spm {
+        left: -10px !important;
+      }
+      #float-asean {
+        right: -10px !important;
+      }
+      #float-magic {
+        right: -10px !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="light-theme about-landing">
+
+  <!-- =============================================
+       NAVBAR (Direct Uniform Alignment with index.html)
+       ============================================= -->
+  <nav class="navbar scrolled" id="navbar" role="navigation" aria-label="主导航">
+    <div class="nav-container">
+      <!-- Logo -->
+      <a href="index.html" class="nav-logo" id="navLogo" aria-label="万能教 Jack 老师 首页">
+        <img src="images/Jack_logo.png" alt="万能教Jack老师" class="nav-logo-img" />
+        <span class="nav-logo-main">万能教JACK老师</span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <div class="nav-menu" role="menubar">
+        <a href="index.html" class="nav-link nav-link-active" role="menuitem">首页</a>
+        <!-- <a href="about.html" class="nav-link" role="menuitem">关于</a> -->
+        <a href="shop.html" class="nav-link" role="menuitem">课程</a>
+        <a href="schedule.html" class="nav-link" role="menuitem">上课时间</a>
+        <a href="index.html#faq" class="nav-link" role="menuitem">FAQ</a>
+      </div>
+
+      <!-- Action Icons -->
+      <div class="nav-actions">
+        <!-- Cart -->
+        <button class="nav-icon-btn" id="navCartBtn" aria-label="购物车" title="购物车" onclick="openCart()">
+          <div style="position:relative; display:inline-flex;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="22" height="22">
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+            </svg>
+            <span class="cart-badge cart-count" id="navCartBadge" aria-label="购物车商品数量">0</span>
+          </div>
+        </button>
+
+        <!-- Student Login -->
+        <button class="btn-nav-login" id="navLoginBtn" onclick="openLogin()" aria-label="学生登录">学生登录</button>
+      </div>
+
+      <!-- Hamburger (Mobile) -->
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Dropdown Menu -->
+  <div class="mobile-menu" id="mobileMenu" role="menu" aria-hidden="true">
+    <a href="index.html" role="menuitem" onclick="closeMobileMenu()" style="color: var(--pink);">首页</a>
+    <!-- <a href="about.html" role="menuitem" onclick="closeMobileMenu()">关于</a> -->
+    <a href="shop.html" role="menuitem" onclick="closeMobileMenu()">课程</a>
+    <a href="schedule.html" role="menuitem" onclick="closeMobileMenu()">上课时间</a>
+    <a href="index.html#faq" role="menuitem" onclick="closeMobileMenu()">FAQ</a>
+    <a href="shop.html" role="menuitem" onclick="closeMobileMenu()"
+      style="color: var(--pink); margin-top: 8px; display: block; font-size: 0.95rem;">立即选课 →</a>
+  </div>
+
+  <!-- =============================================
+       1. HERO SECTION (Editorial Designer Style)
+       ============================================= -->
+  <section style="padding: 65px 0 0 0; overflow: hidden; position: relative;">
+    <div class="container" style="max-width: 1100px; height: 100%;">
+      <div style="display: grid; grid-template-columns: 1fr; gap: 48px; align-items: center;" class="hero-grid">
+
+        <!-- Left: Copy & CTAs -->
+        <div style="display: flex; flex-direction: column; gap: 24px; padding-bottom: 80px;" class="lg-col-7">
+          <h1 class="hero-title-anim"
+            style="font-family: var(--font-title); font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 900; color: var(--dark); line-height: 1.25; margin: 0; letter-spacing: -0.02em;">
+            不是你差，<br>
+            只是你还没找到<br>
+            <span style="color: var(--pink); border-bottom: 4px solid var(--pink); padding-bottom: 2px;">适合的方式</span>
+          </h1>
+          <p class="hero-desc-anim"
+            style="font-size: 1.15rem; line-height: 1.7; color: var(--gray-dark); font-weight: 500; margin: 0; max-width: 540px; margin-top: 8px;">
+            16年专注中学SEJ科目, 累计帮助超过<span
+              style="font-weight: 800; color: var(--dark); border-bottom: 2px solid var(--pink); padding-bottom: 1px;">9000+</span>位学生<br>
+            成功提升 Sejarah 成绩, SPM 自今保持100%及格率!<br><br>
+            如果想要SEJ变轻松, 来尝试看看万能教就对了!<br>
+            绝对不会后悔!
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="hero-btn-anim" style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px;">
+            <a href="shop.html" class="btn btn-primary btn-lg"
+              style="background: var(--pink); border: none; box-shadow: 0 8px 20px rgba(252, 12, 151, 0.35); text-decoration: none; border-radius: 999px; padding: 14px 32px; font-size: 1.05rem; display: inline-flex; align-items: center; gap: 8px;">
+              立刻报名课程
+              <span style="font-size: 1.2rem; font-weight: bold;">➔</span>
+            </a>
+            <a href="#testimonials" class="btn btn-outline btn-lg"
+              style="background: var(--white); color: var(--dark); border: 1px solid var(--gray-100); box-shadow: var(--shadow-sm); text-decoration: none; border-radius: 999px; padding: 14px 32px; font-size: 1.05rem; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s;">
+              感受学生蜕变的见证
+              <span style="color: var(--pink); font-size: 1.2rem; font-weight: bold;">▸</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Portrait and dynamic floating tags -->
+        <div style="position: relative; display: flex; justify-content: center; align-items: flex-end;"
+          class="lg-col-5">
+          <div style="position: relative; width: 100%; max-width: 520px; overflow: visible; margin-top: auto;">
+
+            <img src="images/Jack Ler2 (1).png" alt="Jack 老师个人照" class="hero-photo-anim"
+              style="width: 100%; height: auto; object-fit: contain; object-position: bottom; display: block;" />
+            <img src="images/Asean Record 牌.png" alt="Asean Record Badge" id="asean-badge" class="hero-photo-anim"
+              style="position: absolute; top: 15%; right: 12%; width: 70px; height: auto; z-index: 5;" />
+
+            <!-- Floating Label 4 (New) -->
+            <div id="float-magic" style="position: absolute; top: 72%; right: -30px; z-index: 10;" class="hero-float-wrapper-1">
+              <div class="animate-float-3"
+                style="background: var(--white); border-radius: 999px; padding: 12px 24px; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 8px; white-space: nowrap;">
+                <span style="font-size: 18px;">🪄</span>
+                <span style="font-size: 13px; font-weight: 800; color: var(--dark); line-height: 1.35; text-align: left;">被称为中学历史魔法师<br>【乱乱写拿A+】</span>
+              </div>
+            </div>
+
+            <!-- Floating Label 1 -->
+            <div id="float-spm" style="position: absolute; top: calc(18% + 120px); left: -30px; z-index: 10;" class="hero-float-wrapper-1">
+              <div class="animate-float-1"
+                style="background: #222; border-radius: 999px; padding: 12px 24px; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 8px; white-space: nowrap;">
+                <span style="width: 8px; height: 8px; border-radius: 50%; background: #22c55e;"></span>
+                <span style="font-size: 13px; font-weight: 800; color: #fff;">SPM Sejarah 100%及格率</span>
+              </div>
+            </div>
+
+            <!-- Floating Label 2 -->
+            <div id="float-asean" style="position: absolute; top: 48%; right: -60px; z-index: 10;" class="hero-float-wrapper-2">
+              <div class="animate-float-2"
+                style="background: var(--pink); border-radius: 999px; padding: 12px 24px; box-shadow: var(--shadow-pink); display: flex; align-items: center; gap: 10px; white-space: nowrap;">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"
+                  style="color: var(--white); flex-shrink: 0;">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+                <span style="font-size: 12px; font-weight: 900; color: var(--white); line-height: 1.35; text-align: left;">首位荣获ASEAN RECORD<br>最多付费SEJ学生的华人老师<br><span style="font-size: 10.5px; font-weight: normal; opacity: 0.9;">(2025年11月, 2537位学生付费)</span></span>
+              </div>
+            </div>
+
+            <!-- Floating Label 3 -->
+            <div style="position: absolute; bottom: 12%; left: -15px; z-index: 10;" class="hero-float-wrapper-3">
+              <div class="animate-float-3"
+                style="background: var(--white); border-radius: 999px; padding: 12px 24px; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 8px; white-space: nowrap;">
+                <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--pink);"></span>
+                <span style="font-size: 13px; font-weight: 800; color: var(--dark); line-height: 1.35; text-align: left;">超过3,000位拿A<br>每3位学生,1位拿A</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       2. HORIZONTAL SCROLLING STRIP (Ticker Bar)
+       ============================================= -->
+  <section class="ticker-bar">
+    <div class="ticker-track">
+      <!-- Item list duplicated for seamless looping -->
+      <div class="flex" style="display:flex; gap: 48px;">
+        <span class="ticker-item"><svg class="ticker-icon" fill="none" stroke="currentColor" stroke-width="2.5"
+            viewBox="0 0 24 24">
+            <polygon points="12 2 2 22 22 22 12 2" />
+          </svg> 中学历史魔法师</span>
+        <span class="ticker-item"><svg class="ticker-icon" fill="none" stroke="currentColor" stroke-width="2.5"
+            viewBox="0 0 24 24">
+            <path d="M12 20h9" />
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+          </svg> KBAT《乱乱写》</span>
+        <span class="ticker-item"><svg class="ticker-icon" fill="none" stroke="currentColor" stroke-width="2.5"
+            viewBox="0 0 24 24">
+            <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+          </svg> 口诀记忆法</span>
+        <span class="ticker-item"><svg class="ticker-icon" fill="none" stroke="currentColor" stroke-width="2.5"
+            viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <polyline points="21 15 16 10 5 21" />
+          </svg> 漫画笔记</span>
+        <span class="ticker-item"><svg class="ticker-icon" fill="none" stroke="currentColor" stroke-width="2.5"
+            viewBox="0 0 24 24">
+            <circle cx="12" cy="10" r="3" />
+            <path d="M12 21.7C10 19.7 3 13.3 3 10a9 9 0 1 1 18 0c0 3.3-7 9.7-9 11.7z" />
+          </svg> 全马巡回讲座会</span>
+      </div>
+      <div class="flex" style="display:flex; gap: 48px;" aria-hidden="true">
+        <span class="ticker-item"><svg class="ticker-icon" fill="none" stroke="currentColor" stroke-width="2.5"
+            viewBox="0 0 24 24">
+            <polygon points="12 2 2 22 22 22 12 2" />
+          </svg> 中学历史魔法师</span>
+        <span class="ticker-item"><svg class="ticker-icon" fill="none" stroke="currentColor" stroke-width="2.5"
+            viewBox="0 0 24 24">
+            <path d="M12 20h9" />
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+          </svg> KBAT《乱乱写》</span>
+        <span class="ticker-item"><svg class="ticker-icon" fill="none" stroke="currentColor" stroke-width="2.5"
+            viewBox="0 0 24 24">
+            <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+          </svg> 口诀记忆法</span>
+        <span class="ticker-item"><svg class="ticker-icon" fill="none" stroke="currentColor" stroke-width="2.5"
+            viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <polyline points="21 15 16 10 5 21" />
+          </svg> 漫画笔记</span>
+        <span class="ticker-item"><svg class="ticker-icon" fill="none" stroke="currentColor" stroke-width="2.5"
+            viewBox="0 0 24 24">
+            <circle cx="12" cy="10" r="3" />
+            <path d="M12 21.7C10 19.7 3 13.3 3 10a9 9 0 1 1 18 0c0 3.3-7 9.7-9 11.7z" />
+          </svg> 全马巡回讲座会</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       4. ABOUT JACK (EthicalHero Layout)
+       ============================================= -->
+  <section style="padding: 100px 0; background: var(--white); color: var(--dark);">
+    <div class="container" style="max-width: 1150px;">
+
+      <div class="fade-up" style="max-width: 800px; margin: 0 auto; text-align: center;">
+        <h2
+          style="font-family: var(--font-title); font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; line-height: 1.25; margin: 0;">
+          当你足够想要时，<br class="mobile-only-br" style="display: none;"><span class="sec2-highlight" style="color: var(--pink); border-bottom: 3px solid var(--pink); padding-bottom: 2px;">世界会听你的</span>
+        </h2>
+        <p class="fade-up delay-1" style="font-size: 1.1rem; color: var(--gray-dark); line-height: 1.7; margin: 24px 0 0 0;">
+          16年让超过9,000位学生Sejarah蜕变了！让你相信你不差，只是还没找到适合你的方式！
+        </p>
+      </div>
+
+      <!-- Feature Card Carousel -->
+      <div style="position: relative; margin-top: 50px; padding: 0 16px;">
+        <style>
+          .sec2-carousel::-webkit-scrollbar { display: none; }
+        </style>
+        
+        <!-- Left Arrow -->
+        <button onclick="document.getElementById('sec2Carousel').scrollBy({left: -320, behavior: 'smooth'})" style="position: absolute; left: -12px; top: 50%; transform: translateY(-50%); z-index: 10; width: 48px; height: 48px; border-radius: 50%; background: var(--white); border: 1px solid var(--gray-200); box-shadow: var(--shadow-md); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s ease;" onmouseover="this.style.transform='translateY(-50%) scale(1.1)';" onmouseout="this.style.transform='translateY(-50%) scale(1)';">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        
+        <!-- Right Arrow -->
+        <button onclick="document.getElementById('sec2Carousel').scrollBy({left: 320, behavior: 'smooth'})" style="position: absolute; right: -12px; top: 50%; transform: translateY(-50%); z-index: 10; width: 48px; height: 48px; border-radius: 50%; background: var(--white); border: 1px solid var(--gray-200); box-shadow: var(--shadow-md); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s ease;" onmouseover="this.style.transform='translateY(-50%) scale(1.1)';" onmouseout="this.style.transform='translateY(-50%) scale(1)';">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+
+        <!-- Cards Container -->
+        <div id="sec2Carousel" class="sec2-carousel" style="display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; -ms-overflow-style: none; scrollbar-width: none; padding: 16px 0;">
+          
+          <!-- Card 1 -->
+          <div style="flex: 0 0 calc(33.333% - 16px); min-width: 280px; scroll-snap-align: start; border-radius: 16px; overflow: hidden; background: var(--white); border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='var(--shadow-md)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)';">
+            <div style="width: 100%; aspect-ratio: 16/9; overflow: hidden;">
+              <img src="images/见证/1.png" alt="16年" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';" />
+            </div>
+            <div style="padding: 24px; display: flex; align-items: center; justify-content: space-between;">
+              <div>
+                <h3 style="font-size: 22px; font-weight: 900; color: var(--dark); margin: 0;">16年</h3>
+                <span style="font-size: 13.5px; font-weight: 600; color: var(--gray-light);">专注大马Sejarah备考</span>
+              </div>
+              <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--off-white); display: flex; align-items: center; justify-content: center; transition: background 0.3s;" onmouseover="this.style.background='var(--gray-100)';" onmouseout="this.style.background='var(--off-white)';">
+                <svg width="20" height="20" fill="none" stroke="var(--gray-dark)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div style="flex: 0 0 calc(33.333% - 16px); min-width: 280px; scroll-snap-align: start; border-radius: 16px; overflow: hidden; background: var(--white); border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='var(--shadow-md)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)';">
+            <div style="width: 100%; aspect-ratio: 16/9; overflow: hidden;">
+              <img src="images/见证/23.png" alt="9,000+" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';" />
+            </div>
+            <div style="padding: 24px; display: flex; align-items: center; justify-content: space-between;">
+              <div>
+                <h3 style="font-size: 22px; font-weight: 900; color: var(--dark); margin: 0;">9,000+</h3>
+                <span style="font-size: 13.5px; font-weight: 600; color: var(--gray-light);">累计提分上岸学员</span>
+              </div>
+              <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--off-white); display: flex; align-items: center; justify-content: center; transition: background 0.3s;" onmouseover="this.style.background='var(--gray-100)';" onmouseout="this.style.background='var(--off-white)';">
+                <svg width="20" height="20" fill="none" stroke="var(--gray-dark)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div style="flex: 0 0 calc(33.333% - 16px); min-width: 280px; scroll-snap-align: start; border-radius: 16px; overflow: hidden; background: var(--white); border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='var(--shadow-md)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)';">
+            <div style="width: 100%; aspect-ratio: 16/9; overflow: hidden;">
+              <img src="images/见证/30.png" alt="ASEAN RECORD" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';" />
+            </div>
+            <div style="padding: 24px; display: flex; align-items: center; justify-content: space-between;">
+              <div style="max-width: 80%;">
+                <h3 style="font-size: 18px; font-weight: 900; color: var(--dark); margin: 0;">ASEAN RECORD</h3>
+                <span style="font-size: 12.5px; font-weight: 600; color: var(--gray-light); display: block; line-height: 1.4; margin-top: 4px;">首位荣获东盟纪录最多华人学生的Sejarah老师</span>
+              </div>
+              <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--off-white); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.3s;" onmouseover="this.style.background='var(--gray-100)';" onmouseout="this.style.background='var(--off-white)';">
+                <svg width="20" height="20" fill="none" stroke="var(--gray-dark)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div style="flex: 0 0 calc(33.333% - 16px); min-width: 280px; scroll-snap-align: start; border-radius: 16px; overflow: hidden; background: var(--white); border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='var(--shadow-md)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)';">
+            <div style="width: 100%; aspect-ratio: 16/9; overflow: hidden;">
+              <img src="images/见证/37.png" alt="A+ 见证" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';" />
+            </div>
+            <div style="padding: 24px; display: flex; align-items: center; justify-content: space-between;">
+              <div>
+                <h3 style="font-size: 22px; font-weight: 900; color: var(--dark); margin: 0;">独家记忆法</h3>
+                <span style="font-size: 13.5px; font-weight: 600; color: var(--gray-light);">不死背，学套路拿高分</span>
+              </div>
+              <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--off-white); display: flex; align-items: center; justify-content: center; transition: background 0.3s;" onmouseover="this.style.background='var(--gray-100)';" onmouseout="this.style.background='var(--off-white)';">
+                <svg width="20" height="20" fill="none" stroke="var(--gray-dark)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div style="flex: 0 0 calc(33.333% - 16px); min-width: 280px; scroll-snap-align: start; border-radius: 16px; overflow: hidden; background: var(--white); border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='var(--shadow-md)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)';">
+            <div style="width: 100%; aspect-ratio: 16/9; overflow: hidden;">
+              <img src="images/见证/39.png" alt="A+ 见证" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';" />
+            </div>
+            <div style="padding: 24px; display: flex; align-items: center; justify-content: space-between;">
+              <div>
+                <h3 style="font-size: 22px; font-weight: 900; color: var(--dark); margin: 0;">KBAT 神技</h3>
+                <span style="font-size: 13.5px; font-weight: 600; color: var(--gray-light);">乱乱写也能命中得分点</span>
+              </div>
+              <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--off-white); display: flex; align-items: center; justify-content: center; transition: background 0.3s;" onmouseover="this.style.background='var(--gray-100)';" onmouseout="this.style.background='var(--off-white)';">
+                <svg width="20" height="20" fill="none" stroke="var(--gray-dark)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div style="flex: 0 0 calc(33.333% - 16px); min-width: 280px; scroll-snap-align: start; border-radius: 16px; overflow: hidden; background: var(--white); border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='var(--shadow-md)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)';">
+            <div style="width: 100%; aspect-ratio: 16/9; overflow: hidden;">
+              <img src="images/见证/48.png" alt="A+ 见证" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';" />
+            </div>
+            <div style="padding: 24px; display: flex; align-items: center; justify-content: space-between;">
+              <div>
+                <h3 style="font-size: 22px; font-weight: 900; color: var(--dark); margin: 0;">提分见证</h3>
+                <span style="font-size: 13.5px; font-weight: 600; color: var(--gray-light);">不及格到A+的逆袭奇迹</span>
+              </div>
+              <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--off-white); display: flex; align-items: center; justify-content: center; transition: background 0.3s;" onmouseover="this.style.background='var(--gray-100)';" onmouseout="this.style.background='var(--off-white)';">
+                <svg width="20" height="20" fill="none" stroke="var(--gray-dark)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 7 -->
+          <div style="flex: 0 0 calc(33.333% - 16px); min-width: 280px; scroll-snap-align: start; border-radius: 16px; overflow: hidden; background: var(--white); border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='var(--shadow-md)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)';">
+            <div style="width: 100%; aspect-ratio: 16/9; overflow: hidden;">
+              <img src="images/见证/50.png" alt="A+ 见证" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';" />
+            </div>
+            <div style="padding: 24px; display: flex; align-items: center; justify-content: space-between;">
+              <div>
+                <h3 style="font-size: 22px; font-weight: 900; color: var(--dark); margin: 0;">全马最强</h3>
+                <span style="font-size: 13.5px; font-weight: 600; color: var(--gray-light);">超过10万人听过的讲座</span>
+              </div>
+              <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--off-white); display: flex; align-items: center; justify-content: center; transition: background 0.3s;" onmouseover="this.style.background='var(--gray-100)';" onmouseout="this.style.background='var(--off-white)';">
+                <svg width="20" height="20" fill="none" stroke="var(--gray-dark)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SECTION 3: 万能教JACK老师是如何帮学生？
+       ============================================= -->
+  <section style="padding: 100px 0; background: var(--off-white); color: var(--dark);">
+    <div class="container" style="max-width: 1150px;">
+      
+      <!-- Section Header -->
+      <div class="fade-up" style="text-align: center; margin-bottom: 60px;">
+        <h2 style="font-family: var(--font-title); font-size: clamp(2rem, 5vw, 2.5rem); font-weight: 900; line-height: 1.25; margin: 0;">
+          <span style="color: var(--pink); border-bottom: 3px solid var(--pink); padding-bottom: 2px;">万能教JACK老师</span>是如何帮学生？
+        </h2>
+      </div>
+
+      <!-- 3 Cards Grid -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+        
+        <!-- Card 1 -->
+        <div class="fade-up delay-1" style="position: relative; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; height: 320px; border-radius: 24px; background: var(--white); border: 1px solid var(--gray-200); padding: 32px; box-shadow: var(--shadow-sm); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.boxShadow='var(--shadow-lg)'; this.querySelector('img').style.transform='scale(1.1)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='var(--shadow-sm)'; this.querySelector('img').style.transform='scale(1)';">
+          <div style="position: relative; z-index: 10;">
+            <h3 style="font-size: 26px; font-weight: 900; color: var(--dark); margin: 0 0 12px 0; font-family: var(--font-title);">对学生的信念</h3>
+            <p style="font-size: 15px; color: var(--gray-dark); max-width: 90%; line-height: 1.6; margin: 0; font-weight: 500;">
+              只要适合的方法，每一位学生都是钻石
+            </p>
+          </div>
+          <div style="position: absolute; bottom: -20px; right: -20px; width: 160px; height: 160px; transform: translate(10%, 10%);">
+            <img src="images/Jack Ler2 (1).png" alt="对学生的信念" style="width: 100%; height: 100%; object-fit: contain; opacity: 0.7; transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);" />
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="fade-up delay-2" style="position: relative; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; height: 320px; border-radius: 24px; background: var(--white); border: 1px solid var(--gray-200); padding: 32px; box-shadow: var(--shadow-sm); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.boxShadow='var(--shadow-lg)'; this.querySelector('img').style.transform='scale(1.1)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='var(--shadow-sm)'; this.querySelector('img').style.transform='scale(1)';">
+          <div style="position: relative; z-index: 10;">
+            <h3 style="font-size: 26px; font-weight: 900; color: var(--dark); margin: 0 0 12px 0; font-family: var(--font-title);">教学的理念</h3>
+            <p style="font-size: 15px; color: var(--gray-dark); max-width: 90%; line-height: 1.6; margin: 0; font-weight: 500;">
+              拒绝死背，通过心理学和记忆术让你轻松掌握SEJ
+            </p>
+          </div>
+          <div style="position: absolute; bottom: -20px; right: -20px; width: 160px; height: 160px; transform: translate(10%, 10%);">
+            <img src="images/Jack Ler (1).png" alt="教学的理念" style="width: 100%; height: 100%; object-fit: contain; opacity: 0.7; transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);" />
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="fade-up delay-3" style="position: relative; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; height: 320px; border-radius: 24px; background: var(--pink); border: 1px solid rgba(252,12,151,0.2); padding: 32px; box-shadow: var(--shadow-pink); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.boxShadow='0 20px 40px rgba(252,12,151,0.4)'; this.querySelector('img').style.transform='scale(1.1) rotate(-3deg)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='var(--shadow-pink)'; this.querySelector('img').style.transform='scale(1) rotate(0deg)';">
+          <div style="position: relative; z-index: 10;">
+            <h3 style="font-size: 26px; font-weight: 900; color: var(--white); margin: 0 0 12px 0; font-family: var(--font-title);">小聪明的技巧</h3>
+            <p style="font-size: 15px; color: rgba(255,255,255,0.9); max-width: 90%; line-height: 1.6; margin: 0; font-weight: 500;">
+              万能式【乱乱写都可以SCORE A】，写短短拿满分！
+            </p>
+          </div>
+          <div style="position: absolute; bottom: -30px; right: -30px; width: 180px; height: 180px; transform: translate(10%, 10%);">
+            <img src="images/见证/1.png" alt="乱乱写见证" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; box-shadow: var(--shadow-lg); transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SECTION 4: Award Logos — Infinite Scrolling Marquee
+       ============================================= -->
+  <div class="award-logos-bar" aria-label="获奖认可">
+    <div class="award-logos-marquee-wrap">
+      <div class="award-logos-marquee-track" id="awardLogoTrack">
+        <!-- Set 1 -->
+        <div class="award-logo-item"><img src="images/得奖logo/1.png" alt="Asia Pacific TOP Excellence Brand" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/3.png" alt="南洋100品牌奖" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/4.png" alt="Most Outstanding Leader Awards" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/Copy of MIE_LOGO-dark-color-01-1024x955.png"
+            alt="Malaysia Influential Educators 2023" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/Untitled design (21).png" alt="ASEAN Records" /></div>
+        <!-- Set 2 -->
+        <div class="award-logo-item"><img src="images/得奖logo/1.png" alt="Asia Pacific TOP Excellence Brand" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/3.png" alt="南洋100品牌奖" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/4.png" alt="Most Outstanding Leader Awards" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/Copy of MIE_LOGO-dark-color-01-1024x955.png"
+            alt="Malaysia Influential Educators 2023" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/Untitled design (21).png" alt="ASEAN Records" /></div>
+      </div>
+      <div class="award-logos-marquee-track" aria-hidden="true">
+        <!-- Duplicate of Set 1 & Set 2 for seamless loop -->
+        <div class="award-logo-item"><img src="images/得奖logo/1.png" alt="Asia Pacific TOP Excellence Brand" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/3.png" alt="南洋100品牌奖" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/4.png" alt="Most Outstanding Leader Awards" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/Copy of MIE_LOGO-dark-color-01-1024x955.png"
+            alt="Malaysia Influential Educators 2023" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/Untitled design (21).png" alt="ASEAN Records" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/1.png" alt="Asia Pacific TOP Excellence Brand" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/3.png" alt="南洋100品牌奖" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/4.png" alt="Most Outstanding Leader Awards" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/Copy of MIE_LOGO-dark-color-01-1024x955.png"
+            alt="Malaysia Influential Educators 2023" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/Untitled design (21).png" alt="ASEAN Records" /></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============================================
+       SECTION 5: STATS BANNER — 4 Large Numbers
+       ============================================= -->
+  <section class="stats-banner" id="hero-addon" aria-label="Jack 老师成就数据">
+    <div class="stats-banner-inner">
+
+      <div class="stats-banner-item fade-up delay-1">
+        <div class="stats-banner-numline">
+          <span class="stats-banner-num" data-target="9382" data-suffix="">0</span>
+        </div>
+        <span class="stats-banner-label">学生受益</span>
+      </div>
+
+      <span class="stats-banner-divider" aria-hidden="true"></span>
+
+      <div class="stats-banner-item fade-up delay-2">
+        <div class="stats-banner-numline">
+          <span class="stats-banner-num" data-target="16" data-suffix="年">0</span>
+        </div>
+        <span class="stats-banner-label">教学经验</span>
+      </div>
+
+      <span class="stats-banner-divider" aria-hidden="true"></span>
+
+      <div class="stats-banner-item fade-up delay-3">
+        <div class="stats-banner-numline">
+          <span class="stats-banner-num" data-target="65" data-suffix="">0</span>
+        </div>
+        <span class="stats-banner-label">间学校巡回</span>
+      </div>
+
+      <span class="stats-banner-divider" aria-hidden="true"></span>
+
+      <div class="stats-banner-item fade-up delay-4">
+        <div class="stats-banner-numline">
+          <span class="stats-banner-num" data-target="100" data-suffix="%">0</span>
+        </div>
+        <span class="stats-banner-label">SPM 及格率</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =============================================
+       SECTION 6: 99%学生在 SEJARAH 面对的挑战！
+       ============================================= -->
+  <section style="padding: 100px 0; background: var(--white); color: var(--dark); overflow: hidden; border-top: none;">
+    <div class="container" style="max-width: 1200px;">
+      
+      <!-- Section Header -->
+      <div class="fade-up" style="text-align: center; margin-bottom: 60px;">
+        <h2 style="font-family: var(--font-title); font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; line-height: 1.25; margin: 0; color: var(--dark);">
+          99%学生在SEJARAH面对的<span style="color: var(--pink); border-bottom: 3px solid var(--pink); padding-bottom: 2px;">挑战！</span>
+        </h2>
+      </div>
+
+      <style>
+        /* Floating Animation Keyframes */
+        @keyframes floatUpDown1 {
+          0% { transform: translateY(0px); }
+          50% { transform: translateY(-15px); }
+          100% { transform: translateY(0px); }
+        }
+        @keyframes floatUpDown2 {
+          0% { transform: translateY(0px); }
+          50% { transform: translateY(20px); }
+          100% { transform: translateY(0px); }
+        }
+        @keyframes floatUpDown3 {
+          0% { transform: translateY(0px); }
+          50% { transform: translateY(-25px); }
+          100% { transform: translateY(0px); }
+        }
+
+        .bubble-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          gap: 30px;
+          padding: 20px 0;
+        }
+
+        .pain-bubble {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          background: #fc0c97;
+          color: var(--dark);
+          border-radius: 50%;
+          font-weight: 800;
+          box-shadow: 0 10px 30px rgba(252, 12, 151, 0.3), inset 0 -5px 15px rgba(0,0,0,0.1);
+          transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+          cursor: default;
+          line-height: 1.4;
+        }
+
+        .pain-bubble:hover {
+          transform: scale(1.1) !important;
+          box-shadow: 0 15px 40px rgba(252, 12, 151, 0.5), inset 0 -5px 15px rgba(0,0,0,0.1);
+          z-index: 10;
+        }
+
+        /* Responsive Bubble Sizes */
+        .bubble-lg { width: 220px; height: 220px; font-size: 18px; }
+        .bubble-md { width: 170px; height: 170px; font-size: 16px; }
+        .bubble-sm { width: 140px; height: 140px; font-size: 14px; }
+
+        @media (max-width: 768px) {
+          .bubble-container { gap: 15px; }
+          .bubble-lg { width: 160px; height: 160px; font-size: 15px; }
+          .bubble-md { width: 130px; height: 130px; font-size: 13px; }
+          .bubble-sm { width: 110px; height: 110px; font-size: 11px; }
+        }
+
+        /* Animation Assignments */
+        .f-anim-1 { animation: floatUpDown1 4s ease-in-out infinite; }
+        .f-anim-2 { animation: floatUpDown2 5.5s ease-in-out infinite alternate; }
+        .f-anim-3 { animation: floatUpDown3 6s ease-in-out infinite; }
+        .f-anim-4 { animation: floatUpDown1 4.5s ease-in-out infinite alternate-reverse; }
+        .f-anim-5 { animation: floatUpDown2 5s ease-in-out infinite reverse; }
+
+        /* Natural Layout Adjustments (Margins to create stagger) */
+        .pos-1 { margin-top: 40px; }
+        .pos-2 { margin-top: -30px; margin-left: 20px; }
+        .pos-3 { margin-top: 50px; }
+        .pos-4 { margin-top: -50px; }
+        .pos-5 { margin-top: 20px; }
+        .pos-6 { margin-top: -20px; }
+        .pos-7 { margin-top: 60px; }
+        
+        @media (max-width: 768px) {
+          .pos-1, .pos-2, .pos-3, .pos-4, .pos-5, .pos-6, .pos-7 { margin: 10px; }
+        }
+      </style>
+
+      <div class="bubble-container">
+        
+        <!-- Bubble 1 -->
+        <div class="pain-bubble bubble-lg f-anim-1 pos-1">
+          内容太多<br>记不住
+        </div>
+        
+        <!-- Bubble 2 -->
+        <div class="pain-bubble bubble-md f-anim-2 pos-2">
+          不会抓重点
+        </div>
+        
+        <!-- Bubble 3 -->
+        <div class="pain-bubble bubble-lg f-anim-3 pos-3">
+          读了还是会忘记<br>考试想不到
+        </div>
+        
+        <!-- Bubble 4 -->
+        <div class="pain-bubble bubble-md f-anim-4 pos-4">
+          看不懂题目<br>不会写
+        </div>
+        
+        <!-- Bubble 5 -->
+        <div class="pain-bubble bubble-sm f-anim-5 pos-5">
+          全部都是文字
+        </div>
+        
+        <!-- Bubble 6 -->
+        <div class="pain-bubble bubble-md f-anim-1 pos-6">
+          不知道<br>从哪里开始
+        </div>
+        
+        <!-- Bubble 7 -->
+        <div class="pain-bubble bubble-sm f-anim-2 pos-7">
+          觉得SEJARAH<br>很闷
+        </div>
+        
+        <!-- Bubble 8 -->
+        <div class="pain-bubble bubble-md f-anim-3 pos-1">
+          写了但是不符合<br>老师要的
+        </div>
+        
+        <!-- Bubble 9 -->
+        <div class="pain-bubble bubble-lg f-anim-4 pos-2">
+          没有适合<br>自己的学习方法
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =============================================
+       SECTION 7: 为什么一个月有2537位学生愿意给老师学费呢？
+       ============================================= -->
+  <section style="padding: 100px 0; background: var(--off-white); color: var(--dark); overflow: hidden;">
+    <div class="container" style="max-width: 1150px;">
+      
+      <!-- Section Header -->
+      <div class="fade-up" style="text-align: center; margin-bottom: 60px;">
+        <h2 style="font-family: var(--font-title); font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 900; line-height: 1.3; margin: 0; color: var(--dark);">
+          为什么一个月有<span style="color: var(--pink); border-bottom: 3px solid var(--pink); padding-bottom: 2px;">2537位学生</span>愿意给老师学费呢？
+        </h2>
+      </div>
+
+      <style>
+        .sec7-interactive-layout {
+          display: grid;
+          grid-template-columns: 1.2fr 1fr;
+          gap: 60px;
+          align-items: center;
+        }
+
+        @media (max-width: 991px) {
+          .sec7-interactive-layout {
+            grid-template-columns: 1fr;
+            gap: 40px;
+          }
+        }
+
+        /* Tabs on the Left */
+        .sec7-tabs-container {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+
+        .sec7-tab-item {
+          position: relative;
+          background: rgba(255, 255, 255, 0.4);
+          border: 1px solid var(--gray-200);
+          border-radius: 20px;
+          padding: 24px;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .sec7-tab-item:hover {
+          background: rgba(255, 255, 255, 0.8);
+          transform: translateX(5px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .sec7-tab-item.active {
+          background: var(--white);
+          border-color: var(--pink);
+          box-shadow: 0 10px 30px -10px rgba(252, 12, 151, 0.12), 0 1px 3px rgba(0, 0, 0, 0.05);
+          transform: translateX(10px);
+        }
+        
+        @media (max-width: 991px) {
+          .sec7-tab-item:hover, .sec7-tab-item.active {
+            transform: none;
+          }
+        }
+
+        .sec7-tab-tag {
+          align-self: flex-start;
+          font-size: 13px;
+          font-weight: 900;
+          padding: 4px 14px;
+          border-radius: 9999px;
+          background: var(--gray-200);
+          color: var(--gray-light);
+          transition: all 0.3s ease;
+        }
+
+        .sec7-tab-item.active .sec7-tab-tag {
+          background: var(--fc-color-dark);
+          color: var(--fc-color);
+        }
+
+        .sec7-tab-title {
+          font-family: var(--font-title);
+          font-size: 17px;
+          font-weight: 700;
+          color: var(--gray-light);
+          margin: 0;
+          transition: color 0.3s ease;
+        }
+
+        .sec7-tab-item.active .sec7-tab-title {
+          color: var(--dark);
+        }
+
+        /* Progress Bar */
+        .sec7-progress-container {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 4px;
+          background: transparent;
+        }
+
+        .sec7-progress-fill {
+          height: 100%;
+          width: 0%;
+          background: var(--fc-color);
+          transition: none;
+        }
+
+        .sec7-tab-item.active .sec7-progress-fill {
+          animation: sec7-progress-run 5s linear forwards;
+        }
+
+        @keyframes sec7-progress-run {
+          from { width: 0%; }
+          to { width: 100%; }
+        }
+
+        /* Right Column Showcase */
+        .sec7-showcase-container {
+          position: relative;
+          height: 420px;
+          border-radius: 30px;
+          background: #0f172a; /* Slate 900 for dark mode contrast */
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.3);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Interactive Ambient Glow background */
+        .sec7-glow-bg {
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(circle at 50% 50%, var(--fc-color) 0%, transparent 60%);
+          opacity: 0.15;
+          z-index: 1;
+          filter: blur(40px);
+          transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Frame overlay for premium mock design */
+        .sec7-frame-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+          z-index: 2;
+          pointer-events: none;
+        }
+
+        .sec7-images-wrapper {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          z-index: 3;
+        }
+
+        .sec7-image-item {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 40px;
+          opacity: 0;
+          transform: translateY(20px) scale(0.95);
+          transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+          pointer-events: none;
+        }
+
+        .sec7-image-item.active {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+          pointer-events: auto;
+        }
+
+        .sec7-showcase-img {
+          max-width: 85%;
+          max-height: 85%;
+          object-fit: contain;
+          border-radius: 16px;
+          filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.4));
+          transition: transform 0.5s ease;
+        }
+
+        .sec7-image-item.active:hover .sec7-showcase-img {
+          transform: scale(1.04) rotate(1deg);
+        }
+      </style>
+
+      <div class="sec7-interactive-layout">
+        
+        <!-- Left Side: Interactive Tabs -->
+        <div class="sec7-tabs-container" id="sec7TabsContainer">
+          
+          <!-- Tab 1 -->
+          <div class="sec7-tab-item active" data-index="0" style="--fc-color: var(--pink); --fc-color-dark: rgba(252, 12, 151, 0.08);">
+            <span class="sec7-tab-tag">因为有效</span>
+            <h3 class="sec7-tab-title">学生是聪明的。有帮助才会继续啊</h3>
+            <div class="sec7-progress-container">
+              <div class="sec7-progress-fill"></div>
+            </div>
+          </div>
+
+          <!-- Tab 2 -->
+          <div class="sec7-tab-item" data-index="1" style="--fc-color: hsl(262, 85%, 60%); --fc-color-dark: hsl(262, 85%, 95%);">
+            <span class="sec7-tab-tag">因为简单</span>
+            <h3 class="sec7-tab-title">老师用了最简单学习的方式</h3>
+            <div class="sec7-progress-container">
+              <div class="sec7-progress-fill"></div>
+            </div>
+          </div>
+
+          <!-- Tab 3 -->
+          <div class="sec7-tab-item" data-index="2" style="--fc-color: hsl(200, 100%, 50%); --fc-color-dark: hsl(200, 100%, 95%);">
+            <span class="sec7-tab-tag">因为进步</span>
+            <h3 class="sec7-tab-title">一步一步进步，学生就有信心</h3>
+            <div class="sec7-progress-container">
+              <div class="sec7-progress-fill"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Side: Showcase Image -->
+        <div class="sec7-showcase-container" id="sec7Showcase">
+          <div class="sec7-glow-bg" id="sec7Glow" style="--fc-color: var(--pink);"></div>
+          <div class="sec7-frame-overlay"></div>
+          
+          <div class="sec7-images-wrapper">
+            <!-- Image 1 -->
+            <div class="sec7-image-item active" data-index="0">
+              <img src="images/Jack Ler (1).png" alt="因为有效" class="sec7-showcase-img" />
+            </div>
+            <!-- Image 2 -->
+            <div class="sec7-image-item" data-index="1">
+              <img src="images/Jack Ler2 (1).png" alt="因为简单" class="sec7-showcase-img" />
+            </div>
+            <!-- Image 3 -->
+            <div class="sec7-image-item" data-index="2">
+              <img src="images/Jack_logo.png" alt="因为进步" class="sec7-showcase-img" />
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Script to handle auto-switching and user interactions -->
+    <script>
+      (function() {
+        const tabs = document.querySelectorAll('.sec7-tab-item');
+        const images = document.querySelectorAll('.sec7-image-item');
+        const glow = document.getElementById('sec7Glow');
+        let currentIndex = 0;
+        let autoplayTimer = null;
+        const intervalTime = 5000; // 5 seconds match animation duration
+
+        const tabColors = [
+          'var(--pink)',
+          'hsl(262, 85%, 60%)',
+          'hsl(200, 100%, 50%)'
+        ];
+
+        function switchTab(index) {
+          if (index === currentIndex) return;
+
+          // Remove active from old tab and image
+          tabs[currentIndex].classList.remove('active');
+          images[currentIndex].classList.remove('active');
+
+          // Set active to new tab and image
+          currentIndex = index;
+          tabs[currentIndex].classList.add('active');
+          images[currentIndex].classList.add('active');
+
+          // Update ambient glow color
+          glow.style.setProperty('--fc-color', tabColors[currentIndex]);
+
+          // Force reflow to reset progress bar animation
+          const activeFill = tabs[currentIndex].querySelector('.sec7-progress-fill');
+          if (activeFill) {
+            activeFill.style.animation = 'none';
+            void activeFill.offsetHeight; // trigger reflow
+            activeFill.style.animation = null;
+          }
+        }
+
+        function startAutoplay() {
+          stopAutoplay();
+          autoplayTimer = setInterval(() => {
+            let nextIndex = (currentIndex + 1) % tabs.length;
+            switchTab(nextIndex);
+          }, intervalTime);
+        }
+
+        function stopAutoplay() {
+          if (autoplayTimer) {
+            clearInterval(autoplayTimer);
+            autoplayTimer = null;
+          }
+        }
+
+        // Add click events to tabs
+        tabs.forEach((tab, index) => {
+          tab.addEventListener('click', () => {
+            switchTab(index);
+            // Restart autoplay timer from scratch on user click
+            startAutoplay();
+          });
+        });
+
+        // Initialize autoplay
+        startAutoplay();
+      })();
+    </script>
+  </section>
+
+  <!-- =============================================
+       SECTION 7.5: TESTIMONIALS (Interactive Scrolling Columns)
+       ============================================= -->
+  <section class="section" style="padding: 100px 0; background: var(--white); overflow: hidden; position: relative;">
+    <div class="container" style="max-width: 1150px;">
+      
+      <!-- Section Header -->
+      <div class="fade-up" style="text-align: center; max-width: 540px; margin: 0 auto 40px auto;">
+        <h2 style="font-family: var(--font-title); font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 900; line-height: 1.2; margin: 0; color: var(--dark); tracking-tight: -0.05em;">
+          他们是<span style="color: var(--pink); border-bottom: 3px solid var(--pink); padding-bottom: 2px;">这样说的</span>
+        </h2>
+      </div>
+
+      <style>
+        .testimonials-grid-container {
+          display: flex;
+          justify-content: center;
+          gap: 24px;
+          margin-top: 40px;
+          height: 740px;
+          overflow: hidden;
+          position: relative;
+          -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+        }
+
+        .testimonials-column-wrapper {
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
+          padding-bottom: 24px;
+        }
+
+        /* Testimonials Scroll Animations */
+        .t-col-1 {
+          animation: scrollColumnUp 15s linear infinite;
+        }
+        .t-col-2 {
+          animation: scrollColumnUp 19s linear infinite;
+        }
+        .t-col-3 {
+          animation: scrollColumnUp 17s linear infinite;
+        }
+
+        @keyframes scrollColumnUp {
+          0% {
+            transform: translateY(0);
+          }
+          100% {
+            transform: translateY(-50%);
+          }
+        }
+
+        /* Pause on hover for easier reading */
+        .testimonials-grid-container:hover .testimonials-column-wrapper {
+          animation-play-state: paused;
+        }
+
+        .testimonial-card-item {
+          background: var(--white);
+          border: 1px solid var(--gray-200);
+          border-radius: 24px;
+          padding: 40px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+          max-width: 320px;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .testimonial-card-item:hover {
+          transform: translateY(-4px);
+          border-color: var(--pink);
+          box-shadow: 0 20px 40px rgba(252, 12, 151, 0.06);
+        }
+
+        /* 16:9 Image Screenshot Mockup Wrapper */
+        .testimonial-screenshot-wrap {
+          margin-bottom: 20px;
+          overflow: hidden;
+          border-radius: 14px;
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          aspect-ratio: 16 / 9;
+          position: relative;
+          background: #0f172a; /* Sleek dark frame contrast */
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .testimonial-screenshot-wrap::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+          pointer-events: none;
+          z-index: 2;
+        }
+
+        .t-screenshot-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.5s ease;
+          border-radius: 12px;
+          z-index: 1;
+        }
+
+        .testimonial-card-item:hover .t-screenshot-img {
+          transform: scale(1.05) rotate(0.5deg);
+        }
+
+        .testimonial-text-desc {
+          font-size: 14px;
+          line-height: 1.6;
+          color: var(--dark);
+          margin-bottom: 20px;
+        }
+
+        .testimonial-user-info {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+
+        .testimonial-user-avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+
+        .testimonial-user-details {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .testimonial-user-name {
+          font-weight: 700;
+          font-size: 14px;
+          color: var(--dark);
+          line-height: 1.3;
+        }
+
+        .testimonial-user-role {
+          font-size: 12px;
+          color: var(--gray-light);
+          line-height: 1.3;
+          opacity: 0.8;
+        }
+
+        /* Responsive Column Hiding */
+        @media (max-width: 768px) {
+          .t-col-hide-md {
+            display: none;
+          }
+        }
+        @media (max-width: 991px) {
+          .t-col-hide-lg {
+            display: none;
+          }
+        }
+      </style>
+
+      <div class="testimonials-grid-container" id="testimonialsGridContainer">
+        <!-- Loaded dynamically via static data below -->
+      </div>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const container = document.getElementById('testimonialsGridContainer');
+          if (!container) return;
+
+          // Mobile auto-scroll logic
+          let scrollInterval;
+          const startAutoScroll = () => {
+            if (window.innerWidth <= 768) {
+              scrollInterval = setInterval(() => {
+                const firstCard = container.querySelector('.testimonial-card-item');
+                if (firstCard) {
+                  const scrollAmount = firstCard.offsetWidth + 20; // card width + margin
+                  container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                }
+              }, 3000);
+            }
+          };
+
+          startAutoScroll();
+          
+          // Pause auto-scroll on touch/swipe
+          container.addEventListener('touchstart', () => clearInterval(scrollInterval), {passive: true});
+          container.addEventListener('touchend', () => {
+            clearInterval(scrollInterval);
+            startAutoScroll();
+          }, {passive: true});
+
+          // Static testimonials data
+          const list = [
+            {
+              text: "这个ERP彻底改变了我们的运营，简化了财务和库存。基于云的平台让我们即使在远程也能保持高效。",
+              image: "https://randomuser.me/api/portraits/women/1.jpg",
+              name: "Briana Patton",
+              role: "运营经理",
+            },
+            {
+              text: "实施这个ERP非常顺利快捷。可定制、用户友好的界面让团队培训变得轻而易举。",
+              image: "https://randomuser.me/api/portraits/men/2.jpg",
+              name: "Bilal Ahmed",
+              role: "IT经理",
+            },
+            {
+              text: "支持团队非常出色，指导我们完成设置并提供持续的协助，确保我们满意。",
+              image: "https://randomuser.me/api/portraits/women/3.jpg",
+              name: "Saman Malik",
+              role: "客户支持负责人",
+            },
+            {
+              text: "这个ERP的无缝集成提高了我们的业务运营效率。强烈推荐其直观的界面。",
+              image: "https://randomuser.me/api/portraits/men/4.jpg",
+              name: "Omar Raza",
+              role: "首席执行官",
+            },
+            {
+              text: "其强大的功能和快速的支持改变了我们的工作流程，使我们变得更加高效。",
+              image: "https://randomuser.me/api/portraits/women/5.jpg",
+              name: "Zainab Hussain",
+              role: "项目经理",
+            },
+            {
+              text: "顺利的实施超出了预期。它简化了流程，提高了整体业务表现。",
+              image: "https://randomuser.me/api/portraits/women/6.jpg",
+              name: "Aliza Khan",
+              role: "业务分析师",
+            },
+            {
+              text: "凭借人性化的设计和积极的用户反馈，我们的业务功能得到了显著改善。",
+              image: "https://randomuser.me/api/portraits/men/7.jpg",
+              name: "Farhan Siddiqui",
+              role: "市场总监",
+            },
+            {
+              text: "他们提供了一个超出预期的解决方案，不仅了解我们的需求，还增强了我们的运营。",
+              image: "https://randomuser.me/api/portraits/women/8.jpg",
+              name: "Sana Sheikh",
+              role: "销售经理",
+            },
+            {
+              text: "使用此ERP，我们的在线形象和转化率显著提高，提升了业务表现。",
+              image: "https://randomuser.me/api/portraits/men/9.jpg",
+              name: "Hassan Ali",
+              role: "电子商务经理",
+            }
+          ];
+
+          // Divide items into 3 columns
+          const col1Items = [];
+          const col2Items = [];
+          const col3Items = [];
+
+          list.forEach((item, index) => {
+            if (index % 3 === 0) col1Items.push(item);
+            else if (index % 3 === 1) col2Items.push(item);
+            else col3Items.push(item);
+          });
+
+          // Helper to generate column HTML
+          function generateColumnHtml(items, colClass, responsiveClass) {
+            if (items.length === 0) return '';
+            
+            // Double the items for infinite vertical loop
+            const doubledItems = [...items, ...items];
+            
+            let cardsHtml = doubledItems.map(item => {
+              // Check if there is an uploaded 16:9 screenshot
+              const screenshotHtml = item.screenshot 
+                ? `<div class="testimonial-screenshot-wrap">
+                     <img src="${item.screenshot}" alt="提分成果见证" class="t-screenshot-img" />
+                   </div>`
+                : '';
+
+              return `
+                <div class="testimonial-card-item">
+                  ${screenshotHtml}
+                  <p class="testimonial-text-desc">"${item.text}"</p>
+                  <div class="testimonial-user-info">
+                    <img src="${item.image || 'https://randomuser.me/api/portraits/women/1.jpg'}" alt="${item.name}" class="testimonial-user-avatar" />
+                    <div class="testimonial-user-details">
+                      <span class="testimonial-user-name">${item.name}</span>
+                      <span class="testimonial-user-role">${item.role}</span>
+                    </div>
+                  </div>
+                </div>
+              `;
+            }).join('');
+
+            return `
+              <div class="testimonials-column-wrapper ${colClass} ${responsiveClass}">
+                ${cardsHtml}
+              </div>
+            `;
+          }
+
+          container.innerHTML = `
+            ${generateColumnHtml(col1Items, 't-col-1', '')}
+            ${generateColumnHtml(col2Items, 't-col-2', 't-col-hide-md')}
+            ${generateColumnHtml(col3Items, 't-col-3', 't-col-hide-lg')}
+          `;
+        });
+      </script>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- =============================================
+       SECTION 9: 学校巡回 (视频 + 照片 + 文案)
+       ============================================= -->
+  <section class="school-tour-section section" id="school-tour" aria-label="学校巡回展示">
+    <div class="container">
+      <div class="school-grid">
+
+        <!-- Left Side: Auto-playing Tour Video -->
+        <div class="school-video-wrap fade-in">
+          <div class="school-video-container">
+            <video id="schoolTourVideoAbout" class="school-video" loop playsinline>
+              <source src="images/teacher/SMJK HWA LIAN JACK CROP.mp4" type="video/mp4">
+              您的浏览器不支持播放该视频。
+            </video>
+            <button class="video-mute-btn" id="videoMuteBtnAbout" aria-label="静音切换">
+              <!-- Unmuted State (Sound ON) -->
+              <svg id="unmuteIconAbout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+              <!-- Muted State (Sound OFF) -->
+              <svg id="muteIconAbout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <line x1="23" y1="9" x2="17" y2="15"></line>
+                <line x1="17" y1="9" x2="23" y2="15"></line>
+              </svg>
+              <span id="muteBtnTextAbout">🔊 声音: 开启</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Side: School Tour Text -->
+        <div class="school-content fade-up delay-2">
+          <h2 class="school-title">
+            <span style="color: var(--pink); border-bottom: 3px solid var(--pink); padding-bottom: 2px;">65场全马中学</span>SEJ巡回讲座
+          </h2>
+          <p class="school-desc">
+            教育的热忱不应只留在电脑屏幕前。Jack 老师秉持着初心，多年来亲身走入大马全国各大城镇共 65 间中学，与数万名中学生面对面点燃历史学科的学习热情。我们用最直接、最有温度的备考经验，让学子们明白：Sejarah 冲
+            A 其实很简单！
+          </p>
+          <p class="school-desc" style="font-weight: 700; color: var(--pink);">
+            🌟 每一个热烈互动的现场、每一位重拾信心的学生，都是我们不断努力前行的最强动力！
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Mute button logic for About page school tour video
+      const v = document.getElementById('schoolTourVideoAbout');
+      const btn = document.getElementById('videoMuteBtnAbout');
+      const unmuteIco = document.getElementById('unmuteIconAbout');
+      const muteIco = document.getElementById('muteIconAbout');
+      const txt = document.getElementById('muteBtnTextAbout');
+
+      if (v && btn) {
+        // Start muted but play immediately
+        v.muted = true;
+        v.play().catch(e => console.log('Auto-play prevented:', e));
+        
+        // Show muted state by default
+        unmuteIco.style.display = 'none';
+        muteIco.style.display = 'block';
+        txt.textContent = '🔇 声音: 关闭';
+        
+        btn.addEventListener('click', () => {
+          v.muted = !v.muted;
+          if (v.muted) {
+            unmuteIco.style.display = 'none';
+            muteIco.style.display = 'block';
+            txt.textContent = '🔇 声音: 关闭';
+          } else {
+            muteIco.style.display = 'none';
+            unmuteIco.style.display = 'block';
+            txt.textContent = '🔊 声音: 开启';
+          }
+        });
+      }
+    });
+  </script>
+
+
+
+  <!-- =============================================
+       SECTION 10: FEATURED COURSES SECTION (选择适合你的学习方案)
+       ============================================= -->
+  <section class="courses-section section" id="courses" aria-label="精选课程">
+    <div class="container">
+      <!-- Section Header -->
+      <div class="section-header">
+        <div class="section-label fade-up">✦ 精选课程</div>
+        <h2 class="section-title fade-up delay-1">选择适合你的学习方案</h2>
+        <p class="section-subtitle fade-up delay-2">
+          无论你是刚开始学习还是临近考试冲刺，<br>
+          Jack 老师都有最适合你的课程！
+        </p>
+      </div>
+
+      <!-- Courses Slider Container -->
+      <div class="courses-track-wrap fade-up delay-3">
+        <!-- Floating Swipe Guide Indicator for Mobile -->
+        <div class="swipe-indicator-arrow" id="courseSwipeArrow" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </div>
+        <div class="courses-track" id="coursesTrack" role="list">
+
+          <!-- Product 1: Sejarah Notes Book -->
+          <div class="course-card" id="courseCard1" role="listitem">
+            <div class="course-img-wrap">
+              <img src="images/product-book.png" alt="Jack 老师 Sejarah 历史秘笈笔记本" loading="lazy" />
+              <span class="course-badge" style="color: var(--warning);">📖 实体笔记</span>
+            </div>
+            <div class="course-body">
+              <div class="course-form-tags">
+                <span class="course-form-tag">Form 1</span>
+                <span class="course-form-tag">Form 2</span>
+                <span class="course-form-tag">Form 3</span>
+                <span class="course-form-tag">Form 4</span>
+                <span class="course-form-tag">Form 5</span>
+              </div>
+              <h3 class="course-title">《Jack 老师历史秘笈》<br>专属笔记本</h3>
+              <p class="course-desc">Jack 老师亲自整理，简单易懂、重点突出的 SPM 历史科笔记，涵盖 Form 1–5 全部考试重点。</p>
+              <ul class="course-features">
+                <li>涵盖 Form 1–5 所有章节</li>
+                <li>考试必考重点精华整理</li>
+                <li>简单易懂，一目了然</li>
+                <li>一次购买，终身使用</li>
+              </ul>
+              <div class="course-footer" style="flex-direction: column; align-items: stretch; gap: 8px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; width:100%;">
+                  <div class="course-price">
+                    <span class="course-price-from">一次性</span>
+                    <span class="course-price-amount">RM 45</span>
+                    <span class="course-price-period">买断制</span>
+                  </div>
+                </div>
+                <div style="text-align: center; margin: 4px 0;">
+                  <a href="course-detail.html?id=wanneng-book" class="course-detail-link"
+                    style="color: var(--purple); font-size: 0.8rem; font-weight: 700; text-decoration: none;"
+                    onmouseover="this.style.color='var(--pink)'" onmouseout="this.style.color='var(--purple)'">
+                    ✨ 查看笔记大纲详情 ➔
+                  </a>
+                </div>
+                <div style="display:flex; gap:8px; width:100%;">
+                  <button class="btn-add-cart" id="addCartBook"
+                    style="flex:1; justify-content:center; padding:10px 8px; font-size:0.75rem;"
+                    onclick="addToCart('book')" aria-label="加入购物车 - Sejarah 历史秘笈笔记本">🛒 加购物车</button>
+                  <button class="btn btn-primary"
+                    style="flex:1.2; padding:10px 8px; font-size:0.75rem; border-radius:9999px; box-shadow:none; font-family:'Noto Sans SC',sans-serif; font-weight:700;"
+                    onclick="buyNow('book')" aria-label="立即购买 - Sejarah 历史秘笈笔记本">⚡ 立即购买</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 2: Online Course (FEATURED) -->
+          <div class="course-card featured" id="courseCard2" role="listitem">
+            <div class="course-img-wrap">
+              <img src="images/product-course.png" alt="Jack 老师 SPM 历史线上课" loading="lazy" />
+              <span class="course-badge" style="color: var(--pink);">🎯 Zoom 线上课</span>
+            </div>
+            <div class="course-body">
+              <div class="course-form-tags">
+                <span class="course-form-tag" style="background: var(--pink-bg); color: var(--pink);">Form 1–5</span>
+                <span class="course-form-tag" style="background: var(--pink-bg); color: var(--pink);">当月无限重播</span>
+              </div>
+              <h3 class="course-title">Jack 老师 SPM 历史<br>线上直播课</h3>
+              <p class="course-desc">每周 Zoom 直播上课，买了当月可以无限次重播。基础差也没关系，Jack 老师用最简单的方式教你！</p>
+              <ul class="course-features">
+                <li>每周 Zoom 线上直播课</li>
+                <li>当月购买，当月无限次重播</li>
+                <li>Form 1–5 全覆盖</li>
+                <li>专属学生群，随时提问</li>
+              </ul>
+
+              <!-- Price selector -->
+              <div id="coursePriceSel" style="margin-bottom: 12px;">
+                <div style="font-size:0.75rem; font-weight:700; color:var(--gray-muted); margin-bottom:8px;">选择订阅方案：
+                </div>
+                <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                  <button class="plan-btn plan-btn-active" id="plan1m" onclick="selectPlan('1m', 89)"
+                    aria-pressed="true">1 个月<br><strong>RM 89</strong></button>
+                  <button class="plan-btn" id="plan3m" onclick="selectPlan('3m', 229)" aria-pressed="false">3
+                    个月<br><strong>RM 229</strong></button>
+                  <button class="plan-btn" id="plan6m" onclick="selectPlan('6m', 399)" aria-pressed="false">6
+                    个月<br><strong>RM 399</strong></button>
+                  <button class="plan-btn" id="plan1x" onclick="selectPlan('1x', 159)"
+                    aria-pressed="false">一次性<br><strong>RM 159</strong></button>
+                </div>
+              </div>
+
+              <div class="course-footer" style="flex-direction: column; align-items: stretch; gap: 8px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; width:100%;">
+                  <div class="course-price">
+                    <span class="course-price-from">起价</span>
+                    <span class="course-price-amount" id="selectedCoursePrice">RM 89</span>
+                    <span class="course-price-period">/ 1 个月</span>
+                  </div>
+                </div>
+                <div style="text-align: center; margin: 4px 0;">
+                  <a href="course-detail.html?id=sej-live-1m" id="heroDetailCourseBtn" class="course-detail-link"
+                    style="color: var(--purple); font-size: 0.8rem; font-weight: 700; text-decoration: none;"
+                    onmouseover="this.style.color='var(--pink)'" onmouseout="this.style.color='var(--purple)'">
+                    ✨ 查看直播课程大纲 ➔
+                  </a>
+                </div>
+                <div style="display:flex; gap:8px; width:100%;">
+                  <button class="btn-add-cart" id="addCartCourse"
+                    style="flex:1; justify-content:center; padding:10px 8px; font-size:0.75rem;"
+                    onclick="addToCart('course')" aria-label="加入购物车 - SPM 历史线上课">🛒 加购物车</button>
+                  <button class="btn btn-primary"
+                    style="flex:1.2; padding:10px 8px; font-size:0.75rem; border-radius:9999px; box-shadow:none; font-family:'Noto Sans SC',sans-serif; font-weight:700;"
+                    onclick="buyNow('course')" aria-label="立即报名 - SPM 历史线上课">⚡ 立即报名</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 3: VIP Bundle -->
+          <div class="course-card" id="courseCard3" role="listitem">
+            <div class="course-img-wrap">
+              <img src="images/product-bundle.png" alt="VIP 全包套餐 - 笔记 + 课程" loading="lazy" />
+              <span class="course-badge" style="color: var(--success);">⭐ 最超值套餐</span>
+            </div>
+            <div class="course-body">
+              <div class="course-form-tags">
+                <span class="course-form-tag" style="background: var(--success-bg); color: var(--success);">书本 +
+                  课程</span>
+                <span class="course-form-tag" style="background: var(--success-bg); color: var(--success);">省 RM
+                  15</span>
+              </div>
+              <h3 class="course-title">VIP 全包套餐<br>笔记 + 3 个月课程</h3>
+              <p class="course-desc">最划算的选择！一次拿齐 Jack 老师专属笔记本 + 3 个月线上课程，节省更多，学习更系统！</p>
+              <ul class="course-features">
+                <li>《历史秘笈》笔记本 × 1</li>
+                <li>3 个月 Zoom 线上课</li>
+                <li>当月无限重播</li>
+                <li>省 RM 15（原价 RM 274）</li>
+              </ul>
+              <div class="course-footer" style="flex-direction: column; align-items: stretch; gap: 8px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; width:100%;">
+                  <div class="course-price">
+                    <span class="course-price-from" style="text-decoration:line-through; color:var(--gray-muted);">RM
+                      274</span>
+                    <span class="course-price-amount">RM 259</span>
+                    <span class="course-price-period">省 RM 15 🎉</span>
+                  </div>
+                </div>
+                <div style="text-align: center; margin: 4px 0;">
+                  <a href="course-detail.html?id=wanneng-vip-bundle" class="course-detail-link"
+                    style="color: var(--purple); font-size: 0.8rem; font-weight: 700; text-decoration: none;"
+                    onmouseover="this.style.color='var(--pink)'" onmouseout="this.style.color='var(--purple)'">
+                    ✨ 查看 VIP 套餐详情 ➔
+                  </a>
+                </div>
+                <div style="display:flex; gap:8px; width:100%;">
+                  <button class="btn-add-cart" id="addCartBundle"
+                    style="flex:1; justify-content:center; padding:10px 8px; font-size:0.75rem;"
+                    onclick="addToCart('bundle')" aria-label="加入购物车 - VIP 全包套餐">🛒 加购物车</button>
+                  <button class="btn btn-primary"
+                    style="flex:1.2; padding:10px 8px; font-size:0.75rem; border-radius:9999px; box-shadow:none; font-family:'Noto Sans SC',sans-serif; font-weight:700;"
+                    onclick="buyNow('bundle')" aria-label="立即购买 - VIP 全包套餐">⚡ 立即购买</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /courses-track -->
+      </div><!-- /courses-track-wrap -->
+
+      <!-- Course Slider Controls -->
+      <div class="courses-slider-controls fade-up delay-4" id="coursesSliderControls">
+        <button class="slider-btn" id="courseSliderPrev" onclick="slideCourses(-1)" aria-label="上一个课程">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
+        <button class="slider-btn" id="courseSliderNext" onclick="slideCourses(1)" aria-label="下一个课程">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Big Store CTA Button -->
+      <div class="fade-up" style="text-align: center; margin-top: 50px;">
+        <a href="shop.html" class="shop-cta-btn" aria-label="更多课程">
+          更多课程
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+
+  <!-- =============================================
+       7. FAQ SECTION (Interactive Accordions)
+       ============================================= -->
+  <section class="section" style="padding: 90px 0;">
+    <div class="container" style="max-width: 1100px;">
+      <div class="section-header">
+        <div class="section-label fade-up">✦ FREQUENTLY ASKED QUESTIONS</div>
+        <h2 class="section-title fade-up delay-1"><span style="color: var(--pink); border-bottom: 3px solid var(--pink); padding-bottom: 2px;">常见问题</span>解答</h2>
+        <p class="section-subtitle fade-up delay-2">解答关于上课、教材与付费的所有疑问</p>
+      </div>
+
+      <div class="faq-wrapper fade-up delay-3">
+
+        <!-- Q1 -->
+        <div class="faq-card">
+          <button class="faq-toggle faq-hdr">
+            <span>历史基础非常弱（例如只有不及格的几分），真的能跟得上吗？</span>
+            <span style="color: var(--gray-muted); font-size: 12px;">▼</span>
+          </button>
+          <div class="faq-panel faq-body">
+            完全不用担心！Jack 老师的授课宗旨就是“不抛弃任何弱生”。我们会从零基础概念开始，用最直接有趣的“故事联想法”来授课，只要你会听故事，就能完美跟上并大幅提升！
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="faq-card">
+          <button class="faq-toggle faq-hdr">
+            <span>课程包包含哪些配套讲义和资料？</span>
+            <span style="color: var(--gray-muted); font-size: 12px;">▼</span>
+          </button>
+          <div class="faq-panel faq-body">
+            报读我们的精品课程后，系统会自动向您的学员邮箱发送独家研发的“万能 Sejarah 会说话宝典讲义”（PDF版），里面包含了独家漫画笔记、口诀法图解和全部核心大题预测。
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="faq-card">
+          <button class="faq-toggle faq-hdr">
+            <span>如果错过了直播课程，支持重温吗？</span>
+            <span style="color: var(--gray-muted); font-size: 12px;">▼</span>
+          </button>
+          <div class="faq-panel faq-body">
+            支持的！所有报读学员均可在学员中心获得“无限次高清录制回放”的观看权限，直至您的 SPM 考试正式结束，您可随时随地反复复习巩固。
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       8. FINAL CONVERSION CTA (Bold Purple Neon Box)
+       ============================================= -->
+  <section style="padding-bottom: 90px; background: var(--white);">
+    <div class="container" style="max-width: 1100px;">
+      <div
+        style="background: linear-gradient(135deg, #0f0c1b 0%, #1a081a 100%); border-radius: var(--r-xl); padding: 48px; border: 1px solid rgba(255,255,255,0.06); text-align: center; display: flex; flex-direction: column; gap: 20px; align-items: center; box-shadow: var(--shadow-lg); position: relative; overflow: hidden;">
+
+        <div
+          style="position: absolute; right: -80px; top: -80px; width: 200px; height: 200px; border-radius: 50%; background: var(--pink-glow); filter: blur(50px); pointer-events: none;">
+        </div>
+
+        <h2 class="fade-up"
+          style="font-family: var(--font-title); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; color: var(--white); margin: 0; line-height: 1.2;">
+          <span class="desktop-text">现在就与 Jack 老师一起，<br>冲刺你的 </span>
+          <span class="mobile-text">现在就与 Jack 老师<br>一起冲刺你的<br></span>
+          <span style="color: var(--pink); border-bottom: 2px solid var(--pink);">SPM Sejarah 卓越A！</span>
+        </h2>
+        <p class="fade-up delay-1" style="font-size: 13.5px; color: var(--gray-muted); max-width: 580px; margin: 0; line-height: 1.65;">
+          加入9,000+位成功提分逆袭的学生行列。用最系统、最具科学联想力的通关故事法，告别死记硬背的痛苦！
+        </p>
+
+        <div class="fade-up delay-2" style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 10px; z-index: 2;">
+          <a href="shop.html" class="btn btn-primary btn-lg"
+            style="background: var(--pink); border: none; box-shadow: var(--shadow-pink); text-decoration: none;">
+            立即选购历史课程 ➔
+          </a>
+          <a href="schedule.html" class="btn btn-outline btn-lg"
+            style="color: var(--white); border-color: rgba(255,255,255,0.2); text-decoration: none;">
+            查看直播课表 ➔
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       FOOTER (Perfectly Synchronized with index.html)
+       ============================================= -->
+  <footer role="contentinfo" aria-label="页脚">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand Column -->
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo" id="footerLogo" aria-label="万能教 Jack 老师 首页"
+            style="text-decoration:none; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+            <img src="images/Jack_logo.png" alt="万能教Jack老师" class="nav-logo-img"
+              style="height: 32px; width: auto; object-fit: contain;" />
+            <span class="nav-logo-main"
+              style="font-family: var(--font-title); font-size: 20px; font-weight: 800; color: var(--white);">万能教JACK老师</span>
+          </a>
+          <p class="footer-tagline">
+            专为 SPM 学生打造的历史科课程，简单直接，让基础再弱的学生也能找到方向，冲出好成绩！
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h3 class="footer-col-title">首页</h3>
+          <ul class="footer-links">
+            <li><a href="shop.html">课程</a></li>
+            <!-- <li><a href="about.html">关于</a></li> -->
+            <li><a href="schedule.html">上课时间</a></li>
+            <li><a href="#faq">常见问题</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Column -->
+        <div>
+          <h3 class="footer-col-title">联系我们</h3>
+          <ul class="footer-links">
+            <li><a href="https://wa.me/60123456789?text=我想咨询Jack老师的历史课程" target="_blank" id="footerWaLink"
+                style="display:inline-flex; align-items:center;"><svg width="16" height="16" fill="currentColor"
+                  viewBox="0 0 24 24" style="vertical-align:-3px; margin-right:6px; color:#25D366;">
+                  <path
+                    d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.262 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.66.986 3.288 1.488 4.674 1.49 5.345 0 9.771-4.342 9.774-9.673.002-2.583-1.002-5.01-2.827-6.837-1.823-1.826-4.249-2.83-6.834-2.831-5.345 0-9.769 4.341-9.773 9.671-.002 1.94.512 3.826 1.492 5.503l-.979 3.575 3.673-.963zm11.96-5.834c-.267-.134-1.583-.78-1.827-.869-.243-.088-.422-.132-.599.135-.178.266-.689.867-.844 1.045-.156.177-.311.199-.579.066-.268-.134-1.13-.417-2.153-1.328-.795-.71-1.333-1.586-1.489-1.854-.156-.266-.017-.41.117-.543.12-.12.267-.31.401-.466.133-.155.178-.266.266-.443.089-.178.045-.333-.022-.467-.067-.133-.599-1.442-.821-1.974-.216-.52-.452-.45-.623-.459-.16-.008-.344-.01-.527-.01-.184 0-.483.069-.735.345-.252.276-.962.94-.962 2.292 0 1.352.983 2.658 1.121 2.836.137.178 1.933 2.951 4.683 4.137.654.282 1.165.45 1.562.576.657.21 1.256.18 1.728.11.526-.078 1.583-.647 1.806-1.272.223-.625.223-1.162.156-1.272-.067-.11-.244-.199-.512-.332z" />
+                </svg>WhatsApp 客服</a></li>
+            <li><a href="#" style="display:inline-flex; align-items:center;"><svg width="16" height="16" fill="none"
+                  stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
+                  stroke-linejoin="round" style="vertical-align:-3px; margin-right:6px; color:#EA4335;">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>电邮联系</a></li>
+            <li><a href="#" style="display:inline-flex; align-items:center;"><svg width="16" height="16"
+                  fill="currentColor" viewBox="0 0 24 24" style="vertical-align:-3px; margin-right:6px; color:#1877F2;">
+                  <path
+                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                </svg>Facebook</a></li>
+            <li><a href="#" style="display:inline-flex; align-items:center;"><svg width="16" height="16"
+                  fill="currentColor" viewBox="0 0 24 24" style="vertical-align:-3px; margin-right:6px; color:#E1306C;">
+                  <path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051C.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                </svg>Instagram</a></li>
+            <li><a href="#" style="display:inline-flex; align-items:center;"><svg width="16" height="16"
+                  fill="currentColor" viewBox="0 0 24 24" style="vertical-align:-3px; margin-right:6px; color:#00f2fe;">
+                  <path
+                    d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.86-.74-3.99-1.72-.08-.07-.17-.17-.25-.25v6.07c.07 5.46-4.49 10.08-10.04 9.9-4.9-.16-8.98-4.22-9.13-9.12-.22-6.52 5.05-11.66 11.45-11.23.06 1.42-.03 2.85-.02 4.27-3.79-.57-7.29 2.12-7.44 5.97-.22 4.3 3.73 7.82 8.01 7.21 2.78-.4 4.82-2.85 4.79-5.69.01-4.83.01-9.67.01-14.5.06-.06.12-.11.17-.17z" />
+                </svg>TikTok</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-divider" aria-hidden="true"></div>
+
+      <div class="footer-bottom">
+        <p>© 2026 <span class="footer-pink">万能教 Jack 老师</span>. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Unified JS / main database references -->
+  <script src="js/app.js?v=1.0.4"></script>
+  <script src="js/main.js?v=1.0.4"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // FAQ Accodion panel toggle
+      document.querySelectorAll(".faq-toggle").forEach(toggle => {
+        toggle.addEventListener("click", () => {
+          const panel = toggle.nextElementSibling;
+          const arrow = toggle.querySelector("span:last-child");
+
+          if (panel.style.display === "block") {
+            panel.style.display = "none";
+            arrow.style.transform = "rotate(0deg)";
+          } else {
+            panel.style.display = "block";
+            arrow.style.transform = "rotate(180deg)";
+          }
+        });
+      });
+
+      // Testimonial database slideshow logic
+      const testimonials = [
+        {
+          title: "“从9分狂飙到97分！我甚至不敢相信这是我拿到的 Sejarah 成绩单！”",
+          desc: "以前我完全听不懂，背了又忘，面对大题脑子一片空白。跟着 Jack 老师上课之后，通过首创的故事法，我发现历史事件就像在追一出精彩的故事连续剧，做题套框架超级爽！",
+          student: "SPM 考生（Sejarah 冲刺精品学员）"
+        },
+        {
+          title: "“以前模拟考从来没及格过，SPM最终拿到了A减，简直是奇迹！”",
+          desc: "Jack老师讲的知识非常通俗易懂，特别是KBAT框架，让我这个从来不知道怎么分析大题的人也能轻松拿满分！感谢Jack老师拯救了我的SPM成绩！",
+          student: "Form 5 毕业学员 - 林同学"
+        },
+        {
+          title: "“只用了3个月！Sejarah直接从D暴涨到了A！太神了！”",
+          desc: "网课的无限回放帮了我大忙，里面的口诀记忆法简直有毒，洗脑性极强。强烈推荐所有SPM备考的学生直接报读Jack老师的专题拔高和冲刺包！",
+          student: "SPM 高考逆袭学员 - 郑同学"
+        }
+      ];
+
+      let testIdx = 0;
+      const titleElem = document.getElementById("testimonial-title");
+      const descElem = document.getElementById("testimonial-desc");
+      const studElem = document.getElementById("testimonial-student");
+
+      function renderTestimonial() {
+        if (titleElem && descElem && studElem) {
+          titleElem.textContent = testimonials[testIdx].title;
+          descElem.textContent = testimonials[testIdx].desc;
+          studElem.textContent = testimonials[testIdx].student;
+        }
+      }
+
+      const prevBtn = document.getElementById("prevTestBtn");
+      const nextBtn = document.getElementById("nextTestBtn");
+
+      if (prevBtn && nextBtn) {
+        prevBtn.addEventListener("click", () => {
+          testIdx = (testIdx - 1 + testimonials.length) % testimonials.length;
+          renderTestimonial();
+        });
+        nextBtn.addEventListener("click", () => {
+          testIdx = (testIdx + 1) % testimonials.length;
+          renderTestimonial();
+        });
+      }
+
+      // Video Play trigger logic
+      const vid = document.getElementById("testimonialVideo");
+      const playBtn = document.getElementById("videoPlayBtn");
+      if (vid && playBtn) {
+        playBtn.addEventListener("click", () => {
+          if (vid.paused) {
+            vid.play();
+            playBtn.style.display = "none";
+          }
+        });
+        vid.addEventListener("click", () => {
+          if (!vid.paused) {
+            vid.pause();
+            playBtn.style.display = "flex";
+          }
+        });
+      }
+
+      // Update unified cart counter
+      if (window.Cart) {
+        Cart.updateUI();
+      }
+    });
+  </script>
+</body>
+
+</html>

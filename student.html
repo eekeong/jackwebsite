@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学生个人中心 | 万能教 Jack 老师 - 专属学习云课堂</title>
+  <link rel="stylesheet" href="css/style.css?v=1.0.4">
+</head>
+<body style="background-color: var(--dark);">
+
+  <!-- No public header menubar inside the Student Center Dashboard as requested -->
+
+  <!-- Login Gate Modal View (If not logged in) -->
+  <div id="login-gate" class="container" style="display:none; max-width:460px; padding-top: 60px;">
+    <div class="checkout-form-box" style="box-shadow: var(--shadow-lg); border-top: 4px solid var(--purple);">
+      <div class="text-center" style="margin-bottom:20px;">
+        <div style="width: 70px; height: 70px; border-radius: 50%; background: rgba(252, 12, 151, 0.1); border: 1.5px solid var(--pink); display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; box-shadow: 0 0 15px rgba(252, 12, 151, 0.2);">
+          <svg class="svg-icon svg-icon-lg svg-icon-pink" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        </div>
+        <h2 style="font-family: var(--font-title); font-size: 20px; color:var(--white); margin-top:10px;">Login to Portal</h2>
+        <p style="color:var(--grey-muted); font-size:12px; margin-top:5px;">After purchasing a course, your exclusive portal account will be configured. Please log in with your email and password:</p>
+      </div>
+      
+      <form id="student-login-form" onsubmit="handleStudentLogin(event)">
+        <div class="form-group">
+          <label class="form-label" for="login-email">Email Address</label>
+          <input type="email" id="login-email" class="form-control" placeholder="e.g. xiaoming@gmail.com" required>
+        </div>
+        
+        <!-- Always Shown Password Field -->
+        <div class="form-group" id="login-password-group" style="margin-top: 15px;">
+          <label class="form-label" for="login-password">Password *</label>
+          <input type="password" id="login-password" class="form-control" placeholder="Enter your password" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full" style="padding:12px; margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <span>Secure Login</span>
+          <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </button>
+      </form>
+      
+      <div style="margin-top: 25px; font-size:11px; color: var(--grey-muted); border-top:1px solid var(--border-color); padding-top:15px;">
+        <div style="display: flex; gap: 8px; align-items: flex-start; text-align: left;">
+          <svg class="svg-icon svg-icon-sm" style="color: var(--pink-light); margin-top: 2px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          <span><b>Test Tip</b>: You can place a successful order on the checkout page, or directly enter <b>xiaoming@gmail.com</b> with password <b>123</b> to log in! (For Admin, use <b>admin@eduhero.com.my</b> and password <b>eduhero</b>).</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard Panel (If logged in) -->
+  <div id="student-panel" class="dashboard-layout" style="display:none;">
+
+    <!-- 1. Mobile-only Header -->
+    <header class="student-mobile-header">
+      <div class="student-mobile-profile">
+        <div class="student-mobile-avatar" id="mob-user-avatar">
+          <svg class="svg-icon" style="width:18px; height:18px; color:var(--white);" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </div>
+        <div class="student-mobile-meta">
+          <div id="mob-user-name" class="student-mobile-name">Student Name</div>
+          <span id="mob-user-grade" class="badge badge-form student-mobile-grade">Form 5</span>
+        </div>
+      </div>
+      <div class="student-mobile-actions">
+        <a href="index.html" class="student-mobile-btn" aria-label="Return to Home">
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        </a>
+        <button onclick="handleStudentLogout()" class="student-mobile-btn logout-btn" aria-label="Logout">
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- 2. Mobile-only capsule pill-tabs -->
+    <div class="student-pill-tabs-container">
+      <div class="student-pill-tabs">
+        <button class="pill-tab active" onclick="switchStudentMobileTab('courses', this)">
+          <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          <span>Live Classes</span>
+        </button>
+        <button class="pill-tab" onclick="switchStudentMobileTab('notes', this)">
+          <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          <span>PDF Handouts</span>
+        </button>
+        <button class="pill-tab" onclick="switchStudentMobileTab('replays', this)">
+          <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span>Class Replays</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 3. Desktop Sidebar Nav -->
+    <aside class="sidebar-nav">
+      <div class="flex align-center gap-10" style="margin-bottom: 25px; padding: 0 10px;">
+        <div style="width:40px; height:40px; border-radius:50%; background:rgba(252, 12, 151, 0.1); border:1.5px solid var(--pink); display:flex; align-items:center; justify-content:center; box-shadow: 0 0 10px rgba(252, 12, 151, 0.25);">
+          <svg class="svg-icon svg-icon-pink" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path></svg>
+        </div>
+        <div>
+          <div id="side-user-name" style="font-family:var(--font-title); font-weight:800; font-size:14px; color: var(--white); line-height:1.2;">张小明</div>
+          <span id="side-user-grade" class="badge badge-form" style="font-size:9px; padding:2px 6px; margin-top:3px;">Form 5</span>
+        </div>
+      </div>
+      
+      <div class="sidebar-link active" onclick="switchStudentTab('courses', this)">
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+        <span>Live Classes</span>
+      </div>
+      <div class="sidebar-link" onclick="switchStudentTab('notes', this)">
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+        <span>PDF Handouts</span>
+      </div>
+      <div class="sidebar-link" onclick="switchStudentTab('replays', this)">
+        <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <span>Class Replays</span>
+      </div>
+      
+      <hr style="border:none; border-top:1px dashed rgba(255,255,255,0.08); margin:20px 10px;">
+      
+      <a href="index.html" class="sidebar-link" style="text-decoration:none;">
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Return to Home</span>
+      </a>
+      <a href="shop.html" class="sidebar-link" style="text-decoration:none;">
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        <span>Browse Shop</span>
+      </a>
+      
+      <div style="margin-top:auto; padding-top:20px;">
+        <button onclick="handleStudentLogout()" class="btn btn-outline-pink btn-sm btn-full" style="border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- 4. Main Tab Contents -->
+    <main class="dashboard-content">
+      <div class="dash-header">
+        <div class="dash-title">
+          <h1 id="dash-welcome-text">Welcome back!</h1>
+          <p id="dash-welcome-sub">Today is a perfect day to revise Sejarah and ace your exams!</p>
+        </div>
+        <a href="shop.html" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 8px;">
+          <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          <span>Browse More Courses</span>
+        </a>
+      </div>
+
+      <!-- Tab A: My Live Courses -->
+      <section id="tab-student-courses" class="student-tab-view">
+        <!-- Sticky Zoom Live Notification -->
+        <div class="zoom-link-card" id="zoom-live-card" style="display:none;">
+          <div class="flex justify-between align-center flex-wrap gap-10">
+            <div>
+              <span class="badge" style="background-color:rgba(255,255,255,0.2); color:var(--white); margin-bottom:8px; display: inline-flex; align-items: center; gap: 6px;">
+                <span style="width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block; animation: pulse 1.5s infinite;"></span>
+                <span>Live Class Started</span>
+              </span>
+              <h3 style="font-family:var(--font-title); font-size:18px; color:var(--white); font-weight:800;">SPM Sejarah Trial Attack (Form 5)</h3>
+              <p style="font-size:12px; opacity:0.9; margin-top:4px;">Class Time: Tonight 8:00PM - 10:00PM (Please download Zoom and join 10 minutes early)</p>
+            </div>
+            <a href="https://zoom.us" target="_blank" class="btn btn-primary" style="background-color:var(--white); color:var(--success); border-radius: var(--radius-full); box-shadow:none; display: inline-flex; align-items: center; gap: 8px;">
+              <span style="width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block;"></span>
+              <span>Join Zoom Live Room</span>
+            </a>
+          </div>
+        </div>
+
+        <h3 style="font-family:var(--font-title); font-size:18px; color:var(--white); margin-bottom:15px;">Registered Courses:</h3>
+        <div id="student-courses-grid" class="grid grid-2">
+          <!-- Dynamically loaded list of bought courses -->
+        </div>
+      </section>
+
+      <!-- Tab B: PDF Downloads -->
+      <section id="tab-student-notes" class="student-tab-view" style="display:none;">
+        <h3 style="font-family:var(--font-title); font-size:18px; color:var(--white); margin-bottom:15px;">Exam Prep Handouts (PDF):</h3>
+        <div class="table-responsive">
+          <table class="dash-table">
+            <thead>
+              <tr>
+                <th>Handout Name</th>
+                <th>Associated Course</th>
+                <th>Size</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="student-notes-tbody">
+              <!-- Dynamically injected PDF handouts -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Tab C: Replay Video Library -->
+      <section id="tab-student-replays" class="student-tab-view" style="display:none;">
+        <h3 style="font-family:var(--font-title); font-size:18px; color:var(--white); margin-bottom:15px;">High-Definition Replay Library:</h3>
+        <div class="grid grid-2" id="student-replays-grid">
+          <!-- Dynamically injected class replays -->
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // 检查当前是否有学生登录会话
+      checkStudentSession();
+      Cart.updateUI();
+    });
+
+    // 检查学生登录态
+    function checkStudentSession() {
+      let student = null;
+      try {
+        const stored = localStorage.getItem("jack_current_student");
+        if (stored && stored !== "undefined") {
+          student = JSON.parse(stored);
+        }
+      } catch (e) {
+        console.error("Failed to parse jack_current_student session:", e);
+        student = null;
+      }
+      
+      const loginGate = document.getElementById("login-gate");
+      const studentPanel = document.getElementById("student-panel");
+
+      if (student && student.name && student.email) {
+        loginGate.style.display = "none";
+        studentPanel.style.display = "grid";
+        
+        // 渲染学生面板
+        document.getElementById("side-user-name").textContent = student.name;
+        document.getElementById("side-user-grade").textContent = student.grade || "Form 5";
+        document.getElementById("mob-user-name").textContent = student.name;
+        document.getElementById("mob-user-grade").textContent = student.grade || "Form 5";
+        document.getElementById("dash-welcome-text").textContent = `Welcome back, ${student.name}!`;
+        
+        renderStudentDashboard(student.email);
+      } else {
+        loginGate.style.display = "block";
+        studentPanel.style.display = "none";
+      }
+    }
+
+    // 快捷登录逻辑
+    function handleStudentLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById("login-email").value.trim().toLowerCase();
+      const password = document.getElementById("login-password").value;
+      
+      // 管理员登录验证
+      if (email === "admin@eduhero.com.my") {
+        if (password === "eduhero") {
+          // 跳转至管理后台
+          window.location.href = "admin.html";
+        } else {
+          alert("Invalid admin password! Access Denied.");
+        }
+        return;
+      }
+      
+      // 特殊测试账号：xiaoming@gmail.com
+      if (email === "xiaoming@gmail.com") {
+        if (password !== "123") {
+          alert("Invalid password! (Hint: Use 123 to log in)");
+          return;
+        }
+        localStorage.setItem("jack_current_student", JSON.stringify({
+          email: email,
+          name: "张小明",
+          grade: "Form 5"
+        }));
+        
+        // 张小明默认已购课程
+        localStorage.setItem(`student_courses_${email}`, JSON.stringify(["sej-trial-f5"]));
+        checkStudentSession();
+        return;
+      }
+
+      // 从订单数据库中搜索是否有此邮箱的已付款订单
+      const orders = OrderDB.getAll() || [];
+      const studentOrder = orders.find(o => o.email && o.email.toLowerCase() === email && o.status === 'Paid');
+
+      if (studentOrder) {
+        if (password !== "123") {
+          alert("Invalid password! (Hint: Use 123 to log in)");
+          return;
+        }
+        localStorage.setItem("jack_current_student", JSON.stringify({
+          email: email,
+          name: studentOrder.studentName,
+          grade: studentOrder.grade
+        }));
+        
+        // 将购买记录写入学生课程
+        let coursesBought = [];
+        try {
+          const storedBought = localStorage.getItem(`student_courses_${email}`);
+          if (storedBought && storedBought !== "undefined") {
+            coursesBought = JSON.parse(storedBought) || [];
+          }
+        } catch(e) {
+          console.error("Failed to parse student_courses", e);
+          coursesBought = [];
+        }
+        
+        orders.filter(o => o.email && o.email.toLowerCase() === email && o.status === 'Paid').forEach(o => {
+          // 这里简易对照匹配
+          if (o.courses && Array.isArray(o.courses)) {
+            if (o.courses.includes("SPM Sejarah Trial Attack (中五考前冲刺班)") && !coursesBought.includes("sej-trial-f5")) coursesBought.push("sej-trial-f5");
+            if (o.courses.includes("Form 4 Sejarah Topic Focus (中四核心专题突破班)") && !coursesBought.includes("sej-revision-f4")) coursesBought.push("sej-revision-f4");
+            if (o.courses.includes("SPM Sejarah Objective Booster Pack (中五选择题通关秘籍)") && !coursesBought.includes("sej-objective-f5")) coursesBought.push("sej-objective-f5");
+            if (o.courses.includes("Form 1-3 Sejarah Foundation Core (初中历史地基巩固大课)") && !coursesBought.includes("sej-basic-f13")) coursesBought.push("sej-basic-f13");
+          }
+        });
+        
+        localStorage.setItem(`student_courses_${email}`, JSON.stringify(coursesBought));
+        checkStudentSession();
+      } else {
+        alert("Error: No paid course order found for this email address. Please check your payment status or contact support.");
+      }
+    }
+
+    // 退出登录
+    function handleStudentLogout() {
+      localStorage.removeItem("jack_current_student");
+      checkStudentSession();
+    }
+
+    // 切换标签页 Tab
+    function switchStudentTab(tabName, element) {
+      document.querySelectorAll(".sidebar-link").forEach(link => {
+        link.classList.remove("active");
+      });
+      element.classList.add("active");
+
+      document.querySelectorAll(".student-tab-view").forEach(tab => {
+        tab.style.display = "none";
+      });
+      document.getElementById(`tab-student-${tabName}`).style.display = "block";
+    }
+
+    // 切换手机端标签页 Tab
+    function switchStudentMobileTab(tabName, element) {
+      document.querySelectorAll(".pill-tab").forEach(tab => {
+        tab.classList.remove("active");
+      });
+      element.classList.add("active");
+
+      document.querySelectorAll(".student-tab-view").forEach(tab => {
+        tab.style.display = "none";
+      });
+      document.getElementById(`tab-student-${tabName}`).style.display = "block";
+    }
+
+    // 渲染学生面板具体业务数据
+    function renderStudentDashboard(email) {
+      let purchasedCourseIds = [];
+      try {
+        const stored = localStorage.getItem(`student_courses_${email}`);
+        if (stored && stored !== "undefined") {
+          purchasedCourseIds = JSON.parse(stored) || [];
+        }
+      } catch (e) {
+        console.error("Failed to parse student_courses", e);
+      }
+      
+      const allCourses = CourseDB.getAll() || [];
+      const purchasedCourses = allCourses.filter(c => purchasedCourseIds.includes(c.id));
+      
+      const grid = document.getElementById("student-courses-grid");
+      const notesTbody = document.getElementById("student-notes-tbody");
+      const replaysGrid = document.getElementById("student-replays-grid");
+      const zoomLiveCard = document.getElementById("zoom-live-card");
+
+      grid.innerHTML = "";
+      notesTbody.innerHTML = "";
+      replaysGrid.innerHTML = "";
+
+      if (purchasedCourses.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column: span 2; text-align:center; padding: 40px; background:var(--dark-card); backdrop-filter:blur(15px); -webkit-backdrop-filter:blur(15px); border-radius:var(--radius-lg); border:1px solid var(--border-color);">
+            <div style="display:flex; justify-content:center; margin-bottom:15px;">
+              <svg class="svg-icon svg-icon-pink" style="width:40px; height:40px;" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            </div>
+            <p style="color:var(--grey-muted); font-size:13px; margin-top:10px;">You have no registered live classes yet. Browse our store to unlock premium courses!</p>
+          </div>
+        `;
+        zoomLiveCard.style.display = "none";
+        return;
+      }
+
+      // 控制显示 Zoom 直播看板 (如果买了sej-trial-f5)
+      if (purchasedCourseIds.includes("sej-trial-f5")) {
+        zoomLiveCard.style.display = "block";
+      } else {
+        zoomLiveCard.style.display = "none";
+      }
+
+      purchasedCourses.forEach(course => {
+        // 1. 直播课程列表
+        const card = document.createElement("div");
+        card.className = "course-card";
+        const subjectVal = course.subject || 'Sejarah';
+        const titleVal = course.title || 'Course';
+        const timeVal = course.time || 'Available Anytime';
+        card.innerHTML = `
+          <div class="course-body">
+            <span class="badge badge-subject" style="margin-bottom:8px; align-self:flex-start;">${subjectVal}</span>
+            <h3 class="course-title" style="font-size:16px;">${titleVal}</h3>
+            <p style="font-size:11px; color:var(--grey-muted); margin-bottom:12px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Class Time: ${timeVal}</p>
+            <div style="border-top:1px solid var(--border-color); padding-top:12px; display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:11px; color:#22c55e; font-weight:700; display:inline-flex; align-items:center; gap:6px;">
+                <span style="width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block;"></span>
+                <span>Enrollment Confirmed</span>
+              </span>
+              <a href="https://wa.me/60123456789?text=I%20am%20a%20registered%20student%20and%20would%20like%20to%20join%20the%20Zoom%20session." target="_blank" class="btn btn-whatsapp btn-sm" style="padding:6px 12px; font-size:11px;">Contact Tutor</a>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+
+        // 2. 讲义表格
+        const tr = document.createElement("tr");
+        const titlePrefix = titleVal.split(' ')[0] || 'Course';
+        tr.innerHTML = `
+          <td style="display:flex; align-items:center; gap:10px;">
+            <svg class="svg-icon svg-icon-pink" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+            <span>Exclusive Handout - ${titlePrefix}.pdf</span>
+          </td>
+          <td>${titleVal}</td>
+          <td>4.8 MB</td>
+          <td>
+            <button onclick="simulatePdfDownload('Exclusive Handout - ${titlePrefix}.pdf')" class="btn btn-primary btn-sm" style="padding:6px 12px; font-size:11px; display:inline-flex; align-items:center; gap:6px;">
+              <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24" style="stroke: currentColor;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <span>Download PDF</span>
+            </button>
+          </td>
+        `;
+        notesTbody.appendChild(tr);
+
+        // 3. 回放库
+        const replayCard = document.createElement("div");
+        replayCard.className = "course-card";
+        replayCard.innerHTML = `
+          <div style="background-color:#150e1f; height:140px; display:flex; justify-content:center; align-items:center; position:relative; overflow:hidden; border-radius: var(--radius-sm) var(--radius-sm) 0 0;">
+            <div style="position:absolute; inset:0; background: linear-gradient(135deg, rgba(252, 12, 151, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);"></div>
+            <div style="width: 50px; height: 50px; border-radius: 50%; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1.5px solid rgba(255, 255, 255, 0.4); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; z-index: 2; box-shadow: 0 8px 32px rgba(0,0,0,0.3);" 
+                 onclick="alert('Loading HD Class Replay stream... Locked at 1080P.')"
+                 onmouseover="this.style.transform='scale(1.1)'; this.style.borderColor='var(--pink)'; this.style.background='rgba(252, 12, 151, 0.2)';"
+                 onmouseout="this.style.transform='scale(1)'; this.style.borderColor='rgba(255, 255, 255, 0.4)'; this.style.background='rgba(255, 255, 255, 0.15)';">
+              <svg class="svg-icon" style="width:18px; height:18px; color:var(--white); fill:currentColor; margin-left: 2px;" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            </div>
+            <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.65); color:var(--white); font-size:9px; padding:2px 6px; border-radius:4px; z-index: 2; font-family: 'Nunito', sans-serif;">120:00</span>
+          </div>
+          <div class="course-body">
+            <h3 class="course-title" style="font-size:14px; margin-bottom: 6px;">${titleVal} - Full HD Replay</h3>
+            <p style="font-size:10px; color:var(--grey-muted);">Access Period: Unlimited Replays (Until SPM Exam Ends)</p>
+          </div>
+        `;
+        replaysGrid.appendChild(replayCard);
+      });
+    }
+
+    // 模拟 PDF 下载
+    window.simulatePdfDownload = function(pdfName) {
+      alert(`Handout Download Initiated!\nDownloading file to your device:\n${pdfName}\n\n* Note: The secure student digital asset download flow has been successfully verified.`);
+    };
+  </script>
+</body>
+</html>

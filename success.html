@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>报名成功！ | 万能教 Jack 老师 - 高转化付款完成 onboarding 页</title>
+  <link rel="stylesheet" href="css/style.css?v=1.0.4">
+</head>
+<body style="background-color: var(--dark); padding-bottom: 60px;">
+
+  <!-- =============================================
+       NAVBAR (Unified Premium Component)
+       ============================================= -->
+  <nav class="navbar scrolled" id="navbar" role="navigation" aria-label="主导航">
+    <div class="nav-container">
+      <!-- Logo -->
+      <a href="index.html" class="nav-logo" id="navLogo" aria-label="万能教 Jack 老师 首页">
+        <img src="images/Jack_logo.png" alt="万能教Jack老师" class="nav-logo-img" />
+        <span class="nav-logo-main">万能教JACK老师</span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <div class="nav-menu" role="menubar">
+        <a href="index.html" class="nav-link" role="menuitem">首页</a>
+        <!-- <a href="about.html" class="nav-link" role="menuitem">关于</a> -->
+        <a href="shop.html" class="nav-link" role="menuitem">课程</a>
+        <a href="schedule.html" class="nav-link" role="menuitem">上课时间</a>
+        <a href="index.html#faq" class="nav-link" role="menuitem">FAQ</a>
+      </div>
+
+      <!-- Action Icons -->
+      <div class="nav-actions">
+        <!-- Cart -->
+        <button class="nav-icon-btn" id="navCartBtn" aria-label="购物车" title="购物车" onclick="openCart()">
+          <div style="position:relative; display:inline-flex;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="22" height="22">
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+            </svg>
+            <span class="cart-badge cart-count" id="navCartBadge" aria-label="购物车商品数量">0</span>
+          </div>
+        </button>
+
+        <!-- Student Login - Filled Pink Button -->
+        <button class="btn-nav-login" id="navLoginBtn" onclick="openLogin()" aria-label="学生登录">学生登录</button>
+      </div>
+
+      <!-- Hamburger (Mobile) -->
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Dropdown Menu (Unified) -->
+  <div class="mobile-menu" id="mobileMenu" role="menu" aria-hidden="true">
+    <a href="index.html" role="menuitem" onclick="closeMobileMenu()">首页</a>
+    <!-- <a href="about.html" role="menuitem" onclick="closeMobileMenu()">关于</a> -->
+    <a href="shop.html" role="menuitem" onclick="closeMobileMenu()">课程</a>
+    <a href="schedule.html" role="menuitem" onclick="closeMobileMenu()">上课时间</a>
+    <a href="index.html#faq" role="menuitem" onclick="closeMobileMenu()">FAQ</a>
+    <a href="shop.html" role="menuitem" onclick="closeMobileMenu()"
+      style="color: var(--pink); margin-top: 8px; display: block; font-size: 0.95rem;">立即选课 →</a>
+  </div>
+
+  <div class="container" style="max-width: 680px; padding-top: 40px;">
+    
+    <!-- Celebratory Header Card -->
+    <div class="checkout-form-box text-center" style="border-top: 6px solid var(--success); padding: 40px 20px; box-shadow: var(--shadow-lg);">
+      <span style="font-size: 64px;">🎉</span>
+      <h1 style="font-family: var(--font-title); font-size: 26px; color: var(--success); margin-top: 15px; font-weight:800;">
+        恭喜您，报名已成功受理！
+      </h1>
+      <p style="color: var(--grey-text); font-size:14px; margin-top: 8px;">
+        您已成功抢占 Jack 老师的逆袭名额，接下来请务必配合完成以下步骤！
+      </p>
+
+      <!-- 1. [CRITICAL ONBOARDING BOX] STEP BY STEP INSTRUCTIONS -->
+      <div style="background-color: rgba(252, 12, 151, 0.06); border: 1px solid rgba(252, 12, 151, 0.25); border-radius: var(--radius-lg); padding: 25px; margin: 30px 0; text-align: left; box-shadow: var(--shadow-sm);">
+        <h3 style="font-family: var(--font-title); font-size: 16px; color: var(--pink); margin-bottom: 15px; display:flex; align-items:center; gap:8px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>请完成以下 2 步，开启逆袭之路：
+        </h3>
+        
+        <div style="display:flex; flex-direction:column; gap:15px; font-size:13.5px; color: var(--grey-text);">
+          <!-- Step 1: WhatsApp Group Join (Vibrant Green CTA) -->
+          <div style="display:flex; gap:12px; align-items:flex-start;">
+            <div style="background-color: var(--success); color: var(--text-main); width: 24px; height: 24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px; flex-shrink:0;">1</div>
+            <div style="flex-grow:1;">
+              <strong>立即加入专属班级 WhatsApp 群 (下发直播链接及讲义)</strong>
+              <p style="font-size: 11px; color: var(--grey-muted); margin-top:3px; line-height:1.4;">任何关于 Zoom 链接及 PDF 讲义下发都会在群内即时同步，请点击下方绿色大按钮直接入群：</p>
+              <a id="btn-success-whatsapp-join" href="#" target="_blank" class="btn btn-whatsapp btn-full btn-sm" style="margin-top: 10px; font-size:13.5px; border-radius: var(--radius-md);">
+                🟢 立即加入专属 WhatsApp 课程班群
+              </a>
+            </div>
+          </div>
+          
+          <hr style="border:none; border-top:1px dashed var(--border-color);">
+
+          <!-- Step 2: Check Dashboard Account Credentials -->
+          <div style="display:flex; gap:12px; align-items:flex-start;">
+            <div style="background-color: var(--purple); color: var(--text-main); width: 24px; height: 24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px; flex-shrink:0;">2</div>
+            <div style="flex-grow:1;">
+              <strong>登录您的学生中心，下载 PDF 讲义备用</strong>
+              <p style="font-size: 11px; color: var(--grey-muted); margin-top:3px; line-height:1.4;">系统已为您自动创建了学生账号中心。您的登录账号为您结算时的电子邮箱，密码已自动通过 WhatsApp 发送给您，也可以直接点击下方按钮免密直接登录：</p>
+              <a href="student.html" class="btn btn-secondary btn-full btn-sm" style="margin-top: 10px; font-size:13.5px; border-radius: var(--radius-md); background-color: var(--purple);">
+                👥 免密直达已购【学生中心】
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Invoice Details List -->
+      <div style="text-align: left; background-color:rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); padding:20px; border-radius: var(--radius-md); font-size: 13px; line-height: 1.6;">
+        <h4 style="font-family: var(--font-title); font-weight:700; color: var(--text-main); margin-bottom:10px; border-bottom: 1px solid var(--border-color); padding-bottom:5px;">订单凭证收据</h4>
+        <div class="summary-row">
+          <span>订单编号 (Order ID)</span>
+          <strong id="success-order-id" style="color:var(--white);">JK-20260521-000</strong>
+        </div>
+        <div class="summary-row">
+          <span>学生姓名 (Student)</span>
+          <span id="success-student-name">-</span>
+        </div>
+        <div class="summary-row">
+          <span>WhatsApp 手机</span>
+          <span id="success-whatsapp">-</span>
+        </div>
+        <div class="summary-row">
+          <span>电子邮箱 (Email)</span>
+          <span id="success-email">-</span>
+        </div>
+        <div class="summary-row">
+          <span>购买科目课程</span>
+          <span id="success-course-title" style="font-weight:700; color:var(--purple);">-</span>
+        </div>
+        <div class="summary-row">
+          <span>支付渠道方式</span>
+          <span id="success-payment-method">-</span>
+        </div>
+        <div class="summary-row" style="border-top:1px dashed var(--border-color); padding-top:8px; font-weight:800; font-size:14px;">
+          <span>实付总额 (Paid Total)</span>
+          <span id="success-total" style="color:var(--pink);">RM 0.00</span>
+        </div>
+      </div>
+      
+      <!-- Helpline contact -->
+      <p style="font-size:11px; color: var(--grey-muted); margin-top:25px;">
+        如果您在加入班群或登录时有任何疑问，请点击右下角 WhatsApp 联系我们。
+      </p>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/main.js?v=1.0.4"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // 1. 获取 URL 中的订单编号
+      const params = new URLSearchParams(window.location.search);
+      const orderId = params.get("orderId");
+
+      if (!orderId) {
+        alert("未找到有效订单！我们将返回商城首页。");
+        window.location.href = "index.html";
+        return;
+      }
+
+      // 2. 从本地数据库获取订单详情
+      const order = OrderDB.getById(orderId);
+      if (!order) {
+        alert("数据库中不存在此订单记录！将跳转回商城。");
+        window.location.href = "shop.html";
+        return;
+      }
+
+      // 3. 动态渲染所有回显数据
+      document.getElementById("success-order-id").textContent = order.id;
+      document.getElementById("success-student-name").textContent = order.studentName;
+      document.getElementById("success-whatsapp").textContent = order.whatsapp;
+      document.getElementById("success-email").textContent = order.email;
+      document.getElementById("success-course-title").textContent = order.courses.join(", ");
+      document.getElementById("success-payment-method").textContent = order.method + ` (${order.status === 'Paid' ? '支付成功' : '待人工审核'})`;
+      document.getElementById("success-total").textContent = `RM ${order.total.toFixed(2)}`;
+
+      // 4. 配置 Onboarding WhatsApp 班群动态加入链接
+      const whatsappGroupText = encodeURIComponent(`您好！我是刚刚报名 Jack 老师历史课程的学生 ${order.studentName}，我的订单号是 ${order.id}，请协助拉我入班级专属 Zoom/讲义下发大群，谢谢！`);
+      const whatsappOnboardingLink = `https://wa.me/60123456789?text=${whatsappGroupText}`;
+      document.getElementById("btn-success-whatsapp-join").href = whatsappOnboardingLink;
+
+      // 清除购物车痕迹，同步徽标
+      Cart.updateUI();
+    });
+  </script>
+</body>
+</html>

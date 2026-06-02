@@ -1,0 +1,2545 @@
+<!DOCTYPE html>
+<html lang="zh" class="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Jack Jack 老师</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            border: '#27272a',
+            background: '#09090b',
+            foreground: '#fafafa',
+            card: '#18181b',
+            muted: '#71717a',
+            pinkBrand: '#ec4899',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    /* Simple Custom Scrollbars for Tailwind dark style */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #09090b;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #27272a;
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3f3f46;
+    }
+  </style>
+</head>
+
+<body class="bg-[#09090b] text-[#fafafa] min-h-screen flex flex-col antialiased">
+
+  <!-- Header Navigation -->
+  <header class="sticky top-0 z-50 w-full border-b border-zinc-800 bg-zinc-950/80 backdrop-blur">
+    <div class="flex h-14 items-center justify-between px-6 max-w-[1400px] mx-auto">
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <img src="images/Jack_logo.png" alt="JackJack老师"
+          class="w-8 h-8 rounded-full object-cover ring-1 ring-zinc-800 group-hover:ring-zinc-700 transition-all">
+        <span class="font-extrabold text-sm tracking-tight text-zinc-100">
+          Jack<span class="text-pinkBrand ml-0.5">Jack老师</span>
+        </span>
+      </a>
+      <div class="flex items-center gap-2">
+        <span
+          class="inline-flex items-center gap-1.5 rounded-full border border-pink-500/30 bg-pink-500/10 px-3 py-1 text-xs font-semibold text-pink-400">
+          <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i>
+          管理员控制台 (ADMIN)
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Admin Panel Layout -->
+  <div class="flex-1 flex max-w-[1400px] w-full mx-auto px-6 py-6 gap-6 items-start">
+
+    <!-- 1. Sidebar Nav -->
+    <aside class="w-60 shrink-0 sticky top-20 flex flex-col gap-1 border border-zinc-800 bg-zinc-900 rounded-xl p-3">
+      <button
+        class="sidebar-link w-full flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition-all text-zinc-100 bg-zinc-800"
+        onclick="switchAdminTab('overview', this)">
+        <i data-lucide="trending-up" class="w-4 h-4"></i>
+        <span>Sales Dashboard</span>
+      </button>
+      <button
+        class="sidebar-link w-full flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition-all text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50"
+        onclick="switchAdminTab('courses', this)">
+        <i data-lucide="package" class="w-4 h-4"></i>
+        <span>Course Config</span>
+      </button>
+      <button
+        class="sidebar-link w-full flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition-all text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50"
+        onclick="switchAdminTab('orders', this)">
+        <i data-lucide="receipt" class="w-4 h-4"></i>
+        <span>Orders Review</span>
+      </button>
+      <button
+        class="sidebar-link w-full flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition-all text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50"
+        onclick="switchAdminTab('students', this)">
+        <i data-lucide="users" class="w-4 h-4"></i>
+        <span>Student Profiles</span>
+      </button>
+      <button
+        class="sidebar-link w-full flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition-all text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50"
+        onclick="switchAdminTab('hero', this)">
+        <i data-lucide="layout-template" class="w-4 h-4"></i>
+        <span>Hero Carousel</span>
+      </button>
+      <button
+        class="sidebar-link w-full flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition-all text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50"
+        onclick="switchAdminTab('schedule', this)">
+        <i data-lucide="calendar" class="w-4 h-4"></i>
+        <span>Schedule Config</span>
+      </button>
+      <button
+        class="sidebar-link w-full flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition-all text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50"
+        onclick="switchAdminTab('testimonials', this)">
+        <i data-lucide="play-circle" class="w-4 h-4"></i>
+        <span>Video Testimonials</span>
+      </button>
+
+      <div class="mt-8 pt-3 border-t border-zinc-850 text-[10px] text-zinc-600 text-center font-mono">
+        EduHero Admin v1.1.0
+      </div>
+    </aside>
+
+    <!-- 2. Main Tab Contents -->
+    <main class="flex-1 min-w-0 bg-zinc-900 border border-zinc-800 rounded-xl p-6 min-h-[600px]">
+
+      <!-- ================= Tab 1: Overview Sales ================= -->
+      <section id="tab-admin-overview" class="admin-tab-view space-y-6">
+        <div class="flex flex-col gap-1 border-b border-zinc-800 pb-4">
+          <h1 class="text-2xl font-bold tracking-tight flex items-center gap-2 text-zinc-100">
+            <i data-lucide="trending-up" class="w-6 h-6 text-pinkBrand"></i>
+            Sales Dashboard& Core Data Overview
+          </h1>
+          <p class="text-xs text-zinc-400">Real-time analysis of student registrations, order conversions, and revenue breakdown.</p>
+        </div>
+
+        <!-- Metrics Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-5 flex items-center gap-4">
+            <div class="w-12 h-12 rounded-lg bg-pink-500/10 flex items-center justify-center shrink-0">
+              <i data-lucide="coins" class="w-6 h-6 text-pink-400"></i>
+            </div>
+            <div>
+              <div id="stat-revenue" class="text-2xl font-extrabold tracking-tight text-zinc-50">RM 0.00</div>
+              <div class="text-xs text-zinc-400 font-medium">总销售额 (Paid)</div>
+            </div>
+          </div>
+          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-5 flex items-center gap-4">
+            <div class="w-12 h-12 rounded-lg bg-purple-500/10 flex items-center justify-center shrink-0">
+              <i data-lucide="receipt" class="w-6 h-6 text-purple-400"></i>
+            </div>
+            <div>
+              <div id="stat-orders" class="text-2xl font-extrabold tracking-tight text-zinc-50">0</div>
+              <div class="text-xs text-zinc-400 font-medium">订单总数 (全部Status)</div>
+            </div>
+          </div>
+          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-5 flex items-center gap-4">
+            <div class="w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center shrink-0">
+              <i data-lucide="users" class="w-6 h-6 text-emerald-400"></i>
+            </div>
+            <div>
+              <div id="stat-students" class="text-2xl font-extrabold tracking-tight text-zinc-50">0</div>
+              <div class="text-xs text-zinc-400 font-medium">注册学生总数</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Transactions -->
+        <div class="space-y-3">
+          <h3 class="text-sm font-bold tracking-tight text-zinc-200 flex items-center gap-1.5">
+            <i data-lucide="clock" class="w-4 h-4 text-zinc-400"></i>
+            Real-time流水直播源:
+          </h3>
+          <div class="overflow-x-auto border border-zinc-800 rounded-lg">
+            <table class="w-full text-sm text-left text-zinc-300">
+              <thead class="text-xs text-zinc-400 uppercase bg-zinc-950 border-b border-zinc-800">
+                <tr>
+                  <th class="px-4 py-3 font-semibold">订单编号</th>
+                  <th class="px-4 py-3 font-semibold">Student Name (年级)</th>
+                  <th class="px-4 py-3 font-semibold">WhatsApp</th>
+                  <th class="px-4 py-3 font-semibold">已选课程</th>
+                  <th class="px-4 py-3 font-semibold">Amount</th>
+                  <th class="px-4 py-3 font-semibold">支付渠道</th>
+                  <th class="px-4 py-3 font-semibold">Status</th>
+                </tr>
+              </thead>
+              <tbody id="overview-orders-tbody" class="divide-y divide-zinc-800 bg-zinc-900/50">
+                <!-- Dynamic load -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= Tab 2: Course Product Configuration ================= -->
+      <section id="tab-admin-courses" class="admin-tab-view space-y-6" style="display:none;">
+        <div class="flex flex-col gap-4 border-b border-zinc-800 pb-4 md:flex-row md:items-center md:justify-between">
+          <div class="space-y-1">
+            <h1 class="text-2xl font-bold tracking-tight flex items-center gap-2 text-zinc-100">
+              <i data-lucide="package" class="w-6 h-6 text-pinkBrand"></i>
+              课程信息配置中心
+            </h1>
+            <p class="text-xs text-zinc-400">在此统一配置与上线 Form 1 至 Form 5 Sejarah 等课程包与课程定价。</p>
+          </div>
+          <button onclick="toggleAddCourseForm()"
+            class="inline-flex items-center gap-1.5 rounded-lg bg-zinc-50 px-4 py-2 text-xs font-semibold text-zinc-950 hover:bg-zinc-200 transition-colors shadow">
+            <i data-lucide="plus-circle" class="w-4 h-4"></i>
+            创建新课程包
+          </button>
+        </div>
+
+        <!-- Dynamic Course Creator Form -->
+        <div id="course-creator-form-box" class="bg-zinc-950 border border-zinc-800 rounded-xl p-5 space-y-4"
+          style="display:none;">
+          <h3 id="course-form-header-title"
+            class="text-sm font-bold tracking-tight text-pinkBrand flex items-center gap-2 border-b border-zinc-800 pb-2">
+            <i data-lucide="file-edit" class="w-4 h-4"></i>
+            配置并上线新课程
+          </h3>
+          <form id="admin-add-course-form" onsubmit="handleCreateCourse(event)" class="space-y-4" novalidate>
+            <input type="hidden" id="add-id" value="">
+            
+            <!-- Sections are now linear for better UX -->
+            
+            <!-- Section 1: Basic Info -->
+            <div class="course-form-panel space-y-4 pt-2" id="panel-basic">
+              <h4 class="text-pinkBrand font-bold text-sm">1. Basic Info</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="add-title">课程名称 *</label>
+                  <input type="text" id="add-title"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    placeholder="如：SPM Sejarah 冲刺正课班" required>
+                </div>
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="add-subtitle">副标题 (短描述) *</label>
+                  <input type="text" id="add-subtitle"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    placeholder="如：中五历史考前冲刺班" required>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="add-form">适用年级 *</label>
+                  <select id="add-form"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    required>
+                    <option value="Form 5">Form 5</option>
+                    <option value="Form 4">Form 4</option>
+                    <option value="Form 3">Form 3</option>
+                    <option value="Form 2">Form 2</option>
+                    <option value="Form 1">Form 1</option>
+                    <option value="Form 1-5 全Form适用">Form 1-5 全Form适用</option>
+                  </select>
+                </div>
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="add-subject">科目 *</label>
+                  <select id="add-subject"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    required>
+                    <option value="Sejarah">Sejarah 历史科</option>
+                    <option value="Mathematics">Mathematics 数学科</option>
+                    <option value="BM">BM 马来文科</option>
+                  </select>
+                </div>
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="add-type">课程包类别 *</label>
+                  <select id="add-type"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    required>
+                    <option value="Live Class">直播课 (Live Class)</option>
+                    <option value="Trial Attack">冲刺班 (Trial Attack)</option>
+                    <option value="Topic Focus">专题班 (Topic Focus)</option>
+                    <option value="Objective Booster">选择题提分班 (Objective Booster)</option>
+                    <option value="Revision Class">基础复习班 (Revision Class)</option>
+                    <option value="Study Material">教材教辅 (Study Material)</option>
+                    <option value="VIP Bundle">特惠大礼包 (VIP Bundle)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="add-badge">特色角标 (Badge) *</label>
+                  <select id="add-badge"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    required>
+                    <option value="Best Seller">Best Seller</option>
+                    <option value="Hot">热卖爆款 (Hot)</option>
+                    <option value="New">全新课包 (New)</option>
+                    <option value="Limited Seats">名额稀缺 (Limited Seats)</option>
+                    <option value="Enrollment Open">开启招募中 (Enrollment Open)</option>
+                  </select>
+                </div>
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="add-time">Time及排课大纲文案 *</label>
+                  <input type="text" id="add-time"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    placeholder="例：每周固定直播授课 1.5 小时" required>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="add-img-back">卡片后层Image路径 (相对路径或粘贴编码) *</label>
+                  <div class="flex gap-2">
+                    <input type="text" id="add-img-back"
+                      class="flex h-9 flex-1 rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                      placeholder="例：images/Card_Photo/IMG_7567 (1).png" required>
+                    <label class="flex items-center justify-center rounded-md border border-zinc-800 bg-zinc-900 text-xs px-3 hover:bg-zinc-800 cursor-pointer">
+                      上传
+                      <input type="file" class="hidden" accept="image/*" onchange="handleCompressedImageUpload(this, 'add-img-back')">
+                    </label>
+                  </div>
+                </div>
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="add-img-front">卡片前层叠Image路径 *</label>
+                  <div class="flex gap-2">
+                    <input type="text" id="add-img-front"
+                      class="flex h-9 flex-1 rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                      placeholder="例：images/Card_Photo/card4-students-A.png" required>
+                    <label class="flex items-center justify-center rounded-md border border-zinc-800 bg-zinc-900 text-xs px-3 hover:bg-zinc-800 cursor-pointer">
+                      上传
+                      <input type="file" class="hidden" accept="image/*" onchange="handleCompressedImageUpload(this, 'add-img-front')">
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 2: Pricing & Details -->
+            <div class="course-form-panel space-y-4 pt-4 border-t border-zinc-800 mt-4" id="panel-pricing">
+              <h4 class="text-pinkBrand font-bold text-sm">2. Pricing & Highlights</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="add-price1month">1 个月套餐优惠价 (RM) *</label>
+                  <input type="number" step="0.01" id="add-price1month"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    placeholder="例：49.00" required>
+                </div>
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="add-price1month-orig">1 个月套餐原价 (RM) *</label>
+                  <input type="number" step="0.01" id="add-price1month-orig"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    placeholder="例：99.00" required>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="add-price3month">3 个月套餐优惠价 (RM) <span>(非套餐填0)</span> *</label>
+                  <input type="number" step="0.01" id="add-price3month"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    value="0" required>
+                </div>
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="add-price3month-orig">3 个月套餐原价 (RM) <span>(非套餐填0)</span> *</label>
+                  <input type="number" step="0.01" id="add-price3month-orig"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    value="0" required>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="add-teaching-method">授课方式 *</label>
+                  <input type="text" id="add-teaching-method"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    placeholder="如：Zoom 直播课" required>
+                </div>
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="add-duration">单次授课时长 *</label>
+                  <input type="text" id="add-duration"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    placeholder="如：1.5 小时" required>
+                </div>
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="add-target-audience">适合对象 *</label>
+                  <input type="text" id="add-target-audience"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    placeholder="如：Form 1 - Form 5" required>
+                </div>
+              </div>
+
+              <div class="space-y-1">
+                <label class="text-xs font-medium text-zinc-300" for="add-features">课程高亮特色亮点 <span>(每行一条)</span> *</label>
+                <textarea id="add-features"
+                  class="flex w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                  placeholder="配套高画质彩色 PDF 与实体资料邮寄&#10;课后提供高清录像回放复习&#10;专属 WhatsApp 学习答疑辅导" rows="3" required style="resize:vertical;"></textarea>
+              </div>
+            </div>
+
+            <!-- Section 3: Syllabus -->
+            <div class="course-form-panel space-y-4 pt-4 border-t border-zinc-800 mt-4" id="panel-content">
+              <h4 class="text-pinkBrand font-bold text-sm">3. Syllabus & Features</h4>
+              <div class="grid grid-cols-1 gap-4">
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="add-about-title">详情介绍板块标题 *</label>
+                  <input type="text" id="add-about-title"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    placeholder="如：关于本课程" required>
+                </div>
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="add-about-text">课程详细长描述 *</label>
+                  <textarea id="add-about-text"
+                    class="flex w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    placeholder="死记硬背记不住、主观大题不会拆解、感觉历史拿不到方向？这是专为基础薄弱以及想要冲刺A+的同学设计的Sejarah冲刺班。&#10;Jack 老师通过15年的教学经验，总结出“万能解题法”，用最接地气的小故事把硬核大纲讲活，让你一听就会，做题思路爆棚。" rows="4" required style="resize:vertical;"></textarea>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 gap-4">
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="add-syllabus-title">提分大纲板块标题 *</label>
+                  <input type="text" id="add-syllabus-title"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    placeholder="如：上课大纲" required>
+                </div>
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="add-syllabus-text">大纲课程要点 <span>(每行一条)</span> *</label>
+                  <textarea id="add-syllabus-text"
+                    class="flex w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    placeholder="第一阶段：核心历史事件梳理与脉络构建&#10;第二阶段：高频考点预测与 KBAT 答题套路解析&#10;第三阶段：历年真题实战演练与丢分盲区排雷" rows="3" required style="resize:vertical;"></textarea>
+                </div>
+              </div>
+              <h4 class="text-xs font-bold text-pinkBrand uppercase tracking-wider pb-1 border-b border-zinc-800">课程FAQs (最多配置3组)</h4>
+              
+              <!-- FAQ 1 -->
+              <div class="bg-zinc-900/30 p-3 rounded-lg border border-zinc-800 space-y-2">
+                <div class="space-y-1">
+                  <label class="text-[11px] font-semibold text-zinc-400">FAQ Q1</label>
+                  <input type="text" id="add-faq-q-1" class="flex h-8 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-xs text-zinc-100" placeholder="常见疑问 1">
+                </div>
+                <div class="space-y-1">
+                  <label class="text-[11px] font-semibold text-zinc-400">专属解答 A1</label>
+                  <input type="text" id="add-faq-a-1" class="flex h-8 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-xs text-zinc-100" placeholder="问题 1 解答">
+                </div>
+              </div>
+
+              <!-- FAQ 2 -->
+              <div class="bg-zinc-900/30 p-3 rounded-lg border border-zinc-800 space-y-2">
+                <div class="space-y-1">
+                  <label class="text-[11px] font-semibold text-zinc-400">FAQ Q2</label>
+                  <input type="text" id="add-faq-q-2" class="flex h-8 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-xs text-zinc-100" placeholder="常见疑问 2">
+                </div>
+                <div class="space-y-1">
+                  <label class="text-[11px] font-semibold text-zinc-400">专属解答 A2</label>
+                  <input type="text" id="add-faq-a-2" class="flex h-8 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-xs text-zinc-100" placeholder="问题 2 解答">
+                </div>
+              </div>
+
+              <!-- FAQ 3 -->
+              <div class="bg-zinc-900/30 p-3 rounded-lg border border-zinc-800 space-y-2">
+                <div class="space-y-1">
+                  <label class="text-[11px] font-semibold text-zinc-400">FAQ Q3</label>
+                  <input type="text" id="add-faq-q-3" class="flex h-8 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-xs text-zinc-100" placeholder="常见疑问 3">
+                </div>
+                <div class="space-y-1">
+                  <label class="text-[11px] font-semibold text-zinc-400">专属解答 A3</label>
+                  <input type="text" id="add-faq-a-3" class="flex h-8 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-xs text-zinc-100" placeholder="问题 3 解答">
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 4: Media & Testimonials -->
+            <div class="course-form-panel space-y-4 pt-4 border-t border-zinc-800 mt-4" id="panel-media">
+              <h4 class="text-pinkBrand font-bold text-sm">4. Media & Testimonials</h4>
+              <!-- Gallery Block -->
+              <h4 class="text-xs font-bold text-pinkBrand uppercase tracking-wider pb-1 border-b border-zinc-800">产品大图/Video展示相册 (最多3项)</h4>
+              
+              <!-- Gal Item 1 -->
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-2 items-center bg-zinc-900/30 p-2.5 rounded-lg border border-zinc-800/60">
+                <select id="add-gal-type-1" class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-xs text-zinc-100 focus:outline-none focus:ring-1">
+                  <option value="image">媒体1：相册Image</option>
+                  <option value="video">媒体1：相册Video</option>
+                </select>
+                <input type="text" id="add-gal-src-1" class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2 py-1 text-xs text-zinc-100 placeholder:text-zinc-600" placeholder="images/Card_Photo/IMG_7567 (1).png">
+                <label class="flex items-center justify-center rounded-md border border-zinc-800 bg-zinc-900 text-xs px-2.5 h-9 hover:bg-zinc-800 cursor-pointer text-center">
+                  上传文件
+                  <input type="file" class="hidden" accept="image/*,video/*" onchange="const t=document.getElementById('add-gal-type-1').value; if(t==='image'){handleCompressedImageUpload(this,'add-gal-src-1')}else{handleVideoUpload(this,'add-gal-src-1')}">
+                </label>
+              </div>
+
+              <!-- Gal Item 2 -->
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-2 items-center bg-zinc-900/30 p-2.5 rounded-lg border border-zinc-800/60">
+                <select id="add-gal-type-2" class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-xs text-zinc-100 focus:outline-none focus:ring-1">
+                  <option value="image">媒体2：相册Image</option>
+                  <option value="video" selected>媒体2：相册Video</option>
+                </select>
+                <input type="text" id="add-gal-src-2" class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2 py-1 text-xs text-zinc-100 placeholder:text-zinc-600" placeholder="images/SMJK HWA LIAN JACK CROP.mp4">
+                <label class="flex items-center justify-center rounded-md border border-zinc-800 bg-zinc-900 text-xs px-2.5 h-9 hover:bg-zinc-800 cursor-pointer text-center">
+                  上传文件
+                  <input type="file" class="hidden" accept="image/*,video/*" onchange="const t=document.getElementById('add-gal-type-2').value; if(t==='image'){handleCompressedImageUpload(this,'add-gal-src-2')}else{handleVideoUpload(this,'add-gal-src-2')}">
+                </label>
+              </div>
+
+              <!-- Gal Item 3 -->
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-2 items-center bg-zinc-900/30 p-2.5 rounded-lg border border-zinc-800/60">
+                <select id="add-gal-type-3" class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-xs text-zinc-100 focus:outline-none focus:ring-1">
+                  <option value="image">媒体3：相册Image</option>
+                  <option value="video">媒体3：相册Video</option>
+                </select>
+                <input type="text" id="add-gal-src-3" class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2 py-1 text-xs text-zinc-100 placeholder:text-zinc-600" placeholder="images/Card_Photo/card4-students-A.png">
+                <label class="flex items-center justify-center rounded-md border border-zinc-800 bg-zinc-900 text-xs px-2.5 h-9 hover:bg-zinc-800 cursor-pointer text-center">
+                  上传文件
+                  <input type="file" class="hidden" accept="image/*,video/*" onchange="const t=document.getElementById('add-gal-type-3').value; if(t==='image'){handleCompressedImageUpload(this,'add-gal-src-3')}else{handleVideoUpload(this,'add-gal-src-3')}">
+                </label>
+              </div>
+
+              <!-- Testimonials Block -->
+              <h4 class="text-xs font-bold text-pinkBrand uppercase tracking-wider pt-2 pb-1 border-b border-zinc-800">学员口碑提分见证墙 (最多2组)</h4>
+              
+              <!-- Review 1 -->
+              <div class="bg-zinc-900/30 p-3 rounded-lg border border-zinc-800 space-y-2">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <input type="text" id="add-testi-name-1" class="flex h-8 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-xs text-zinc-100" placeholder="Student Name与年级 (如: 王同学 Form 5)">
+                  <div class="flex gap-1.5 items-center">
+                    <select id="add-testi-type-1" class="flex h-8 rounded-md border border-zinc-800 bg-zinc-900 px-1 py-1 text-[11px] text-zinc-100 focus:outline-none w-28">
+                      <option value="image">见证图</option>
+                      <option value="video">Video Testimonials</option>
+                    </select>
+                    <input type="text" id="add-testi-src-1" class="flex h-8 flex-1 rounded-md border border-zinc-800 bg-zinc-900 px-2 py-1 text-[11px] text-zinc-100 placeholder:text-zinc-700" placeholder="见证多媒体路径/Base64">
+                    <label class="flex items-center justify-center rounded-md border border-zinc-800 bg-zinc-900 text-[10px] px-2 h-8 hover:bg-zinc-800 cursor-pointer">
+                      上传
+                      <input type="file" class="hidden" accept="image/*,video/*" onchange="const t=document.getElementById('add-testi-type-1').value; if(t==='image'){handleCompressedImageUpload(this,'add-testi-src-1')}else{handleVideoUpload(this,'add-testi-src-1')}">
+                    </label>
+                  </div>
+                </div>
+                <input type="text" id="add-testi-comment-1" class="flex h-8 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-xs text-zinc-100" placeholder="见证金句感言 (如: “口诀太神奇了，这次Trial直接从不及格狂飙到了A-！”)">
+              </div>
+
+              <!-- Review 2 -->
+              <div class="bg-zinc-900/30 p-3 rounded-lg border border-zinc-800 space-y-2">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <input type="text" id="add-testi-name-2" class="flex h-8 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-xs text-zinc-100" placeholder="Student Name与年级 (如: 李同学 Form 5)">
+                  <div class="flex gap-1.5 items-center">
+                    <select id="add-testi-type-2" class="flex h-8 rounded-md border border-zinc-800 bg-zinc-900 px-1 py-1 text-[11px] text-zinc-100 focus:outline-none w-28">
+                      <option value="image">见证图</option>
+                      <option value="video" selected>Video Testimonials</option>
+                    </select>
+                    <input type="text" id="add-testi-src-2" class="flex h-8 flex-1 rounded-md border border-zinc-800 bg-zinc-900 px-2 py-1 text-[11px] text-zinc-100 placeholder:text-zinc-700" placeholder="见证多媒体路径/Base64">
+                    <label class="flex items-center justify-center rounded-md border border-zinc-800 bg-zinc-900 text-[10px] px-2 h-8 hover:bg-zinc-800 cursor-pointer">
+                      上传
+                      <input type="file" class="hidden" accept="image/*,video/*" onchange="const t=document.getElementById('add-testi-type-2').value; if(t==='image'){handleCompressedImageUpload(this,'add-testi-src-2')}else{handleVideoUpload(this,'add-testi-src-2')}">
+                    </label>
+                  </div>
+                </div>
+                <input type="text" id="add-testi-comment-2" class="flex h-8 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-xs text-zinc-100" placeholder="见证金句感言 (如: “看到大题终于知道怎么下手，写得少又拿到满分！”)">
+              </div>
+            </div>
+
+            <div class="flex items-center justify-end gap-3 pt-2">
+              <button type="button" onclick="toggleAddCourseForm()"
+                class="inline-flex items-center justify-center rounded-md text-xs font-medium border border-zinc-800 bg-zinc-900 text-zinc-300 px-4 py-2 hover:bg-zinc-800 transition-colors">Cancel</button>
+              <button type="submit"
+                class="inline-flex items-center gap-1 justify-center rounded-md text-xs font-medium bg-zinc-50 text-zinc-950 px-4 py-2 hover:bg-zinc-200 transition-colors shadow">
+                <i data-lucide="check" class="w-3.5 h-3.5"></i>Save and Publish
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Courses Table -->
+        <div class="overflow-x-auto border border-zinc-800 rounded-lg">
+          <table class="w-full text-sm text-left text-zinc-300">
+            <thead class="text-xs text-zinc-400 uppercase bg-zinc-950 border-b border-zinc-800">
+              <tr>
+                <th class="px-4 py-3 font-semibold">年级</th>
+                <th class="px-4 py-3 font-semibold">学科</th>
+                <th class="px-4 py-3 font-semibold">课程名称</th>
+                <th class="px-4 py-3 font-semibold">优惠价</th>
+                <th class="px-4 py-3 font-semibold">原价</th>
+                <th class="px-4 py-3 font-semibold">Status标签</th>
+                <th class="px-4 py-3 font-semibold">操作</th>
+              </tr>
+            </thead>
+            <tbody id="admin-courses-tbody" class="divide-y divide-zinc-800 bg-zinc-900/50">
+              <!-- Dynamic load -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================= Tab 3: Order Transaction CRM ================= -->
+      <section id="tab-admin-orders" class="admin-tab-view space-y-6" style="display:none;">
+        <div class="flex flex-col gap-1 border-b border-zinc-800 pb-4">
+          <h1 class="text-2xl font-bold tracking-tight flex items-center gap-2 text-zinc-100">
+            <i data-lucide="receipt" class="w-6 h-6 text-pinkBrand"></i>
+            手动汇款Orders Review CRM
+          </h1>
+          <p class="text-xs text-zinc-400">核对并确认网银线下转账收条，通过后一键秒级放行学生账号并开通课程中心。</p>
+        </div>
+
+        <div class="overflow-x-auto border border-zinc-800 rounded-lg">
+          <table class="w-full text-sm text-left text-zinc-300">
+            <thead class="text-xs text-zinc-400 uppercase bg-zinc-950 border-b border-zinc-800">
+              <tr>
+                <th class="px-4 py-3 font-semibold">订单流水号</th>
+                <th class="px-4 py-3 font-semibold">提交日期</th>
+                <th class="px-4 py-3 font-semibold">Student Name (年级)</th>
+                <th class="px-4 py-3 font-semibold">WhatsApp</th>
+                <th class="px-4 py-3 font-semibold">报读产品包</th>
+                <th class="px-4 py-3 font-semibold">付款金额</th>
+                <th class="px-4 py-3 font-semibold">渠道</th>
+                <th class="px-4 py-3 font-semibold">支付Status</th>
+                <th class="px-4 py-3 font-semibold">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-orders-tbody" class="divide-y divide-zinc-800 bg-zinc-900/50">
+              <!-- Dynamic load -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================= Tab 4: Student 画像名录 ================= -->
+      <section id="tab-admin-students" class="admin-tab-view space-y-6" style="display:none;">
+        <div class="flex flex-col gap-1 border-b border-zinc-800 pb-4">
+          <h1 class="text-2xl font-bold tracking-tight flex items-center gap-2 text-zinc-100">
+            <i data-lucide="users" class="w-6 h-6 text-pinkBrand"></i>
+            学员名录及画像管理中心
+          </h1>
+          <p class="text-xs text-zinc-400">追踪和浏览所有已购课学生家长档案，管理学情记录和统计报读课程深度。</p>
+        </div>
+
+        <div class="overflow-x-auto border border-zinc-800 rounded-lg">
+          <table class="w-full text-sm text-left text-zinc-300">
+            <thead class="text-xs text-zinc-400 uppercase bg-zinc-950 border-b border-zinc-800">
+              <tr>
+                <th class="px-4 py-3 font-semibold">Student Name</th>
+                <th class="px-4 py-3 font-semibold">Parent Name</th>
+                <th class="px-4 py-3 font-semibold">WhatsApp</th>
+                <th class="px-4 py-3 font-semibold">Email Address</th>
+                <th class="px-4 py-3 font-semibold">Grade / Form</th>
+                <th class="px-4 py-3 font-semibold">School Name</th>
+                <th class="px-4 py-3 font-semibold text-center">Plan Depth</th>
+              </tr>
+            </thead>
+            <tbody id="admin-students-tbody" class="divide-y divide-zinc-800 bg-zinc-900/50">
+              <!-- Dynamic load -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================= Tab 5: Hero Cards Configuration ================= -->
+      <section id="tab-admin-hero" class="admin-tab-view space-y-6" style="display:none;">
+        <div class="flex flex-col gap-4 border-b border-zinc-800 pb-4 md:flex-row md:items-center md:justify-between">
+          <div class="space-y-1">
+            <h1 class="text-2xl font-bold tracking-tight flex items-center gap-2 text-zinc-100">
+              <i data-lucide="layout-template" class="w-6 h-6 text-pinkBrand"></i>
+              Hero Cards Configuration
+            </h1>
+            <p class="text-xs text-zinc-400">Configure hero testimonials and upload Base64 images directly.</p>
+          </div>
+          <button onclick="toggleAddHeroCardForm()"
+            class="inline-flex items-center gap-1.5 rounded-lg bg-zinc-50 px-4 py-2 text-xs font-semibold text-zinc-950 hover:bg-zinc-200 transition-colors shadow">
+            <i data-lucide="plus-circle" class="w-4 h-4"></i>
+            Add Hero Card
+          </button>
+        </div>
+
+        <!-- Dynamic Hero Card Creator Form -->
+        <div id="hero-card-creator-form-box" class="bg-zinc-950 border border-zinc-800 rounded-xl p-5 space-y-4"
+          style="display:none;">
+          <h3 id="hero-form-title"
+            class="text-sm font-bold tracking-tight text-pinkBrand flex items-center gap-2 border-b border-zinc-800 pb-2">
+            <i data-lucide="file-edit" class="w-4 h-4"></i>
+            新增提分榜卡片
+          </h3>
+          <form id="admin-hero-card-form" onsubmit="handleSaveHeroCard(event)" class="space-y-4" novalidate>
+            <input type="hidden" id="hero-card-id" value="">
+
+            <div class="space-y-1">
+              <label class="text-xs font-medium text-zinc-300" for="hero-title">Highlight Title (e.g. From 9 to 97!) *</label>
+              <input type="text" id="hero-title"
+                class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                placeholder="如：从 9 分狂飙至 97 分! 🔥" required>
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-xs font-medium text-zinc-300" for="hero-desc">Detailed Testimonial Description *</label>
+              <textarea id="hero-desc"
+                class="flex w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                placeholder="描述学生遇到的问题及逆袭经过，字数适中最佳..." rows="3" required style="resize:vertical;"></textarea>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="space-y-1">
+                <label class="text-xs font-medium text-zinc-300" for="hero-img-file">Upload Image (Base64)</label>
+                <input type="file" id="hero-img-file"
+                  class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                  accept="image/*" onchange="handleHeroImageUpload(this)">
+                <span id="hero-upload-status" class="text-[10px] text-emerald-400 font-semibold block mt-1"></span>
+              </div>
+              <div class="space-y-1">
+                <label class="text-xs font-medium text-zinc-300" for="hero-img-path">Or specify Image URL path</label>
+                <input type="text" id="hero-img-path"
+                  class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                  placeholder="如：images/testimonials/1.png">
+              </div>
+            </div>
+
+            <!-- Preview Image Box -->
+            <div id="hero-img-preview-box" class="space-y-1" style="display:none;">
+              <label class="text-xs font-medium text-zinc-400">Image Preview:</label>
+              <img id="hero-img-preview" src="" alt="Image Preview"
+                class="max-h-[120px] rounded-lg border border-zinc-800 bg-zinc-950 p-1 object-contain block">
+            </div>
+
+            <div class="flex items-center justify-end gap-3 pt-2">
+              <button type="button" onclick="toggleAddHeroCardForm()"
+                class="inline-flex items-center justify-center rounded-md text-xs font-medium border border-zinc-800 bg-zinc-900 text-zinc-300 px-4 py-2 hover:bg-zinc-800 transition-colors">Cancel</button>
+              <button type="submit"
+                class="inline-flex items-center gap-1 justify-center rounded-md text-xs font-medium bg-zinc-50 text-zinc-950 px-4 py-2 hover:bg-zinc-200 transition-colors shadow">
+                <i data-lucide="check" class="w-3.5 h-3.5"></i>Save and Publish
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Hero Cards Grid / Table -->
+        <div class="overflow-x-auto border border-zinc-800 rounded-lg">
+          <table class="w-full text-sm text-left text-zinc-300">
+            <thead class="text-xs text-zinc-400 uppercase bg-zinc-950 border-b border-zinc-800">
+              <tr>
+                <th class="px-4 py-3 font-semibold">Thumbnail</th>
+                <th class="px-4 py-3 font-semibold">Title</th>
+                <th class="px-4 py-3 font-semibold">Description</th>
+                <th class="px-4 py-3 font-semibold">Image存储格式</th>
+                <th class="px-4 py-3 font-semibold">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-hero-cards-tbody" class="divide-y divide-zinc-800 bg-zinc-900/50">
+              <!-- Dynamic load -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================= Tab 6: Schedule Config ================= -->
+      <section id="tab-admin-schedule" class="admin-tab-view space-y-6" style="display:none;">
+        <div class="flex flex-col gap-4 border-b border-zinc-800 pb-4 md:flex-row md:items-center md:justify-between">
+          <div class="space-y-1">
+            <h1 class="text-2xl font-bold tracking-tight flex items-center gap-2 text-zinc-100">
+              <i data-lucide="calendar" class="w-6 h-6 text-pinkBrand"></i>
+              直播课表调度中心
+            </h1>
+            <p class="text-xs text-zinc-400">Real-time调整与安排 Jack 老师每周固定直播课时表，数据同步至前台课表页面。</p>
+          </div>
+          <button onclick="toggleAddScheduleForm()"
+            class="inline-flex items-center gap-1.5 rounded-lg bg-zinc-50 px-4 py-2 text-xs font-semibold text-zinc-950 hover:bg-zinc-200 transition-colors shadow">
+            <i data-lucide="plus-circle" class="w-4 h-4"></i>
+            排期新排课
+          </button>
+        </div>
+
+        <!-- Dynamic Schedule Creator Form -->
+        <div id="schedule-creator-form-box" class="bg-zinc-950 border border-zinc-800 rounded-xl p-5 space-y-4"
+          style="display:none;">
+          <h3 id="schedule-form-title"
+            class="text-sm font-bold tracking-tight text-pinkBrand flex items-center gap-2 border-b border-zinc-800 pb-2">
+            <i data-lucide="file-edit" class="w-4 h-4"></i>
+            配置并排期上课Time段
+          </h3>
+          <form id="admin-schedule-form" onsubmit="handleSaveSchedule(event)" class="space-y-4" novalidate>
+            <input type="hidden" id="schedule-id" value="">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="space-y-1">
+                <label class="text-xs font-medium text-zinc-300" for="schedule-day">星期排期选项 *</label>
+                <select id="schedule-day"
+                  class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                  required>
+                  <option value="Thursday (星期四)">Thursday (星期四)</option>
+                  <option value="Saturday (星期六)">Saturday (星期六)</option>
+                  <option value="Sunday (星期日)">Sunday (星期日)</option>
+                  <option value="Monday (星期一)">Monday (星期一)</option>
+                  <option value="Tuesday (星期二)">Tuesday (星期二)</option>
+                  <option value="Wednesday (星期三)">Wednesday (星期三)</option>
+                  <option value="Friday (星期五)">Friday (星期五)</option>
+                  <option value="Every Sunday (每周日)">Every Sunday (每周日)</option>
+                </select>
+              </div>
+              <div class="space-y-1">
+                <label class="text-xs font-medium text-zinc-300" for="schedule-time">准确上课Time段 *</label>
+                <input type="text" id="schedule-time"
+                  class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                  placeholder="如：8:00 PM - 10:00 PM" required>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="space-y-1">
+                <label class="text-xs font-medium text-zinc-300" for="schedule-course-select">关联年级/在售课程 *</label>
+                <select id="schedule-course-select"
+                  class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                  required onchange="handleScheduleCourseSelect(this)">
+                  <!-- Loaded dynamically -->
+                </select>
+              </div>
+              <div class="space-y-1">
+                <label class="text-xs font-medium text-zinc-300" for="schedule-teacher">主讲导师 *</label>
+                <input type="text" id="schedule-teacher"
+                  class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                  value="Teacher Jack" required>
+              </div>
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-xs font-medium text-zinc-300" for="schedule-course-title">展示用课程全称 *</label>
+              <input type="text" id="schedule-course-title"
+                class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                placeholder="请输入前台完整显示的课程长标题" required>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="space-y-1">
+                <label class="text-xs font-medium text-zinc-300" for="schedule-format">授课硬核配置 *</label>
+                <input type="text" id="schedule-format"
+                  class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                  value="Zoom Live Class & Unlimited HD Replays" required>
+              </div>
+              <div class="space-y-1">
+                <label class="text-xs font-medium text-zinc-300" for="schedule-status">班次招募角标 *</label>
+                <select id="schedule-status"
+                  class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                  required>
+                  <option value="Enrollment Open">开启报名中 (Enrollment Open)</option>
+                  <option value="Hot">极其爆满 (Hot)</option>
+                  <option value="Limited Seats">名额紧张 (Limited Seats)</option>
+                  <option value="New Class">新开班次 (New Class)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-xs font-medium text-zinc-300" for="schedule-notes">附加赠品福利简述</label>
+              <input type="text" id="schedule-notes"
+                class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                placeholder="如：包含独家考前预测特权">
+            </div>
+
+            <div class="flex items-center justify-end gap-3 pt-2">
+              <button type="button" onclick="toggleAddScheduleForm()"
+                class="inline-flex items-center justify-center rounded-md text-xs font-medium border border-zinc-800 bg-zinc-900 text-zinc-300 px-4 py-2 hover:bg-zinc-800 transition-colors">Cancel</button>
+              <button type="submit"
+                class="inline-flex items-center gap-1 justify-center rounded-md text-xs font-medium bg-zinc-50 text-zinc-950 px-4 py-2 hover:bg-zinc-200 transition-colors shadow">
+                <i data-lucide="check" class="w-3.5 h-3.5"></i>确认排课并上线
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Schedule Grid Table -->
+        <div class="overflow-x-auto border border-zinc-800 rounded-lg">
+          <table class="w-full text-sm text-left text-zinc-300">
+            <thead class="text-xs text-zinc-400 uppercase bg-zinc-950 border-b border-zinc-800">
+              <tr>
+                <th class="px-4 py-3 font-semibold">排课日期</th>
+                <th class="px-4 py-3 font-semibold">上课Time段</th>
+                <th class="px-4 py-3 font-semibold">关联课程信息</th>
+                <th class="px-4 py-3 font-semibold">主讲师</th>
+                <th class="px-4 py-3 font-semibold">学习体验描述</th>
+                <th class="px-4 py-3 font-semibold">班次Status</th>
+                <th class="px-4 py-3 font-semibold">动作管理</th>
+              </tr>
+            </thead>
+            <tbody id="admin-schedules-tbody" class="divide-y divide-zinc-800 bg-zinc-900/50">
+              <!-- Dynamic load -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================= Tab 7: Testimonial Configuration ================= -->
+      <section id="tab-admin-testimonials" class="admin-tab-view space-y-8" style="display:none;">
+
+        <!-- Video Testimonials Block -->
+        <div class="space-y-6">
+          <div class="flex flex-col gap-4 border-b border-zinc-800 pb-4 md:flex-row md:items-center md:justify-between">
+            <div class="space-y-1">
+              <h1 class="text-2xl font-bold tracking-tight flex items-center gap-2 text-zinc-100">
+                <i data-lucide="play-circle" class="w-6 h-6 text-pinkBrand"></i>
+                Video见证素材库配置中心
+              </h1>
+              <p class="text-xs text-zinc-400">精细化编排首页“听听他们怎么说”Video展示墙，配置高清Video流与特色评分点缀。</p>
+            </div>
+            <button onclick="toggleAddTestimonialForm()"
+              class="inline-flex items-center gap-1.5 rounded-lg bg-zinc-50 px-4 py-2 text-xs font-semibold text-zinc-950 hover:bg-zinc-200 transition-colors shadow">
+              <i data-lucide="plus-circle" class="w-4 h-4"></i>
+              追加新Video Testimonials
+            </button>
+          </div>
+
+          <!-- Video Testimonial Form -->
+          <div id="testimonial-creator-form-box" class="bg-zinc-950 border border-zinc-800 rounded-xl p-5 space-y-4"
+            style="display:none;">
+            <h3 id="testimonial-form-title"
+              class="text-sm font-bold tracking-tight text-pinkBrand flex items-center gap-2 border-b border-zinc-800 pb-2">
+              <i data-lucide="file-edit" class="w-4 h-4"></i>
+              配置并上线提分Video卡片
+            </h3>
+            <form id="admin-testimonial-form" onsubmit="handleSaveTestimonial(event)" class="space-y-4" novalidate>
+              <input type="hidden" id="testimonial-id" value="">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="testimonial-title">Video标题 (高光逆袭语) *</label>
+                  <input type="text" id="testimonial-title"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    placeholder="如：两个月狂砍8A的心路历程! 🔥" required>
+                </div>
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="testimonial-rating">星级评价 (特色推荐度) *</label>
+                  <select id="testimonial-rating"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    required>
+                    <option value="5">★★★★★ (五星级神级好评)</option>
+                    <option value="4">★★★★ (四星级质量极高)</option>
+                    <option value="3">★★★ (三星级主流体验)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="space-y-1">
+                <label class="text-xs font-medium text-zinc-300" for="testimonial-desc">学员具体学习心声 and 感受 *</label>
+                <textarea id="testimonial-desc"
+                  class="flex w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                  placeholder="输入真实的故事背景，字数应长短适中，契合质感..." rows="3" required style="resize:vertical;"></textarea>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="testimonial-vid-file">本地Video素材 (限制 5MB 内)</label>
+                  <input type="file" id="testimonial-vid-file"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    accept="video/*" onchange="handleTestimonialVideoUpload(this)">
+                  <span id="testimonial-vid-upload-status"
+                    class="text-[10px] text-emerald-400 font-semibold block mt-1"></span>
+                </div>
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="testimonial-vid-path">外部Video相对路径/地址 (推荐)</label>
+                  <input type="text" id="testimonial-vid-path"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    placeholder="例：images/testimonials/video/1.mp4">
+                </div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="testimonial-poster-file">本地Video封面图 (自动压缩)</label>
+                  <input type="file" id="testimonial-poster-file"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    accept="image/*" onchange="handleTestimonialPosterUpload(this)">
+                  <span id="testimonial-poster-upload-status"
+                    class="text-[10px] text-emerald-400 font-semibold block mt-1"></span>
+                </div>
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="testimonial-poster-path">外部Video封面图相对路径
+                    (推荐)</label>
+                  <input type="text" id="testimonial-poster-path"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    placeholder="例：images/testimonials/1.png">
+                </div>
+              </div>
+              <div class="flex items-center justify-end gap-3 pt-2">
+                <button type="button" onclick="toggleAddTestimonialForm(true)"
+                  class="inline-flex items-center justify-center rounded-md text-xs font-medium border border-zinc-800 bg-zinc-900 text-zinc-300 px-4 py-2 hover:bg-zinc-800 transition-colors">Cancel并Back to List</button>
+                <button type="submit"
+                  class="inline-flex items-center gap-1 justify-center rounded-md text-xs font-medium bg-zinc-50 text-zinc-950 px-4 py-2 hover:bg-zinc-200 transition-colors shadow">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i>保存并投放
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Video Testimonial Table -->
+          <div class="overflow-x-auto border border-zinc-800 rounded-lg">
+            <table class="w-full text-sm text-left text-zinc-300">
+              <thead class="text-xs text-zinc-400 uppercase bg-zinc-950 border-b border-zinc-800">
+                <tr>
+                  <th class="px-4 py-3 font-semibold">Video见证标题</th>
+                  <th class="px-4 py-3 font-semibold">Rating Stars</th>
+                  <th class="px-4 py-3 font-semibold">Student Background</th>
+                  <th class="px-4 py-3 font-semibold">Cover Poster</th>
+                  <th class="px-4 py-3 font-semibold">Video Resource Path</th>
+                  <th class="px-4 py-3 font-semibold">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-testimonials-tbody" class="divide-y divide-zinc-800 bg-zinc-900/50">
+                <!-- Dynamic load -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <hr class="border-zinc-800">
+
+        <!-- ================= Scrolling Card Testimonials Block ================= -->
+        <div class="space-y-6">
+          <div class="flex flex-col gap-4 border-b border-zinc-800 pb-4 md:flex-row md:items-center md:justify-between">
+            <div class="space-y-1">
+              <h2 class="text-2xl font-bold tracking-tight flex items-center gap-2 text-zinc-100">
+                <i data-lucide="heart" class="w-6 h-6 text-pinkBrand"></i>
+                About Page: 16:9 Scrolling Testimonials Management
+              </h2>
+              <p class="text-xs text-zinc-400">Configure the vertical scrolling testimonial cards for the About page. Upload 16:9 screenshots of report cards.</p>
+            </div>
+            <button onclick="toggleAddScrollingTestimonialForm()"
+              class="inline-flex items-center gap-1.5 rounded-lg bg-zinc-50 px-4 py-2 text-xs font-semibold text-zinc-950 hover:bg-zinc-200 transition-colors shadow">
+              <i data-lucide="plus-circle" class="w-4 h-4"></i>
+              Add 16:9 Testimonial
+            </button>
+          </div>
+
+          <!-- Scrolling Card Creator Form -->
+          <div id="scrolling-testimonial-creator-form-box"
+            class="bg-zinc-950 border border-zinc-800 rounded-xl p-5 space-y-4" style="display:none;">
+            <h3 id="scrolling-form-title"
+              class="text-sm font-bold tracking-tight text-pinkBrand flex items-center gap-2 border-b border-zinc-800 pb-2">
+              <i data-lucide="file-edit" class="w-4 h-4"></i>
+              Create/Edit Scrolling Testimonial
+            </h3>
+            <form id="admin-scrolling-form" onsubmit="handleSaveScrollingTestimonial(event)" class="space-y-4" novalidate>
+              <input type="hidden" id="scrolling-id" value="">
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="scrolling-name">Student Name *</label>
+                  <input type="text" id="scrolling-name"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    placeholder="e.g. Briana Patton" required>
+                </div>
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="scrolling-role">Improvement / Grade *</label>
+                  <input type="text" id="scrolling-role"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    placeholder="e.g. Form 5 (Fail -> A+)" required>
+                </div>
+              </div>
+
+              <div class="space-y-1">
+                <label class="text-xs font-medium text-zinc-300" for="scrolling-text">Detailed Testimonial Text *</label>
+                <textarea id="scrolling-text"
+                  class="flex w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                  placeholder="Write about the student's real experience..." rows="3" required style="resize:vertical;"></textarea>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="scrolling-screenshot-file">Option A: Upload 16:9 Screenshot / Report Card
+                    (Auto-compressed)</label>
+                  <input type="file" id="scrolling-screenshot-file"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    accept="image/*" onchange="handleScrollingImageUpload(this)">
+                  <span id="scrolling-upload-status"
+                    class="text-[10px] text-emerald-400 font-semibold block mt-1"></span>
+                </div>
+                <div class="space-y-1">
+                  <label class="text-xs font-medium text-zinc-300" for="scrolling-screenshot-path">方式
+                    B：粘贴已有截图的相对路径</label>
+                  <input type="text" id="scrolling-screenshot-path"
+                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
+                    placeholder="e.g. images/testimonials/1.png">
+                </div>
+              </div>
+
+              <!-- Live Preview Image Box -->
+              <div id="scrolling-img-preview-box" class="space-y-1" style="display:none;">
+                <label class="text-xs font-medium text-zinc-400">Live Preview (16:9 cropped):</label>
+                <div
+                  class="max-w-[240px] aspect-[16/9] rounded-lg overflow-hidden border border-zinc-800 bg-zinc-950 p-0.5">
+                  <img id="scrolling-img-preview" src="" alt="Screenshot Preview" class="w-full h-full object-cover">
+                </div>
+              </div>
+
+              <div class="flex items-center justify-end gap-3 pt-2">
+                <button type="button" onclick="toggleAddScrollingTestimonialForm(true)"
+                  class="inline-flex items-center justify-center rounded-md text-xs font-medium border border-zinc-800 bg-zinc-900 text-zinc-300 px-4 py-2 hover:bg-zinc-800 transition-colors">Cancel</button>
+                <button type="submit"
+                  class="inline-flex items-center gap-1 justify-center rounded-md text-xs font-medium bg-zinc-50 text-zinc-950 px-4 py-2 hover:bg-zinc-200 transition-colors shadow">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i>Save and Publish
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Scrolling Card Testimonial Table -->
+          <div class="overflow-x-auto border border-zinc-800 rounded-lg">
+            <table class="w-full text-sm text-left text-zinc-300">
+              <thead class="text-xs text-zinc-400 uppercase bg-zinc-950 border-b border-zinc-800">
+                <tr>
+                  <th class="px-4 py-3 font-semibold">Student Name</th>
+                  <th class="px-4 py-3 font-semibold">Grade Improvement</th>
+                  <th class="px-4 py-3 font-semibold">Detailed Feedback</th>
+                  <th class="px-4 py-3 font-semibold">16:9 Screenshot</th>
+                  <th class="px-4 py-3 font-semibold">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-scrolling-tbody" class="divide-y divide-zinc-800 bg-zinc-900/50">
+                <!-- Dynamic load -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <script src="js/app.js?v=1.0.4"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Seed shop cards in admin if not present
+      if (!localStorage.getItem("jackShopCards")) {
+        localStorage.setItem("jackShopCards", JSON.stringify(DEFAULT_SHOP_CARDS));
+      }
+      renderAdminDashboard();
+      if (window.Cart) {
+        Cart.updateUI();
+      }
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+    });
+
+    // 切换后台 Tab 标签
+    function switchAdminTab(tabName, element) {
+      document.querySelectorAll(".sidebar-link").forEach(link => {
+        link.classList.remove("bg-zinc-800", "text-zinc-100");
+        link.classList.add("text-zinc-400", "hover:text-zinc-100", "hover:bg-zinc-800/50");
+      });
+      element.classList.add("bg-zinc-800", "text-zinc-100");
+      element.classList.remove("text-zinc-400", "hover:text-zinc-100", "hover:bg-zinc-800/50");
+
+      document.querySelectorAll(".admin-tab-view").forEach(tab => {
+        tab.style.display = "none";
+      });
+      document.getElementById(`tab-admin-${tabName}`).style.display = "block";
+
+      // 重新渲染对应数据
+      renderAdminDashboard();
+    }
+
+    // 展开/收回动态添加课程的表单
+    function toggleAddCourseForm() {
+      const box = document.getElementById("course-creator-form-box");
+      if (box.style.display === "none") {
+        box.style.display = "block";
+        document.getElementById("add-id").value = "";
+        document.getElementById("course-form-header-title").innerHTML = `<i data-lucide="file-edit" class="w-4 h-4"></i> 配置并上线新课程`;
+        document.getElementById("admin-add-course-form").reset();
+        
+        // Reset subtabs
+        const firstTabBtn = document.querySelector(".course-form-tab-btn");
+        if (firstTabBtn) switchCourseFormTab('basic', firstTabBtn);
+      } else {
+        box.style.display = "none";
+      }
+    }
+
+    // 默认的商户卡片结构 (与 shop.html 对齐)
+    const DEFAULT_SHOP_CARDS = [
+      {
+        id: 'sej-regular',
+        title: 'Sejarah 正课班',
+        subtitle: 'Form 1–5',
+        imgBack: 'images/Card_Photo/IMG_7567 (1).png',
+        imgFront: 'images/Card_Photo/card4-students-A.png',
+        link: 'course-detail.html?id=sej-regular'
+      },
+      {
+        id: 'sej-obj-200',
+        title: '「会说话」Sejarah OBJ 200题宝典',
+        subtitle: 'Form 5',
+        imgBack: 'images/product-book.png',
+        imgFront: 'images/Card_Photo/2.png',
+        link: 'course-detail.html?id=sej-obj-200'
+      },
+      {
+        id: 'sej-trial-f5',
+        title: 'Sejarah SPM 攻攻班',
+        subtitle: 'Form 5',
+        imgBack: 'images/product-course.png',
+        imgFront: 'images/Card_Photo/60.png',
+        link: 'course-detail.html?id=sej-trial-f5'
+      },
+      {
+        id: 'sej-bundle',
+        title: 'Sejarah 万能宝典',
+        subtitle: 'Form 4–5',
+        imgBack: 'images/product-bundle.png',
+        imgFront: 'images/Jack Ler2 (1).png',
+        link: 'course-detail.html?id=sej-bundle'
+      }
+    ];
+
+    // 处理管理员添加/更新课程
+    function handleCreateCourse(e) {
+      e.preventDefault();
+
+      const existingId = document.getElementById("add-id").value;
+      const isEdit = !!existingId;
+      const id = isEdit ? existingId : "sej-custom-" + Date.now();
+
+      const title = document.getElementById("add-title").value.trim();
+      const subtitle = document.getElementById("add-subtitle").value.trim();
+      const form = document.getElementById("add-form").value;
+      const subject = document.getElementById("add-subject").value;
+      const type = document.getElementById("add-type").value;
+      const badge = document.getElementById("add-badge").value;
+      const time = document.getElementById("add-time").value.trim();
+      const imgBack = document.getElementById("add-img-back").value.trim();
+      const imgFront = document.getElementById("add-img-front").value.trim();
+
+      // 1. Plan pricing
+      const price1Month = parseFloat(document.getElementById("add-price1month").value) || 0;
+      const originalPrice1Month = parseFloat(document.getElementById("add-price1month-orig").value) || 0;
+      const price3Month = parseFloat(document.getElementById("add-price3month").value) || 0;
+      const originalPrice3Month = parseFloat(document.getElementById("add-price3month-orig").value) || 0;
+
+      const teachingMethod = document.getElementById("add-teaching-method").value.trim();
+      const duration = document.getElementById("add-duration").value.trim();
+      const targetAudience = document.getElementById("add-target-audience").value.trim();
+
+      const features = document.getElementById("add-features").value.split("\n").map(line => line.trim()).filter(Boolean);
+
+      // 2. Syllabus details
+      const descAboutTitle = document.getElementById("add-about-title").value.trim();
+      const descAboutText = document.getElementById("add-about-text").value.trim();
+      const descSyllabusTitle = document.getElementById("add-syllabus-title").value.trim();
+      const descSyllabusText = document.getElementById("add-syllabus-text").value.trim();
+
+      // 3. Media Gallery
+      const galleryMedia = [];
+      for (let i = 1; i <= 3; i++) {
+        const gType = document.getElementById(`add-gal-type-${i}`).value;
+        const gSrc = document.getElementById(`add-gal-src-${i}`).value.trim();
+        if (gSrc) {
+          galleryMedia.push({ type: gType, src: gSrc });
+        }
+      }
+
+      // 4. Testimonials
+      const testimonials = [];
+      for (let i = 1; i <= 2; i++) {
+        const tName = document.getElementById(`add-testi-name-${i}`).value.trim();
+        const tType = document.getElementById(`add-testi-type-${i}`).value;
+        const tSrc = document.getElementById(`add-testi-src-${i}`).value.trim();
+        const tComment = document.getElementById(`add-testi-comment-${i}`).value.trim();
+        if (tName && tComment) {
+          testimonials.push({ name: tName, type: tType, src: tSrc, text: tComment });
+        }
+      }
+
+      // 5. FAQs
+      const faqs = [];
+      for (let i = 1; i <= 3; i++) {
+        const fQ = document.getElementById(`add-faq-q-${i}`).value.trim();
+        const fA = document.getElementById(`add-faq-a-${i}`).value.trim();
+        if (fQ && fA) {
+          faqs.push({ q: fQ, a: fA });
+        }
+      }
+
+      // Re-format Syllabus items with clean standard check icons
+      const syllabus = descSyllabusText.split("\n").map(line => {
+        const cleaned = line.trim();
+        if (!cleaned) return "";
+        if (cleaned.startsWith("<svg")) return cleaned;
+        return `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px;"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>${cleaned}`;
+      }).filter(Boolean);
+
+      const newCourse = {
+        id,
+        title,
+        subtitle,
+        subject,
+        form,
+        type,
+        teacher: "Jack 老师",
+        price: price1Month,
+        originalPrice: originalPrice1Month,
+        time,
+        format: teachingMethod + " + " + duration,
+        notes: subtitle,
+        badge,
+        badgeClass: badge === 'Hot' ? 'badge-hot' : (badge === 'New' ? 'badge-new' : 'badge-limited'),
+        syllabus,
+        imgBack,
+        imgFront,
+        image: imgBack,
+        price1Month,
+        originalPrice1Month,
+        price3Month,
+        originalPrice3Month,
+        teachingMethod,
+        duration,
+        targetAudience,
+        features,
+        galleryMedia,
+        descAboutTitle,
+        descAboutText,
+        descSyllabusTitle,
+        descSyllabusText,
+        testimonials,
+        faqs
+      };
+
+      // Save to central courses DB
+      CourseDB.save(newCourse);
+
+      // Save to shop cards DB for Shop visibility
+      let shopCards = [];
+      const savedCards = localStorage.getItem("jackShopCards");
+      if (savedCards) {
+        try {
+          shopCards = JSON.parse(savedCards);
+        } catch (err) {
+          console.error("Failed to parse jackShopCards", err);
+          shopCards = [...DEFAULT_SHOP_CARDS];
+        }
+      } else {
+        shopCards = [...DEFAULT_SHOP_CARDS];
+      }
+
+      const cardIndex = shopCards.findIndex(card => card.id === id);
+      const updatedCard = {
+        id,
+        title,
+        subtitle: form,
+        imgBack,
+        imgFront,
+        link: `course-detail.html?id=${id}`
+      };
+
+      if (cardIndex >= 0) {
+        shopCards[cardIndex] = updatedCard;
+      } else {
+        shopCards.push(updatedCard);
+      }
+      localStorage.setItem("jackShopCards", JSON.stringify(shopCards));
+
+      alert(isEdit ? "🎉 Course updated successfully!" : "🎉 Course published successfully! It is now live on the shop.");
+
+      // document.getElementById("admin-add-course-form").reset();
+      // document.getElementById("course-creator-form-box").style.display = "none";
+      renderAdminDashboard();
+    }
+
+    // 切换后台 Tab 标签
+    window.switchCourseFormTab = function (tabName, btnEl) {};
+
+    // Load existing course for editing
+    window.handleEditCourse = function (id) {
+      const course = CourseDB.getById(id);
+      if (!course) return;
+
+      document.getElementById("add-id").value = course.id;
+      document.getElementById("course-form-header-title").innerHTML = `<i data-lucide="file-edit" class="w-4 h-4"></i> Edit课程 [${course.title}]`;
+      
+      // Tab 1 fields
+      document.getElementById("add-title").value = course.title || "";
+      document.getElementById("add-subtitle").value = course.subtitle || course.notes || "";
+      document.getElementById("add-form").value = course.form || "Form 5";
+      document.getElementById("add-subject").value = course.subject || "Sejarah";
+      document.getElementById("add-type").value = course.type || "Live Class";
+      document.getElementById("add-badge").value = course.badge || "Best Seller";
+      document.getElementById("add-time").value = course.time || "";
+      document.getElementById("add-img-back").value = course.imgBack || course.image || "";
+      document.getElementById("add-img-front").value = course.imgFront || "";
+
+      // Tab 2 fields
+      document.getElementById("add-price1month").value = course.price1Month || course.price || 0;
+      document.getElementById("add-price1month-orig").value = course.originalPrice1Month || course.originalPrice || 0;
+      document.getElementById("add-price3month").value = course.price3Month || 0;
+      document.getElementById("add-price3month-orig").value = course.originalPrice3Month || 0;
+      document.getElementById("add-teaching-method").value = course.teachingMethod || "";
+      document.getElementById("add-duration").value = course.duration || "";
+      document.getElementById("add-target-audience").value = course.targetAudience || "";
+      document.getElementById("add-features").value = (course.features || []).join("\n");
+
+      // Tab 3 fields
+      document.getElementById("add-about-title").value = course.descAboutTitle || "关于本课程";
+      document.getElementById("add-about-text").value = course.descAboutText || "";
+      document.getElementById("add-syllabus-title").value = course.descSyllabusTitle || "上课大纲";
+      document.getElementById("add-syllabus-text").value = course.descSyllabusText || "";
+
+      // Tab 4 fields (Gallery Media)
+      const gallery = course.galleryMedia || [];
+      for (let i = 1; i <= 3; i++) {
+        const item = gallery[i - 1] || { type: "image", src: "" };
+        document.getElementById(`add-gal-type-${i}`).value = item.type || "image";
+        document.getElementById(`add-gal-src-${i}`).value = item.src || "";
+      }
+
+      // Testimonials
+      const testimonies = course.testimonials || [];
+      for (let i = 1; i <= 2; i++) {
+        const item = testimonies[i - 1] || { name: "", type: "image", src: "", text: "" };
+        document.getElementById(`add-testi-name-${i}`).value = item.name || "";
+        document.getElementById(`add-testi-type-${i}`).value = item.type || "image";
+        document.getElementById(`add-testi-src-${i}`).value = item.src || "";
+        document.getElementById(`add-testi-comment-${i}`).value = item.text || "";
+      }
+
+      // Tab 5 fields (FAQs)
+      const faqs = course.faqs || [];
+      for (let i = 1; i <= 3; i++) {
+        const item = faqs[i - 1] || { q: "", a: "" };
+        document.getElementById(`add-faq-q-${i}`).value = item.q || "";
+        document.getElementById(`add-faq-a-${i}`).value = item.a || "";
+      }
+
+      const box = document.getElementById("course-creator-form-box");
+      box.style.display = "block";
+      box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      const firstTabBtn = document.querySelector(".course-form-tab-btn");
+      if (firstTabBtn) switchCourseFormTab('basic', firstTabBtn);
+      
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+    };
+
+    // Base64 and canvas image compression
+    window.handleCompressedImageUpload = function (input, targetInputId) {
+      const file = input.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img = new Image();
+        img.onload = function () {
+          const canvas = document.createElement("canvas");
+          let width = img.width;
+          let height = img.height;
+
+          const max_width = 800;
+          if (width > max_width) {
+            height = Math.round((height * max_width) / width);
+            width = max_width;
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+
+          const outputType = (file.type === "image/png" || file.type === "image/webp") ? "image/webp" : "image/jpeg";
+          const compressedDataUrl = canvas.toDataURL(outputType, 0.85);
+          document.getElementById(targetInputId).value = compressedDataUrl;
+          
+          const inputEl = document.getElementById(targetInputId);
+          inputEl.classList.add("ring-2", "ring-emerald-500");
+          setTimeout(() => {
+            inputEl.classList.remove("ring-2", "ring-emerald-500");
+          }, 1500);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    };
+
+    // Video Upload (warns about local video file limits and inserts target)
+    window.handleVideoUpload = function (input, targetInputId) {
+      const file = input.files[0];
+      if (!file) return;
+
+      if (file.size > 2 * 1024 * 1024) {
+        alert("提示：Video大小已超过 2MB。在 LocalStorage 容量（5MB）有限的情况下，强烈推荐直接填写本地相对路径（如 images/SMJK HWA LIAN JACK CROP.mp4）或使用 2MB 以内的短Video以防爆仓！");
+      }
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        document.getElementById(targetInputId).value = e.target.result;
+        
+        const inputEl = document.getElementById(targetInputId);
+        inputEl.classList.add("ring-2", "ring-emerald-500");
+        setTimeout(() => {
+          inputEl.classList.remove("ring-2", "ring-emerald-500");
+        }, 1500);
+      };
+      reader.readAsDataURL(file);
+    };
+
+    // Delete Course
+    window.handleDeleteCourse = function (id) {
+      if (confirm("确定要下架并永久删除此课程产品包吗？")) {
+        CourseDB.delete(id);
+
+        let shopCards = [];
+        const savedCards = localStorage.getItem("jackShopCards");
+        if (savedCards) {
+          try {
+            shopCards = JSON.parse(savedCards);
+          } catch (err) {
+            console.error("Failed to parse jackShopCards", err);
+          }
+        }
+        shopCards = shopCards.filter(card => card.id !== id);
+        localStorage.setItem("jackShopCards", JSON.stringify(shopCards));
+
+        renderAdminDashboard();
+      }
+    };
+
+    // Approve manual bank transfer order
+    window.handleApproveOrder = function (orderId) {
+      OrderDB.updateStatus(orderId, 'Paid');
+      alert(`✔️ 汇款单号 #${orderId} 核对并放行成功！\n系统已Real-time录入学生信息，并为其学员中心激活所有已购课程包！`);
+      renderAdminDashboard();
+    };
+
+    // Delete Order
+    window.handleDeleteOrder = function (orderId) {
+      if (confirm("确定要彻底抹除此订单交易流水记录吗？")) {
+        OrderDB.delete(orderId);
+        renderAdminDashboard();
+      }
+    };
+
+    // 渲染后台各项数据
+    function renderAdminDashboard() {
+      const courses = CourseDB.getAll();
+      const orders = OrderDB.getAll();
+
+      // 1. Sales Dashboard数据统计
+      const paidOrders = orders.filter(o => o.status === 'Paid');
+      const totalRevenue = paidOrders.reduce((sum, o) => sum + o.total, 0);
+      const uniqueEmails = [...new Set(orders.map(o => o.email.toLowerCase()))];
+
+      document.getElementById("stat-revenue").textContent = `RM ${totalRevenue.toFixed(2)}`;
+      document.getElementById("stat-orders").textContent = orders.length;
+      document.getElementById("stat-students").textContent = uniqueEmails.length;
+
+      // 2. Sales Dashboard - 最近交易流列表
+      const overviewTbody = document.getElementById("overview-orders-tbody");
+      overviewTbody.innerHTML = "";
+      orders.slice(0, 8).forEach(o => {
+        const tr = document.createElement("tr");
+        tr.className = "hover:bg-zinc-800/40 transition-colors";
+        tr.innerHTML = `
+          <td class="px-4 py-3 font-semibold text-zinc-100">${o.id}</td>
+          <td class="px-4 py-3 text-zinc-200">${o.studentName} (${o.grade})</td>
+          <td class="px-4 py-3 text-zinc-400 font-mono">${o.whatsapp}</td>
+          <td class="px-4 py-3"><span class="text-xs font-semibold text-zinc-300 bg-zinc-800 px-2 py-0.5 rounded">${o.courses.join(", ")}</span></td>
+          <td class="px-4 py-3 font-extrabold text-pinkBrand">RM ${o.total.toFixed(2)}</td>
+          <td class="px-4 py-3 text-xs text-zinc-400">${o.method}</td>
+          <td class="px-4 py-3">
+            <span class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${o.status === 'Paid' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'}">
+              ${o.status === 'Paid' ? '已到账' : '待核对'}
+            </span>
+          </td>
+        `;
+        overviewTbody.appendChild(tr);
+      });
+
+      // 3. 课程管理表格
+      const coursesTbody = document.getElementById("admin-courses-tbody");
+      coursesTbody.innerHTML = "";
+      courses.forEach(c => {
+        const tr = document.createElement("tr");
+        tr.className = "hover:bg-zinc-800/40 transition-colors";
+
+        let badgeColor = "bg-zinc-800 text-zinc-300 border-zinc-700";
+        if (c.badge === "Hot" || c.badge === "热卖爆款") badgeColor = "bg-red-500/10 text-red-400 border border-red-500/20";
+        else if (c.badge === "New" || c.badge === "全新课包") badgeColor = "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+        else if (c.badge === "Limited Seats" || c.badge === "名额稀缺") badgeColor = "bg-amber-500/10 text-amber-400 border border-amber-500/20";
+
+        tr.innerHTML = `
+          <td class="px-4 py-3"><span class="inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium bg-pink-500/10 text-pink-400 border border-pink-500/20">${c.form}</span></td>
+          <td class="px-4 py-3"><span class="inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium bg-purple-500/10 text-purple-400 border border-purple-500/20">${c.subject}</span></td>
+          <td class="px-4 py-3 font-semibold text-zinc-100">${c.title}</td>
+          <td class="px-4 py-3 font-bold text-pinkBrand">RM ${c.price.toFixed(2)}</td>
+          <td class="px-4 py-3 text-zinc-500 line-through">RM ${c.originalPrice.toFixed(2)}</td>
+          <td class="px-4 py-3"><span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${badgeColor}">${c.badge}</span></td>
+          <td class="px-4 py-3">
+            <div class="flex items-center gap-2">
+              <button onclick="handleEditCourse('${c.id}')" class="inline-flex items-center gap-1 justify-center rounded-md text-xs font-medium bg-zinc-800 text-zinc-100 border border-zinc-700 px-2.5 py-1 hover:bg-zinc-700 transition-all">
+                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>Edit
+              </button>
+              <button onclick="handleDeleteCourse('${c.id}')" class="inline-flex items-center gap-1 justify-center rounded-md text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20 px-2.5 py-1 hover:bg-red-500/20 transition-all">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>下架
+              </button>
+            </div>
+          </td>
+        `;
+        coursesTbody.appendChild(tr);
+      });
+
+      // 4. Order CRM Table Rendering
+      const ordersTbody = document.getElementById("admin-orders-tbody");
+      ordersTbody.innerHTML = "";
+      orders.forEach(o => {
+        const tr = document.createElement("tr");
+        tr.className = "hover:bg-zinc-800/40 transition-colors";
+
+        const actionButton = o.status === 'Pending'
+          ? `<button onclick="handleApproveOrder('${o.id}')" class="inline-flex items-center gap-1 justify-center rounded-md text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 hover:bg-emerald-500/20 transition-all">审核放行</button>`
+          : `<span class="inline-flex items-center gap-1 text-xs text-emerald-400 font-bold"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i>已入班</span>`;
+
+        tr.innerHTML = `
+          <td class="px-4 py-3 font-semibold text-zinc-100">${o.id}</td>
+          <td class="px-4 py-3 text-xs text-zinc-500 font-mono">${o.date}</td>
+          <td class="px-4 py-3 text-zinc-200">${o.studentName} (${o.grade})</td>
+          <td class="px-4 py-3 text-zinc-400 font-mono text-xs">${o.whatsapp}</td>
+          <td class="px-4 py-3"><span class="text-xs text-zinc-300 bg-zinc-800 px-2 py-0.5 rounded">${o.courses.join(", ")}</span></td>
+          <td class="px-4 py-3 font-bold text-pinkBrand">RM ${o.total.toFixed(2)}</td>
+          <td class="px-4 py-3 text-xs text-zinc-400">${o.method}</td>
+          <td class="px-4 py-3">
+            <span class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${o.status === 'Paid' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'}">
+              ${o.status === 'Paid' ? 'Paid' : '待核对'}
+            </span>
+          </td>
+          <td class="px-4 py-3">
+            <div class="flex items-center gap-2">
+              ${actionButton}
+              <button onclick="handleDeleteOrder('${o.id}')" class="inline-flex items-center gap-1 justify-center rounded-md text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20 px-2.5 py-1 hover:bg-red-500/20 transition-all">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>抹除
+              </button>
+            </div>
+          </td>
+        `;
+        ordersTbody.appendChild(tr);
+      });
+
+      // 5. Student CRM Profiles Rendering
+      const studentsTbody = document.getElementById("admin-students-tbody");
+      studentsTbody.innerHTML = "";
+
+      const studentsMap = {};
+      orders.forEach(o => {
+        const emailKey = o.email.toLowerCase();
+        if (!studentsMap[emailKey]) {
+          studentsMap[emailKey] = {
+            name: o.studentName,
+            parent: o.parentName,
+            whatsapp: o.whatsapp,
+            email: o.email,
+            grade: o.grade,
+            school: o.school,
+            courseCount: o.courses.length
+          };
+        } else {
+          studentsMap[emailKey].courseCount += o.courses.length;
+        }
+      });
+
+      Object.values(studentsMap).forEach(s => {
+        const tr = document.createElement("tr");
+        tr.className = "hover:bg-zinc-800/40 transition-colors";
+        tr.innerHTML = `
+          <td class="px-4 py-3 font-semibold text-zinc-100">${s.name}</td>
+          <td class="px-4 py-3 text-zinc-300">${s.parent}</td>
+          <td class="px-4 py-3 text-zinc-400 font-mono text-xs">${s.whatsapp}</td>
+          <td class="px-4 py-3 text-zinc-400 font-mono text-xs">${s.email}</td>
+          <td class="px-4 py-3"><span class="inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium bg-pink-500/10 text-pink-400 border border-pink-500/20">${s.grade}</span></td>
+          <td class="px-4 py-3 text-zinc-400 text-xs">${s.school || "无学校记录"}</td>
+          <td class="px-4 py-3 text-center font-bold text-purple-400">${s.courseCount} 门课程</td>
+        `;
+        studentsTbody.appendChild(tr);
+      });
+
+      // 6. Testimonial Hero Cards Rendering
+      const heroCardsTbody = document.getElementById("admin-hero-cards-tbody");
+      if (heroCardsTbody) {
+        heroCardsTbody.innerHTML = "";
+        const heroCards = window.HeroCardDB ? window.HeroCardDB.getAll() : [];
+        heroCards.forEach(c => {
+          const tr = document.createElement("tr");
+          tr.className = "hover:bg-zinc-800/40 transition-colors";
+          const isBase64 = c.image.startsWith("data:image/");
+          const pathDisplayText = isBase64 ? `<span class="inline-flex items-center rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs px-2 py-0.5 font-bold">[📷 自动编码格式]</span>` : `<code class="text-xs bg-zinc-950 px-1 py-0.5 rounded border border-zinc-800 font-mono">${c.image}</code>`;
+
+          tr.innerHTML = `
+            <td class="px-4 py-3 text-center" style="width: 80px;">
+              <img src="${c.image}" alt="${c.title}" class="w-12 h-12 object-cover rounded border border-zinc-800 bg-zinc-950 p-0.5">
+            </td>
+            <td class="px-4 py-3 font-semibold text-zinc-100">${c.title}</td>
+            <td class="px-4 py-3 text-xs text-zinc-400 max-w-xs break-words">${c.desc}</td>
+            <td class="px-4 py-3">${pathDisplayText}</td>
+            <td class="px-4 py-3">
+              <div class="flex items-center gap-2">
+                <button onclick="handleEditHeroCard('${c.id}')" class="inline-flex items-center gap-1 justify-center rounded-md text-xs font-medium bg-zinc-800 text-zinc-200 border border-zinc-700 px-2.5 py-1 hover:bg-zinc-700 transition-all">
+                  <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>Edit
+                </button>
+                <button onclick="handleDeleteHeroCard('${c.id}')" class="inline-flex items-center gap-1 justify-center rounded-md text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20 px-2.5 py-1 hover:bg-red-500/20 transition-all">
+                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>删除
+                </button>
+              </div>
+            </td>
+          `;
+          heroCardsTbody.appendChild(tr);
+        });
+      }
+
+      // 7. Class Timetable Rendering
+      const schedulesTbody = document.getElementById("admin-schedules-tbody");
+      if (schedulesTbody) {
+        schedulesTbody.innerHTML = "";
+        const schedules = window.ScheduleDB ? window.ScheduleDB.getAll() : [];
+        schedules.forEach(s => {
+          const tr = document.createElement("tr");
+          tr.className = "hover:bg-zinc-800/40 transition-colors";
+
+          let scheduleBadge = "bg-zinc-800 text-zinc-300 border-zinc-700";
+          if (s.status === "Hot" || s.status === "热卖") scheduleBadge = "bg-red-500/10 text-red-400 border border-red-500/20";
+          else if (s.status === "Enrollment Open" || s.status === "招募中") scheduleBadge = "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+          else if (s.status === "Limited Seats" || s.status === "名额紧张") scheduleBadge = "bg-amber-500/10 text-amber-400 border border-amber-500/20";
+
+          tr.innerHTML = `
+            <td class="px-4 py-3 font-semibold text-zinc-100">${s.day}</td>
+            <td class="px-4 py-3"><span class="inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium bg-pink-500/10 text-pink-400 border border-pink-500/20">${s.time}</span></td>
+            <td class="px-4 py-3 font-semibold text-purple-400">${s.courseTitle}</td>
+            <td class="px-4 py-3 text-zinc-300 text-xs">${s.teacher}</td>
+            <td class="px-4 py-3 text-xs text-zinc-400">${s.format}</td>
+            <td class="px-4 py-3"><span class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${scheduleBadge}">${s.status}</span></td>
+            <td class="px-4 py-3">
+              <div class="flex items-center gap-2">
+                <button onclick="handleEditSchedule('${s.id}')" class="inline-flex items-center gap-1 justify-center rounded-md text-xs font-medium bg-zinc-800 text-zinc-200 border border-zinc-700 px-2.5 py-1 hover:bg-zinc-700 transition-all">
+                  <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>Edit
+                </button>
+                <button onclick="handleDeleteSchedule('${s.id}')" class="inline-flex items-center gap-1 justify-center rounded-md text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20 px-2.5 py-1 hover:bg-red-500/20 transition-all">
+                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>删除
+                </button>
+              </div>
+            </td>
+          `;
+          schedulesTbody.appendChild(tr);
+        });
+      }
+
+      // 8. Video Testimonials Rendering
+      const testimonialsTbody = document.getElementById("admin-testimonials-tbody");
+      if (testimonialsTbody) {
+        testimonialsTbody.innerHTML = "";
+        const testimonials = window.TestimonialDB ? window.TestimonialDB.getAll() : [];
+        testimonials.forEach(t => {
+          const tr = document.createElement("tr");
+          tr.className = "hover:bg-zinc-800/40 transition-colors";
+
+          const isVidBase64 = t.video && t.video.startsWith("data:video/");
+          const vidDisplayText = isVidBase64 ? `<span class="inline-flex items-center rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs px-2 py-0.5 font-bold">[🎥 自动Video编码]</span>` : `<code class="text-xs bg-zinc-950 px-1 py-0.5 rounded border border-zinc-800 font-mono">${t.video}</code>`;
+
+          const isPosterBase64 = t.poster && t.poster.startsWith("data:image/");
+          const posterDisplayText = isPosterBase64 ? `<span class="inline-flex items-center rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs px-2 py-0.5 font-bold">[📷 自动封面编码]</span>` : `<code class="text-xs bg-zinc-950 px-1 py-0.5 rounded border border-zinc-800 font-mono">${t.poster}</code>`;
+
+          tr.innerHTML = `
+            <td class="px-4 py-3 font-semibold text-zinc-100">${t.title}</td>
+            <td class="px-4 py-3"><span class="text-amber-400 font-semibold">${'★'.repeat(t.rating || 5)}</span></td>
+            <td class="px-4 py-3 text-xs text-zinc-400 max-w-xs break-words">${t.desc}</td>
+            <td class="px-4 py-3">
+              <div class="space-y-1">
+                ${posterDisplayText}
+                ${t.poster ? `<img src="${t.poster}" class="w-12 h-8 object-cover rounded border border-zinc-800 bg-zinc-950 p-0.5">` : ''}
+              </div>
+            </td>
+            <td class="px-4 py-3">${vidDisplayText}</td>
+            <td class="px-4 py-3">
+              <div class="flex items-center gap-2">
+                <button onclick="handleEditTestimonial('${t.id}')" class="inline-flex items-center gap-1 justify-center rounded-md text-xs font-medium bg-zinc-800 text-zinc-200 border border-zinc-700 px-2.5 py-1 hover:bg-zinc-700 transition-all">
+                  <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>Edit
+                </button>
+                <button onclick="handleDeleteTestimonial('${t.id}')" class="inline-flex items-center gap-1 justify-center rounded-md text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20 px-2.5 py-1 hover:bg-red-500/20 transition-all">
+                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>删除
+                </button>
+              </div>
+            </td>
+          `;
+          testimonialsTbody.appendChild(tr);
+        });
+      }
+
+      // 9. About Page Scrolling Testimonials Rendering
+      const scrollingTbody = document.getElementById("admin-scrolling-tbody");
+      if (scrollingTbody) {
+        scrollingTbody.innerHTML = "";
+        const scrollingList = window.ScrollingTestimonialDB ? window.ScrollingTestimonialDB.getAll() : [];
+        scrollingList.forEach(t => {
+          const tr = document.createElement("tr");
+          tr.className = "hover:bg-zinc-800/40 transition-colors";
+
+          const isScreenshotBase64 = t.screenshot && t.screenshot.startsWith("data:image/");
+          const screenshotDisplayText = isScreenshotBase64
+            ? `<span class="inline-flex items-center rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs px-2 py-0.5 font-bold">[📷 自动编码Image]</span>`
+            : (t.screenshot ? `<code class="text-xs bg-zinc-950 px-1 py-0.5 rounded border border-zinc-800 font-mono">${t.screenshot}</code>` : `<span class="text-xs text-zinc-500">无截图</span>`);
+
+          tr.innerHTML = `
+            <td class="px-4 py-3 font-semibold text-zinc-100">${t.name}</td>
+            <td class="px-4 py-3 text-xs text-zinc-400 font-medium">${t.role}</td>
+            <td class="px-4 py-3 text-xs text-zinc-300 max-w-xs break-words">"${t.text}"</td>
+            <td class="px-4 py-3">
+              <div class="space-y-1">
+                ${screenshotDisplayText}
+                ${t.screenshot ? `<img src="${t.screenshot}" class="w-16 h-9 object-cover rounded border border-zinc-800 bg-zinc-950 p-0.5">` : ''}
+              </div>
+            </td>
+            <td class="px-4 py-3">
+              <div class="flex items-center gap-2">
+                <button onclick="handleEditScrollingTestimonial('${t.id}')" class="inline-flex items-center gap-1 justify-center rounded-md text-xs font-medium bg-zinc-800 text-zinc-200 border border-zinc-700 px-2.5 py-1 hover:bg-zinc-700 transition-all">
+                  <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>Edit
+                </button>
+                <button onclick="handleDeleteScrollingTestimonial('${t.id}')" class="inline-flex items-center gap-1 justify-center rounded-md text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20 px-2.5 py-1 hover:bg-red-500/20 transition-all">
+                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>删除
+                </button>
+              </div>
+            </td>
+          `;
+          scrollingTbody.appendChild(tr);
+        });
+      }
+
+      // Re-trigger Lucide icon instantiation for dynamic HTML injections
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+    }
+
+    // Open/Close Hero Card Form
+    window.toggleAddHeroCardForm = function () {
+      const box = document.getElementById("hero-card-creator-form-box");
+      box.style.display = box.style.display === "none" ? "block" : "none";
+
+      if (box.style.display === "block") {
+        document.getElementById("admin-hero-card-form").reset();
+        document.getElementById("hero-card-id").value = "";
+        document.getElementById("hero-form-title").textContent = "新增首页滚动提分卡";
+        document.getElementById("hero-upload-status").textContent = "";
+        document.getElementById("hero-img-preview-box").style.display = "none";
+        document.getElementById("hero-img-preview").src = "";
+      }
+    };
+
+    // Process uploaded image as Base64 string
+    let uploadedImageBase64 = "";
+    window.handleHeroImageUpload = function (input) {
+      const file = input.files[0];
+      const statusLabel = document.getElementById("hero-upload-status");
+      const previewBox = document.getElementById("hero-img-preview-box");
+      const previewImg = document.getElementById("hero-img-preview");
+
+      if (!file) {
+        uploadedImageBase64 = "";
+        statusLabel.textContent = "";
+        return;
+      }
+
+      statusLabel.textContent = "本地压缩读取中...";
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const rawBase64 = e.target.result;
+        const img = new Image();
+        img.onload = function () {
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+
+          const MAX_WIDTH = 800;
+          const MAX_HEIGHT = 600;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          ctx.drawImage(img, 0, 0, width, height);
+
+          const compressedBase64 = canvas.toDataURL("image/jpeg", 0.7);
+          uploadedImageBase64 = compressedBase64;
+          statusLabel.textContent = "Image智能本地压缩成功！";
+
+          previewBox.style.display = "block";
+          previewImg.src = uploadedImageBase64;
+          document.getElementById("hero-img-path").value = "";
+        };
+        img.onerror = function () {
+          uploadedImageBase64 = rawBase64;
+          statusLabel.textContent = "加载成功 (原尺寸)";
+          previewBox.style.display = "block";
+          previewImg.src = uploadedImageBase64;
+        };
+        img.src = rawBase64;
+      };
+      reader.onerror = function () {
+        alert("Image加载失败，请重试！");
+        statusLabel.textContent = "加载失败";
+      };
+      reader.readAsDataURL(file);
+    };
+
+    // Save Hero Card
+    window.handleSaveHeroCard = function (e) {
+      e.preventDefault();
+
+      const title = document.getElementById("hero-title").value.trim();
+      const desc = document.getElementById("hero-desc").value.trim();
+      const manualPath = document.getElementById("hero-img-path").value.trim();
+      const editId = document.getElementById("hero-card-id").value;
+
+      let imageUrl = "";
+      if (uploadedImageBase64) {
+        imageUrl = uploadedImageBase64;
+      } else if (manualPath) {
+        imageUrl = manualPath;
+      } else {
+        alert("请上传照片或填写有效的Image存储路径！");
+        return;
+      }
+
+      const cardId = editId ? editId : "hero-custom-" + Date.now();
+
+      const cardData = {
+        id: cardId,
+        title: title,
+        desc: desc,
+        image: imageUrl
+      };
+
+      if (window.HeroCardDB) {
+        try {
+          const result = window.HeroCardDB.save(cardData);
+          if (result === false) {
+            alert("❌ 失败！数据存储容量爆满。\n请在列表删除部分旧配置，或更换更精简的素材重新上传。");
+            return;
+          }
+          alert(editId ? "🎉 提分榜卡片信息更新成功！" : "🎉 提分卡配置上线发布成功！");
+        } catch (err) {
+          console.error(err);
+          alert("❌ 失败！浏览器存储限额超出。");
+          return;
+        }
+      }
+
+      uploadedImageBase64 = "";
+      toggleAddHeroCardForm();
+      renderAdminDashboard();
+    };
+
+    // Populate Hero Card for Editing
+    window.handleEditHeroCard = function (id) {
+      const heroCards = window.HeroCardDB ? window.HeroCardDB.getAll() : [];
+      const card = heroCards.find(c => c.id === id);
+      if (!card) return;
+
+      const box = document.getElementById("hero-card-creator-form-box");
+      box.style.display = "block";
+
+      document.getElementById("hero-form-title").textContent = "Edit提分榜滚动卡片";
+      document.getElementById("hero-card-id").value = card.id;
+      document.getElementById("hero-title").value = card.title;
+      document.getElementById("hero-desc").value = card.desc;
+
+      const previewBox = document.getElementById("hero-img-preview-box");
+      const previewImg = document.getElementById("hero-img-preview");
+      const statusLabel = document.getElementById("hero-upload-status");
+
+      if (card.image.startsWith("data:image/")) {
+        uploadedImageBase64 = card.image;
+        document.getElementById("hero-img-path").value = "";
+        statusLabel.textContent = "已读本地高保真Image";
+      } else {
+        uploadedImageBase64 = "";
+        document.getElementById("hero-img-path").value = card.image;
+        statusLabel.textContent = "";
+      }
+
+      previewBox.style.display = "block";
+      previewImg.src = card.image;
+      box.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    // Delete Hero Card
+    window.handleDeleteHeroCard = function (id) {
+      if (confirm("确定要下架并删除此提分榜滚动卡片吗？它将立即从首页滚动屏上移除！")) {
+        if (window.HeroCardDB) {
+          window.HeroCardDB.delete(id);
+        }
+        renderAdminDashboard();
+      }
+    };
+
+    // Open/Close Class Timetable Form
+    window.toggleAddScheduleForm = function () {
+      const box = document.getElementById("schedule-creator-form-box");
+      box.style.display = box.style.display === "none" ? "block" : "none";
+
+      if (box.style.display === "block") {
+        document.getElementById("admin-schedule-form").reset();
+        document.getElementById("schedule-id").value = "";
+        document.getElementById("schedule-form-title").textContent = "配置课表排期班次";
+
+        // Dynamically load course list into dropdown
+        const courseSelect = document.getElementById("schedule-course-select");
+        if (courseSelect) {
+          courseSelect.innerHTML = "";
+          const courses = window.CourseDB ? window.CourseDB.getAll() : [];
+          courses.forEach(c => {
+            const opt = document.createElement("option");
+            opt.value = c.id;
+            opt.textContent = `${c.form} - ${c.title}`;
+            courseSelect.appendChild(opt);
+          });
+          // Prefill custom course title with the first choice
+          if (courses.length > 0) {
+            document.getElementById("schedule-course-title").value = courses[0].title;
+            if (courses[0].notes) {
+              document.getElementById("schedule-notes").value = courses[0].notes;
+            }
+          }
+        }
+      }
+    };
+
+    // Fill timetable slot form automatically based on selected course
+    window.handleScheduleCourseSelect = function (select) {
+      const courseId = select.value;
+      const course = window.CourseDB ? window.CourseDB.getById(courseId) : null;
+      if (course) {
+        document.getElementById("schedule-course-title").value = course.title;
+        if (course.notes) {
+          document.getElementById("schedule-notes").value = course.notes;
+        }
+      }
+    };
+
+    // Save Class Schedule Timetable
+    window.handleSaveSchedule = function (e) {
+      e.preventDefault();
+
+      const day = document.getElementById("schedule-day").value;
+      const time = document.getElementById("schedule-time").value.trim();
+      const courseId = document.getElementById("schedule-course-select").value;
+      const courseTitle = document.getElementById("schedule-course-title").value.trim();
+      const teacher = document.getElementById("schedule-teacher").value.trim();
+      const format = document.getElementById("schedule-format").value.trim();
+      const status = document.getElementById("schedule-status").value;
+      const notes = document.getElementById("schedule-notes").value.trim();
+      const editId = document.getElementById("schedule-id").value;
+
+      // Map badge classes
+      let statusClass = "badge-new";
+      if (status === "Hot") statusClass = "badge-hot";
+      else if (status === "Limited Seats") statusClass = "badge-limited";
+      else if (status === "New Class") statusClass = "badge-new";
+
+      const schId = editId ? editId : "sch-custom-" + Date.now();
+
+      const schData = {
+        id: schId,
+        day: day,
+        time: time,
+        courseId: courseId,
+        courseTitle: courseTitle,
+        teacher: teacher,
+        format: format,
+        status: status,
+        statusClass: statusClass,
+        notes: notes
+      };
+
+      if (window.ScheduleDB) {
+        const result = window.ScheduleDB.save(schData);
+        if (result === false) {
+          alert("❌ 排班失败：存储容量爆满！");
+          return;
+        }
+        alert(editId ? "🎉 上课排班更新成功！" : "🎉 课表排程排布并投放成功！");
+      }
+
+      toggleAddScheduleForm();
+      renderAdminDashboard();
+    };
+
+    // Populate timetable slot form for editing
+    window.handleEditSchedule = function (id) {
+      const schedules = window.ScheduleDB ? window.ScheduleDB.getAll() : [];
+      const sch = schedules.find(s => s.id === id);
+      if (!sch) return;
+
+      const box = document.getElementById("schedule-creator-form-box");
+      box.style.display = "block";
+      document.getElementById("schedule-form-title").textContent = "Edit课程排期班次";
+
+      // Load courses dropdown
+      const courseSelect = document.getElementById("schedule-course-select");
+      if (courseSelect) {
+        courseSelect.innerHTML = "";
+        const courses = window.CourseDB ? window.CourseDB.getAll() : [];
+        courses.forEach(c => {
+          const opt = document.createElement("option");
+          opt.value = c.id;
+          opt.textContent = `${c.form} - ${c.title}`;
+          if (c.id === sch.courseId) {
+            opt.selected = true;
+          }
+          courseSelect.appendChild(opt);
+        });
+      }
+
+      document.getElementById("schedule-id").value = sch.id;
+      document.getElementById("schedule-day").value = sch.day;
+      document.getElementById("schedule-time").value = sch.time;
+      document.getElementById("schedule-course-title").value = sch.courseTitle;
+      document.getElementById("schedule-teacher").value = sch.teacher;
+      document.getElementById("schedule-format").value = sch.format;
+      document.getElementById("schedule-status").value = sch.status;
+      document.getElementById("schedule-notes").value = sch.notes || "";
+
+      box.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    // Delete Class Schedule Timetable slot
+    window.handleDeleteSchedule = function (id) {
+      if (confirm("确定要移除这个排课排班吗？它将立即在前台课表页下线！")) {
+        if (window.ScheduleDB) {
+          window.ScheduleDB.delete(id);
+        }
+        renderAdminDashboard();
+      }
+    };
+
+    let uploadedTestimonialVidBase64 = "";
+    let uploadedTestimonialPosterBase64 = "";
+
+    window.toggleAddTestimonialForm = function (clear = false) {
+      const box = document.getElementById("testimonial-creator-form-box");
+      if (!box) return;
+
+      const isHidden = box.style.display === "none";
+      box.style.display = (isHidden && !clear) ? "block" : "none";
+
+      if (clear || isHidden) {
+        document.getElementById("admin-testimonial-form").reset();
+        document.getElementById("testimonial-id").value = "";
+        uploadedTestimonialVidBase64 = "";
+        uploadedTestimonialPosterBase64 = "";
+        document.getElementById("testimonial-vid-upload-status").textContent = "";
+        document.getElementById("testimonial-poster-upload-status").textContent = "";
+        document.getElementById("testimonial-form-title").textContent = "配置并上线提分Video卡片";
+      }
+    };
+
+    // Process uploaded video file
+    window.handleTestimonialVideoUpload = function (input) {
+      const file = input.files[0];
+      const statusLabel = document.getElementById("testimonial-vid-upload-status");
+
+      if (!file) {
+        uploadedTestimonialVidBase64 = "";
+        statusLabel.textContent = "";
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        alert("⚠️ Video文件过大！\n由于浏览器本地数据额度只有 5MB，极其建议采用方法 B 直接填写Video相对地址 (如 images/testimonials/video/xxx.mp4)！");
+      }
+
+      statusLabel.textContent = "本地Video读取编码中...";
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        uploadedTestimonialVidBase64 = e.target.result;
+        statusLabel.textContent = "Video读取编码处理成功！";
+        document.getElementById("testimonial-vid-path").value = "";
+      };
+      reader.onerror = function () {
+        alert("Video加载解析失败，请重试！");
+        statusLabel.textContent = "加载失败";
+      };
+      reader.readAsDataURL(file);
+    };
+
+    // Compress and read video poster
+    window.handleTestimonialPosterUpload = function (input) {
+      const file = input.files[0];
+      const statusLabel = document.getElementById("testimonial-poster-upload-status");
+
+      if (!file) {
+        uploadedTestimonialPosterBase64 = "";
+        statusLabel.textContent = "";
+        return;
+      }
+
+      statusLabel.textContent = "本地海报智能压缩中...";
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const rawBase64 = e.target.result;
+        const img = new Image();
+        img.onload = function () {
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+
+          const MAX_WIDTH = 640;
+          const MAX_HEIGHT = 480;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          ctx.drawImage(img, 0, 0, width, height);
+
+          const compressedBase64 = canvas.toDataURL("image/jpeg", 0.65);
+          uploadedTestimonialPosterBase64 = compressedBase64;
+          statusLabel.textContent = "海报封面本地压缩编码成功！";
+          document.getElementById("testimonial-poster-path").value = "";
+        };
+        img.onerror = function () {
+          uploadedTestimonialPosterBase64 = rawBase64;
+          statusLabel.textContent = "海报读取成功！";
+        };
+        img.src = rawBase64;
+      };
+      reader.readAsDataURL(file);
+    };
+
+    // Save Video Testimonial
+    window.handleSaveTestimonial = function (e) {
+      e.preventDefault();
+
+      const title = document.getElementById("testimonial-title").value.trim();
+      const rating = parseInt(document.getElementById("testimonial-rating").value) || 5;
+      const desc = document.getElementById("testimonial-desc").value.trim();
+      const manualVidPath = document.getElementById("testimonial-vid-path").value.trim();
+      const manualPosterPath = document.getElementById("testimonial-poster-path").value.trim();
+      const editId = document.getElementById("testimonial-id").value;
+
+      let videoUrl = "";
+      if (uploadedTestimonialVidBase64) {
+        videoUrl = uploadedTestimonialVidBase64;
+      } else if (manualVidPath) {
+        videoUrl = manualVidPath;
+      } else {
+        alert("请上传本地素材或填写有效的Video地址！");
+        return;
+      }
+
+      let posterUrl = "";
+      if (uploadedTestimonialPosterBase64) {
+        posterUrl = uploadedTestimonialPosterBase64;
+      } else if (manualPosterPath) {
+        posterUrl = manualPosterPath;
+      }
+
+      const testId = editId ? editId : "test-custom-" + Date.now();
+
+      const testData = {
+        id: testId,
+        rating: rating,
+        title: title,
+        desc: desc,
+        video: videoUrl,
+        poster: posterUrl
+      };
+
+      if (window.TestimonialDB) {
+        try {
+          const result = window.TestimonialDB.save(testData);
+          if (result === false) {
+            alert("❌ 失败！数据体积过大，浏览器超出额度上限。\n强烈建议使用相对路径加载多媒体资源（如：images/testimonials/video/xxx.mp4）！");
+            return;
+          }
+          alert(editId ? "🎉 Video Testimonials素材更新成功！" : "🎉 Video见证卡片配置上线成功！");
+        } catch (err) {
+          console.error(err);
+          alert("❌ 失败！多媒体存储限额超出。");
+          return;
+        }
+      }
+
+      toggleAddTestimonialForm(true);
+      renderAdminDashboard();
+    };
+
+    // Populate Video Testimonial for Editing
+    window.handleEditTestimonial = function (id) {
+      const testimonials = window.TestimonialDB ? window.TestimonialDB.getAll() : [];
+      const testi = testimonials.find(t => t.id === id);
+      if (!testi) return;
+
+      const box = document.getElementById("testimonial-creator-form-box");
+      box.style.display = "block";
+      document.getElementById("testimonial-form-title").textContent = "Edit提分Video见证信息";
+
+      document.getElementById("testimonial-id").value = testi.id;
+      document.getElementById("testimonial-title").value = testi.title;
+      document.getElementById("testimonial-rating").value = testi.rating || 5;
+      document.getElementById("testimonial-desc").value = testi.desc;
+
+      if (testi.video.startsWith("data:video/")) {
+        uploadedTestimonialVidBase64 = testi.video;
+        document.getElementById("testimonial-vid-path").value = "";
+        document.getElementById("testimonial-vid-upload-status").textContent = "已加载本地媒体资源";
+      } else {
+        uploadedTestimonialVidBase64 = "";
+        document.getElementById("testimonial-vid-path").value = testi.video;
+        document.getElementById("testimonial-vid-upload-status").textContent = "";
+      }
+
+      if (testi.poster && testi.poster.startsWith("data:image/")) {
+        uploadedTestimonialPosterBase64 = testi.poster;
+        document.getElementById("testimonial-poster-path").value = "";
+        document.getElementById("testimonial-poster-upload-status").textContent = "已加载本地海报媒体";
+      } else {
+        uploadedTestimonialPosterBase64 = "";
+        document.getElementById("testimonial-poster-path").value = testi.poster || "";
+        document.getElementById("testimonial-poster-upload-status").textContent = "";
+      }
+
+      box.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    // Delete Video Testimonial
+    window.handleDeleteTestimonial = function (id) {
+      if (confirm("确定要移除此Video Testimonials吗？它将立即在前台见证墙下线！")) {
+        if (window.TestimonialDB) {
+          window.TestimonialDB.delete(id);
+        }
+        renderAdminDashboard();
+      }
+    };
+
+    let uploadedScrollingImageBase64 = "";
+
+    window.toggleAddScrollingTestimonialForm = function (clear = false) {
+      const box = document.getElementById("scrolling-testimonial-creator-form-box");
+      if (!box) return;
+
+      const isHidden = box.style.display === "none";
+      box.style.display = (isHidden && !clear) ? "block" : "none";
+
+      if (clear || isHidden) {
+        document.getElementById("admin-scrolling-form").reset();
+        document.getElementById("scrolling-id").value = "";
+        uploadedScrollingImageBase64 = "";
+        document.getElementById("scrolling-upload-status").textContent = "";
+        document.getElementById("scrolling-img-preview-box").style.display = "none";
+        document.getElementById("scrolling-img-preview").src = "";
+        document.getElementById("scrolling-form-title").textContent = "Create/Edit Scrolling Testimonial";
+      }
+    };
+
+    // Compress & read 16:9 scrolling testimonial screenshot
+    window.handleScrollingImageUpload = function (input) {
+      const file = input.files[0];
+      const statusLabel = document.getElementById("scrolling-upload-status");
+      const previewBox = document.getElementById("scrolling-img-preview-box");
+      const previewImg = document.getElementById("scrolling-img-preview");
+
+      if (!file) {
+        uploadedScrollingImageBase64 = "";
+        statusLabel.textContent = "";
+        return;
+      }
+
+      statusLabel.textContent = "Image智能处理压缩中...";
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const rawBase64 = e.target.result;
+        const img = new Image();
+        img.onload = function () {
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+
+          // Constrain within high-def 16:9 box
+          const MAX_WIDTH = 640;
+          const MAX_HEIGHT = 360;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          ctx.drawImage(img, 0, 0, width, height);
+
+          const compressedBase64 = canvas.toDataURL("image/jpeg", 0.7);
+          uploadedScrollingImageBase64 = compressedBase64;
+          statusLabel.textContent = "成绩单截图成功压缩并就绪！";
+
+          previewBox.style.display = "block";
+          previewImg.src = uploadedScrollingImageBase64;
+          document.getElementById("scrolling-screenshot-path").value = "";
+        };
+        img.onerror = function () {
+          uploadedScrollingImageBase64 = rawBase64;
+          statusLabel.textContent = "读取就绪";
+          previewBox.style.display = "block";
+          previewImg.src = uploadedScrollingImageBase64;
+        };
+        img.src = rawBase64;
+      };
+      reader.readAsDataURL(file);
+    };
+
+    // Save Scrolling Testimonial Card
+    window.handleSaveScrollingTestimonial = function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("scrolling-name").value.trim();
+      const role = document.getElementById("scrolling-role").value.trim();
+      const text = document.getElementById("scrolling-text").value.trim();
+      const manualPath = document.getElementById("scrolling-screenshot-path").value.trim();
+      const editId = document.getElementById("scrolling-id").value;
+
+      let screenshotUrl = "";
+      if (uploadedScrollingImageBase64) {
+        screenshotUrl = uploadedScrollingImageBase64;
+      } else if (manualPath) {
+        screenshotUrl = manualPath;
+      }
+
+      const cardId = editId ? editId : "st-custom-" + Date.now();
+
+      const cardData = {
+        id: cardId,
+        name: name,
+        role: role,
+        text: text,
+        screenshot: screenshotUrl,
+        image: `https://randomuser.me/api/portraits/${Math.random() > 0.5 ? 'men' : 'women'}/${Math.floor(Math.random() * 90) + 1}.jpg`
+      };
+
+      if (window.ScrollingTestimonialDB) {
+        try {
+          const result = window.ScrollingTestimonialDB.save(cardData);
+          if (result === false) {
+            alert("❌ 失败！数据容量超限，请清理旧卡片或上传更小的Image文件。");
+            return;
+          }
+          alert(editId ? "🎉 滚动成绩卡信息更新成功！" : "🎉 滚动成绩卡配置发布成功！");
+        } catch (err) {
+          console.error(err);
+          alert("❌ 失败！超出了浏览器本地存储限制。");
+          return;
+        }
+      }
+
+      uploadedScrollingImageBase64 = "";
+      toggleAddScrollingTestimonialForm(true);
+      renderAdminDashboard();
+    };
+
+    // Populate for Editing
+    window.handleEditScrollingTestimonial = function (id) {
+      const list = window.ScrollingTestimonialDB ? window.ScrollingTestimonialDB.getAll() : [];
+      const item = list.find(t => t.id === id);
+      if (!item) return;
+
+      const box = document.getElementById("scrolling-testimonial-creator-form-box");
+      box.style.display = "block";
+      document.getElementById("scrolling-form-title").textContent = "Edit滚动成绩见证卡信息";
+
+      document.getElementById("scrolling-id").value = item.id;
+      document.getElementById("scrolling-name").value = item.name;
+      document.getElementById("scrolling-role").value = item.role;
+      document.getElementById("scrolling-text").value = item.text;
+
+      const previewBox = document.getElementById("scrolling-img-preview-box");
+      const previewImg = document.getElementById("scrolling-img-preview");
+      const statusLabel = document.getElementById("scrolling-upload-status");
+
+      if (item.screenshot) {
+        if (item.screenshot.startsWith("data:image/")) {
+          uploadedScrollingImageBase64 = item.screenshot;
+          document.getElementById("scrolling-screenshot-path").value = "";
+          statusLabel.textContent = "已读本地已存成绩截图";
+        } else {
+          uploadedScrollingImageBase64 = "";
+          document.getElementById("scrolling-screenshot-path").value = item.screenshot;
+          statusLabel.textContent = "";
+        }
+        previewBox.style.display = "block";
+        previewImg.src = item.screenshot;
+      } else {
+        uploadedScrollingImageBase64 = "";
+        document.getElementById("scrolling-screenshot-path").value = "";
+        statusLabel.textContent = "";
+        previewBox.style.display = "none";
+      }
+
+      box.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    // Delete Card
+    window.handleDeleteScrollingTestimonial = function (id) {
+      if (confirm("确定要永久下架并删除这张成绩单见证卡片吗？它将立即从关于页中移除！")) {
+        if (window.ScrollingTestimonialDB) {
+          window.ScrollingTestimonialDB.delete(id);
+        }
+        renderAdminDashboard();
+      }
+    };
+  </script>
+</body>
+
+</html>

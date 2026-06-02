@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="万能教 Jack 老师 — 专为 SPM 学生打造的历史科 (Sejarah) 线上课程。简单直接，基础再弱也能进步！立即选课，冲 A 不是梦。" />
+  <meta name="keywords" content="Jack老师, 万能教, SPM Sejarah, 历史科补习, 线上课程, SPM补习" />
+  <meta property="og:title" content="万能教 Jack 老师 | SPM 历史科线上课程" />
+  <meta property="og:description" content="专为 SPM 学生打造的历史科课程，简单直接，基础再弱也能进步！" />
+  <title>万能教 Jack 老师 | SPM 历史科线上课程</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Nunito:wght@400;600;700;800;900;1000&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css?v=1.0.4" />
+</head>
+
+<body>
+
+  <!-- =============================================
+       NAVBAR
+       ============================================= -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="主导航">
+    <div class="nav-container">
+      <!-- Logo -->
+      <a href="#" class="nav-logo" id="navLogo" aria-label="万能教 Jack 老师 首页">
+        <img src="images/Jack_logo.png" alt="万能教Jack老师" class="nav-logo-img" />
+        <span class="nav-logo-main">万能教JACK老师</span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <div class="nav-menu" role="menubar">
+        <a href="index.html" class="nav-link" role="menuitem">首页</a>
+        <!-- <a href="about.html" class="nav-link nav-link-active" role="menuitem">关于</a> -->
+        <a href="shop.html" class="nav-link" role="menuitem">课程</a>
+        <a href="schedule.html" class="nav-link" role="menuitem">上课时间</a>
+        <a href="#faq" class="nav-link" role="menuitem">FAQ</a>
+      </div>
+
+      <!-- Action Icons -->
+      <div class="nav-actions">
+        <!-- Cart -->
+        <button class="nav-icon-btn" id="navCartBtn" aria-label="购物车" title="购物车" onclick="openCart()">
+          <div style="position:relative; display:inline-flex;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="22" height="22">
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+            </svg>
+            <span class="cart-badge cart-count" id="navCartBadge" aria-label="购物车商品数量">0</span>
+          </div>
+        </button>
+
+        <!-- Student Login - Filled Pink Button -->
+        <button class="btn-nav-login" id="navLoginBtn" onclick="openLogin()" aria-label="学生登录">学生登录</button>
+      </div>
+
+      <!-- Hamburger (Mobile) -->
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Dropdown Menu -->
+  <div class="mobile-menu" id="mobileMenu" role="menu" aria-hidden="true">
+    <a href="index.html" role="menuitem" onclick="closeMobileMenu()">首页</a>
+    <!-- <a href="about.html" role="menuitem" onclick="closeMobileMenu()" style="color: var(--pink);">关于</a> -->
+    <a href="shop.html" role="menuitem" onclick="closeMobileMenu()">课程</a>
+    <a href="schedule.html" role="menuitem" onclick="closeMobileMenu()">上课时间</a>
+    <a href="#faq" role="menuitem" onclick="closeMobileMenu()">FAQ</a>
+    <a href="shop.html" role="menuitem" onclick="closeMobileMenu()"
+      style="color: var(--pink); margin-top: 8px; display: block; font-size: 0.95rem;">立即选课 →</a>
+  </div>
+
+  <!-- =============================================
+       HERO SECTION — Full Pink Background
+       ============================================= -->
+  <section class="hero-v2" id="home" aria-label="主页横幅">
+    <!-- Hero Background Video — School tour clip, autoplay, loop, muted, click-through -->
+    <video class="hero-video-bg" autoplay muted loop playsinline disablePictureInPicture>
+      <source src="images/SMJK HWA LIAN JACK CROP.mp4" type="video/mp4">
+      您的浏览器不支持播放该视频。
+    </video>
+
+    <!-- Readable blurred neon mask overlay -->
+    <div class="hero-video-overlay" aria-hidden="true"></div>
+
+    <!-- Pink Hero Upper Area -->
+    <div class="hero-v2-pink">
+      <div class="container hero-v2-inner">
+        <!-- Headline -->
+        <h1 class="hero-v2-title fade-in">
+          <span class="hero-v2-title-bold">当你足够想要时</span>
+          <br class="mobile-break">
+          <span class="hero-v2-title-highlight">世界会听你的</span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="hero-v2-subtitle fade-in delay-1">
+          15年让超过9,000位学生Sejarah蜕变了<br>
+          让你相信你不差，只是还没找到适合你的方式！
+        </p>
+      </div>
+    </div>
+
+    <!-- Achievement Photo Cards Strip -->
+    <div class="achievement-cards-wrap" aria-label="Jack 老师成就展示">
+      <div class="achievement-cards-track" id="achCardsTrack">
+
+        <!-- Cards are loaded dynamically from localStorage database (HeroCardDB) inside js/main.js -->
+
+      </div>
+    </div>
+
+    <style>
+    /* Reset bottom padding since we removed the bottom nav on mobile */
+    @media (max-width: 768px) {
+      body {
+        padding-bottom: 0 !important;
+      }
+    }
+  </style>
+
+    <!-- Pill Banner (Styled as an interactive Button) -->
+    <div class="hero-pill-banner-container fade-in delay-3">
+      <a href="#courses" class="hero-pill-banner" id="heroPillCta" aria-label="他们可以，你绝对也可以！">
+        他们可以，你绝对也可以！
+      </a>
+    </div>
+  </section>
+
+  <!-- =============================================
+       STATS BANNER — 4 Large Numbers
+       ============================================= -->
+  <!-- =============================================
+       SECTION 2: 如何帮学生 (Teaching Philosophy Grid)
+       ============================================= -->
+  <section class="philosophy-section section" id="how-we-help" aria-label="教学理念">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label fade-up">✦ 核心使命</div>
+        <h2 class="section-title fade-up delay-1">万能教JACK老师是如何帮学生？</h2>
+        <p class="section-subtitle fade-up delay-2">我们不提倡死背，而是通过最高效的记忆术与逻辑，让Sejarah成为你的提分王牌！</p>
+      </div>
+
+      <div class="philosophy-grid-three">
+        <!-- Card 1: 对学生的信念 -->
+        <div class="philosophy-new-card fade-up delay-1">
+          <div class="phil-icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 3h12l4 6-10 13L2 9z" />
+              <path d="M11 3 8 9l4 13 4-13-3-6" />
+              <path d="M2 9h20" />
+            </svg>
+          </div>
+          <h3 class="phil-card-title">对学生的信念</h3>
+          <p class="phil-card-desc">
+            <strong>“只要适合的方法，每一位学生都是钻石”</strong><br>我们坚信没有学不会的学生，只有还没找到适合自己学习方式的钻石。在Jack老师这里，你的潜力将被无限放大！
+          </p>
+        </div>
+
+        <!-- Card 2: 教学的理念 -->
+        <div class="philosophy-new-card fade-up delay-2">
+          <div class="phil-icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.44 2.5 2.5 0 0 1 0-3.12 3 3 0 0 1 0-4.88 2.5 2.5 0 0 1 0-3.12A2.5 2.5 0 0 1 9.5 2Z" />
+              <path
+                d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.44 2.5 2.5 0 0 0 0-3.12 3 3 0 0 0 0-4.88 2.5 2.5 0 0 0 0-3.12A2.5 2.5 0 0 0 14.5 2Z" />
+            </svg>
+          </div>
+          <h3 class="phil-card-title">教学的理念</h3>
+          <p class="phil-card-desc">
+            <strong>“拒绝死背，通过心理学和记忆术轻松掌握”</strong><br>死记硬背只会让你痛苦不堪。我们引入心理学记忆遗忘曲线与联想记忆术，把枯燥历史变成追剧故事，让你一次记住终身难忘！
+          </p>
+        </div>
+
+        <!-- Card 3: 小聪明的技巧 -->
+        <div class="philosophy-new-card fade-up delay-3">
+          <div class="phil-icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="m21 2-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0 3 3L22 7l-3-3m-3.5 3.5 3-3" />
+            </svg>
+          </div>
+          <h3 class="phil-card-title">小聪明的技巧</h3>
+          <p class="phil-card-desc"><strong>“万能式【乱乱写都可以SCORE
+              A】答答题法”</strong><br>打破传统刻板答题模式！教你最直接、最聪明的答题模版，教你如何用最短的字句直击考官的满分得分点，写短短也能拿满分！</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Award Logos — Infinite Scrolling Marquee (Moved below Philosophy Grid) -->
+  <div class="award-logos-bar" aria-label="获奖认可">
+    <div class="award-logos-marquee-wrap">
+      <div class="award-logos-marquee-track" id="awardLogoTrack">
+        <!-- Set 1 -->
+        <div class="award-logo-item"><img src="images/得奖logo/1.png" alt="Asia Pacific TOP Excellence Brand" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/3.png" alt="南洋100品牌奖" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/4.png" alt="Most Outstanding Leader Awards" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/Copy of MIE_LOGO-dark-color-01-1024x955.png"
+            alt="Malaysia Influential Educators 2023" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/Untitled design (21).png" alt="ASEAN Records" /></div>
+        <!-- Set 2 -->
+        <div class="award-logo-item"><img src="images/得奖logo/1.png" alt="Asia Pacific TOP Excellence Brand" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/3.png" alt="南洋100品牌奖" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/4.png" alt="Most Outstanding Leader Awards" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/Copy of MIE_LOGO-dark-color-01-1024x955.png"
+            alt="Malaysia Influential Educators 2023" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/Untitled design (21).png" alt="ASEAN Records" /></div>
+      </div>
+      <div class="award-logos-marquee-track" aria-hidden="true">
+        <!-- Duplicate of Set 1 & Set 2 for seamless loop -->
+        <div class="award-logo-item"><img src="images/得奖logo/1.png" alt="Asia Pacific TOP Excellence Brand" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/3.png" alt="南洋100品牌奖" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/4.png" alt="Most Outstanding Leader Awards" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/Copy of MIE_LOGO-dark-color-01-1024x955.png"
+            alt="Malaysia Influential Educators 2023" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/Untitled design (21).png" alt="ASEAN Records" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/1.png" alt="Asia Pacific TOP Excellence Brand" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/3.png" alt="南洋100品牌奖" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/4.png" alt="Most Outstanding Leader Awards" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/Copy of MIE_LOGO-dark-color-01-1024x955.png"
+            alt="Malaysia Influential Educators 2023" /></div>
+        <div class="award-logo-item"><img src="images/得奖logo/Untitled design (21).png" alt="ASEAN Records" /></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS BANNER — 4 Large Numbers (Moved below Marquee) -->
+  <section class="stats-banner" id="hero-addon" aria-label="Jack 老师成就数据">
+    <div class="stats-banner-inner">
+
+      <div class="stats-banner-item fade-up delay-1">
+        <div class="stats-banner-numline">
+          <span class="stats-banner-num" data-target="9382" data-suffix="">0</span>
+        </div>
+        <span class="stats-banner-label">学生受益</span>
+      </div>
+
+      <span class="stats-banner-divider" aria-hidden="true"></span>
+
+      <div class="stats-banner-item fade-up delay-2">
+        <div class="stats-banner-numline">
+          <span class="stats-banner-num" data-target="16" data-suffix="年">0</span>
+        </div>
+        <span class="stats-banner-label">教学经验</span>
+      </div>
+
+      <span class="stats-banner-divider" aria-hidden="true"></span>
+
+      <div class="stats-banner-item fade-up delay-3">
+        <div class="stats-banner-numline">
+          <span class="stats-banner-num" data-target="65" data-suffix="">0</span>
+        </div>
+        <span class="stats-banner-label">间学校巡回</span>
+      </div>
+
+      <span class="stats-banner-divider" aria-hidden="true"></span>
+
+      <div class="stats-banner-item fade-up delay-4">
+        <div class="stats-banner-numline">
+          <span class="stats-banner-num" data-target="100" data-suffix="%">0</span>
+        </div>
+        <span class="stats-banner-label">SPM 及格率</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =============================================
+       SECTION 3: 3大痛点 & 教学理念
+       ============================================= -->
+  <!-- =============================================
+       SECTION 4: 99%学生在SEJARAH面对的挑战 (Bubble Cloud)
+       ============================================= -->
+  <section class="challenges-section section" id="pain-points" aria-label="学生历史挑战">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label fade-up">✦ 攻克痛点</div>
+        <h2 class="section-title fade-up delay-1">99%学生在SEJARAH面对的挑战！</h2>
+        <p class="section-subtitle fade-up delay-2">你是不是也有同样的烦恼？别怕，这些在Jack老师这里都不是问题！</p>
+      </div>
+
+      <!-- Bubble Cloud Container -->
+      <div class="challenge-bubbles-wrap fade-up delay-3">
+        <div class="bubble-item bubble-lg bubble-float-1">
+          <span class="bubble-emoji">📕</span>
+          <span class="bubble-text">内容太多记不住</span>
+        </div>
+        <div class="bubble-item bubble-md bubble-float-2">
+          <span class="bubble-emoji">🧠</span>
+          <span class="bubble-text">读了还是会忘记</span>
+        </div>
+        <div class="bubble-item bubble-sm bubble-float-3">
+          <span class="bubble-emoji">❓</span>
+          <span class="bubble-text">看不懂题目</span>
+        </div>
+        <div class="bubble-item bubble-md bubble-float-4">
+          <span class="bubble-emoji">📝</span>
+          <span class="bubble-text">写了不符合考官要的</span>
+        </div>
+        <div class="bubble-item bubble-lg bubble-float-5">
+          <span class="bubble-emoji">🥱</span>
+          <span class="bubble-text">觉得SEJARAH很闷</span>
+        </div>
+        <div class="bubble-item bubble-sm bubble-float-1">
+          <span class="bubble-emoji">🧭</span>
+          <span class="bubble-text">不知从何读起</span>
+        </div>
+        <div class="bubble-item bubble-md bubble-float-2">
+          <span class="bubble-emoji">📉</span>
+          <span class="bubble-text">考试总是及格边缘</span>
+        </div>
+        <div class="bubble-item bubble-lg bubble-float-3">
+          <span class="bubble-emoji">✨</span>
+          <span class="bubble-text">极度渴望拿A</span>
+        </div>
+        <div class="bubble-item bubble-md bubble-float-4">
+          <span class="bubble-emoji">❌</span>
+          <span class="bubble-text">没有适合自己的方法</span>
+        </div>
+      </div>
+
+      <!-- Challenge Focus Card (Mobile only, interactive display) -->
+      <div class="challenge-focus-card" id="challengeFocusCard">
+        <span class="focus-emoji">👉</span>
+        <span class="focus-text">点击上方圆形气泡，查看我的历史痛点 👈</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- =============================================
+       SECTION 4: TEACHER PROFILE
+       ============================================= -->
+  <section class="teacher-section section" id="teacher" aria-label="Jack 老师介绍">
+    <div class="container">
+      <!-- Mobile Only Title -->
+      <h2 class="teacher-content-title mobile-teacher-title fade-up">
+        为什么一个月有<span class="text-pink">2537位学生</span>愿意给老师学费呢？
+      </h2>
+      <div class="teacher-grid">
+        <!-- Left Photo Card -->
+        <div class="teacher-img-wrap fade-in">
+          <div class="teacher-deco-glow" aria-hidden="true"></div>
+          <div class="teacher-img-frame">
+            <img src="images/Card_Photo/60.png" alt="Jack 老师获得东盟记录官方认证" loading="lazy"
+              id="teacherProfileImg" />
+          </div>
+        </div>
+
+        <!-- Right Content & Benefits Column -->
+        <div class="teacher-content fade-up">
+          <h2 class="teacher-content-title desktop-teacher-title">
+            为什么一个月有<span class="text-pink">2537位学生</span><br>愿意给老师学费呢？
+          </h2>
+
+          <!-- Three Simple Reasons -->
+          <ul class="reasons-simple-list">
+            <li>
+              <span class="reason-num">1</span>
+              <span class="reason-text-part"><strong>因为有效</strong>，学生是聪明的。有帮助才会继续啊</span>
+            </li>
+            <li>
+              <span class="reason-num">2</span>
+              <span class="reason-text-part"><strong>因为简单</strong>，老师用了最简单学习的方式</span>
+            </li>
+            <li>
+              <span class="reason-num">3</span>
+              <span class="reason-text-part"><strong>因为进步</strong>，一步一步进步，学生就有信心</span>
+            </li>
+          </ul>
+
+          <!-- Four Checkmarks -->
+          <div class="core-features-list simple-checkmarks">
+            <div class="core-feat-item">
+              <span class="feat-check" aria-hidden="true">✓</span>
+              <span>首位荣获最多学生的华人Sejarah教师</span>
+            </div>
+            <div class="core-feat-item">
+              <span class="feat-check" aria-hidden="true">✓</span>
+              <span>全马第一本《会说话》万能宝典作者</span>
+            </div>
+            <div class="core-feat-item">
+              <span class="feat-check" aria-hidden="true">✓</span>
+              <span>100% SPM SEJ 及格率</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+
+  <!-- =============================================
+       SECTION 6: STUDENT TESTIMONIALS
+       ============================================= -->
+  <section class="testimonials-section section" id="testimonials" aria-label="学生评价">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label fade-up">✦ 学生心声</div>
+        <h2 class="section-title fade-up delay-1">听听他们怎么说</h2>
+        <p class="section-subtitle fade-up delay-2">真实学生反馈，看看他们在 Jack 老师课程后的进步</p>
+      </div>
+
+      <!-- Slider Container Flanked by Arrows -->
+      <div class="testimonials-slider-container fade-up delay-3">
+        <!-- Prev Arrow -->
+        <button class="slider-btn-floating prev" id="sliderPrev" onclick="slideTestimonials(-1)" aria-label="上一个视频">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
+
+        <!-- Video Wrapper -->
+        <div class="testimonials-track-wrap">
+          <div class="testimonials-track" id="testimonialsTrack" role="list">
+
+            <!-- Video 1 -->
+            <div class="testimonial-card testimonial-video-card" role="listitem" aria-label="学生视频见证 1">
+              <div class="testimonial-video-wrapper">
+                <video class="testimonial-video" controls playsinline preload="metadata" poster="images/见证/1.png">
+                  <source src="images/见证/video/SPM SEJARAH FAIL变A+见证.mp4#t=0.001" type="video/mp4">
+                  您的浏览器不支持播放该视频。
+                </video>
+              </div>
+              <div class="testimonial-card-content">
+                <div class="testimonial-rating" aria-label="评分: 5星">
+                  <span class="star-icon">★</span>
+                  <span class="star-icon">★</span>
+                  <span class="star-icon">★</span>
+                  <span class="star-icon">★</span>
+                  <span class="star-icon">★</span>
+                </div>
+                <h3 class="testimonial-card-title">9分逆袭97分！🔥</h3>
+                <p class="testimonial-card-desc">就算9分，我们都不定义他是弱生！找到适合的方法，半年突变97分！</p>
+              </div>
+            </div>
+
+            <!-- Video 2 -->
+            <div class="testimonial-card testimonial-video-card" role="listitem" aria-label="学生视频见证 2">
+              <div class="testimonial-video-wrapper">
+                <video class="testimonial-video" controls playsinline preload="metadata" poster="images/见证/23.png">
+                  <source src="images/见证/video/Sin Jiun(1).mp4#t=0.001" type="video/mp4">
+                  您的浏览器不支持播放该视频。
+                </video>
+              </div>
+              <div class="testimonial-card-content">
+                <div class="testimonial-rating" aria-label="评分: 5星">
+                  <span class="star-icon">★</span>
+                  <span class="star-icon">★</span>
+                  <span class="star-icon">★</span>
+                  <span class="star-icon">★</span>
+                  <span class="star-icon">★</span>
+                </div>
+                <h3 class="testimonial-card-title">历史全班第一！🏆</h3>
+                <p class="testimonial-card-desc">停学2年，本来只希望全科PASS，两个月蜕变8个A！我们让学生看见【我是可以的】！</p>
+              </div>
+            </div>
+
+            <!-- Video 3 -->
+            <div class="testimonial-card testimonial-video-card" role="listitem" aria-label="学生视频见证 3">
+              <div class="testimonial-video-wrapper">
+                <video class="testimonial-video" controls playsinline preload="metadata" poster="images/见证/30.png">
+                  <source src="images/见证/video/4月6日.mp4#t=0.001" type="video/mp4">
+                  您的浏览器不支持播放该视频。
+                </video>
+              </div>
+              <div class="testimonial-card-content">
+                <div class="testimonial-rating" aria-label="评分: 5星">
+                  <span class="star-icon">★</span>
+                  <span class="star-icon">★</span>
+                  <span class="star-icon">★</span>
+                  <span class="star-icon">★</span>
+                  <span class="star-icon">★</span>
+                </div>
+                <h3 class="testimonial-card-title">不及格到稳拿 A！✨</h3>
+                <p class="testimonial-card-desc">万能口诀与答题模板加持，抛弃死记硬背，Sejarah 拿 A 原来这么轻松！</p>
+              </div>
+            </div>
+
+            <!-- Video 4 -->
+            <div class="testimonial-card testimonial-video-card" role="listitem" aria-label="学生视频见证 4">
+              <div class="testimonial-video-wrapper">
+                <video class="testimonial-video" controls playsinline preload="metadata" poster="images/见证/37.png">
+                  <source src="images/见证/video/FinalVideo_1629535396.551183.mov#t=0.001" type="video/quicktime">
+                  您的浏览器不支持播放该视频。
+                </video>
+              </div>
+              <div class="testimonial-card-content">
+                <div class="testimonial-rating" aria-label="评分: 5星">
+                  <span class="star-icon">★</span>
+                  <span class="star-icon">★</span>
+                  <span class="star-icon">★</span>
+                  <span class="star-icon">★</span>
+                  <span class="star-icon">★</span>
+                </div>
+                <h3 class="testimonial-card-title">从 G 逆袭到 A-！📉</h3>
+                <p class="testimonial-card-desc">从不及格边缘到傲人成绩，每一次提分都是对努力最好的证明！</p>
+              </div>
+            </div>
+
+          </div><!-- /track -->
+        </div><!-- /track-wrap -->
+
+        <!-- Next Arrow -->
+        <button class="slider-btn-floating next" id="sliderNext" onclick="slideTestimonials(1)" aria-label="下一个视频">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Slider Dots below -->
+      <div class="slider-controls testimonials-dots-container fade-up delay-4">
+        <div class="slider-dots" role="tablist" aria-label="视频见证分页">
+          <button class="slider-dot active" role="tab" aria-selected="true" onclick="goToSlide(0)"
+            aria-label="第 1 个视频"></button>
+          <button class="slider-dot" role="tab" aria-selected="false" onclick="goToSlide(1)"
+            aria-label="第 2 个视频"></button>
+          <button class="slider-dot" role="tab" aria-selected="false" onclick="goToSlide(2)"
+            aria-label="第 3 个视频"></button>
+          <button class="slider-dot" role="tab" aria-selected="false" onclick="goToSlide(3)"
+            aria-label="第 4 个视频"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- =============================================
+       SECTION 7: 学校巡回 (视频 + 照片 + 文案)
+       ============================================= -->
+  <section class="school-tour-section section" id="school-tour" aria-label="学校巡回展示">
+    <div class="container">
+      <div class="school-grid">
+
+        <!-- Left Side: Auto-playing Tour Video -->
+        <div class="school-video-wrap fade-in">
+          <div class="school-video-container">
+            <video id="schoolTourVideo" class="school-video" loop playsinline>
+              <source src="images/teacher/SMJK HWA LIAN JACK CROP.mp4" type="video/mp4">
+              您的浏览器不支持播放该视频。
+            </video>
+            <button class="video-mute-btn" id="videoMuteBtn" aria-label="静音切换">
+              <!-- Unmuted State (Sound ON) -->
+              <svg id="unmuteIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+              <!-- Muted State (Sound OFF) -->
+              <svg id="muteIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <line x1="23" y1="9" x2="17" y2="15"></line>
+                <line x1="17" y1="9" x2="23" y2="15"></line>
+              </svg>
+              <span id="muteBtnText">🔊 声音: 开启</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Side: School Tour Text -->
+        <div class="school-content fade-up delay-2">
+          <h2 class="school-title">
+            65场全马中学SEJ巡回讲座
+          </h2>
+          <p class="school-desc">
+            教育的热忱不应只留在电脑屏幕前。Jack 老师秉持着初心，多年来亲身走入大马全国各大城镇共 65 间中学，与数万名中学生面对面点燃历史学科的学习热情。我们用最直接、最有温度的备考经验，让学子们明白：Sejarah 冲
+            A 其实很简单！
+          </p>
+          <p class="school-desc" style="font-weight: 700; color: var(--pink);">
+            🌟 每一个热烈互动的现场、每一位重拾信心的学生，都是我们不断努力前行的最强动力！
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- =============================================
+       SECTION 8: 学习资料 Sample (照片)
+       ============================================= -->
+  <section class="notes-sample-section section" id="notes-sample" aria-label="学习资料样品">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label fade-up">✦ 拒绝厚重课本</div>
+        <h2 class="section-title fade-up delay-1">精美《历史秘笈》笔记样本预览</h2>
+        <p class="section-subtitle fade-up delay-2">全手写精美排版设计，用图表与满分关键词代替密密麻麻的文字，复习效率翻倍！</p>
+      </div>
+
+      <div class="notes-sample-grid">
+
+        <!-- Card 1 -->
+        <div class="note-sample-card fade-up delay-1">
+          <div class="note-sample-img-wrap">
+            <img src="images/product-book.png" alt="历史秘笈笔记封面预览" loading="lazy">
+            <span class="note-sample-badge">秘笈封面</span>
+          </div>
+          <div class="note-sample-body">
+            <h3 class="note-sample-title">《Jack老师历史秘笈》</h3>
+            <p class="note-sample-desc">精心手绘设计的精美彩色书皮，给学习 Sejarah 注入一份独特的仪式感，爱不释手。</p>
+            <div class="note-sample-tags">
+              <span class="note-sample-tag">Form 1 - 5</span>
+              <span class="note-sample-tag">彩色精装</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="note-sample-card fade-up delay-2">
+          <div class="note-sample-img-wrap">
+            <img src="images/product-bundle.png" alt="Form 4 核心要点手写笔记预览" loading="lazy">
+            <span class="note-sample-badge">Form 4 精华</span>
+          </div>
+          <div class="note-sample-body">
+            <h3 class="note-sample-title">手写图表化知识整理</h3>
+            <p class="note-sample-desc">摒弃密集段落，采用独家左右对比图表、精炼关键词，让你 5 分钟就能理清历史章节主干！</p>
+            <div class="note-sample-tags">
+              <span class="note-sample-tag">思维导图</span>
+              <span class="note-sample-tag">秒懂脉络</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="note-sample-card fade-up delay-3">
+          <div class="note-sample-img-wrap">
+            <img src="images/product-course.png" alt="SPM KBAT 满分关键词笔记预览" loading="lazy">
+            <span class="note-sample-badge">KBAT 绝招</span>
+          </div>
+          <div class="note-sample-body">
+            <h3 class="note-sample-title">KBAT 必背满分关键词</h3>
+            <p class="note-sample-desc">专为 Paper 2 结构题和论述题提炼的万能 KBAT 关键答题词汇与句型模版，提笔就得分！</p>
+            <div class="note-sample-tags">
+              <span class="note-sample-tag">KBAT 秘籍</span>
+              <span class="note-sample-tag">一击即中</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- =============================================
+       SECTION 9: FEATURED COURSES SECTION
+       ============================================= -->
+  <section class="courses-section section" id="courses" aria-label="精选课程">
+    <div class="container">
+      <!-- Section Header -->
+      <div class="section-header">
+        <div class="section-label fade-up">✦ 精选课程</div>
+        <h2 class="section-title fade-up delay-1">选择适合你的学习方案</h2>
+        <p class="section-subtitle fade-up delay-2">
+          无论你是刚开始学习还是临近考试冲刺，<br>
+          Jack 老师都有最适合你的课程！
+        </p>
+      </div>
+
+      <!-- Courses Slider Container -->
+      <div class="courses-track-wrap fade-up delay-3">
+        <!-- Floating Swipe Guide Indicator for Mobile -->
+        <div class="swipe-indicator-arrow" id="courseSwipeArrow" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </div>
+        <div class="courses-track" id="coursesTrack" role="list">
+
+          <!-- Product 1: Sejarah Notes Book -->
+          <div class="course-card" id="courseCard1" role="listitem">
+            <div class="course-img-wrap">
+              <img src="images/product-book.png" alt="Jack 老师 Sejarah 历史秘笈笔记本" loading="lazy" />
+              <span class="course-badge" style="color: var(--warning);">📖 实体笔记</span>
+            </div>
+            <div class="course-body">
+              <div class="course-form-tags">
+                <span class="course-form-tag">Form 1</span>
+                <span class="course-form-tag">Form 2</span>
+                <span class="course-form-tag">Form 3</span>
+                <span class="course-form-tag">Form 4</span>
+                <span class="course-form-tag">Form 5</span>
+              </div>
+              <h3 class="course-title">《Jack 老师历史秘笈》<br>专属笔记本</h3>
+              <p class="course-desc">Jack 老师亲自整理，简单易懂、重点突出的 SPM 历史科笔记，涵盖 Form 1–5 全部考试重点。</p>
+              <ul class="course-features">
+                <li>涵盖 Form 1–5 所有章节</li>
+                <li>考试必考重点精华整理</li>
+                <li>简单易懂，一目了然</li>
+                <li>一次购买，终身使用</li>
+              </ul>
+              <div class="course-footer" style="flex-direction: column; align-items: stretch; gap: 8px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; width:100%;">
+                  <div class="course-price">
+                    <span class="course-price-from">一次性</span>
+                    <span class="course-price-amount">RM 45</span>
+                    <span class="course-price-period">买断制</span>
+                  </div>
+                </div>
+                <div style="text-align: center; margin: 4px 0;">
+                  <a href="course-detail.html?id=wanneng-book" class="course-detail-link"
+                    style="color: var(--purple); font-size: 0.8rem; font-weight: 700; text-decoration: none;"
+                    onmouseover="this.style.color='var(--pink)'" onmouseout="this.style.color='var(--purple)'">
+                    ✨ 查看笔记大纲详情 ➔
+                  </a>
+                </div>
+                <div style="display:flex; gap:8px; width:100%;">
+                  <button class="btn-add-cart" id="addCartBook"
+                    style="flex:1; justify-content:center; padding:10px 8px; font-size:0.75rem;"
+                    onclick="addToCart('book')" aria-label="加入购物车 - Sejarah 历史秘笈笔记本">🛒 加购物车</button>
+                  <button class="btn btn-primary"
+                    style="flex:1.2; padding:10px 8px; font-size:0.75rem; border-radius:9999px; box-shadow:none; font-family:'Noto Sans SC',sans-serif; font-weight:700;"
+                    onclick="buyNow('book')" aria-label="立即购买 - Sejarah 历史秘笈笔记本">⚡ 立即购买</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 2: Online Course (FEATURED) -->
+          <div class="course-card featured" id="courseCard2" role="listitem">
+            <div class="course-img-wrap">
+              <img src="images/product-course.png" alt="Jack 老师 SPM 历史线上课" loading="lazy" />
+              <span class="course-badge" style="color: var(--pink);">🎯 Zoom 线上课</span>
+            </div>
+            <div class="course-body">
+              <div class="course-form-tags">
+                <span class="course-form-tag" style="background: var(--pink-bg); color: var(--pink);">Form 1–5</span>
+                <span class="course-form-tag" style="background: var(--pink-bg); color: var(--pink);">当月无限重播</span>
+              </div>
+              <h3 class="course-title">Jack 老师 SPM 历史<br>线上直播课</h3>
+              <p class="course-desc">每周 Zoom 直播上课，买了当月可以无限次重播。基础差也没关系，Jack 老师用最简单的方式教你！</p>
+              <ul class="course-features">
+                <li>每周 Zoom 线上直播课</li>
+                <li>当月购买，当月无限次重播</li>
+                <li>Form 1–5 全覆盖</li>
+                <li>专属学生群，随时提问</li>
+              </ul>
+
+              <!-- Price selector -->
+              <div id="coursePriceSel" style="margin-bottom: 12px;">
+                <div style="font-size:0.75rem; font-weight:700; color:var(--gray-muted); margin-bottom:8px;">选择订阅方案：
+                </div>
+                <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                  <button class="plan-btn plan-btn-active" id="plan1m" onclick="selectPlan('1m', 89)"
+                    aria-pressed="true">1 个月<br><strong>RM 89</strong></button>
+                  <button class="plan-btn" id="plan3m" onclick="selectPlan('3m', 229)" aria-pressed="false">3
+                    个月<br><strong>RM 229</strong></button>
+                  <button class="plan-btn" id="plan6m" onclick="selectPlan('6m', 399)" aria-pressed="false">6
+                    个月<br><strong>RM 399</strong></button>
+                  <button class="plan-btn" id="plan1x" onclick="selectPlan('1x', 159)"
+                    aria-pressed="false">一次性<br><strong>RM 159</strong></button>
+                </div>
+              </div>
+
+              <div class="course-footer" style="flex-direction: column; align-items: stretch; gap: 8px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; width:100%;">
+                  <div class="course-price">
+                    <span class="course-price-from">起价</span>
+                    <span class="course-price-amount" id="selectedCoursePrice">RM 89</span>
+                    <span class="course-price-period">/ 1 个月</span>
+                  </div>
+                </div>
+                <div style="text-align: center; margin: 4px 0;">
+                  <a href="course-detail.html?id=sej-live-1m" id="heroDetailCourseBtn" class="course-detail-link"
+                    style="color: var(--purple); font-size: 0.8rem; font-weight: 700; text-decoration: none;"
+                    onmouseover="this.style.color='var(--pink)'" onmouseout="this.style.color='var(--purple)'">
+                    ✨ 查看直播课程大纲 ➔
+                  </a>
+                </div>
+                <div style="display:flex; gap:8px; width:100%;">
+                  <button class="btn-add-cart" id="addCartCourse"
+                    style="flex:1; justify-content:center; padding:10px 8px; font-size:0.75rem;"
+                    onclick="addToCart('course')" aria-label="加入购物车 - SPM 历史线上课">🛒 加购物车</button>
+                  <button class="btn btn-primary"
+                    style="flex:1.2; padding:10px 8px; font-size:0.75rem; border-radius:9999px; box-shadow:none; font-family:'Noto Sans SC',sans-serif; font-weight:700;"
+                    onclick="buyNow('course')" aria-label="立即报名 - SPM 历史线上课">⚡ 立即报名</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 3: VIP Bundle -->
+          <div class="course-card" id="courseCard3" role="listitem">
+            <div class="course-img-wrap">
+              <img src="images/product-bundle.png" alt="VIP 全包套餐 - 笔记 + 课程" loading="lazy" />
+              <span class="course-badge" style="color: var(--success);">⭐ 最超值套餐</span>
+            </div>
+            <div class="course-body">
+              <div class="course-form-tags">
+                <span class="course-form-tag" style="background: var(--success-bg); color: var(--success);">书本 +
+                  课程</span>
+                <span class="course-form-tag" style="background: var(--success-bg); color: var(--success);">省 RM
+                  15</span>
+              </div>
+              <h3 class="course-title">VIP 全包套餐<br>笔记 + 3 个月课程</h3>
+              <p class="course-desc">最划算的选择！一次拿齐 Jack 老师专属笔记本 + 3 个月线上课程，节省更多，学习更系统！</p>
+              <ul class="course-features">
+                <li>《历史秘笈》笔记本 × 1</li>
+                <li>3 个月 Zoom 线上课</li>
+                <li>当月无限重播</li>
+                <li>省 RM 15（原价 RM 274）</li>
+              </ul>
+              <div class="course-footer" style="flex-direction: column; align-items: stretch; gap: 8px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; width:100%;">
+                  <div class="course-price">
+                    <span class="course-price-from" style="text-decoration:line-through; color:var(--gray-muted);">RM
+                      274</span>
+                    <span class="course-price-amount">RM 259</span>
+                    <span class="course-price-period">省 RM 15 🎉</span>
+                  </div>
+                </div>
+                <div style="text-align: center; margin: 4px 0;">
+                  <a href="course-detail.html?id=wanneng-vip-bundle" class="course-detail-link"
+                    style="color: var(--purple); font-size: 0.8rem; font-weight: 700; text-decoration: none;"
+                    onmouseover="this.style.color='var(--pink)'" onmouseout="this.style.color='var(--purple)'">
+                    ✨ 查看 VIP 套餐详情 ➔
+                  </a>
+                </div>
+                <div style="display:flex; gap:8px; width:100%;">
+                  <button class="btn-add-cart" id="addCartBundle"
+                    style="flex:1; justify-content:center; padding:10px 8px; font-size:0.75rem;"
+                    onclick="addToCart('bundle')" aria-label="加入购物车 - VIP 全包套餐">🛒 加购物车</button>
+                  <button class="btn btn-primary"
+                    style="flex:1.2; padding:10px 8px; font-size:0.75rem; border-radius:9999px; box-shadow:none; font-family:'Noto Sans SC',sans-serif; font-weight:700;"
+                    onclick="buyNow('bundle')" aria-label="立即购买 - VIP 全包套餐">⚡ 立即购买</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /courses-track -->
+      </div><!-- /courses-track-wrap -->
+
+      <!-- Course Slider Controls -->
+      <div class="courses-slider-controls fade-up delay-4" id="coursesSliderControls">
+        <button class="slider-btn" id="courseSliderPrev" onclick="slideCourses(-1)" aria-label="上一个课程">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
+        <button class="slider-btn" id="courseSliderNext" onclick="slideCourses(1)" aria-label="下一个课程">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Big Store CTA Button -->
+      <div class="fade-up" style="text-align: center; margin-top: 50px;">
+        <a href="shop.html" class="shop-cta-btn" aria-label="更多课程">
+          更多课程
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- =============================================
+       HOW IT WORKS
+       ============================================= -->
+  <section class="how-section section" id="how" aria-label="购买流程">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label fade-up">✦ 简单 3 步</div>
+        <h2 class="section-title fade-up delay-1">像网购一样简单！</h2>
+        <p class="section-subtitle fade-up delay-2">选课、付款、开始学习，3 步完成！</p>
+      </div>
+
+      <div class="how-grid">
+        <div class="how-step fade-up delay-1">
+          <div class="how-step-num" aria-hidden="true">1</div>
+          <span class="how-step-emoji" aria-hidden="true">🛒</span>
+          <h3 class="how-step-title">选择课程</h3>
+          <p class="how-step-desc">浏览上方精选课程，选择最适合你的学习方案，加入购物车。</p>
+        </div>
+        <div class="how-step fade-up delay-2">
+          <div class="how-step-num" aria-hidden="true">2</div>
+          <span class="how-step-emoji" aria-hidden="true">💳</span>
+          <h3 class="how-step-title">安全付款</h3>
+          <p class="how-step-desc">支持多种付款方式，安全快速，2 分钟内完成下单。</p>
+        </div>
+        <div class="how-step fade-up delay-3">
+          <div class="how-step-num" aria-hidden="true">3</div>
+          <span class="how-step-emoji" aria-hidden="true">🚀</span>
+          <h3 class="how-step-title">开始学习</h3>
+          <p class="how-step-desc">付款后自动引导你加入课程，立刻与 Jack 老师一起冲 A！</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       FAQ
+       ============================================= -->
+  <section class="faq-section section" id="faq" aria-label="常见问题">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label fade-up">✦ 常见问题</div>
+        <h2 class="section-title fade-up delay-1">有什么想知道的？</h2>
+      </div>
+
+      <div class="faq-list fade-up delay-2" role="list">
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" id="faq1-btn" onclick="toggleFaq(this)" aria-expanded="false"
+            aria-controls="faq1-answer">
+            课程是线上还是线下？
+            <div class="faq-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+            </div>
+          </button>
+          <div class="faq-answer" id="faq1-answer" role="region" aria-labelledby="faq1-btn">
+            <div class="faq-answer-inner">
+              全部都是 <strong>Zoom 线上课</strong>，在家用手机或电脑就可以上课！非常方便，不需要出门。
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" id="faq2-btn" onclick="toggleFaq(this)" aria-expanded="false"
+            aria-controls="faq2-answer">
+            "当月无限重播"是什么意思？
+            <div class="faq-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+            </div>
+          </button>
+          <div class="faq-answer" id="faq2-answer" role="region" aria-labelledby="faq2-btn">
+            <div class="faq-answer-inner">
+              比如你 5 月购买课程，那么 5 月份所有的直播课录像，你可以在 5 月内<strong>无限次重播</strong>。6 月的录像就需要购买 6 月份的课程才能观看。
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" id="faq3-btn" onclick="toggleFaq(this)" aria-expanded="false"
+            aria-controls="faq3-answer">
+            付款后怎么加入课程？
+            <div class="faq-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+            </div>
+          </button>
+          <div class="faq-answer" id="faq3-answer" role="region" aria-labelledby="faq3-btn">
+            <div class="faq-answer-inner">
+              付款成功后，系统会<strong>自动引导你联系我们的客服</strong>（WhatsApp），由客服安排你加入课程群组，整个过程非常简单！
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" id="faq4-btn" onclick="toggleFaq(this)" aria-expanded="false"
+            aria-controls="faq4-answer">
+            基础很差，可以跟上吗？
+            <div class="faq-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+            </div>
+          </button>
+          <div class="faq-answer" id="faq4-answer" role="region" aria-labelledby="faq4-btn">
+            <div class="faq-answer-inner">
+              <strong>可以！</strong>Jack 老师的课程就是专门为基础弱、听不懂的学生设计的。用最简单、最直接的方式讲解，让每一位学生都能理解和跟上进度。
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" id="faq5-btn" onclick="toggleFaq(this)" aria-expanded="false"
+            aria-controls="faq5-answer">
+            支持什么付款方式？
+            <div class="faq-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+            </div>
+          </button>
+          <div class="faq-answer" id="faq5-answer" role="region" aria-labelledby="faq5-btn">
+            <div class="faq-answer-inner">
+              支持网银转账（FPX）、信用卡/扣账卡、TNG eWallet、GrabPay 等多种付款方式，付款安全快速。
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /faq-list -->
+    </div>
+  </section>
+
+  <!-- =============================================
+       FINAL CTA
+       ============================================= -->
+  <section class="cta-section" id="cta" aria-label="立即行动">
+    <div class="container">
+      <div class="cta-content fade-up">
+        <h2 class="cta-title">准备好冲 A 了吗？ 🚀</h2>
+        <p class="cta-subtitle">
+          不要再等了！每一天都是备考的机会。<br>
+          立即加入 1000+ 学生的行列，让 Jack 老师带你冲 A！
+        </p>
+        <button class="btn-cta-white" id="finalCtaBtn" onclick="scrollToCourses()" aria-label="立即选择">
+          立即选择 <span style="animation: bounce-x 1.2s ease-in-out infinite; display:inline-block;"
+            aria-hidden="true">→</span>
+        </button>
+        <p class="cta-note">
+          <span aria-hidden="true">🔒</span>
+          付款安全保障 · 付款后即刻联系客服加入课程
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       FOOTER
+       ============================================= -->
+  <footer role="contentinfo" aria-label="页脚">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand Column -->
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo" id="footerLogo" aria-label="万能教 Jack 老师 首页" style="text-decoration:none; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+            <img src="images/Jack_logo.png" alt="万能教Jack老师" class="nav-logo-img" style="height: 32px; width: auto; object-fit: contain;" />
+            <span class="nav-logo-main" style="font-family: var(--font-title); font-size: 20px; font-weight: 800; color: var(--white);">万能教JACK老师</span>
+          </a>
+          <p class="footer-tagline">
+            专为 SPM 学生打造的历史科课程，简单直接，让基础再弱的学生也能找到方向，冲出好成绩！
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h3 class="footer-col-title">首页</h3>
+          <ul class="footer-links">
+            <li><a href="shop.html">课程</a></li>
+            <!-- <li><a href="about.html">关于</a></li> -->
+            <li><a href="schedule.html">上课时间</a></li>
+            <li><a href="#faq">常见问题</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Column -->
+        <div>
+          <h3 class="footer-col-title">联系我们</h3>
+          <ul class="footer-links">
+            <li><a href="https://wa.me/60123456789?text=我想咨询Jack老师的历史课程" target="_blank" id="footerWaLink" style="display:inline-flex; align-items:center;"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" style="vertical-align:-3px; margin-right:6px; color:#25D366;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.262 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.66.986 3.288 1.488 4.674 1.49 5.345 0 9.771-4.342 9.774-9.673.002-2.583-1.002-5.01-2.827-6.837-1.823-1.826-4.249-2.83-6.834-2.831-5.345 0-9.769 4.341-9.773 9.671-.002 1.94.512 3.826 1.492 5.503l-.979 3.575 3.673-.963zm11.96-5.834c-.267-.134-1.583-.78-1.827-.869-.243-.088-.422-.132-.599.135-.178.266-.689.867-.844 1.045-.156.177-.311.199-.579.066-.268-.134-1.13-.417-2.153-1.328-.795-.71-1.333-1.586-1.489-1.854-.156-.266-.017-.41.117-.543.12-.12.267-.31.401-.466.133-.155.178-.266.266-.443.089-.178.045-.333-.022-.467-.067-.133-.599-1.442-.821-1.974-.216-.52-.452-.45-.623-.459-.16-.008-.344-.01-.527-.01-.184 0-.483.069-.735.345-.252.276-.962.94-.962 2.292 0 1.352.983 2.658 1.121 2.836.137.178 1.933 2.951 4.683 4.137.654.282 1.165.45 1.562.576.657.21 1.256.18 1.728.11.526-.078 1.583-.647 1.806-1.272.223-.625.223-1.162.156-1.272-.067-.11-.244-.199-.512-.332z"/></svg>WhatsApp 客服</a></li>
+            <li><a href="#" style="display:inline-flex; align-items:center;"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px; margin-right:6px; color:#EA4335;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>电邮联系</a></li>
+            <li><a href="#" style="display:inline-flex; align-items:center;"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" style="vertical-align:-3px; margin-right:6px; color:#1877F2;"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>Facebook</a></li>
+            <li><a href="#" style="display:inline-flex; align-items:center;"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" style="vertical-align:-3px; margin-right:6px; color:#E1306C;"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051C.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>Instagram</a></li>
+            <li><a href="#" style="display:inline-flex; align-items:center;"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" style="vertical-align:-3px; margin-right:6px; color:#00f2fe;"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.86-.74-3.99-1.72-.08-.07-.17-.17-.25-.25v6.07c.07 5.46-4.49 10.08-10.04 9.9-4.9-.16-8.98-4.22-9.13-9.12-.22-6.52 5.05-11.66 11.45-11.23.06 1.42-.03 2.85-.02 4.27-3.79-.57-7.29 2.12-7.44 5.97-.22 4.3 3.73 7.82 8.01 7.21 2.78-.4 4.82-2.85 4.79-5.69.01-4.83.01-9.67.01-14.5.06-.06.12-.11.17-.17z"/></svg>TikTok</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-divider" aria-hidden="true"></div>
+
+      <div class="footer-bottom">
+        <p>© 2026 <span class="footer-pink">万能教 Jack 老师</span>. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Bottom Nav Bar Removed As Requested -->
+
+  <!-- =============================================
+       CART MODAL (Placeholder)
+       ============================================= -->
+  <div class="modal-overlay" id="cartModal" role="dialog" aria-modal="true" aria-labelledby="cartModalTitle"
+    onclick="closeModal('cartModal')">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title" id="cartModalTitle">🛒 购物车</h2>
+        <button class="modal-close" onclick="closeModal('cartModal')" aria-label="关闭购物车">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+
+      <div id="cartContent">
+        <!-- Cart items will be rendered by JS -->
+        <div class="modal-empty" id="cartEmpty">
+          <div class="modal-empty-icon" aria-hidden="true">🛒</div>
+          <p class="modal-empty-title">购物车是空的</p>
+          <p class="modal-empty-desc">快去选择适合你的课程吧！</p>
+          <button class="btn btn-primary btn-full" onclick="closeModal('cartModal'); scrollToCourses();"
+            aria-label="浏览课程">
+            浏览课程
+          </button>
+        </div>
+
+        <div id="cartItems" style="display:none;">
+          <ul id="cartItemList" style="list-style:none; margin-bottom:16px;"></ul>
+          <div style="border-top: 1px solid var(--gray-200); padding-top: 16px; margin-bottom: 16px;">
+            <div
+              style="display:flex; justify-content:space-between; font-weight:800; font-size:1.05rem; color:var(--dark);">
+              <span>总计</span>
+              <span style="color:var(--pink);" id="cartTotal">RM 0</span>
+            </div>
+          </div>
+          <div style="text-align: center; margin-bottom: 15px;">
+            <a href="cart.html" style="color: var(--pink); font-size: 13px; font-weight: 700; text-decoration: none;"
+              onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
+              👉 去独立购物车使用优惠券 / 查看明细 ➔
+            </a>
+          </div>
+          <button class="btn btn-primary btn-full btn-lg" id="checkoutBtn" onclick="proceedCheckout()"
+            aria-label="立即结账">
+            立即结账 →
+          </button>
+          <button class="btn btn-outline btn-full" style="margin-top:10px;" onclick="closeModal('cartModal')"
+            aria-label="继续购物">
+            继续购物
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Mobile Bottom Sticky Navigation Bar -->
+  <div class="bottom-sticky-bar">
+    <a href="index.html" class="sticky-nav-item active">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <span>首页</span>
+    </a>
+    <a href="shop.html" class="sticky-nav-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+      <span>课程</span>
+    </a>
+    <a href="cart.html" class="sticky-nav-item">
+      <div style="position: relative;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+        <span class="cart-badge cart-count" style="top: -8px; right: -8px;">0</span>
+      </div>
+      <span>购物车</span>
+    </a>
+    <a href="https://wa.me/60123456789?text=我想咨询Jack老师的历史课程" target="_blank" class="sticky-nav-item" style="color: var(--success);">
+      <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.262 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.66.986 3.288 1.488 4.674 1.49 5.345 0 9.771-4.342 9.774-9.673.002-2.583-1.002-5.01-2.827-6.837-1.823-1.826-4.249-2.83-6.834-2.831-5.345 0-9.769 4.341-9.773 9.671-.002 1.94.512 3.826 1.492 5.503l-.979 3.575 3.673-.963zm11.96-5.834c-.267-.134-1.583-.78-1.827-.869-.243-.088-.422-.132-.599.135-.178.266-.689.867-.844 1.045-.156.177-.311.199-.579.066-.268-.134-1.13-.417-2.153-1.328-.795-.71-1.333-1.586-1.489-1.854-.156-.266-.017-.41.117-.543.12-.12.267-.31.401-.466.133-.155.178-.266.266-.443.089-.178.045-.333-.022-.467-.067-.133-.599-1.442-.821-1.974-.216-.52-.452-.45-.623-.459-.16-.008-.344-.01-.527-.01-.184 0-.483.069-.735.345-.252.276-.962.94-.962 2.292 0 1.352.983 2.658 1.121 2.836.137.178 1.933 2.951 4.683 4.137.654.282 1.165.45 1.562.576.657.21 1.256.18 1.728.11.526-.078 1.583-.647 1.806-1.272.223-.625.223-1.162.156-1.272-.067-.11-.244-.199-.512-.332z"/></svg>
+      <span>WhatsApp</span>
+    </a>
+  </div>
+
+  <!-- =============================================
+       TOAST CONTAINER
+       ============================================= -->
+  <div class="toast-container" id="toastContainer" role="status" aria-live="polite"></div>
+
+  <!-- =============================================
+       SCROLL TO TOP
+       ============================================= -->
+  <button class="scroll-top-btn" id="scrollTopBtn" onclick="scrollToTop()" aria-label="回到顶部">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+      stroke-linejoin="round" aria-hidden="true">
+      <polyline points="18 15 12 9 6 15" />
+    </svg>
+  </button>
+
+  <!-- Central App state & DB engine -->
+  <script src="js/app.js?v=1.0.4"></script>
+  <!-- Main JS -->
+  <script src="js/main.js?v=1.0.4"></script>
+</body>
+
+</html>
