@@ -143,22 +143,46 @@ const DEFAULT_ORDERS = [
 ];
 
 // 初始化本地数据库并自动合并更新
-// 初始化本地数据库并自动合并升级更新
+// 初始化本地数据库并自动合并升级更新 (采用无损就地升级，避免覆盖用户自定义录入的课程)
 function initDatabase() {
-  let needsReset = false;
   try {
     const currentCourses = JSON.parse(localStorage.getItem("jack_courses"));
     if (!currentCourses || !Array.isArray(currentCourses) || currentCourses.length === 0) {
-      needsReset = true;
+      localStorage.setItem("jack_courses", JSON.stringify(DEFAULT_COURSES));
     } else {
-      // 检查任何一门课是否缺失新版的 pricingOptions 或 timeOptions 字段
-      needsReset = currentCourses.some(c => !c.pricingOptions || !c.timeOptions);
+      let changed = false;
+      currentCourses.forEach(c => {
+        // 1. 补全 pricingOptions
+        if (!c.pricingOptions || !Array.isArray(c.pricingOptions)) {
+          c.pricingOptions = [];
+          const p1 = c.price1Month || c.price || 0;
+          const o1 = c.originalPrice1Month || c.originalPrice || 0;
+          c.pricingOptions.push({ name: "1个月通行证", price: p1, originalPrice: o1 });
+          
+          const p3 = c.price3Month || 0;
+          const o3 = c.originalPrice3Month || 0;
+          if (p3 > 0) {
+            c.pricingOptions.push({ name: "3个月通行证", price: p3, originalPrice: o3 });
+          }
+          changed = true;
+        }
+        // 2. 补全 timeOptions
+        if (!c.timeOptions || !Array.isArray(c.timeOptions)) {
+          if (c.time) {
+            c.timeOptions = [c.time];
+          } else {
+            c.timeOptions = ["星期四 8:00PM", "星期六 10:00AM"];
+          }
+          changed = true;
+        }
+      });
+      
+      if (changed) {
+        localStorage.setItem("jack_courses", JSON.stringify(currentCourses));
+        console.log("Successfully migrated local course database schema losslessly.");
+      }
     }
   } catch (e) {
-    needsReset = true;
-  }
-
-  if (needsReset) {
     localStorage.setItem("jack_courses", JSON.stringify(DEFAULT_COURSES));
   }
 
