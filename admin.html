@@ -255,17 +255,29 @@
 
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="space-y-1">
-                  <label class="text-xs font-medium text-zinc-300" for="add-form">适用年级 *</label>
-                  <select id="add-form"
-                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 focus:outline-none focus:ring-1 focus:ring-zinc-400"
-                    required>
-                    <option value="Form 5">Form 5</option>
-                    <option value="Form 4">Form 4</option>
-                    <option value="Form 3">Form 3</option>
-                    <option value="Form 2">Form 2</option>
-                    <option value="Form 1">Form 1</option>
-                    <option value="Form 1-5 全Form适用">Form 1-5 全Form适用</option>
-                  </select>
+                  <label class="text-xs font-medium text-zinc-300">适用年级 *</label>
+                  <div class="flex flex-wrap gap-3" id="add-form-group">
+                    <label class="flex items-center space-x-2 text-sm text-zinc-300 cursor-pointer">
+                      <input type="checkbox" value="Form 1" class="rounded border-zinc-700 bg-zinc-900 text-pink-500 focus:ring-pink-500 add-form-checkbox">
+                      <span>Form 1</span>
+                    </label>
+                    <label class="flex items-center space-x-2 text-sm text-zinc-300 cursor-pointer">
+                      <input type="checkbox" value="Form 2" class="rounded border-zinc-700 bg-zinc-900 text-pink-500 focus:ring-pink-500 add-form-checkbox">
+                      <span>Form 2</span>
+                    </label>
+                    <label class="flex items-center space-x-2 text-sm text-zinc-300 cursor-pointer">
+                      <input type="checkbox" value="Form 3" class="rounded border-zinc-700 bg-zinc-900 text-pink-500 focus:ring-pink-500 add-form-checkbox">
+                      <span>Form 3</span>
+                    </label>
+                    <label class="flex items-center space-x-2 text-sm text-zinc-300 cursor-pointer">
+                      <input type="checkbox" value="Form 4" class="rounded border-zinc-700 bg-zinc-900 text-pink-500 focus:ring-pink-500 add-form-checkbox">
+                      <span>Form 4</span>
+                    </label>
+                    <label class="flex items-center space-x-2 text-sm text-zinc-300 cursor-pointer">
+                      <input type="checkbox" value="Form 5" class="rounded border-zinc-700 bg-zinc-900 text-pink-500 focus:ring-pink-500 add-form-checkbox">
+                      <span>Form 5</span>
+                    </label>
+                  </div>
                 </div>
                 <div class="space-y-1">
                   <label class="text-xs font-medium text-zinc-300" for="add-subject">科目 *</label>
@@ -513,7 +525,7 @@
                   <option value="image">媒体3：相册Image</option>
                   <option value="video">媒体3：相册Video</option>
                 </select>
-                <input type="text" id="add-gal-src-3" class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2 py-1 text-xs text-zinc-100 placeholder:text-zinc-600" placeholder="images/Card_Photo/card4-students-A.png">
+                <input type="text" id="add-gal-src-3" class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2 py-1 text-xs text-zinc-100 placeholder:text-zinc-600" placeholder='images/Card_Photo/60.png'>
                 <label class="flex items-center justify-center rounded-md border border-zinc-800 bg-zinc-900 text-xs px-2.5 h-9 hover:bg-zinc-800 cursor-pointer text-center">
                   上传文件
                   <input type="file" class="hidden" accept="image/*,video/*" onchange="const t=document.getElementById('add-gal-type-3').value; if(t==='image'){handleCompressedImageUpload(this,'add-gal-src-3')}else{handleVideoUpload(this,'add-gal-src-3')}">
@@ -521,48 +533,15 @@
               </div>
 
               <!-- Testimonials Block -->
-              <h4 class="text-xs font-bold text-pinkBrand uppercase tracking-wider pt-2 pb-1 border-b border-zinc-800">学员口碑提分见证墙 (最多2组)</h4>
-              
-              <!-- Review 1 -->
-              <div class="bg-zinc-900/30 p-3 rounded-lg border border-zinc-800 space-y-2">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                  <input type="text" id="add-testi-name-1" class="flex h-8 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-xs text-zinc-100" placeholder="Student Name与年级 (如: 王同学 Form 5)">
-                  <div class="flex gap-1.5 items-center">
-                    <select id="add-testi-type-1" class="flex h-8 rounded-md border border-zinc-800 bg-zinc-900 px-1 py-1 text-[11px] text-zinc-100 focus:outline-none w-28">
-                      <option value="image">见证图</option>
-                      <option value="video">Video Testimonials</option>
-                    </select>
-                    <input type="text" id="add-testi-src-1" class="flex h-8 flex-1 rounded-md border border-zinc-800 bg-zinc-900 px-2 py-1 text-[11px] text-zinc-100 placeholder:text-zinc-700" placeholder="见证多媒体路径/Base64">
-                    <label class="flex items-center justify-center rounded-md border border-zinc-800 bg-zinc-900 text-[10px] px-2 h-8 hover:bg-zinc-800 cursor-pointer">
-                      上传
-                      <input type="file" class="hidden" accept="image/*,video/*" onchange="const t=document.getElementById('add-testi-type-1').value; if(t==='image'){handleCompressedImageUpload(this,'add-testi-src-1')}else{handleVideoUpload(this,'add-testi-src-1')}">
-                    </label>
-                  </div>
-                </div>
-                <input type="text" id="add-testi-comment-1" class="flex h-8 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-xs text-zinc-100" placeholder="见证金句感言 (如: “口诀太神奇了，这次Trial直接从不及格狂飙到了A-！”)">
+                            <!-- Testimonials Block -->
+              <div class="flex items-center justify-between border-b border-zinc-800 pt-2 pb-1">
+                <h4 class="text-xs font-bold text-pinkBrand uppercase tracking-wider">学员口碑提分见证墙</h4>
+                <button type="button" onclick="window.addTestimonialRow()" class="text-xs text-pink-400 hover:text-pink-300 flex items-center gap-1 bg-pink-500/10 px-2 py-1 rounded border border-pink-500/20">
+                  <i data-lucide="plus" class="w-3 h-3"></i> 加新见证
+                </button>
               </div>
-
-              <!-- Review 2 -->
-              <div class="bg-zinc-900/30 p-3 rounded-lg border border-zinc-800 space-y-2">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                  <input type="text" id="add-testi-name-2" class="flex h-8 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-xs text-zinc-100" placeholder="Student Name与年级 (如: 李同学 Form 5)">
-                  <div class="flex gap-1.5 items-center">
-                    <select id="add-testi-type-2" class="flex h-8 rounded-md border border-zinc-800 bg-zinc-900 px-1 py-1 text-[11px] text-zinc-100 focus:outline-none w-28">
-                      <option value="image">见证图</option>
-                      <option value="video" selected>Video Testimonials</option>
-                    </select>
-                    <input type="text" id="add-testi-src-2" class="flex h-8 flex-1 rounded-md border border-zinc-800 bg-zinc-900 px-2 py-1 text-[11px] text-zinc-100 placeholder:text-zinc-700" placeholder="见证多媒体路径/Base64">
-                    <label class="flex items-center justify-center rounded-md border border-zinc-800 bg-zinc-900 text-[10px] px-2 h-8 hover:bg-zinc-800 cursor-pointer">
-                      上传
-                      <input type="file" class="hidden" accept="image/*,video/*" onchange="const t=document.getElementById('add-testi-type-2').value; if(t==='image'){handleCompressedImageUpload(this,'add-testi-src-2')}else{handleVideoUpload(this,'add-testi-src-2')}">
-                    </label>
-                  </div>
-                </div>
-                <input type="text" id="add-testi-comment-2" class="flex h-8 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-xs text-zinc-100" placeholder="见证金句感言 (如: “看到大题终于知道怎么下手，写得少又拿到满分！”)">
-              </div>
-            </div>
-
-            <div class="flex items-center justify-end gap-3 pt-2">
+              <div id="testimonials-container" class="space-y-2 mb-4"></div>
+            </div><div class="flex items-center justify-end gap-3 pt-2">
               <button type="button" onclick="toggleAddCourseForm()"
                 class="inline-flex items-center justify-center rounded-md text-xs font-medium border border-zinc-800 bg-zinc-900 text-zinc-300 px-4 py-2 hover:bg-zinc-800 transition-colors">Cancel</button>
               <button type="submit"
@@ -1119,7 +1098,7 @@
     </main>
   </div>
 
-  <script src="js/app.js?v=1.0.4"></script>
+  <script src="js/app.js?v=1.0.6"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       // Seed shop cards in admin if not present
@@ -1177,7 +1156,7 @@
         title: 'Sejarah 正课班',
         subtitle: 'Form 1–5',
         imgBack: 'images/Card_Photo/IMG_7567 (1).png',
-        imgFront: 'images/Card_Photo/card4-students-A.png',
+        imgFront: 'images/Card_Photo/60.png',
         link: 'course-detail.html?id=sej-regular'
       },
       {
@@ -1216,7 +1195,8 @@
 
       const title = document.getElementById("add-title").value.trim();
       const subtitle = document.getElementById("add-subtitle").value.trim();
-      const form = document.getElementById("add-form").value;
+      const formCheckboxes = Array.from(document.querySelectorAll(".add-form-checkbox:checked"));
+      const form = formCheckboxes.map(cb => cb.value).join(", ");
       const subject = document.getElementById("add-subject").value;
       const type = document.getElementById("add-type").value;
       const badge = document.getElementById("add-badge").value;
@@ -1252,20 +1232,19 @@
         }
       }
 
-      // 4. Testimonials
+      // 4. Testimonials (Dynamic)
       const testimonials = [];
-      for (let i = 1; i <= 2; i++) {
-        const tName = document.getElementById(`add-testi-name-${i}`).value.trim();
-        const tType = document.getElementById(`add-testi-type-${i}`).value;
-        const tSrc = document.getElementById(`add-testi-src-${i}`).value.trim();
-        const tComment = document.getElementById(`add-testi-comment-${i}`).value.trim();
+      document.querySelectorAll("#testimonials-container > div").forEach(row => {
+        const tName = row.querySelector("[data-testi-name]").value.trim();
+        const tType = row.querySelector("[data-testi-type]").value;
+        const tSrc = row.querySelector("[data-testi-src]").value.trim();
+        const tComment = row.querySelector("[data-testi-comment]").value.trim();
         if (tName && tComment) {
           testimonials.push({ name: tName, type: tType, src: tSrc, text: tComment });
         }
-      }
+      });
 
       // 5. FAQs
-      const faqs = [];
       for (let i = 1; i <= 3; i++) {
         const fQ = document.getElementById(`add-faq-q-${i}`).value.trim();
         const fA = document.getElementById(`add-faq-a-${i}`).value.trim();
@@ -1373,7 +1352,10 @@
       // Tab 1 fields
       document.getElementById("add-title").value = course.title || "";
       document.getElementById("add-subtitle").value = course.subtitle || course.notes || "";
-      document.getElementById("add-form").value = course.form || "Form 5";
+      const currentForms = (course.form || "Form 5").split(", ");
+      document.querySelectorAll(".add-form-checkbox").forEach(cb => {
+        cb.checked = currentForms.includes(cb.value);
+      });
       document.getElementById("add-subject").value = course.subject || "Sejarah";
       document.getElementById("add-type").value = course.type || "Live Class";
       document.getElementById("add-badge").value = course.badge || "Best Seller";
@@ -1581,12 +1563,25 @@
         else if (c.badge === "New" || c.badge === "全新课包") badgeColor = "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
         else if (c.badge === "Limited Seats" || c.badge === "名额稀缺") badgeColor = "bg-amber-500/10 text-amber-400 border border-amber-500/20";
 
+        let displayPrice = 0;
+        let displayOriginalPrice = 0;
+        if (c.price !== undefined && c.price !== null && c.price !== "") {
+          displayPrice = parseFloat(c.price) || 0;
+        } else if (c.pricingOptions && c.pricingOptions.length > 0) {
+          displayPrice = parseFloat(c.pricingOptions[0].price) || 0;
+        }
+        if (c.originalPrice !== undefined && c.originalPrice !== null && c.originalPrice !== "") {
+          displayOriginalPrice = parseFloat(c.originalPrice) || 0;
+        } else if (c.pricingOptions && c.pricingOptions.length > 0) {
+          displayOriginalPrice = parseFloat(c.pricingOptions[0].originalPrice) || 0;
+        }
+
         tr.innerHTML = `
           <td class="px-4 py-3"><span class="inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium bg-pink-500/10 text-pink-400 border border-pink-500/20">${c.form}</span></td>
           <td class="px-4 py-3"><span class="inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium bg-purple-500/10 text-purple-400 border border-purple-500/20">${c.subject}</span></td>
           <td class="px-4 py-3 font-semibold text-zinc-100">${c.title}</td>
-          <td class="px-4 py-3 font-bold text-pinkBrand">RM ${c.price.toFixed(2)}</td>
-          <td class="px-4 py-3 text-zinc-500 line-through">RM ${c.originalPrice.toFixed(2)}</td>
+          <td class="px-4 py-3 font-bold text-pinkBrand">RM ${displayPrice.toFixed(2)}</td>
+          <td class="px-4 py-3 text-zinc-500 line-through">RM ${displayOriginalPrice.toFixed(2)}</td>
           <td class="px-4 py-3"><span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${badgeColor}">${c.badge}</span></td>
           <td class="px-4 py-3">
             <div class="flex items-center gap-2">

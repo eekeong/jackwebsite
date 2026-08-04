@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>报名成功！ | 万能教 Jack 老师 - 高转化付款完成 onboarding 页</title>
-  <link rel="stylesheet" href="css/style.css?v=1.0.4">
+  <link rel="stylesheet" href="css/style.css?v=1.0.6">
 </head>
 <body style="background-color: var(--dark); padding-bottom: 60px;">
 
@@ -154,8 +154,8 @@
     </div>
   </div>
 
-  <script src="js/app.js"></script>
-  <script src="js/main.js?v=1.0.4"></script>
+  <script src="js/app.js?v=1.0.6"></script>
+  <script src="js/main.js?v=1.0.6"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       // 1. 获取 URL 中的订单编号
@@ -187,7 +187,7 @@
 
       // 4. 配置 Onboarding WhatsApp 班群动态加入链接
       const whatsappGroupText = encodeURIComponent(`您好！我是刚刚报名 Jack 老师历史课程的学生 ${order.studentName}，我的订单号是 ${order.id}，请协助拉我入班级专属 Zoom/讲义下发大群，谢谢！`);
-      const whatsappOnboardingLink = `https://wa.me/60123456789?text=${whatsappGroupText}`;
+      const whatsappOnboardingLink = `https://wa.link/jackteacher?text=${whatsappGroupText}`;
       document.getElementById("btn-success-whatsapp-join").href = whatsappOnboardingLink;
 
       // 清除购物车痕迹，同步徽标

@@ -54,338 +54,60 @@ const DEFAULT_COURSES = [
     id: "sej-regular",
     title: "Sejarah 正课班",
     subject: "Sejarah",
-    form: "Form 1-5 全Form适用",
     type: "Live Class",
     teacher: "Jack 老师",
-    price: 49.00,
-    originalPrice: 99.00,
-    time: "每周固定直播授课 1.5 小时",
-    format: "Zoom 直播授课 + 独家彩色电子版讲义",
+    coverImage: "images/Card_Photo/IMG_7567 (1).png",
+    imgBack: "images/Card_Photo/IMG_7567 (1).png",
+    imgFront: 'images/Card_Photo/60.png',
     notes: "Best Seller · 冲刺提分神器",
     badge: "Best Seller",
     badgeClass: "badge-hot",
-    image: "images/Card_Photo/IMG_7567 (1).png",
-    imgBack: "images/Card_Photo/IMG_7567 (1).png",
-    imgFront: "images/Card_Photo/card4-students-A.png",
-    price1Month: 49.00,
-    originalPrice1Month: 99.00,
-    price3Month: 129.00,
-    originalPrice3Month: 297.00,
-    teachingMethod: "Zoom 直播课",
-    duration: "1.5 小时",
     targetAudience: "Form 1 - Form 5",
-    features: [
-      "配套高画质彩色 PDF 与实体资料邮寄",
-      "课后提供高清录像回放复习",
-      "专属 WhatsApp 学习答疑辅导"
+    pricingOptions: [
+      { name: "1个月体验", price: 89, originalPrice: 159 },
+      { name: "3个月套餐", price: 229, originalPrice: 477 }
     ],
-    galleryMedia: [
-      { type: "image", src: "images/Card_Photo/IMG_7567 (1).png" },
-      { type: "video", src: "images/SMJK HWA LIAN JACK CROP.mp4" },
-      { type: "image", src: "images/Card_Photo/card4-students-A.png" }
-    ],
-    descAboutTitle: "关于本课程",
-    descAboutText: "死记硬背记不住、主观大题不会拆解、感觉历史拿不到方向？这是专为基础薄弱以及想要冲刺A+的同学设计的Sejarah冲刺正课班。\nJack 老师通过15年的教学经验，总结出“万能解题法”，用最接地气的小故事把硬核大纲讲活，让你一听就会，做题思路爆棚。",
-    descSyllabusTitle: "上课大纲",
-    descSyllabusText: "第一阶段：核心历史事件梳理与脉络构建\n第二阶段：高频考点预测与 KBAT 答题套路解析\n第三阶段：历年真题实战演练与丢分盲区排雷",
-    testimonials: [
+    formOptions: ["Form 4", "Form 5"],
+    timeOptions: ["星期四 8:00PM", "星期六 10:00AM"],
+    contentSections: [
       {
-        type: "image",
-        src: "images/Card_Photo/card4-students-A.png",
-        text: "“这是我上过最轻松的历史课！不用再死背年份了，老师的口诀和故事太有效了，这次 Trial 直接从不及格跳到了 A-。”",
-        name: "王同学 (Form 5)"
+        title: "关于本课程",
+        content: "这是一门专为想要冲刺高分的同学设计的精品课。由 Jack 老师主讲，通过独特的故事化教学方法，帮助基础薄弱的学生快速提分。"
       },
       {
-        type: "video",
-        src: "images/SMJK HWA LIAN JACK CROP.mp4",
-        text: "“以前看到 KBAT 题就头痛，现在完全知道该怎么下笔拿满分，感谢老师的套路解析。”",
-        name: "李同学 (Form 5)"
+        title: "上课大纲",
+        content: "第一阶段：核心概念重点剖析\n第二阶段：历年考题解题模板套路讲解\n第三阶段：丢分盲区及考场答题注意事项"
       }
     ],
     faqs: [
-      {
-        q: "购买后什么时候可以开始上课？",
-        a: "付款成功后，您将在24小时内收到带有专属学习链接 and 材料的 WhatsApp 通知，点击即可接入课堂系统。"
-      },
-      {
-        q: "如果有课程冲突没法看直播怎么办？",
-        a: "不用担心，所有直播课程在结束后都会上传高清回放，您可以随时随地反复观看，直到 SPM 考试结束。"
-      },
-      {
-        q: "讲义是实体书还是 PDF？",
-        a: "我们会提供高画质彩色 PDF 供您下载。如果您选择了包含实体材料的套餐，我们也会安排邮寄到您家。"
-      }
-    ]
-  },
-  {
-    id: "sej-obj-200",
-    title: "「会说话」Sejarah OBJ 200题宝典",
-    subject: "Sejarah",
-    form: "Form 5",
-    type: "Objective Booster",
-    teacher: "Jack 老师",
-    price: 29.00,
-    originalPrice: 59.00,
-    time: "随买随看，即时解锁",
-    format: "极速提分选择题详解视频课 + 实体教材",
-    notes: "高频高产预测，轻松吃透200大必背大题",
-    badge: "Hot",
-    badgeClass: "badge-hot",
-    image: "images/product-book.png",
-    imgBack: "images/product-book.png",
-    imgFront: "images/Card_Photo/2.png",
-    price1Month: 29.00,
-    originalPrice1Month: 59.00,
-    price3Month: 0,
-    originalPrice3Month: 0,
-    teachingMethod: "录播精讲课 + 线上练习",
-    duration: "共 5 小时提分视频",
-    targetAudience: "Form 5 / SPM 考生",
-    features: [
-      "200 道独家研发的高产提分选择题精讲",
-      "配合专属手绘图解讲义，秒杀易错点",
-      "专为选择题零基础及冲刺满分的同学定制"
+      { q: "如果有课程冲突没法看直播怎么办？", a: "不用担心，所有直播课程在结束后都会上传高清回放。" }
     ]
   },
   {
     id: "sej-bundle",
-    title: "Sejarah 万能宝典",
+    title: "Sejarah VIP 万能宝典",
     subject: "Sejarah",
-    form: "Form 4–5",
     type: "VIP Bundle",
     teacher: "Jack 老师",
-    price: 199.00,
-    originalPrice: 399.00,
-    time: "一次购买，全系列解锁",
-    format: "含两本实体秘笈直邮 + 全套预测视频课 + 专属VIP群答疑",
+    coverImage: "images/product-bundle.png",
+    imgBack: "images/product-bundle.png",
+    imgFront: "images/Jack Ler2 (1).png",
     notes: "SPM 历史终极大礼包，超高性价比",
     badge: "VIP Save 50%",
     badgeClass: "badge-hot",
-    image: "images/product-bundle.png",
-    imgBack: "images/product-bundle.png",
-    imgFront: "images/Jack Ler2 (1).png",
-    price1Month: 199.00,
-    originalPrice1Month: 399.00,
-    price3Month: 0,
-    originalPrice3Month: 0,
-    teachingMethod: "直播课 + 录播课 + 实体教材",
-    duration: "半年超长伴学体系",
     targetAudience: "Form 4 & Form 5 学生",
-    features: [
-      "包含《乱乱写》与《历史秘笈》两本实体精美笔记本直邮",
-      "中四中五核心专题包、冲刺包、选择题突破包一键全包解锁",
-      "专享 Jack 老师团队 1对1 答疑和作文精细批改服务"
-    ]
-  },
-  {
-    id: "sej-trial-f5",
-    title: "SPM Sejarah Trial Attack (中五考前冲刺班)",
-    subject: "Sejarah",
-    form: "Form 5",
-    type: "Trial Attack",
-    teacher: "Jack 老师",
-    price: 49.00,
-    originalPrice: 99.00,
-    time: "2026年5月28日 (星期四) 8:00PM - 10:00PM",
-    format: "Zoom 直播授课 (含无限高清回放)",
-    notes: "含 Jack 老师独家预测考题 PDF 讲义",
-    badge: "Hot",
-    badgeClass: "badge-hot",
-    image: "images/courses/sejarah_trial_f5.jpg",
-    syllabus: [
-      "<svg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:-2px;margin-right:4px;'><polyline points='20 6 9 17 4 12'></polyline></svg> 第一部分：中五高频热门 Trial 历史大题预测与核心采分点",
-      "<svg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:-2px;margin-right:4px;'><polyline points='20 6 9 17 4 12'></polyline></svg> 第二部分：Section B 简答题与 Section C 问答题“万能拆解套路”",
-      "<svg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align:-2px;margin-right:4px;'><polyline points='20 6 9 17 4 12'></polyline></svg> 第三部分：Sejarah 关键词极速联想记忆法（0基础也能听懂）"
-    ]
-  },
-  {
-    id: "sej-revision-f4",
-    title: "Form 4 Sejarah Topic Focus (中四核心专题突破班)",
-    subject: "Sejarah",
-    form: "Form 4",
-    type: "Topic Focus",
-    teacher: "Jack 老师",
-    price: 39.00,
-    originalPrice: 79.00,
-    time: "2026年5月30日 (星期六) 10:00AM - 12:00PM",
-    format: "Zoom 直播授课 (含无限高清回放)",
-    notes: "提供中四基础重点核心 PDF 精美笔记",
-    badge: "Enrollment Open",
-    badgeClass: "badge-new",
-    image: "images/courses/sejarah_revision_f4.jpg",
-    syllabus: [
-      "📌 核心剖析：中四常考文明与建国基础（Sejarah 最深痛点）",
-      "📌 经典高频：如何用“思维导图”3步攻破常考核心主观题",
-      "📌 考场纠错：学生经常丢分的 Sejarah 陷阱词大揭秘"
-    ]
-  },
-  {
-    id: "sej-objective-f5",
-    title: "SPM Sejarah Objective Booster Pack (中五选择题通关秘籍)",
-    subject: "Sejarah",
-    form: "Form 5",
-    type: "Objective Booster",
-    teacher: "Jack 老师",
-    price: 29.00,
-    originalPrice: 59.00,
-    time: "随买随看 (无限录像重温)",
-    format: "高清录制包 + 在线巩固测验",
-    notes: "附赠 200 道精心编写的高频预测选择题 PDF",
-    badge: "Limited Seats",
-    badgeClass: "badge-limited",
-    image: "images/courses/sejarah_obj_f5.jpg",
-    syllabus: [
-      "⚡ 选择题秒杀：Sejarah 10 大必背选择题秒杀技巧",
-      "⚡ 易混词归纳：全网独家“考点易混词对比清单”",
-      "⚡ 模拟实战：30分钟极速模拟冲刺训练解析"
-    ]
-  },
-  {
-    id: "sej-basic-f13",
-    title: "Form 1-3 Sejarah Foundation Core (初中历史地基巩固大课)",
-    subject: "Sejarah",
-    form: "Form 3",
-    type: "Revision Class",
-    teacher: "Jack 老师",
-    price: 19.00,
-    originalPrice: 49.00,
-    time: "随买随看 (永久回放)",
-    format: "数码录播包 (共 8 节课精编版)",
-    notes: "全套初中历史手绘漫画版 PDF 笔记",
-    badge: "New",
-    badgeClass: "badge-new",
-    image: "images/courses/sejarah_basic_f13.jpg",
-    syllabus: [
-      "📚 故事学历史：把初中无聊的历史人物编成故事，听懂就会做！",
-      "📚 架构建立：帮初一至初三的学生快速理清 Sejarah 历史时间轴",
-      "📚 预备进阶：为接轨中四中五高强度 SPM 考试做好地基储备"
-    ]
-  },
-  {
-    id: "wanneng-book",
-    title: "《Jack 老师历史秘笈》专属笔记本",
-    subject: "Sejarah",
-    form: "Form 1-5 全Form适用",
-    type: "Study Material",
-    teacher: "Jack 老师",
-    price: 45.00,
-    originalPrice: 89.00,
-    time: "下单后 24 小时内发货",
-    format: "精美彩色实体印刷笔记本",
-    notes: "赠全套电子版思维导图大纲",
-    badge: "Limited",
-    badgeClass: "badge-limited",
-    image: "images/book.jpg",
-    syllabus: [
-      "📌 精编考点：Form 4 & Form 5 所有重要历史事件与核心考点高度精炼归纳",
-      "📌 提分模板：独家研发的“Sejarah 万能答题框架及 Fakta/Huraian 填空套路”",
-      "📌 随书赠品：扫码直达配书的 Jack 老师专属解题视频精讲讲解库"
-    ]
-  },
-  {
-    id: "sej-live-1m",
-    title: "Jack 老师 SPM 历史线上直播课 (1个月方案)",
-    subject: "Sejarah",
-    form: "Form 5",
-    type: "Live Class",
-    teacher: "Jack 老师",
-    price: 89.00,
-    originalPrice: 89.00,
-    time: "每周固定直播授课 2 小时",
-    format: "Zoom 直播授课 (含回放)",
-    notes: "按月分发独家高频预测 PDF 讲义",
-    badge: "Monthly",
-    badgeClass: "badge-new",
-    image: "images/courses/sejarah_live.jpg",
-    syllabus: [
-      "⚡ 核心大题：Sejarah 主观简答及 Section C 问答题“故事解题拆法”",
-      "⚡ 巩固冲刺：每月高频考点针对性冲刺提分串讲",
-      "⚡ 互动解答：专属班级答疑社群 + 顾问老师 1对1 答疑温习"
-    ]
-  },
-  {
-    id: "sej-live-3m",
-    title: "Jack 老师 SPM 历史线上直播课 (3个月特惠方案)",
-    subject: "Sejarah",
-    form: "Form 5",
-    type: "Live Class",
-    teacher: "Jack 老师",
-    price: 229.00,
-    originalPrice: 267.00,
-    time: "每周固定直播授课 2 小时",
-    format: "Zoom 直播授课 (含回放)",
-    notes: "分发全套中五精品预测考题 PDF 讲义",
-    badge: "Save RM38",
-    badgeClass: "badge-hot",
-    image: "images/courses/sejarah_live.jpg",
-    syllabus: [
-      "⚡ 核心大题：Sejarah 主观简答及 Section C 问答题“故事解题拆法”",
-      "⚡ 巩固冲刺：每月高频考点针对性冲刺提分串讲",
-      "⚡ 互动解答：专属班级答疑社群 + 顾问老师 1对1 答疑温习"
-    ]
-  },
-  {
-    id: "sej-live-6m",
-    title: "Jack 老师 SPM 历史线上直播课 (6个月半学期方案)",
-    subject: "Sejarah",
-    form: "Form 5",
-    type: "Live Class",
-    teacher: "Jack 老师",
-    price: 399.00,
-    originalPrice: 534.00,
-    time: "每周固定直播授课 2 小时",
-    format: "Zoom 直播授课 (含回放)",
-    notes: "直邮赠送《历史秘笈》专属实体笔记本",
-    badge: "Best Value",
-    badgeClass: "badge-hot",
-    image: "images/courses/sejarah_live.jpg",
-    syllabus: [
-      "⚡ 核心大题：Sejarah 主观简答及 Section C 问答题“故事解题拆法”",
-      "⚡ 巩固冲刺：每月高频考点针对性冲刺提分串讲",
-      "⚡ 互动解答：专属班级答疑社群 + 顾问老师 1对1 答疑温习"
-    ]
-  },
-  {
-    id: "sej-live-1x",
-    title: "Jack 老师 SPM 历史线上直播课 (一次性买断方案)",
-    subject: "Sejarah",
-    form: "Form 5",
-    type: "Live Class",
-    teacher: "Jack 老师",
-    price: 159.00,
-    originalPrice: 159.00,
-    time: "全套课程一次性解锁",
-    format: "高清录课包 + 在线测验",
-    notes: "附赠 200 道精选高频选择题通关 PDF",
-    badge: "Lifetime",
-    badgeClass: "badge-new",
-    image: "images/courses/sejarah_live.jpg",
-    syllabus: [
-      "⚡ 核心大题：Sejarah 主观简答及 Section C 问答题“故事解题拆法”",
-      "⚡ 巩固冲刺：每月高频考点针对性冲刺提分串讲",
-      "⚡ 互动解答：专属班级答疑社群 + 顾问老师 1对1 答疑温习"
-    ]
-  },
-  {
-    id: "wanneng-vip-bundle",
-    title: "VIP 全包提分通关特惠套餐",
-    subject: "Sejarah",
-    form: "Form 1-5 全包",
-    type: "VIP Bundle",
-    teacher: "Jack 老师",
-    price: 259.00,
-    originalPrice: 599.00,
-    time: "永久有效 (全套通关)",
-    format: "直播课 + 实体教材 + 专属 VIP 咨询",
-    notes: "包含《历史秘笈》特惠配书 + 全套录屏/讲义库",
-    badge: "VIP Save 56%",
-    badgeClass: "badge-hot",
-    image: "images/courses/vip_bundle.jpg",
-    syllabus: [
-      "⭐ 豪华权益 1：直邮赠送《Jack 老师历史秘笈》专属实体印刷笔记本一本",
-      "⭐ 豪华权益 2：中五冲刺班、选择题通关课、初中/高中地基巩固课全覆盖解锁",
-      "⭐ 豪华权益 3：享 1 对 1 独家班主任考前心理辅导及 Sejarah 专属高分规划"
-    ]
+    pricingOptions: [
+      { name: "VIP 全包 (含笔记+录播)", price: 199, originalPrice: 399 }
+    ],
+    formOptions: ["Form 4", "Form 5"],
+    timeOptions: ["随买随看，无需固定时间"],
+    contentSections: [
+      {
+        title: "套餐包含什么？",
+        content: "包含《乱乱写》与《历史秘笈》两本实体精美笔记本直邮，以及中四中五核心专题包。"
+      }
+    ],
+    faqs: []
   }
 ];
 
@@ -421,15 +143,50 @@ const DEFAULT_ORDERS = [
 ];
 
 // 初始化本地数据库并自动合并更新
+// 初始化本地数据库并自动合并升级更新
 function initDatabase() {
-  // 仅在首次访问（不存在 jack_courses）时才植入默认数据
-  if (!localStorage.getItem("jack_courses")) {
+  let needsReset = false;
+  try {
+    const currentCourses = JSON.parse(localStorage.getItem("jack_courses"));
+    if (!currentCourses || !Array.isArray(currentCourses) || currentCourses.length === 0) {
+      needsReset = true;
+    } else {
+      // 检查任何一门课是否缺失新版的 pricingOptions 或 timeOptions 字段
+      needsReset = currentCourses.some(c => !c.pricingOptions || !c.timeOptions);
+    }
+  } catch (e) {
+    needsReset = true;
+  }
+
+  if (needsReset) {
     localStorage.setItem("jack_courses", JSON.stringify(DEFAULT_COURSES));
   }
 
-  if (!localStorage.getItem("jack_orders")) {
+  try {
+    const currentOrders = JSON.parse(localStorage.getItem("jack_orders"));
+    if (!currentOrders || !Array.isArray(currentOrders)) {
+      localStorage.setItem("jack_orders", JSON.stringify(DEFAULT_ORDERS));
+    } else {
+      // 防御：确保每个已有订单都具有 total 字段和 courses 数组，防止 toFixed 报错
+      let ordersChanged = false;
+      currentOrders.forEach(o => {
+        if (o.total === undefined || o.total === null) {
+          o.total = 0;
+          ordersChanged = true;
+        }
+        if (!o.courses) {
+          o.courses = [];
+          ordersChanged = true;
+        }
+      });
+      if (ordersChanged) {
+        localStorage.setItem("jack_orders", JSON.stringify(currentOrders));
+      }
+    }
+  } catch (e) {
     localStorage.setItem("jack_orders", JSON.stringify(DEFAULT_ORDERS));
   }
+
   if (!localStorage.getItem("jack_cart")) {
     localStorage.setItem("jack_cart", JSON.stringify([]));
   }
@@ -450,32 +207,77 @@ const CourseDB = {
       return [];
     }
   },
+  getRawById: (id) => {
+    if (!id) return null;
+    let baseId = id;
+    const optMatch = typeof id === "string" && id.match(/-opt-(\d+)$/);
+    if (optMatch) {
+      baseId = id.slice(0, -optMatch[0].length);
+    } else if (typeof id === "string" && id.endsWith("-3m")) {
+      baseId = id.slice(0, -3);
+    }
+    return (CourseDB.getAll() || []).find(c => c.id === baseId) || null;
+  },
   getById: (id) => {
-    const is3m = typeof id === "string" && id.endsWith("-3m");
-    const baseId = is3m ? id.slice(0, -3) : id;
+    if (!id) return null;
+    let baseId = id;
+    let optIndex = -1;
+
+    // Check if it ends with -opt-[index] (e.g. sej-regular-opt-0)
+    const optMatch = typeof id === "string" && id.match(/-opt-(\d+)$/);
+    if (optMatch) {
+      optIndex = parseInt(optMatch[1], 10);
+      baseId = id.slice(0, -optMatch[0].length);
+    } else if (typeof id === "string" && id.endsWith("-3m")) {
+      optIndex = 1;
+      baseId = id.slice(0, -3);
+    }
+
     const raw = (CourseDB.getAll() || []).find(c => c.id === baseId);
     if (!raw) return null;
     
-    // Apply safe defaults for dynamic course details if missing
-    const price1Month = typeof raw.price1Month === "number" ? raw.price1Month : (raw.price || 0);
-    const originalPrice1Month = typeof raw.originalPrice1Month === "number" ? raw.originalPrice1Month : (raw.originalPrice || 0);
-    const price3Month = typeof raw.price3Month === "number" ? raw.price3Month : 0;
-    const originalPrice3Month = typeof raw.originalPrice3Month === "number" ? raw.originalPrice3Month : 0;
+    // Apply dynamic variant mapping or fallback to old fields
+    let price = raw.price || 0;
+    let originalPrice = raw.originalPrice || 0;
+    let title = raw.title || "";
+
+    if (raw.pricingOptions && raw.pricingOptions.length > 0) {
+      const idx = (optIndex >= 0 && optIndex < raw.pricingOptions.length) ? optIndex : 0;
+      const opt = raw.pricingOptions[idx];
+      price = opt.price;
+      originalPrice = opt.originalPrice;
+      title = `${raw.title} (${opt.name})`;
+    } else {
+      const price1Month = typeof raw.price1Month === "number" ? raw.price1Month : (raw.price || 0);
+      const originalPrice1Month = typeof raw.originalPrice1Month === "number" ? raw.originalPrice1Month : (raw.originalPrice || 0);
+      const price3Month = typeof raw.price3Month === "number" ? raw.price3Month : 0;
+      const originalPrice3Month = typeof raw.originalPrice3Month === "number" ? raw.originalPrice3Month : 0;
+
+      if (optIndex === 1 || (typeof id === "string" && id.endsWith("-3m"))) {
+        price = price3Month;
+        originalPrice = originalPrice3Month;
+        title = raw.title + " (3个月套餐)";
+      } else {
+        price = price1Month;
+        originalPrice = originalPrice1Month;
+        title = raw.title;
+      }
+    }
 
     return {
+      ...raw,
+      price,
+      originalPrice,
+      title,
       subtitle: raw.subtitle || raw.notes || "独家提分精品课程",
-      price1Month,
-      originalPrice1Month,
-      price3Month,
-      originalPrice3Month,
       teachingMethod: raw.teachingMethod || raw.format || "Zoom 直播授课",
       duration: raw.duration || "1.5 小时",
       targetAudience: raw.targetAudience || raw.form || "Form 1 - Form 5",
-      features: raw.features || (raw.notes ? [raw.notes] : [
-        "配套高画质彩色 PDF 讲义与线上资料",
-        "提供高清录像回放，随时随地复习",
-        "专属导师答疑群，遇到不懂即时提问"
-      ]),
+      features: raw.features && raw.features.length > 0 ? raw.features : [
+        "配套高画质彩色 PDF 与实体资料邮寄",
+        "课后提供高清录像回放复习",
+        "专属 WhatsApp 学习答疑辅导"
+      ],
       galleryMedia: raw.galleryMedia || [
         { type: "image", src: raw.image || "images/product-course.png" }
       ],
@@ -486,7 +288,7 @@ const CourseDB = {
       testimonials: raw.testimonials || [
         {
           type: "image",
-          src: "images/Card_Photo/card4-students-A.png",
+          src: 'images/Card_Photo/60.png',
           text: "“老师的故事法太好玩了，口诀也非常顺口。本来不及格的历史这次竟然拿到了A-，真的太不可思议了！”",
           name: "张同学 (Form 5)"
         },
@@ -511,10 +313,6 @@ const CourseDB = {
           a: "本课程默认提供精心设计的高质量彩色 PDF 电子版讲义。如购买了包含实体的特惠套餐，实体资料和笔记本通常会在下单后 2-3 个工作日内通过快递直邮到您填写的地址。"
         }
       ],
-      ...raw,
-      price: is3m ? price3Month : price1Month,
-      originalPrice: is3m ? originalPrice3Month : originalPrice1Month,
-      title: is3m ? (raw.title + " (3个月套餐)") : raw.title,
       id: id
     };
   },
@@ -621,10 +419,15 @@ const Cart = {
   },
   updateUI: () => {
     const cart = Cart.get();
-    // 更新所有购物车徽章数量
+    const validItems = cart.filter(id => CourseDB.getById(id));
+    
+    if (validItems.length !== cart.length) {
+      localStorage.setItem("jack_cart", JSON.stringify(validItems));
+    }
+
     document.querySelectorAll(".cart-count").forEach(badge => {
-      badge.textContent = cart.length;
-      badge.style.display = cart.length > 0 ? "flex" : "none";
+      badge.textContent = validItems.length;
+      badge.style.display = validItems.length > 0 ? "flex" : "none";
     });
   }
 };
@@ -718,7 +521,7 @@ const DEFAULT_HERO_CARDS = [
   { id: "hero-6", title: "考前冲刺稳夺 A！💪", desc: "最后两个月加入特训班，精准切中满分得分点，写短短也能拿满分！", image: "images/见证/48.png" },
   { id: "hero-7", title: "零基础完美跨越！🎓", desc: "不用担心基础差，Jack 老师带你从零梳理脉络，考试信心加倍！", image: "images/见证/50.png" },
   { id: "hero-8", title: "满分答题套路！🎯", desc: "掌握考官最爱的满分关键词模板，直击得分要害，拒绝枯燥死记！", image: "images/见证/54.png" },
-  { id: "hero-9", title: "全班提分榜样！🌟", desc: "用最聪明的《合心法》复习笔记，带领全班掀起 Sejarah 冲 A 狂潮！", image: "images/Card_Photo/card4-students-A.png" },
+  { id: "hero-9", title: "全班提分榜样！🌟", desc: "用最聪明的《合心法》复习笔记，带领全班掀起 Sejarah 冲 A 狂潮！", image: 'images/Card_Photo/60.png' },
   { id: "hero-10", title: "创造及格奇迹！💎", desc: "曾经最头疼的科目变成拿分王牌，用实力证明：我也绝对做得到！", image: "images/Card_Photo/2.png" }
 ];
 
@@ -1025,7 +828,7 @@ const DEFAULT_SCROLLING_TESTIMONIALS = [
     image: "https://randomuser.me/api/portraits/men/9.jpg",
     name: "Hassan Ali",
     role: "Form 5 (满分答题套路)",
-    screenshot: "images/Card_Photo/card4-students-A.png"
+    screenshot: 'images/Card_Photo/60.png'
   }
 ];
 
