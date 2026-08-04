@@ -1204,15 +1204,35 @@
       const imgBack = document.getElementById("add-img-back").value.trim();
       const imgFront = document.getElementById("add-img-front").value.trim();
 
-      // 1. Plan pricing
-      const price1Month = parseFloat(document.getElementById("add-price1month").value) || 0;
-      const originalPrice1Month = parseFloat(document.getElementById("add-price1month-orig").value) || 0;
-      const price3Month = parseFloat(document.getElementById("add-price3month").value) || 0;
-      const originalPrice3Month = parseFloat(document.getElementById("add-price3month-orig").value) || 0;
+      // 1. Plan pricing options collection
+      const pricingOptions = [];
+      document.querySelectorAll("#pricing-container > div").forEach(row => {
+        const pNameInput = row.querySelector("[data-pricing-name]");
+        const pPriceInput = row.querySelector("[data-pricing-price]");
+        const pOrigInput = row.querySelector("[data-pricing-orig]");
+        if (pNameInput && pPriceInput) {
+          const name = pNameInput.value.trim();
+          const price = parseFloat(pPriceInput.value) || 0;
+          const originalPrice = parseFloat(pOrigInput.value) || 0;
+          if (name) {
+            pricingOptions.push({ name, price, originalPrice });
+          }
+        }
+      });
 
-      const teachingMethod = document.getElementById("add-teaching-method").value.trim();
-      const duration = document.getElementById("add-duration").value.trim();
-      const targetAudience = document.getElementById("add-target-audience").value.trim();
+      const price1Month = pricingOptions.length > 0 ? pricingOptions[0].price : 0;
+      const originalPrice1Month = pricingOptions.length > 0 ? pricingOptions[0].originalPrice : 0;
+      const price3Month = pricingOptions.length > 1 ? pricingOptions[1].price : 0;
+      const originalPrice3Month = pricingOptions.length > 1 ? pricingOptions[1].originalPrice : 0;
+
+      const addTeachingMethodEl = document.getElementById("add-teaching-method");
+      const teachingMethod = addTeachingMethodEl ? addTeachingMethodEl.value.trim() : "Zoom 直播授课";
+      
+      const addDurationEl = document.getElementById("add-duration");
+      const duration = addDurationEl ? addDurationEl.value.trim() : "1.5 小时";
+      
+      const addTargetAudienceEl = document.getElementById("add-target-audience");
+      const targetAudience = addTargetAudienceEl ? addTargetAudienceEl.value.trim() : "Form 1 - Form 5";
 
       const features = document.getElementById("add-features").value.split("\n").map(line => line.trim()).filter(Boolean);
 
@@ -1288,6 +1308,7 @@
         duration,
         targetAudience,
         features,
+        pricingOptions,
         galleryMedia,
         descAboutTitle,
         descAboutText,
@@ -1364,14 +1385,34 @@
       document.getElementById("add-img-front").value = course.imgFront || "";
 
       // Tab 2 fields
-      document.getElementById("add-price1month").value = course.price1Month || course.price || 0;
-      document.getElementById("add-price1month-orig").value = course.originalPrice1Month || course.originalPrice || 0;
-      document.getElementById("add-price3month").value = course.price3Month || 0;
-      document.getElementById("add-price3month-orig").value = course.originalPrice3Month || 0;
-      document.getElementById("add-teaching-method").value = course.teachingMethod || "";
-      document.getElementById("add-duration").value = course.duration || "";
-      document.getElementById("add-target-audience").value = course.targetAudience || "";
-      document.getElementById("add-features").value = (course.features || []).join("\n");
+      // Tab 2 fields - Dynamic Pricing Options回显
+      const pricingContainer = document.getElementById('pricing-container');
+      if (pricingContainer) {
+        pricingContainer.innerHTML = '';
+        if (course.pricingOptions && course.pricingOptions.length > 0) {
+          course.pricingOptions.forEach(p => window.addPricingRow(p.name, p.price, p.originalPrice));
+        } else {
+          window.addPricingRow('1个月通行证', course.price1Month || course.price || 0, course.originalPrice1Month || course.originalPrice || 0);
+          if (course.price3Month > 0) {
+            window.addPricingRow('3个月通行证', course.price3Month, course.originalPrice3Month || 0);
+          }
+        }
+      }
+
+      const addTeachingMethodEl = document.getElementById("add-teaching-method");
+      if (addTeachingMethodEl) addTeachingMethodEl.value = course.teachingMethod || "";
+      
+      const addDurationEl = document.getElementById("add-duration");
+      if (addDurationEl) addDurationEl.value = course.duration || "";
+      
+      const addTargetAudienceEl = document.getElementById("add-target-audience");
+      if (addTargetAudienceEl) addTargetAudienceEl.value = course.targetAudience || "";
+
+      document.getElementById("add-features").value = (course.features && course.features.length > 0 ? course.features : [
+        "配套 high-quality 彩色 PDF 与实体资料邮寄",
+        "课后提供高清录像回放复习",
+        "专属 WhatsApp 学习答疑辅导"
+      ]).join("\n");
 
       // Tab 3 fields
       document.getElementById("add-about-title").value = course.descAboutTitle || "关于本课程";
