@@ -240,36 +240,7 @@ const DEFAULT_COURSES = [
   }
 ];
 
-const DEFAULT_ORDERS = [
-  {
-    id: "JK-20260520-001",
-    studentName: "张小明",
-    parentName: "张建国",
-    whatsapp: "+60123456789",
-    email: "xiaoming@gmail.com",
-    grade: "Form 5",
-    school: "槟城中华中学",
-    courses: ["SPM Sejarah Trial Attack (中五考前冲刺班)"],
-    total: 49.00,
-    method: "Touch 'n Go eWallet",
-    status: "Paid",
-    date: "2026-05-20 18:30"
-  },
-  {
-    id: "JK-20260520-002",
-    studentName: "Lim Wei Han",
-    parentName: "Lim Kok Seng",
-    whatsapp: "+60177654321",
-    email: "weihan.lim@gmail.com",
-    grade: "Form 4",
-    school: "SMK Damansara Utama",
-    courses: ["Form 4 Sejarah Topic Focus (中四核心专题突破班)"],
-    total: 39.00,
-    method: "FPX Online Banking",
-    status: "Pending",
-    date: "2026-05-21 09:15"
-  }
-];
+const DEFAULT_ORDERS = [];
 
 // 初始化本地数据库并自动合并更新
 // 初始化本地数据库并自动合并升级更新 (采用无损就地升级，避免覆盖用户自定义录入的课程)
