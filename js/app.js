@@ -468,19 +468,53 @@ const CourseDB = {
     localStorage.setItem("jack_courses", JSON.stringify(courses));
     return course;
   },
-  delete: (id) => {
-    let courses = CourseDB.getRawAll() || [];
-    courses = courses.filter(c => c && c.id !== id);
+  delete: function(id) {
+    if (!id) return;
+    let baseId = id;
+    if (baseId === 'wanneng-book' || baseId === 'book') baseId = 'sej-obj-200';
+    if (baseId === 'wanneng-vip-bundle' || baseId === 'bundle') baseId = 'sej-bundle';
+    if (typeof baseId === "string" && baseId.startsWith('sej-live')) baseId = 'sej-regular';
+
+    const optMatch = typeof id === "string" && id.match(/-opt-(\d+)$/);
+    if (optMatch) {
+      baseId = id.slice(0, -optMatch[0].length);
+    } else if (typeof id === "string" && id.endsWith("-3m")) {
+      baseId = id.slice(0, -3);
+    } else if (typeof id === "string" && id.endsWith("-1m")) {
+      baseId = id.slice(0, -3);
+    }
+    if (typeof baseId === "string" && baseId.startsWith('sej-live')) baseId = 'sej-regular';
+
+    let courses = this.getRawAll() || [];
+    courses = courses.filter(c => c && c.id !== id && c.id !== baseId);
     localStorage.setItem("jack_courses", JSON.stringify(courses));
 
+    try {
+      let shopCards = JSON.parse(localStorage.getItem("jackShopCards") || "[]");
+      if (Array.isArray(shopCards)) {
+        shopCards = shopCards.filter(card => card && card.id !== id && card.id !== baseId);
+        localStorage.setItem("jackShopCards", JSON.stringify(shopCards));
+      }
+    } catch(e) {}
+
     if (window.SupabaseConfig) {
-      fetch(`${window.SupabaseConfig.url}/rest/v1/jack_courses?id=eq.${id}`, {
+      fetch(`${window.SupabaseConfig.url}/rest/v1/jack_courses?id=eq.${encodeURIComponent(id)}`, {
         method: "DELETE",
         headers: {
           "apikey": window.SupabaseConfig.apiKey,
           "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
         }
       }).catch(e => console.warn("Supabase course delete warning:", e));
+
+      if (baseId !== id) {
+        fetch(`${window.SupabaseConfig.url}/rest/v1/jack_courses?id=eq.${encodeURIComponent(baseId)}`, {
+          method: "DELETE",
+          headers: {
+            "apikey": window.SupabaseConfig.apiKey,
+            "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+          }
+        }).catch(e => console.warn("Supabase course delete warning:", e));
+      }
     }
   }
 };

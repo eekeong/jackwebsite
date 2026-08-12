@@ -1682,7 +1682,7 @@
 
     // 渲染后台各项数据
     function renderAdminDashboard() {
-      const courses = CourseDB.getAll();
+      const courses = CourseDB.getRawAll();
       const orders = OrderDB.getAll();
 
       // 1. Sales Dashboard数据统计
