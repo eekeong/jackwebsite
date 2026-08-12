@@ -75,7 +75,11 @@
           万能教<span class="text-pinkBrand ml-0.5">Jack老师</span>
         </span>
       </a>
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-3">
+        <button onclick="clearAllAdminTestData()" class="inline-flex items-center gap-1.5 rounded-full border border-red-500/30 bg-red-500/10 px-3 py-1 text-xs font-semibold text-red-400 hover:bg-red-500/20 transition-all cursor-pointer">
+          <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+          一键清空测试数据
+        </button>
         <span
           class="inline-flex items-center gap-1.5 rounded-full border border-pink-500/30 bg-pink-500/10 px-3 py-1 text-xs font-semibold text-pink-400">
           <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i>
@@ -1680,10 +1684,26 @@
       renderAdminDashboard();
     };
 
-    // Delete Order
-    window.handleDeleteOrder = function (orderId) {
-      if (confirm("确定要彻底抹除此订单交易流水记录吗？")) {
-        OrderDB.delete(orderId);
+    // 一键清空所有测试数据
+    window.clearAllAdminTestData = function () {
+      if (confirm("确定要彻底清空所有的销售订单与学员名录测试数据吗？（此操作不可撤销）")) {
+        localStorage.setItem("jack_orders", JSON.stringify([]));
+        localStorage.setItem("jack_registered_users", JSON.stringify([]));
+        localStorage.removeItem("jack_current_student");
+
+        if (window.SupabaseConfig) {
+          fetch(`${window.SupabaseConfig.url}/rest/v1/jack_orders?id=neq.0`, {
+            method: "DELETE",
+            headers: { "apikey": window.SupabaseConfig.apiKey, "Authorization": `Bearer ${window.SupabaseConfig.apiKey}` }
+          }).catch(e => console.warn(e));
+
+          fetch(`${window.SupabaseConfig.url}/rest/v1/jack_students?email=neq.none`, {
+            method: "DELETE",
+            headers: { "apikey": window.SupabaseConfig.apiKey, "Authorization": `Bearer ${window.SupabaseConfig.apiKey}` }
+          }).catch(e => console.warn(e));
+        }
+
+        alert("测试数据已成功全量清空！");
         renderAdminDashboard();
       }
     };

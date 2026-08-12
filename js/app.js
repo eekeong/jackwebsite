@@ -292,28 +292,23 @@ function initDatabase() {
   }
 
   try {
-    const currentOrders = JSON.parse(localStorage.getItem("jack_orders"));
-    if (!currentOrders || !Array.isArray(currentOrders)) {
-      localStorage.setItem("jack_orders", JSON.stringify(DEFAULT_ORDERS));
-    } else {
-      // 防御：确保每个已有订单都具有 total 字段和 courses 数组，防止 toFixed 报错
-      let ordersChanged = false;
-      currentOrders.forEach(o => {
-        if (o.total === undefined || o.total === null) {
-          o.total = 0;
-          ordersChanged = true;
-        }
-        if (!o.courses) {
-          o.courses = [];
-          ordersChanged = true;
-        }
-      });
-      if (ordersChanged) {
-        localStorage.setItem("jack_orders", JSON.stringify(currentOrders));
-      }
+    let currentOrders = JSON.parse(localStorage.getItem("jack_orders") || "[]");
+    if (Array.isArray(currentOrders)) {
+      currentOrders = currentOrders.filter(o => o && o.id !== "JK-20260520-001" && o.id !== "JK-20260520-002" && o.email !== "xiaoming@gmail.com" && o.email !== "weihan.lim@gmail.com");
+      localStorage.setItem("jack_orders", JSON.stringify(currentOrders));
     }
   } catch (e) {
-    localStorage.setItem("jack_orders", JSON.stringify(DEFAULT_ORDERS));
+    localStorage.setItem("jack_orders", JSON.stringify([]));
+  }
+
+  try {
+    let currentRegs = JSON.parse(localStorage.getItem("jack_registered_users") || "[]");
+    if (Array.isArray(currentRegs)) {
+      currentRegs = currentRegs.filter(u => u && u.email !== "xiaoming@gmail.com" && u.email !== "weihan.lim@gmail.com");
+      localStorage.setItem("jack_registered_users", JSON.stringify(currentRegs));
+    }
+  } catch (e) {
+    localStorage.setItem("jack_registered_users", JSON.stringify([]));
   }
 
   if (!localStorage.getItem("jack_cart")) {
