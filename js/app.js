@@ -253,6 +253,7 @@ function initDatabase() {
     } else {
       let changed = false;
       currentCourses.forEach(c => {
+        if (!c || typeof c !== "object") return;
         // 1. 补全 pricingOptions
         if (!c.pricingOptions || !Array.isArray(c.pricingOptions)) {
           c.pricingOptions = [];
@@ -284,7 +285,7 @@ function initDatabase() {
       }
     }
   } catch (e) {
-    localStorage.setItem("jack_courses", JSON.stringify(DEFAULT_COURSES));
+    console.error("Course DB init error:", e);
   }
 
   try {
@@ -469,8 +470,18 @@ const CourseDB = {
   },
   delete: (id) => {
     let courses = CourseDB.getRawAll() || [];
-    courses = courses.filter(c => c.id !== id);
+    courses = courses.filter(c => c && c.id !== id);
     localStorage.setItem("jack_courses", JSON.stringify(courses));
+
+    if (window.SupabaseConfig) {
+      fetch(`${window.SupabaseConfig.url}/rest/v1/jack_courses?id=eq.${id}`, {
+        method: "DELETE",
+        headers: {
+          "apikey": window.SupabaseConfig.apiKey,
+          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+        }
+      }).catch(e => console.warn("Supabase course delete warning:", e));
+    }
   }
 };
 
