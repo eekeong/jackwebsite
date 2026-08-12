@@ -44,7 +44,7 @@
         </button>
 
         <!-- Student Login - Filled Pink Button -->
-        <button class="btn-nav-login" id="navLoginBtn" onclick="openLogin()" aria-label="学生登录">学生登录</button>
+        <button class="btn-nav-login" id="navLoginBtn" onclick="openLogin()" aria-label="Login/Sign Up">Login/Sign Up</button>
       </div>
 
       <!-- Hamburger (Mobile) -->
@@ -158,37 +158,63 @@
   <script src="js/main.js?v=1.0.6"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // 1. 获取 URL 中的订单编号
+      // 1. 获取 URL 中的订单编号，优先精准定位
       const params = new URLSearchParams(window.location.search);
-      const orderId = params.get("orderId");
+      let orderId = params.get("orderId");
 
-      if (!orderId) {
-        alert("未找到有效订单！我们将返回商城首页。");
-        window.location.href = "index.html";
-        return;
+      let order = null;
+      if (orderId) {
+        order = OrderDB.getById(orderId);
       }
 
-      // 2. 从本地数据库获取订单详情
-      const order = OrderDB.getById(orderId);
+      // 2. 如果 URL 无 orderId 或找不到该 ID，自动降级获取最新一笔已完单数据
       if (!order) {
-        alert("数据库中不存在此订单记录！将跳转回商城。");
-        window.location.href = "shop.html";
+        const allOrders = OrderDB.getAll();
+        if (allOrders && allOrders.length > 0) {
+          order = allOrders[0];
+        }
+      }
+
+      // 3. 如果数据库中完全没有订单，展示优雅的无订单提示
+      if (!order) {
+        const receiptBox = document.querySelector(".checkout-form-box");
+        if (receiptBox) {
+          receiptBox.innerHTML = `
+            <div style="text-align:center; padding: 40px 20px;">
+              <span style="font-size: 56px;">📄</span>
+              <h2 style="font-family: var(--font-title); font-size: 20px; color: var(--text-main); margin-top: 15px;">暂无有效订单凭证</h2>
+              <p style="color: var(--grey-muted); font-size: 14px; margin: 10px 0 25px 0;">您尚未提交任何课程报名订单或订单已被重置。</p>
+              <a href="shop.html" class="btn btn-primary" style="padding: 12px 28px;">👉 前往课程商城选课</a>
+            </div>
+          `;
+        }
         return;
       }
 
-      // 3. 动态渲染所有回显数据
-      document.getElementById("success-order-id").textContent = order.id;
-      document.getElementById("success-student-name").textContent = order.studentName;
-      document.getElementById("success-whatsapp").textContent = order.whatsapp;
-      document.getElementById("success-email").textContent = order.email;
-      document.getElementById("success-course-title").textContent = order.courses.join(", ");
-      document.getElementById("success-payment-method").textContent = order.method + ` (${order.status === 'Paid' ? '支付成功' : '待人工审核'})`;
-      document.getElementById("success-total").textContent = `RM ${order.total.toFixed(2)}`;
+      // 4. 动态渲染所有回显数据
+      const idEl = document.getElementById("success-order-id");
+      const nameEl = document.getElementById("success-student-name");
+      const waEl = document.getElementById("success-whatsapp");
+      const emailEl = document.getElementById("success-email");
+      const titleEl = document.getElementById("success-course-title");
+      const methodEl = document.getElementById("success-payment-method");
+      const totalEl = document.getElementById("success-total");
 
-      // 4. 配置 Onboarding WhatsApp 班群动态加入链接
+      if (idEl) idEl.textContent = order.id;
+      if (nameEl) nameEl.textContent = order.studentName || "已报名学生";
+      if (waEl) waEl.textContent = order.whatsapp || "-";
+      if (emailEl) emailEl.textContent = order.email || order.whatsapp || "-";
+      if (titleEl) titleEl.textContent = (order.courses && order.courses.length > 0) ? order.courses.join(", ") : "专属课程";
+      if (methodEl) methodEl.textContent = (order.method || "在线支付") + ` (${order.status === 'Paid' ? '支付成功' : '待人工审核'})`;
+      if (totalEl) totalEl.textContent = `RM ${typeof order.total === 'number' ? order.total.toFixed(2) : parseFloat(order.total || 0).toFixed(2)}`;
+
+      // 5. 配置 Onboarding WhatsApp 班群动态加入链接
       const whatsappGroupText = encodeURIComponent(`您好！我是刚刚报名 Jack 老师历史课程的学生 ${order.studentName}，我的订单号是 ${order.id}，请协助拉我入班级专属 Zoom/讲义下发大群，谢谢！`);
-      const whatsappOnboardingLink = `https://wa.link/jackteacher?text=${whatsappGroupText}`;
-      document.getElementById("btn-success-whatsapp-join").href = whatsappOnboardingLink;
+      const whatsappOnboardingLink = `https://wa.link/yusvrp?text=${whatsappGroupText}`;
+      const joinBtn = document.getElementById("btn-success-whatsapp-join");
+      if (joinBtn) {
+        joinBtn.href = whatsappOnboardingLink;
+      }
 
       // 清除购物车痕迹，同步徽标
       Cart.updateUI();

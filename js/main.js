@@ -11,10 +11,10 @@ const myLocalStorage = window.safeLocalStorage || window.localStorage;
    CONFIG
    -------------------------------------------------- */
 const CONFIG = {
-  waLink: 'https://wa.link/jackteacher', // ← 替换为真实 wa.link
+  waLink: 'https://wa.link/yusvrp', // ← 替换为真实 wa.link
   email: 'jack@wannengteach.com',        // ← 替换为真实 email
-  instagramUrl: 'https://instagram.com/jackteacher',
-  facebookUrl: 'https://facebook.com/jackteacher',
+  instagramUrl: 'https://www.instagram.com/wannengjiaojacklaoshi/',
+  facebookUrl: 'https://www.facebook.com/wannengjiaojacklaoshi',
 };
 
 /* --------------------------------------------------
@@ -38,6 +38,29 @@ document.addEventListener('DOMContentLoaded', () => {
   initCountUp();
   initFaq();
   initTestimonialSlider();
+
+  // Smooth scroll for FAQ links
+  document.querySelectorAll('a[href="#faq"], a[href="index.html#faq"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const isIndex = window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || window.location.pathname.endsWith('/');
+      const faqEl = document.getElementById('faq');
+      if (isIndex && faqEl) {
+        e.preventDefault();
+        if (typeof closeMobileMenu === 'function') closeMobileMenu();
+        faqEl.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  if (window.location.hash === '#faq') {
+    setTimeout(() => {
+      const faqEl = document.getElementById('faq');
+      if (faqEl) {
+        faqEl.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 350);
+  }
+
   initCourseSlider();
   initScrollTop();
   initWaLinks();
@@ -521,9 +544,9 @@ function selectPlan(planId, price) {
    CART LOGIC (Integrated with central Cart engine in app.js)
    -------------------------------------------------- */
 function getCentralProductId(id) {
-  if (id === 'book') return 'wanneng-book';
-  if (id === 'bundle') return 'wanneng-vip-bundle';
-  if (id === 'course') return `sej-live-${selectedCoursePlanId || '1m'}`;
+  if (id === 'book' || id === 'wanneng-book') return 'sej-obj-200';
+  if (id === 'bundle' || id === 'wanneng-vip-bundle') return 'sej-bundle';
+  if (id === 'course') return `sej-regular-opt-${selectedCoursePlanId === '3m' ? 1 : 0}`;
   return id;
 }
 
@@ -657,116 +680,262 @@ function proceedCheckout() {
    STUDENT LOGIN & DYNAMIC BUTTONS
    -------------------------------------------------- */
 function updateStudentLoginButtons() {
-  const currentStudent = myLocalStorage.getItem('jack_current_student');
-  
-  // Clean up any existing dropdown first to prevent duplicate registrations
-  const oldDropdown = document.getElementById('studentProfileDropdown');
-  if (oldDropdown) {
-    if (typeof oldDropdown.remove === 'function') {
-      oldDropdown.remove();
-    } else if (oldDropdown.parentNode) {
-      oldDropdown.parentNode.removeChild(oldDropdown);
-    }
-  }
-
   const navLoginBtn = document.getElementById('navLoginBtn');
   if (!navLoginBtn) return;
 
-  if (currentStudent) {
-    try {
-      const student = JSON.parse(currentStudent);
-      if (student && student.name) {
-        // Update Desktop Login button with a custom template
-        navLoginBtn.innerHTML = `<span style="display:inline-flex; align-items:center; gap:6px;">👤 ${student.name} <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-left:2px; transition: transform 0.25s;"><polyline points="6 9 12 15 18 9"/></svg></span>`;
-        navLoginBtn.setAttribute('aria-label', '查看个人账户');
-        
-        // Remove direct click redirection
-        navLoginBtn.onclick = null;
-        
-        // Create the gorgeous profile dropdown
-        const dropdown = document.createElement('div');
-        dropdown.id = 'studentProfileDropdown';
-        dropdown.className = 'student-profile-dropdown';
-        dropdown.style.display = 'none';
-        dropdown.innerHTML = `
-          <div class="dropdown-header">
-            <div class="student-avatar">🎓</div>
-            <div class="student-info">
-              <div class="student-name">${student.name}</div>
-              <div class="student-email">${student.email || 'student@wannengjiao.com'}</div>
-            </div>
-          </div>
-          <div class="dropdown-divider"></div>
-          <a href="student.html" class="dropdown-item">📊 进入学生中心</a>
-          <button id="btn-dropdown-logout" class="dropdown-item logout-btn">🚪 退出登录</button>
-        `;
-        
-        // Find the actions wrapper inside the navbar
-        const navActions = navLoginBtn.parentElement;
-        if (navActions) {
-          navActions.appendChild(dropdown);
-        }
+  // Clean up any old dropdown if present
+  const oldDropdown = document.getElementById('studentProfileDropdown');
+  if (oldDropdown && oldDropdown.parentNode) {
+    oldDropdown.parentNode.removeChild(oldDropdown);
+  }
 
-        // Toggle dropdown click listener
-        const toggleDropdown = (event) => {
-          event.stopPropagation();
-          const isOpen = dropdown.style.display === 'flex';
-          dropdown.style.display = isOpen ? 'none' : 'flex';
-          const arrowSvg = navLoginBtn.querySelector('svg');
-          if (arrowSvg) {
-            arrowSvg.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
-          }
-        };
+  let currentStudent = null;
+  try {
+    const stored = (window.safeLocalStorage || localStorage).getItem('jack_current_student');
+    if (stored && stored !== "undefined") {
+      currentStudent = JSON.parse(stored);
+    }
+  } catch (e) {}
 
-        // Clear existing click listeners and add the toggle listener
-        navLoginBtn.removeEventListener('click', toggleDropdown);
-        navLoginBtn.addEventListener('click', toggleDropdown);
+  if (currentStudent && (currentStudent.studentName || currentStudent.name)) {
+    const studentName = currentStudent.studentName || currentStudent.name || '学员';
+    navLoginBtn.innerHTML = `👤 ${studentName}`;
+    navLoginBtn.setAttribute('aria-label', `查看 ${studentName} 的个人订单`);
+    navLoginBtn.onclick = (e) => {
+      e.preventDefault();
+      window.location.href = 'student.html';
+    };
 
-        // Bind dynamic logout button click inside dropdown
-        const dropdownLogoutBtn = dropdown.querySelector('#btn-dropdown-logout');
-        if (dropdownLogoutBtn) {
-          dropdownLogoutBtn.addEventListener('click', (event) => {
-            event.stopPropagation();
-            myLocalStorage.removeItem('jack_current_student');
-            dropdown.style.display = 'none';
-            
-            // Reload page or re-initialize to completely reset nav bar and badges
-            window.location.reload();
-          });
-        }
-
-        // Close dropdown when clicking outside
-        const closeDropdownOnOutsideClick = (e) => {
-          if (!navLoginBtn.contains(e.target) && !dropdown.contains(e.target)) {
-            dropdown.style.display = 'none';
-            const arrowSvg = navLoginBtn.querySelector('svg');
-            if (arrowSvg) {
-              arrowSvg.style.transform = 'rotate(0deg)';
-            }
-          }
-        };
-        document.removeEventListener('click', closeDropdownOnOutsideClick);
-        document.addEventListener('click', closeDropdownOnOutsideClick);
-        
-        // Update Mobile Bottom nav login item
-        const bottomLoginSpan = document.querySelector('#bottomLogin span');
-        if (bottomLoginSpan) {
-          bottomLoginSpan.textContent = student.name;
-        }
-      }
-    } catch (e) {
-      console.error("Failed to parse student session in updateStudentLoginButtons:", e);
+    const bottomLoginSpan = document.querySelector('#bottomLogin span');
+    if (bottomLoginSpan) {
+      bottomLoginSpan.textContent = studentName;
     }
   } else {
-    // Restore standard button if not logged in
-    navLoginBtn.textContent = '学生登录';
-    navLoginBtn.setAttribute('aria-label', '学生登录');
-    navLoginBtn.onclick = () => { openLogin(); };
+    navLoginBtn.textContent = 'Login/Sign Up';
+    navLoginBtn.setAttribute('aria-label', 'Login/Sign Up');
+    navLoginBtn.onclick = (e) => {
+      e.preventDefault();
+      openLogin();
+    };
   }
 }
 
 function openLogin() {
-  window.location.href = 'student.html';
+  const loggedInUser = window.StudentAuth ? window.StudentAuth.get() : null;
+
+  if (loggedInUser) {
+    window.location.href = 'student.html';
+  } else {
+    ensureLoginRegisterModal();
+    openModal('loginRegisterModal');
+  }
+}
+
+function ensureLoginRegisterModal() {
+  if (document.getElementById('loginRegisterModal')) return;
+
+  const modalHtml = `
+  <div class="modal-overlay" id="loginRegisterModal" role="dialog" aria-modal="true" onclick="closeModal('loginRegisterModal')">
+    <div class="modal-card" onclick="event.stopPropagation()" style="max-width: 440px; background-color: #ffffff !important; color: #111111 !important; border-top: 4px solid var(--pink); border-radius: 20px; padding: 26px 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); opacity: 1;">
+      <button class="modal-close" onclick="closeModal('loginRegisterModal')" style="color: #666;">×</button>
+      
+      <!-- Tab Controls -->
+      <div style="display:flex; border-bottom:2px solid #eeeeee; margin-bottom:20px;">
+        <button id="tab-btn-login" onclick="switchAuthTab('login')" style="flex:1; padding:10px; font-weight:800; font-size:15px; border:none; background:none; color:var(--pink); border-bottom:3px solid var(--pink); cursor:pointer;">
+          🔑 登录账号
+        </button>
+        <button id="tab-btn-register" onclick="switchAuthTab('register')" style="flex:1; padding:10px; font-weight:800; font-size:15px; border:none; background:none; color:#888888; border-bottom:3px solid transparent; cursor:pointer;">
+          📝 注册新账号
+        </button>
+      </div>
+
+      <!-- Login Form View -->
+      <div id="auth-view-login">
+        <div style="text-align:center; margin-bottom:16px;">
+          <h3 style="font-family:var(--font-title); font-size:18px; color:#111111; margin-bottom:4px;">欢迎回来学员！</h3>
+          <p style="font-size:12px; color:#666666; margin:0;">请输入您的系统账号与密码以登录</p>
+        </div>
+
+        <form onsubmit="handleModalLogin(event)" style="display:flex; flex-direction:column; gap:12px;">
+          <div style="text-align:left;">
+            <label style="font-size:12px; font-weight:700; color:#333333; display:block; margin-bottom:3px;">电子邮箱 (Email Address) *</label>
+            <input type="email" id="modal-login-email" class="form-control" style="background:#f8f9fa; color:#111111; border:1px solid #cccccc; padding:9px 12px; border-radius:8px; width:100%; font-size:13px;" placeholder="例如 student@gmail.com" required>
+          </div>
+          <div style="text-align:left;">
+            <label style="font-size:12px; font-weight:700; color:#333333; display:block; margin-bottom:3px;">密码 (Password) *</label>
+            <input type="password" id="modal-login-password" class="form-control" style="background:#f8f9fa; color:#111111; border:1px solid #cccccc; padding:9px 12px; border-radius:8px; width:100%; font-size:13px;" placeholder="请输入密码" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full" style="padding:11px; font-size:14px; border-radius:8px; background:var(--pink); margin-top:4px;">
+            🔑 确认登录
+          </button>
+        </form>
+
+        <div style="margin-top:16px; text-align:center; font-size:12px; color:#666666;">
+          还没有系统账号？<a href="javascript:void(0)" onclick="switchAuthTab('register')" style="color:var(--pink); font-weight:800; text-decoration:underline;">免费注册系统账号 →</a>
+        </div>
+      </div>
+
+      <!-- Register Form View -->
+      <div id="auth-view-register" style="display:none;">
+        <div style="text-align:center; margin-bottom:14px;">
+          <h3 style="font-family:var(--font-title); font-size:18px; color:#111111; margin-bottom:4px;">注册万能教系统账号</h3>
+          <p style="font-size:12px; color:#666666; margin:0;">填写以下资料即可自动注册学员账户</p>
+        </div>
+
+        <form onsubmit="handleModalRegister(event)" style="display:flex; flex-direction:column; gap:10px;">
+          <div style="text-align:left;">
+            <label style="font-size:12px; font-weight:700; color:#333333; display:block; margin-bottom:2px;">学员姓名 (Full Name) *</label>
+            <input type="text" id="reg-fullname" class="form-control" style="background:#f8f9fa; color:#111111; border:1px solid #cccccc; padding:9px 12px; border-radius:8px; width:100%; font-size:13px;" placeholder="例如 张小明 / Lim Wei Han" required>
+          </div>
+          <div style="text-align:left;">
+            <label style="font-size:12px; font-weight:700; color:#333333; display:block; margin-bottom:2px;">WhatsApp 电话号码 *</label>
+            <input type="tel" id="reg-whatsapp" class="form-control" style="background:#f8f9fa; color:#111111; border:1px solid #cccccc; padding:9px 12px; border-radius:8px; width:100%; font-size:13px;" placeholder="例如 0123456789" required>
+          </div>
+          <div style="text-align:left;">
+            <label style="font-size:12px; font-weight:700; color:#333333; display:block; margin-bottom:2px;">电子邮箱 (Email Address) *</label>
+            <input type="email" id="reg-email" class="form-control" style="background:#f8f9fa; color:#111111; border:1px solid #cccccc; padding:9px 12px; border-radius:8px; width:100%; font-size:13px;" placeholder="例如 student@gmail.com" required>
+          </div>
+          <div style="text-align:left;">
+            <label style="font-size:12px; font-weight:700; color:#333333; display:block; margin-bottom:2px;">设置登录密码 (Password) *</label>
+            <input type="password" id="reg-password" class="form-control" style="background:#f8f9fa; color:#111111; border:1px solid #cccccc; padding:9px 12px; border-radius:8px; width:100%; font-size:13px;" placeholder="请设置登录密码" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full" style="padding:11px; font-size:14px; border-radius:8px; background:var(--pink); margin-top:4px;">
+            ✨ 立即注册并登录
+          </button>
+        </form>
+
+        <div style="margin-top:14px; text-align:center; font-size:12px; color:#666666;">
+          已有系统账号？<a href="javascript:void(0)" onclick="switchAuthTab('login')" style="color:var(--pink); font-weight:800; text-decoration:underline;">直接登录 →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', modalHtml);
+}
+
+function switchAuthTab(tab) {
+  const loginView = document.getElementById('auth-view-login');
+  const regView = document.getElementById('auth-view-register');
+  const btnLogin = document.getElementById('tab-btn-login');
+  const btnReg = document.getElementById('tab-btn-register');
+  if (!loginView || !regView || !btnLogin || !btnReg) return;
+
+  if (tab === 'register') {
+    loginView.style.display = 'none';
+    regView.style.display = 'block';
+    btnReg.style.color = 'var(--pink)';
+    btnReg.style.borderBottom = '3px solid var(--pink)';
+    btnLogin.style.color = '#888888';
+    btnLogin.style.borderBottom = '3px solid transparent';
+  } else {
+    loginView.style.display = 'block';
+    regView.style.display = 'none';
+    btnLogin.style.color = 'var(--pink)';
+    btnLogin.style.borderBottom = '3px solid var(--pink)';
+    btnReg.style.color = '#888888';
+    btnReg.style.borderBottom = '3px solid transparent';
+  }
+}
+
+function handleModalRegister(e) {
+  e.preventDefault();
+  const name = document.getElementById('reg-fullname').value.trim();
+  const whatsapp = document.getElementById('reg-whatsapp').value.trim();
+  const email = document.getElementById('reg-email').value.trim().toLowerCase();
+  const password = document.getElementById('reg-password').value;
+
+  if (!name || !whatsapp || !email || !password) {
+    alert("请填写所有必需的注册信息！");
+    return;
+  }
+
+  const userObj = {
+    studentName: name,
+    whatsapp: whatsapp,
+    email: email,
+    password: password,
+    provider: '系统账号注册',
+    grade: 'Form 5',
+    loginTime: new Date().toLocaleString()
+  };
+
+  window.StudentAuth.registerUser(userObj);
+  closeModal('loginRegisterModal');
+
+  if (typeof showToast === 'function') {
+    showToast('🎉', `注册成功！欢迎加入，${name}`);
+  }
+}
+
+function handleModalLogin(e) {
+  e.preventDefault();
+  const emailInput = document.getElementById('modal-login-email');
+  const passwordInput = document.getElementById('modal-login-password');
+  if (!emailInput || !passwordInput) return;
+
+  const email = emailInput.value.trim().toLowerCase();
+  const password = passwordInput.value;
+
+  if (email === "admin@eduhero.com.my") {
+    if (password === "eduhero") {
+      window.location.href = "admin.html";
+    } else {
+      alert("Invalid admin password!");
+    }
+    return;
+  }
+
+  const regUsers = window.StudentAuth ? window.StudentAuth.getRegisteredUsers() : [];
+  const foundUser = regUsers.find(u => u.email && u.email.toLowerCase() === email);
+
+  let studentName = email.split('@')[0] || "学员";
+  let whatsapp = "";
+
+  if (foundUser) {
+    studentName = foundUser.studentName || studentName;
+    whatsapp = foundUser.whatsapp || "";
+  } else {
+    try {
+      const orders = window.OrderDB ? window.OrderDB.getAll() : [];
+      const foundOrder = orders.find(o => o.email && o.email.toLowerCase() === email);
+      if (foundOrder && foundOrder.studentName) {
+        studentName = foundOrder.studentName;
+        whatsapp = foundOrder.phone || "";
+      }
+    } catch(err) {}
+  }
+
+  const user = {
+    studentName: studentName,
+    whatsapp: whatsapp,
+    email: email,
+    provider: '系统账号',
+    grade: 'Form 5',
+    loginTime: new Date().toLocaleString()
+  };
+
+  window.StudentAuth.set(user);
+  closeModal('loginRegisterModal');
+
+  if (typeof showToast === 'function') {
+    showToast('🎉', `登录成功！欢迎回来，${studentName}`);
+  }
+}
+
+function handleStudentLogout() {
+  if (window.StudentAuth) {
+    window.StudentAuth.logout();
+  } else {
+    localStorage.removeItem('jack_current_student');
+  }
+  if (typeof showToast === 'function') {
+    showToast('👋', '已成功退出账号');
+  }
+  setTimeout(() => {
+    window.location.href = 'index.html';
+  }, 300);
 }
 
 /* --------------------------------------------------
@@ -1305,7 +1474,7 @@ function initDynamicSchedule() {
       
       <div style="margin-top:15px; border-top: 1px solid var(--gray-100); padding-top: 15px; display:flex; gap:10px;">
         <a href="shop.html" class="btn btn-primary" style="flex:1; text-align:center; padding:10px 12px; font-size:13px; font-weight:800; border:none; border-radius:var(--r-md); background:linear-gradient(135deg, var(--pink), var(--pink-light)); color:white; text-decoration:none; box-shadow:var(--shadow-pink); display:inline-flex; align-items:center; justify-content:center;">🛍️ 立即报名选课</a>
-        <a href="https://wa.link/jackteacher" target="_blank" class="btn btn-outline" style="flex:1; text-align:center; padding:10px 12px; font-size:13px; font-weight:800; border:1px solid var(--gray-200); border-radius:var(--r-md); color:var(--dark); text-decoration:none; display:inline-flex; align-items:center; justify-content:center; background:var(--white);" onmouseover="this.style.background='var(--gray-50)'" onmouseout="this.style.background='var(--white)'">💬 客服/家长咨询</a>
+        <a href="https://wa.link/yusvrp" target="_blank" class="btn btn-outline" style="flex:1; text-align:center; padding:10px 12px; font-size:13px; font-weight:800; border:1px solid var(--gray-200); border-radius:var(--r-md); color:var(--dark); text-decoration:none; display:inline-flex; align-items:center; justify-content:center; background:var(--white);" onmouseover="this.style.background='var(--gray-50)'" onmouseout="this.style.background='var(--white)'">💬 客服/家长咨询</a>
       </div>
     `;
     

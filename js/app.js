@@ -69,14 +69,33 @@ const DEFAULT_COURSES = [
     ],
     formOptions: ["Form 4", "Form 5"],
     timeOptions: ["星期四 8:00PM", "星期六 10:00AM"],
-    contentSections: [
+    price1Month: 89,
+    originalPrice1Month: 159,
+    price3Month: 229,
+    originalPrice3Month: 477,
+    teachingMethod: "Zoom 直播课",
+    duration: "1.5 小时",
+    features: [
+      "配套高画质彩色 PDF 与实体资料邮寄",
+      "课后提供高清录像回放复习",
+      "专属 WhatsApp 学习答疑辅导"
+    ],
+    descAboutTitle: "关于本课程",
+    descAboutText: "这是一门专为想要冲刺高分的同学设计的精品课。由 Jack 老师主讲，通过独特的故事化教学方法 and 口诀记忆法，将硬核大纲简化，帮助基础薄弱的学生在最短的时间内理清逻辑、快速提分。",
+    descSyllabusTitle: "上课大纲",
+    descSyllabusText: "第一阶段：核心概念重点剖析\n第二阶段：历年考题解题模板套路讲解\n第三阶段：丢分盲区及考场答题注意事项",
+    testimonials: [
       {
-        title: "关于本课程",
-        content: "这是一门专为想要冲刺高分的同学设计的精品课。由 Jack 老师主讲，通过独特的故事化教学方法，帮助基础薄弱的学生快速提分。"
+        type: "image",
+        src: 'images/Card_Photo/60.png',
+        text: "“老师的故事法太好玩了，口诀也非常顺口。本来不及格的历史这次竟然拿到了A-，真的太不可思议了！”",
+        name: "张同学 (Form 5)"
       },
       {
-        title: "上课大纲",
-        content: "第一阶段：核心概念重点剖析\n第二阶段：历年考题解题模板套路讲解\n第三阶段：丢分盲区及考场答题注意事项"
+        type: "image",
+        src: "images/Card_Photo/2.png",
+        text: "“以前总觉得Sejarah要背很多字，上完课后发现其实是有套路的，写少少字拿满分的感觉太棒了！”",
+        name: "林同学 (Form 5)"
       }
     ],
     faqs: [
@@ -84,8 +103,99 @@ const DEFAULT_COURSES = [
     ]
   },
   {
+    id: "sej-obj-200",
+    title: "「会说话」Sejarah OBJ 200题宝典",
+    subject: "Sejarah",
+    type: "Study Material",
+    teacher: "Jack 老师",
+    coverImage: "images/product-book.png",
+    imgBack: "images/product-book.png",
+    imgFront: "images/Card_Photo/2.png",
+    notes: "选择题速提宝典",
+    badge: "OBJ 必刷题",
+    badgeClass: "badge-new",
+    targetAudience: "Form 5 学生",
+    pricingOptions: [
+      { name: "200题实体宝典 (附带声波扫码教学)", price: 45, originalPrice: 79 }
+    ],
+    formOptions: ["Form 5"],
+    timeOptions: ["随买随看，随时温习"],
+    price1Month: 45,
+    originalPrice1Month: 79,
+    price3Month: 0,
+    originalPrice3Month: 0,
+    teachingMethod: "扫码音频解题",
+    duration: "随时自主温习",
+    features: [
+      "精选 200 道 SPM 必刷选择题",
+      "独家声波二维码，扫码即听老师音频详解",
+      "高品质纸张印刷直邮寄送"
+    ],
+    descAboutTitle: "关于本宝典",
+    descAboutText: "「会说话」历史客观选择题 200 题宝典是由 Jack 老师倾力打造的备考神器。精选了 200 道历年最经典、最具代表性的客观题。不仅有详尽的纸质解析，每道题旁边更印有专属声波二维码，微信扫码即可播放 Jack 老师亲述的秒杀技巧与背景故事，随时随地开启高效复习！",
+    descSyllabusTitle: "宝典大纲",
+    descSyllabusText: "第一篇章：中四核心考点选择题精炼\n第二篇章：中五核心考点选择题精炼\n第三篇章：选择题常见陷阱与快速排除法",
+    testimonials: [
+      {
+        type: "image",
+        src: 'images/Card_Photo/60.png',
+        text: "“这本选择题宝典太方便了，扫一下就能听老师讲解，以前选择题拿不到15分，这次模拟考直接拿了32分！”",
+        name: "李同学 (Form 5)"
+      }
+    ],
+    faqs: [
+      { q: "付款后如何收到实体宝典？", a: "我们将在您下单后的 2-3 个工作日内安排快递寄送书本到您填写的地址。" }
+    ]
+  },
+  {
+    id: "sej-trial-f5",
+    title: "Sejarah SPM 攻攻班",
+    subject: "Sejarah",
+    type: "Live Class",
+    teacher: "Jack 老师",
+    coverImage: "images/product-course.png",
+    imgBack: "images/product-course.png",
+    imgFront: "images/Card_Photo/60.png",
+    notes: "SPM 考前冲刺拿分神班",
+    badge: "Hot Release",
+    badgeClass: "badge-hot",
+    targetAudience: "Form 5 学生",
+    pricingOptions: [
+      { name: "1个月体验", price: 49, originalPrice: 99 },
+      { name: "3个月全包特惠", price: 119, originalPrice: 297 }
+    ],
+    formOptions: ["Form 5"],
+    timeOptions: ["星期日 8:00PM - 9:30PM"],
+    price1Month: 49,
+    originalPrice1Month: 99,
+    price3Month: 119,
+    originalPrice3Month: 297,
+    teachingMethod: "Zoom 直播课",
+    duration: "1.5 小时",
+    features: [
+      "精准锁定 2026 各州预测试卷热门考点",
+      "传授独家‘乱乱写’满分得分点套路",
+      "无限次高清重播回放权限至考试结束"
+    ],
+    descAboutTitle: "关于本课程",
+    descAboutText: "专为 Form 5 学生打造的考前冲刺攻攻班！紧扣 SPM 官方最新命题大纲，精选全国各州考前模拟卷，直击出题人逻辑。通过高强度的互动直播和核心得分模板套路，让基础在低分徘徊的学生能在最短的考前冲刺阶段掌握拿分绝招，打破不及格的宿命，稳拿 A-！",
+    descSyllabusTitle: "冲刺大纲",
+    descSyllabusText: "中四重要篇章预测考点攻关与 KBAT 解法\n中五热门章节论述题高分万能模板默写\nSPM 历史 Paper 2 结构题答题结构剖析",
+    testimonials: [
+      {
+        type: "image",
+        src: 'images/Card_Photo/2.png',
+        text: "“跟着老师攻攻班两个星期，原本完全不会写的 KBAT 题突然知道怎么下笔了，写的句式考官直接给满分！”",
+        name: "陈同学 (Form 5)"
+      }
+    ],
+    faqs: [
+      { q: "错过了直播可以看回放吗？", a: "可以的，所有的直播在课程结束后的 24 小时内均会上传高清无插水录播回放，并且支持无限次重播。" }
+    ]
+  },
+  {
     id: "sej-bundle",
-    title: "Sejarah VIP 万能宝典",
+    title: "Sejarah 万能宝典",
     subject: "Sejarah",
     type: "VIP Bundle",
     teacher: "Jack 老师",
@@ -101,13 +211,32 @@ const DEFAULT_COURSES = [
     ],
     formOptions: ["Form 4", "Form 5"],
     timeOptions: ["随买随看，无需固定时间"],
-    contentSections: [
+    price1Month: 199,
+    originalPrice1Month: 399,
+    price3Month: 0,
+    originalPrice3Month: 0,
+    teachingMethod: "随买随看",
+    duration: "自主掌握进度",
+    features: [
+      "包含《历史秘笈》与《乱乱写》两本实体笔记本直邮",
+      "中四中五核心专题网课包随买随看",
+      "永久加入助教极速答疑群"
+    ],
+    descAboutTitle: "关于本套餐",
+    descAboutText: "最划算的选择！一次拿齐 Jack 老师专属实体笔记本与核心专题录像网课，节省更多，学习更系统。无论是平时复习还是考前救命，都是您 SPM 历史拿 A 的终极全包选择！",
+    descSyllabusTitle: "学习内容",
+    descSyllabusText: "《Jack老师历史秘笈》专属笔记本一册\n《万能乱乱写》核心 KBAT 笔记本一册\n中四专题 1–10 网课与讲座回放资源包\n中五专题 1–10 网课与讲座回放资源包",
+    testimonials: [
       {
-        title: "套餐包含什么？",
-        content: "包含《乱乱写》与《历史秘笈》两本实体精美笔记本直邮，以及中四中五核心专题包。"
+        type: "image",
+        src: 'images/Card_Photo/60.png',
+        text: "“两本实体笔记本真的设计得太漂亮了，配着老师的专题网课学习，以前觉得最难的一章，20分钟就通透了！”",
+        name: "徐同学 (Form 5)"
       }
     ],
-    faqs: []
+    faqs: [
+      { q: "讲义是实体寄送的吗？", a: "是的，VIP 套餐中包含的专属《历史秘笈》与《乱乱写》笔记本是实体彩色印刷的，下单后 2-3 个工作日内会包邮快递到您家。" }
+    ]
   }
 ];
 
@@ -147,7 +276,12 @@ const DEFAULT_ORDERS = [
 function initDatabase() {
   try {
     const currentCourses = JSON.parse(localStorage.getItem("jack_courses"));
-    if (!currentCourses || !Array.isArray(currentCourses) || currentCourses.length === 0) {
+    const needsReset = !currentCourses || 
+                       !Array.isArray(currentCourses) || 
+                       currentCourses.length < 4 || 
+                       !currentCourses.some(c => c.id === "sej-trial-f5") || 
+                       !currentCourses.some(c => c.id === "sej-obj-200");
+    if (needsReset) {
       localStorage.setItem("jack_courses", JSON.stringify(DEFAULT_COURSES));
     } else {
       let changed = false;
@@ -223,7 +357,7 @@ initDatabase();
 
 // 2. 课程数据库管理函数
 const CourseDB = {
-  getAll: () => {
+  getRawAll: () => {
     try {
       return JSON.parse(localStorage.getItem("jack_courses")) || [];
     } catch (e) {
@@ -231,21 +365,37 @@ const CourseDB = {
       return [];
     }
   },
-  getRawById: (id) => {
+  getAll: function() {
+    const rawList = this.getRawAll();
+    return rawList.map(c => this.getById(c.id)).filter(Boolean);
+  },
+  getRawById: function(id) {
     if (!id) return null;
     let baseId = id;
+    if (baseId === 'wanneng-book' || baseId === 'book') baseId = 'sej-obj-200';
+    if (baseId === 'wanneng-vip-bundle' || baseId === 'bundle') baseId = 'sej-bundle';
+    if (typeof baseId === "string" && baseId.startsWith('sej-live')) baseId = 'sej-regular';
+
     const optMatch = typeof id === "string" && id.match(/-opt-(\d+)$/);
     if (optMatch) {
       baseId = id.slice(0, -optMatch[0].length);
     } else if (typeof id === "string" && id.endsWith("-3m")) {
       baseId = id.slice(0, -3);
+    } else if (typeof id === "string" && id.endsWith("-1m")) {
+      baseId = id.slice(0, -3);
     }
-    return (CourseDB.getAll() || []).find(c => c.id === baseId) || null;
+    if (typeof baseId === "string" && baseId.startsWith('sej-live')) baseId = 'sej-regular';
+    return (this.getRawAll() || []).find(c => c.id === baseId) || null;
   },
-  getById: (id) => {
+  getById: function(id) {
     if (!id) return null;
     let baseId = id;
     let optIndex = -1;
+
+    if (id === 'wanneng-book' || id === 'book') baseId = 'sej-obj-200';
+    if (id === 'wanneng-vip-bundle' || id === 'bundle') baseId = 'sej-bundle';
+    if (id === 'sej-live-1m') { baseId = 'sej-regular'; optIndex = 0; }
+    if (id === 'sej-live-3m') { baseId = 'sej-regular'; optIndex = 1; }
 
     // Check if it ends with -opt-[index] (e.g. sej-regular-opt-0)
     const optMatch = typeof id === "string" && id.match(/-opt-(\d+)$/);
@@ -253,11 +403,15 @@ const CourseDB = {
       optIndex = parseInt(optMatch[1], 10);
       baseId = id.slice(0, -optMatch[0].length);
     } else if (typeof id === "string" && id.endsWith("-3m")) {
-      optIndex = 1;
+      if (optIndex < 0) optIndex = 1;
+      baseId = id.slice(0, -3);
+    } else if (typeof id === "string" && id.endsWith("-1m")) {
+      if (optIndex < 0) optIndex = 0;
       baseId = id.slice(0, -3);
     }
+    if (typeof baseId === "string" && baseId.startsWith('sej-live')) baseId = 'sej-regular';
 
-    const raw = (CourseDB.getAll() || []).find(c => c.id === baseId);
+    const raw = (this.getRawAll() || []).find(c => c.id === baseId);
     if (!raw) return null;
     
     // Apply dynamic variant mapping or fallback to old fields
@@ -786,7 +940,7 @@ const DEFAULT_SCROLLING_TESTIMONIALS = [
     id: "st-1",
     text: "跟着Jack老师的节奏，利用万能口诀，我的Sejarah直接从Fail冲到了A+！完全不用死记硬背！",
     image: "https://randomuser.me/api/portraits/women/1.jpg",
-    name: "Briana Patton",
+    name: "王佳莹",
     role: "Form 5 (Fail -> A+)",
     screenshot: "images/见证/1.png"
   },
@@ -794,7 +948,7 @@ const DEFAULT_SCROLLING_TESTIMONIALS = [
     id: "st-2",
     text: "老师整理的《乱乱写》魔法笔记太神奇了，考试时直接默写核心关键字，写少少字竟然拿了满分！",
     image: "https://randomuser.me/api/portraits/men/2.jpg",
-    name: "Bilal Ahmed",
+    name: "林伟瀚",
     role: "Form 5 (历史全班第一 🏆)",
     screenshot: "images/见证/23.png"
   },
@@ -802,7 +956,7 @@ const DEFAULT_SCROLLING_TESTIMONIALS = [
     id: "st-3",
     text: "历史本来是我最头疼的科目，上过Jack老师的第一堂课后，我发现Sejarah原来像看漫画剧集一样有趣！",
     image: "https://randomuser.me/api/portraits/women/3.jpg",
-    name: "Saman Malik",
+    name: "Siti Norhaliza",
     role: "Form 4 (兴趣激发 ✨)",
     screenshot: "images/见证/30.png"
   },
@@ -810,7 +964,7 @@ const DEFAULT_SCROLLING_TESTIMONIALS = [
     id: "st-4",
     text: "原本只希望全部科目都Pass，跟着Jack老师口诀学习两个月，SPM成绩放榜Sejarah稳拿A-！",
     image: "https://randomuser.me/api/portraits/men/4.jpg",
-    name: "Omar Raza",
+    name: "Tan Min Jie",
     role: "Form 5 (G级逆袭到A-)",
     screenshot: "images/见证/37.png"
   },
@@ -818,7 +972,7 @@ const DEFAULT_SCROLLING_TESTIMONIALS = [
     id: "st-5",
     text: "不仅教知识，还教满分思维和临考心态，简直是全马最棒的历史魔法老师！",
     image: "https://randomuser.me/api/portraits/women/5.jpg",
-    name: "Zainab Hussain",
+    name: "Lee Mei Kee",
     role: "Form 5 (提分榜样 🌟)",
     screenshot: "images/见证/39.png"
   },
@@ -826,7 +980,7 @@ const DEFAULT_SCROLLING_TESTIMONIALS = [
     id: "st-6",
     text: "考前两个月冲刺班，完全锁定了SPM的热门考点，让我在考场上胸有成竹，顺利拿到A！",
     image: "https://randomuser.me/api/portraits/women/6.jpg",
-    name: "Aliza Khan",
+    name: "Nurul Aishah",
     role: "Form 5 (考前冲刺稳夺A)",
     screenshot: "images/见证/48.png"
   },
@@ -834,7 +988,7 @@ const DEFAULT_SCROLLING_TESTIMONIALS = [
     id: "st-7",
     text: "独家故事法授课超级幽默！不知不觉就记住了复杂的朝代和概念，考试时脑海里全画面！",
     image: "https://randomuser.me/api/portraits/men/7.jpg",
-    name: "Farhan Siddiqui",
+    name: "Wong Yew Choong",
     role: "Form 4 (故事趣味法记忆)",
     screenshot: "images/见证/50.png"
   },
@@ -842,7 +996,7 @@ const DEFAULT_SCROLLING_TESTIMONIALS = [
     id: "st-8",
     text: "不用怀疑，选Jack老师的课是今年最明智的决定，已经拉着全班闺蜜一起续费学习了！",
     image: "https://randomuser.me/api/portraits/women/8.jpg",
-    name: "Sana Sheikh",
+    name: "Zarith Sofia",
     role: "Form 5 (全员强烈力荐)",
     screenshot: "images/见证/54.png"
   },
@@ -850,7 +1004,7 @@ const DEFAULT_SCROLLING_TESTIMONIALS = [
     id: "st-9",
     text: "用最聪明的思维导图做总结，别人在痛苦背书，我在轻松拿分，历史提分简直像开挂一样！",
     image: "https://randomuser.me/api/portraits/men/9.jpg",
-    name: "Hassan Ali",
+    name: "Lau Yu Xuan",
     role: "Form 5 (满分答题套路)",
     screenshot: 'images/Card_Photo/60.png'
   }
@@ -870,6 +1024,22 @@ const ScrollingTestimonialDB = {
       let parsed = JSON.parse(data);
       if (Array.isArray(parsed)) {
         parsed = parsed.filter(t => t && t.id && t.text && t.name);
+
+        // Self-healing: Reset if the data contains old placeholders, ERP texts, or Saman Malik as Customer Support Lead
+        const hasLegacyData = parsed.some(t => 
+          t.text.includes("ERP") || 
+          t.text.includes("exceptional") || 
+          t.text.includes("支持团队非常出色") || 
+          t.role === "Customer Support Lead" || 
+          t.role === "客户支持负责人" ||
+          t.name === "Briana Patton"
+        );
+
+        if (hasLegacyData) {
+          localStorage.setItem("jack_scrolling_testimonials", JSON.stringify(DEFAULT_SCROLLING_TESTIMONIALS));
+          return DEFAULT_SCROLLING_TESTIMONIALS;
+        }
+
         if (parsed.length > 0) {
           return parsed;
         }
@@ -952,7 +1122,112 @@ function showFloatingNotification(message) {
   }, 2500);
 }
 
-// 页面加载时自动初始化购物车数量
+// ==========================================
+// UNIFIED STUDENT AUTHENTICATION & SESSION ENGINE
+// ==========================================
+window.StudentAuth = {
+  get: function() {
+    try {
+      const val = window.localStorage.getItem("jack_current_student");
+      if (val && val !== "undefined" && val !== "null") {
+        return JSON.parse(val);
+      }
+    } catch(e) {}
+    return null;
+  },
+  set: function(userObj) {
+    try {
+      window.localStorage.setItem("jack_current_student", JSON.stringify(userObj));
+    } catch(e) {}
+    if (typeof window.updateStudentLoginButtons === 'function') {
+      window.updateStudentLoginButtons();
+    }
+  },
+  logout: function() {
+    try {
+      window.localStorage.removeItem("jack_current_student");
+    } catch(e) {}
+    if (typeof window.updateStudentLoginButtons === 'function') {
+      window.updateStudentLoginButtons();
+    }
+  },
+  getRegisteredUsers: function() {
+    try {
+      const users = window.localStorage.getItem("jack_registered_users");
+      return users ? JSON.parse(users) : [];
+    } catch(e) {
+      return [];
+    }
+  },
+  registerUser: function(userObj) {
+    const users = this.getRegisteredUsers();
+    const existingIndex = users.findIndex(u => u.email && u.email.toLowerCase() === userObj.email.toLowerCase());
+    if (existingIndex >= 0) {
+      users[existingIndex] = { ...users[existingIndex], ...userObj };
+    } else {
+      users.push(userObj);
+    }
+    try {
+      window.localStorage.setItem("jack_registered_users", JSON.stringify(users));
+    } catch(e) {}
+    this.set(userObj);
+  }
+};
+
+window.updateStudentLoginButtons = function() {
+  const navLoginBtn = document.getElementById('navLoginBtn');
+  if (!navLoginBtn) return;
+
+  const currentStudent = window.StudentAuth ? window.StudentAuth.get() : null;
+
+  if (currentStudent && (currentStudent.studentName || currentStudent.name)) {
+    const studentName = currentStudent.studentName || currentStudent.name || '学员';
+    navLoginBtn.innerHTML = `👤 ${studentName}`;
+    navLoginBtn.setAttribute('aria-label', `查看 ${studentName} 的个人订单`);
+    navLoginBtn.onclick = (e) => {
+      e.preventDefault();
+      window.location.href = 'student.html';
+    };
+
+    const bottomLoginSpan = document.querySelector('#bottomLogin span');
+    if (bottomLoginSpan) {
+      bottomLoginSpan.textContent = studentName;
+    }
+  } else {
+    navLoginBtn.textContent = 'Login/Sign Up';
+    navLoginBtn.setAttribute('aria-label', 'Login/Sign Up');
+    navLoginBtn.onclick = (e) => {
+      e.preventDefault();
+      if (typeof openLogin === 'function') {
+        openLogin();
+      } else {
+        window.location.href = 'student.html';
+      }
+    };
+  }
+};
+
+// 页面加载时自动初始化购物车数量、学生状态与 WhatsApp 浮动按钮
 document.addEventListener("DOMContentLoaded", () => {
   Cart.updateUI();
+  window.updateStudentLoginButtons();
+
+  // 自动添加右下角 WhatsApp Floating Button (管理后台隐藏)
+  const isAdmin = window.location.pathname.includes("admin.html");
+  if (!isAdmin && !document.getElementById("whatsappFloatBtn") && document.body) {
+    const waBtn = document.createElement("a");
+    waBtn.id = "whatsappFloatBtn";
+    waBtn.href = "https://wa.link/yusvrp";
+    waBtn.target = "_blank";
+    waBtn.rel = "noopener noreferrer";
+    waBtn.className = "whatsapp-float-btn";
+    waBtn.setAttribute("aria-label", "WhatsApp 客服咨询");
+    waBtn.setAttribute("title", "WhatsApp 客服咨询");
+    waBtn.innerHTML = `
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.262 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.66.986 3.288 1.488 4.674 1.49 5.345 0 9.771-4.342 9.774-9.673.002-2.583-1.002-5.01-2.827-6.837-1.823-1.826-4.249-2.83-6.834-2.831-5.345 0-9.769 4.341-9.773 9.671-.002 1.94.512 3.826 1.492 5.503l-.979 3.575 3.673-.963zm11.96-5.834c-.267-.134-1.583-.78-1.827-.869-.243-.088-.422-.132-.599.135-.178.266-.689.867-.844 1.045-.156.177-.311.199-.579.066-.268-.134-1.13-.417-2.153-1.328-.795-.71-1.333-1.586-1.489-1.854-.156-.266-.017-.41.117-.543.12-.12.267-.31.401-.466.133-.155.178-.266.266-.443.089-.178.045-.333-.022-.467-.067-.133-.599-1.442-.821-1.974-.216-.52-.452-.45-.623-.459-.16-.008-.344-.01-.527-.01-.184 0-.483.069-.735.345-.252.276-.962.94-.962 2.292 0 1.352.983 2.658 1.121 2.836.137.178 1.933 2.951 4.683 4.137.654.282 1.165.45 1.562.576.657.21 1.256.18 1.728.11.526-.078 1.583-.647 1.806-1.272.223-.625.223-1.162.156-1.272-.067-.11-.244-.199-.512-.332z"/>
+      </svg>
+    `;
+    document.body.appendChild(waBtn);
+  }
 });

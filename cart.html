@@ -46,7 +46,7 @@
         </button>
 
         <!-- Student Login - Filled Pink Button -->
-        <button class="btn-nav-login" id="navLoginBtn" onclick="openLogin()" aria-label="学生登录">学生登录</button>
+        <button class="btn-nav-login" id="navLoginBtn" onclick="openLogin()" aria-label="Login/Sign Up">Login/Sign Up</button>
       </div>
 
       <!-- Hamburger (Mobile) -->
@@ -164,7 +164,7 @@
       </div>
       <span>购物车</span>
     </a>
-    <a href="https://wa.link/jackteacher?text=我想咨询Jack老师的历史课程" target="_blank" class="sticky-nav-item"
+    <a href="https://wa.link/yusvrp" target="_blank" class="sticky-nav-item"
       style="color: var(--success);">
       <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
         <path
@@ -210,16 +210,10 @@
           const card = document.createElement("div");
           card.className = "cart-item";
 
-          const formVal = item.form || "Form 1-5 适用";
-          const titleVal = item.title || "专属课程/教材";
-          const timeVal = item.time || "随买随看";
-          const priceVal = typeof item.price === "number" ? item.price : parseFloat(item.price || 0);
-
-          
-          // Display the custom selections if available
-          const planName = item.priceOption || "默认套餐";
-          const formVal = item.formOption || item.form || "Form 1-5 适用";
-          const timeVal = item.timeOption || item.time || "随买随看";
+          // Display custom selections if available
+          const planName = item.priceOption || "";
+          const formVal = item.formOption || item.targetAudience || item.form || "Form 1-5 适用";
+          const timeVal = item.timeOption || (item.timeOptions ? item.timeOptions[0] : null) || item.time || "随买随看";
           const titleVal = item.title || "专属课程/教材";
           const priceVal = typeof item.price === "number" ? item.price : parseFloat(item.price || 0);
           const coverImg = item.coverImage || "images/product-course.png";
@@ -230,7 +224,7 @@
             </div>
             <div class="cart-item-info">
               <h3 class="cart-item-title">${titleVal}</h3>
-              <p style="font-size: 13px; color: var(--pink); font-weight: 800; margin-top:2px; margin-bottom:2px;">[${planName}]</p>
+              ${planName ? `<p style="font-size: 13px; color: var(--pink); font-weight: 800; margin-top:2px; margin-bottom:2px;">[${planName}]</p>` : ''}
               <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top: 4px;">
                 <span class="badge badge-form" style="font-size:10px; padding:2px 6px;">${formVal}</span>
                 <span class="badge" style="font-size:10px; padding:2px 6px; background:#f0f0f0; color:#555;">${timeVal}</span>

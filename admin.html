@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard | Jack Jack 老师</title>
+  <title>Admin Dashboard | 万能教 Jack 老师</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -38,6 +38,10 @@
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
+    #whatsappFloatBtn, .whatsapp-float-btn {
+      display: none !important;
+    }
+
     /* Simple Custom Scrollbars for Tailwind dark style */
     ::-webkit-scrollbar {
       width: 6px;
@@ -65,10 +69,10 @@
   <header class="sticky top-0 z-50 w-full border-b border-zinc-800 bg-zinc-950/80 backdrop-blur">
     <div class="flex h-14 items-center justify-between px-6 max-w-[1400px] mx-auto">
       <a href="index.html" class="flex items-center gap-2.5 group">
-        <img src="images/Jack_logo.png" alt="JackJack老师"
+        <img src="images/Jack_logo.png" alt="万能教Jack老师"
           class="w-8 h-8 rounded-full object-cover ring-1 ring-zinc-800 group-hover:ring-zinc-700 transition-all">
         <span class="font-extrabold text-sm tracking-tight text-zinc-100">
-          Jack<span class="text-pinkBrand ml-0.5">Jack老师</span>
+          万能教<span class="text-pinkBrand ml-0.5">Jack老师</span>
         </span>
       </a>
       <div class="flex items-center gap-2">
@@ -619,13 +623,12 @@
           <table class="w-full text-sm text-left text-zinc-300">
             <thead class="text-xs text-zinc-400 uppercase bg-zinc-950 border-b border-zinc-800">
               <tr>
-                <th class="px-4 py-3 font-semibold">Student Name</th>
-                <th class="px-4 py-3 font-semibold">Parent Name</th>
-                <th class="px-4 py-3 font-semibold">WhatsApp</th>
-                <th class="px-4 py-3 font-semibold">Email Address</th>
-                <th class="px-4 py-3 font-semibold">Grade / Form</th>
-                <th class="px-4 py-3 font-semibold">School Name</th>
-                <th class="px-4 py-3 font-semibold text-center">Plan Depth</th>
+                <th class="px-4 py-3 font-semibold">学员全名 (Full Name)</th>
+                <th class="px-4 py-3 font-semibold">WhatsApp 电话</th>
+                <th class="px-4 py-3 font-semibold">电子邮箱 (Email Address)</th>
+                <th class="px-4 py-3 font-semibold">年级 (Grade)</th>
+                <th class="px-4 py-3 font-semibold">账号来源</th>
+                <th class="px-4 py-3 font-semibold text-center">已购订单数量</th>
               </tr>
             </thead>
             <tbody id="admin-students-tbody" class="divide-y divide-zinc-800 bg-zinc-900/50">
@@ -788,7 +791,7 @@
                 <select id="schedule-course-select"
                   class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 focus:outline-none focus:ring-1 focus:ring-zinc-400"
                   required onchange="handleScheduleCourseSelect(this)">
-                  <!-- Loaded dynamically -->
+                  <option value="custom">-- 自定义课程名称 / 无需关联在售课程 --</option>
                 </select>
               </div>
               <div class="space-y-1">
@@ -1141,6 +1144,13 @@
         document.getElementById("course-form-header-title").innerHTML = `<i data-lucide="file-edit" class="w-4 h-4"></i> 配置并上线新课程`;
         document.getElementById("admin-add-course-form").reset();
         
+        // Clear and pre-populate dynamic testimonials container
+        const testiContainer = document.getElementById("testimonials-container");
+        if (testiContainer) {
+          testiContainer.innerHTML = "";
+          window.addTestimonialRow(); // Add one default empty row
+        }
+        
         // Reset subtabs
         const firstTabBtn = document.querySelector(".course-form-tab-btn");
         if (firstTabBtn) switchCourseFormTab('basic', firstTabBtn);
@@ -1204,26 +1214,17 @@
       const imgBack = document.getElementById("add-img-back").value.trim();
       const imgFront = document.getElementById("add-img-front").value.trim();
 
-      // 1. Plan pricing options collection
-      const pricingOptions = [];
-      document.querySelectorAll("#pricing-container > div").forEach(row => {
-        const pNameInput = row.querySelector("[data-pricing-name]");
-        const pPriceInput = row.querySelector("[data-pricing-price]");
-        const pOrigInput = row.querySelector("[data-pricing-orig]");
-        if (pNameInput && pPriceInput) {
-          const name = pNameInput.value.trim();
-          const price = parseFloat(pPriceInput.value) || 0;
-          const originalPrice = parseFloat(pOrigInput.value) || 0;
-          if (name) {
-            pricingOptions.push({ name, price, originalPrice });
-          }
-        }
-      });
+      // 1. Get prices from static HTML inputs
+      const price1Month = parseFloat(document.getElementById("add-price1month").value) || 0;
+      const originalPrice1Month = parseFloat(document.getElementById("add-price1month-orig").value) || 0;
+      const price3Month = parseFloat(document.getElementById("add-price3month").value) || 0;
+      const originalPrice3Month = parseFloat(document.getElementById("add-price3month-orig").value) || 0;
 
-      const price1Month = pricingOptions.length > 0 ? pricingOptions[0].price : 0;
-      const originalPrice1Month = pricingOptions.length > 0 ? pricingOptions[0].originalPrice : 0;
-      const price3Month = pricingOptions.length > 1 ? pricingOptions[1].price : 0;
-      const originalPrice3Month = pricingOptions.length > 1 ? pricingOptions[1].originalPrice : 0;
+      const pricingOptions = [];
+      pricingOptions.push({ name: "1个月通行证", price: price1Month, originalPrice: originalPrice1Month });
+      if (price3Month > 0) {
+        pricingOptions.push({ name: "3个月通行证", price: price3Month, originalPrice: originalPrice3Month });
+      }
 
       const addTeachingMethodEl = document.getElementById("add-teaching-method");
       const teachingMethod = addTeachingMethodEl ? addTeachingMethodEl.value.trim() : "Zoom 直播授课";
@@ -1385,19 +1386,30 @@
       document.getElementById("add-img-front").value = course.imgFront || "";
 
       // Tab 2 fields
-      // Tab 2 fields - Dynamic Pricing Options回显
-      const pricingContainer = document.getElementById('pricing-container');
-      if (pricingContainer) {
-        pricingContainer.innerHTML = '';
-        if (course.pricingOptions && course.pricingOptions.length > 0) {
-          course.pricingOptions.forEach(p => window.addPricingRow(p.name, p.price, p.originalPrice));
+      // Tab 2 fields - pricing inputs populating
+      let p1 = course.price1Month || course.price || 0;
+      let o1 = course.originalPrice1Month || course.originalPrice || 0;
+      let p3 = course.price3Month || 0;
+      let o3 = course.originalPrice3Month || 0;
+
+      if (course.pricingOptions && course.pricingOptions.length > 0) {
+        const opt1 = course.pricingOptions[0];
+        p1 = opt1.price;
+        o1 = opt1.originalPrice;
+        if (course.pricingOptions.length > 1) {
+          const opt2 = course.pricingOptions[1];
+          p3 = opt2.price;
+          o3 = opt2.originalPrice;
         } else {
-          window.addPricingRow('1个月通行证', course.price1Month || course.price || 0, course.originalPrice1Month || course.originalPrice || 0);
-          if (course.price3Month > 0) {
-            window.addPricingRow('3个月通行证', course.price3Month, course.originalPrice3Month || 0);
-          }
+          p3 = 0;
+          o3 = 0;
         }
       }
+
+      document.getElementById("add-price1month").value = p1;
+      document.getElementById("add-price1month-orig").value = o1;
+      document.getElementById("add-price3month").value = p3;
+      document.getElementById("add-price3month-orig").value = o3;
 
       const addTeachingMethodEl = document.getElementById("add-teaching-method");
       if (addTeachingMethodEl) addTeachingMethodEl.value = course.teachingMethod || "";
@@ -1428,14 +1440,14 @@
         document.getElementById(`add-gal-src-${i}`).value = item.src || "";
       }
 
-      // Testimonials
-      const testimonies = course.testimonials || [];
-      for (let i = 1; i <= 2; i++) {
-        const item = testimonies[i - 1] || { name: "", type: "image", src: "", text: "" };
-        document.getElementById(`add-testi-name-${i}`).value = item.name || "";
-        document.getElementById(`add-testi-type-${i}`).value = item.type || "image";
-        document.getElementById(`add-testi-src-${i}`).value = item.src || "";
-        document.getElementById(`add-testi-comment-${i}`).value = item.text || "";
+      // Testimonials (Dynamic)
+      const testimoniesContainer = document.getElementById("testimonials-container");
+      if (testimoniesContainer) {
+        testimoniesContainer.innerHTML = "";
+        const testimonies = course.testimonials || [];
+        testimonies.forEach(t => {
+          window.addTestimonialRow(t.name, t.type || "image", t.src || "", t.text || t.comment || "");
+        });
       }
 
       // Tab 5 fields (FAQs)
@@ -1518,6 +1530,126 @@
         }, 1500);
       };
       reader.readAsDataURL(file);
+    };
+
+    // Dynamic element-based image compression upload helper
+    window.handleCompressedImageUploadForElement = function (input, targetInputEl) {
+      const file = input.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img = new Image();
+        img.onload = function () {
+          const canvas = document.createElement("canvas");
+          let width = img.width;
+          let height = img.height;
+
+          const max_width = 800;
+          if (width > max_width) {
+            height = Math.round((height * max_width) / width);
+            width = max_width;
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+
+          const outputType = (file.type === "image/png" || file.type === "image/webp") ? "image/webp" : "image/jpeg";
+          const compressedDataUrl = canvas.toDataURL(outputType, 0.85);
+          targetInputEl.value = compressedDataUrl;
+          
+          targetInputEl.classList.add("ring-2", "ring-emerald-500");
+          setTimeout(() => {
+            targetInputEl.classList.remove("ring-2", "ring-emerald-500");
+          }, 1500);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    };
+
+    // Dynamic element-based video upload helper
+    window.handleVideoUploadForElement = function (input, targetInputEl) {
+      const file = input.files[0];
+      if (!file) return;
+
+      if (file.size > 2 * 1024 * 1024) {
+        alert("提示：Video大小已超过 2MB。在 LocalStorage 容量有限的情况下，建议控制在 2MB 以内的短Video以防写入失败！");
+      }
+      
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        targetInputEl.value = e.target.result;
+        targetInputEl.classList.add("ring-2", "ring-emerald-500");
+        setTimeout(() => {
+          targetInputEl.classList.remove("ring-2", "ring-emerald-500");
+        }, 1500);
+      };
+      reader.readAsDataURL(file);
+    };
+
+    // Add dynamic testimonial row
+    window.addTestimonialRow = function(name = "", type = "image", src = "", text = "") {
+      const container = document.getElementById("testimonials-container");
+      if (!container) return;
+
+      const index = container.children.length + 1;
+      const rowId = `testi-row-${Date.now()}-${index}`;
+
+      const row = document.createElement("div");
+      row.id = rowId;
+      row.className = "bg-zinc-950 border border-zinc-800 p-3 rounded-lg space-y-2 relative";
+      row.innerHTML = `
+        <button type="button" onclick="document.getElementById('${rowId}').remove()" class="absolute top-2 right-2 text-zinc-500 hover:text-red-400">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+          <div class="space-y-1">
+            <label class="text-[10px] font-semibold text-zinc-300">学生姓名/年级身份 *</label>
+            <input type="text" data-testi-name class="flex h-8 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-xs text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-1" placeholder="如：王同学 (Form 5)" value="${name}" required>
+          </div>
+          <div class="space-y-1">
+            <label class="text-[10px] font-semibold text-zinc-300">媒体类型 *</label>
+            <select data-testi-type class="flex h-8 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-xs text-zinc-100 focus:outline-none" onchange="const t=this.value; const fileInput=this.closest('.relative').querySelector('input[type=file]'); fileInput.accept = t==='image'?'image/*':'video/*';">
+              <option value="image" ${type === 'image' ? 'selected' : ''}>学生头像 / 见证图片</option>
+              <option value="video" ${type === 'video' ? 'selected' : ''}>学生视频反馈 (Video)</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 items-center">
+          <div class="md:col-span-2 space-y-1">
+            <label class="text-[10px] font-semibold text-zinc-300">图片/视频 URL 相对路径 *</label>
+            <input type="text" data-testi-src class="flex h-8 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2 py-1 text-xs text-zinc-100 placeholder:text-zinc-600" placeholder="images/Card_Photo/60.png" value="${src}" required>
+          </div>
+          <div class="space-y-1 pt-4">
+            <label class="flex items-center justify-center rounded-md border border-zinc-800 bg-zinc-900 text-xs px-2.5 h-8 hover:bg-zinc-800 cursor-pointer text-center text-zinc-300">
+              上传文件
+              <input type="file" class="hidden" accept="${type === 'image' ? 'image/*' : 'video/*'}" onchange="
+                const rowEl = this.closest('.relative');
+                const typeEl = rowEl.querySelector('[data-testi-type]').value;
+                const srcEl = rowEl.querySelector('[data-testi-src]');
+                if (typeEl === 'image') {
+                  window.handleCompressedImageUploadForElement(this, srcEl);
+                } else {
+                  window.handleVideoUploadForElement(this, srcEl);
+                }
+              ">
+            </label>
+          </div>
+        </div>
+        <div class="space-y-1">
+          <label class="text-[10px] font-semibold text-zinc-300">见证评语文字描述 *</label>
+          <textarea data-testi-comment class="flex w-full rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-xs text-zinc-100 placeholder:text-zinc-600" placeholder="输入见证评语内容..." rows="2" required>${text}</textarea>
+        </div>
+      `;
+      container.appendChild(row);
+      
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
     };
 
     // Delete Course
@@ -1665,9 +1797,6 @@
           <td class="px-4 py-3">
             <div class="flex items-center gap-2">
               ${actionButton}
-              <button onclick="handleDeleteOrder('${o.id}')" class="inline-flex items-center gap-1 justify-center rounded-md text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20 px-2.5 py-1 hover:bg-red-500/20 transition-all">
-                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>抹除
-              </button>
             </div>
           </td>
         `;
@@ -1679,20 +1808,40 @@
       studentsTbody.innerHTML = "";
 
       const studentsMap = {};
+
+      // 1. Fetch system registered accounts first
+      const regUsers = window.StudentAuth ? window.StudentAuth.getRegisteredUsers() : [];
+      regUsers.forEach(u => {
+        if (!u.email) return;
+        const emailKey = u.email.toLowerCase();
+        studentsMap[emailKey] = {
+          name: u.studentName || "系统学员",
+          whatsapp: u.whatsapp || u.phone || "-",
+          email: u.email,
+          grade: u.grade || "Form 5",
+          provider: u.provider || "系统注册",
+          orderCount: 0
+        };
+      });
+
+      // 2. Fetch orders and merge
       orders.forEach(o => {
+        if (!o.email) return;
         const emailKey = o.email.toLowerCase();
         if (!studentsMap[emailKey]) {
           studentsMap[emailKey] = {
-            name: o.studentName,
-            parent: o.parentName,
-            whatsapp: o.whatsapp,
+            name: o.studentName || "学员",
+            whatsapp: o.whatsapp || o.phone || "-",
             email: o.email,
-            grade: o.grade,
-            school: o.school,
-            courseCount: o.courses.length
+            grade: o.grade || "Form 5",
+            provider: "在线报读",
+            orderCount: 1
           };
         } else {
-          studentsMap[emailKey].courseCount += o.courses.length;
+          studentsMap[emailKey].orderCount += 1;
+          if (o.whatsapp && studentsMap[emailKey].whatsapp === "-") {
+            studentsMap[emailKey].whatsapp = o.whatsapp;
+          }
         }
       });
 
@@ -1701,12 +1850,11 @@
         tr.className = "hover:bg-zinc-800/40 transition-colors";
         tr.innerHTML = `
           <td class="px-4 py-3 font-semibold text-zinc-100">${s.name}</td>
-          <td class="px-4 py-3 text-zinc-300">${s.parent}</td>
           <td class="px-4 py-3 text-zinc-400 font-mono text-xs">${s.whatsapp}</td>
           <td class="px-4 py-3 text-zinc-400 font-mono text-xs">${s.email}</td>
           <td class="px-4 py-3"><span class="inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium bg-pink-500/10 text-pink-400 border border-pink-500/20">${s.grade}</span></td>
-          <td class="px-4 py-3 text-zinc-400 text-xs">${s.school || "无学校记录"}</td>
-          <td class="px-4 py-3 text-center font-bold text-purple-400">${s.courseCount} 门课程</td>
+          <td class="px-4 py-3 text-zinc-400 text-xs">${s.provider}</td>
+          <td class="px-4 py-3 text-center font-bold text-purple-400">${s.orderCount} 笔订单</td>
         `;
         studentsTbody.appendChild(tr);
       });
@@ -2053,7 +2201,7 @@
         // Dynamically load course list into dropdown
         const courseSelect = document.getElementById("schedule-course-select");
         if (courseSelect) {
-          courseSelect.innerHTML = "";
+          courseSelect.innerHTML = `<option value="custom">-- 自定义课程名称 / 无需关联在售课程 --</option>`;
           const courses = window.CourseDB ? window.CourseDB.getAll() : [];
           courses.forEach(c => {
             const opt = document.createElement("option");
@@ -2061,13 +2209,9 @@
             opt.textContent = `${c.form} - ${c.title}`;
             courseSelect.appendChild(opt);
           });
-          // Prefill custom course title with the first choice
-          if (courses.length > 0) {
-            document.getElementById("schedule-course-title").value = courses[0].title;
-            if (courses[0].notes) {
-              document.getElementById("schedule-notes").value = courses[0].notes;
-            }
-          }
+          // Reset fields to empty by default for custom course
+          document.getElementById("schedule-course-title").value = "";
+          document.getElementById("schedule-notes").value = "";
         }
       }
     };
@@ -2075,6 +2219,11 @@
     // Fill timetable slot form automatically based on selected course
     window.handleScheduleCourseSelect = function (select) {
       const courseId = select.value;
+      if (courseId === "custom") {
+        document.getElementById("schedule-course-title").value = "";
+        document.getElementById("schedule-notes").value = "";
+        return;
+      }
       const course = window.CourseDB ? window.CourseDB.getById(courseId) : null;
       if (course) {
         document.getElementById("schedule-course-title").value = course.title;
@@ -2145,7 +2294,7 @@
       // Load courses dropdown
       const courseSelect = document.getElementById("schedule-course-select");
       if (courseSelect) {
-        courseSelect.innerHTML = "";
+        courseSelect.innerHTML = `<option value="custom" ${sch.courseId === "custom" || !sch.courseId ? "selected" : ""}>-- 自定义课程名称 / 无需关联在售课程 --</option>`;
         const courses = window.CourseDB ? window.CourseDB.getAll() : [];
         courses.forEach(c => {
           const opt = document.createElement("option");
