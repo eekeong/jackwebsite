@@ -646,6 +646,10 @@ const OrderDB = {
     
     orders.unshift(newOrder); // 最新订单放在最前
     localStorage.setItem("jack_orders", JSON.stringify(orders));
+
+    if (window.SupabaseSync) {
+      window.SupabaseSync.pushOrder(newOrder);
+    }
     
     // 如果是成功支付，需要更新该学生的已购课程资料到已登录状态，以便在 Student Dashboard 浏览
     let studentCourses = [];
@@ -1123,6 +1127,61 @@ function showFloatingNotification(message) {
 }
 
 // ==========================================
+// SUPABASE CLOUD DATABASE SYNC ENGINE
+// ==========================================
+window.SupabaseConfig = {
+  url: "https://nugawaqebmakzyjjsuwg.supabase.co",
+  apiKey: "sb_publishable_swPc1yFRAbGX9QBff0RjKA_h3hDIMUu"
+};
+
+window.SupabaseSync = {
+  pushStudent: function(userObj) {
+    if (!userObj || !userObj.email) return;
+    fetch(`${window.SupabaseConfig.url}/rest/v1/jack_students`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": window.SupabaseConfig.apiKey,
+        "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`,
+        "Prefer": "resolution=merge-duplicates"
+      },
+      body: JSON.stringify({
+        name: userObj.studentName || userObj.name || "学员",
+        whatsapp: userObj.whatsapp || userObj.phone || "",
+        email: userObj.email.toLowerCase(),
+        password: userObj.password || "",
+        grade: userObj.grade || "Form 5",
+        provider: userObj.provider || "系统注册"
+      })
+    }).catch(e => console.warn("Supabase student push async warning:", e));
+  },
+  pushOrder: function(orderObj) {
+    if (!orderObj || !orderObj.id) return;
+    fetch(`${window.SupabaseConfig.url}/rest/v1/jack_orders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": window.SupabaseConfig.apiKey,
+        "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`,
+        "Prefer": "resolution=merge-duplicates"
+      },
+      body: JSON.stringify({
+        id: orderObj.id,
+        date: orderObj.date || new Date().toISOString().split('T')[0],
+        student_name: orderObj.studentName || "学员",
+        whatsapp: orderObj.whatsapp || orderObj.phone || "",
+        email: orderObj.email || "",
+        grade: orderObj.grade || "Form 5",
+        courses: orderObj.courses || [],
+        total: orderObj.total || 0,
+        method: orderObj.method || "Online Payment",
+        status: orderObj.status || "Paid"
+      })
+    }).catch(e => console.warn("Supabase order push async warning:", e));
+  }
+};
+
+// ==========================================
 // UNIFIED STUDENT AUTHENTICATION & SESSION ENGINE
 // ==========================================
 window.StudentAuth = {
@@ -1139,6 +1198,9 @@ window.StudentAuth = {
     try {
       window.localStorage.setItem("jack_current_student", JSON.stringify(userObj));
     } catch(e) {}
+    if (window.SupabaseSync && userObj) {
+      window.SupabaseSync.pushStudent(userObj);
+    }
     if (typeof window.updateStudentLoginButtons === 'function') {
       window.updateStudentLoginButtons();
     }
@@ -1170,6 +1232,9 @@ window.StudentAuth = {
     try {
       window.localStorage.setItem("jack_registered_users", JSON.stringify(users));
     } catch(e) {}
+    if (window.SupabaseSync) {
+      window.SupabaseSync.pushStudent(userObj);
+    }
     this.set(userObj);
   }
 };
