@@ -1130,8 +1130,8 @@ function showFloatingNotification(message) {
 // SUPABASE CLOUD DATABASE SYNC ENGINE
 // ==========================================
 window.SupabaseConfig = {
-  url: "https://nugawaqebmakzyjjsuwg.supabase.co",
-  apiKey: "sb_publishable_swPc1yFRAbGX9QBff0RjKA_h3hDIMUu"
+  url: "https://kgxphklbclfalmuclclw.supabase.co",
+  apiKey: "sb_publishable_Xo9854KTwiPDgpPeFUJtzQ_JfJWQFZf"
 };
 
 window.SupabaseSync = {
