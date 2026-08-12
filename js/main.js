@@ -799,6 +799,10 @@ function ensureLoginRegisterModal() {
             <label style="font-size:12px; font-weight:700; color:#333333; display:block; margin-bottom:2px;">设置登录密码 (Password) *</label>
             <input type="password" id="reg-password" class="form-control" style="background:#f8f9fa; color:#111111; border:1px solid #cccccc; padding:9px 12px; border-radius:8px; width:100%; font-size:13px;" placeholder="请设置登录密码" required>
           </div>
+          <div style="text-align:left;">
+            <label style="font-size:12px; font-weight:700; color:#333333; display:block; margin-bottom:2px;">确认登录密码 (Confirm Password) *</label>
+            <input type="password" id="reg-password-confirm" class="form-control" style="background:#f8f9fa; color:#111111; border:1px solid #cccccc; padding:9px 12px; border-radius:8px; width:100%; font-size:13px;" placeholder="请再次输入确认密码" required>
+          </div>
           <button type="submit" class="btn btn-primary btn-full" style="padding:11px; font-size:14px; border-radius:8px; background:var(--pink); margin-top:4px;">
             ✨ 立即注册并登录
           </button>
@@ -845,9 +849,17 @@ function handleModalRegister(e) {
   const whatsapp = document.getElementById('reg-whatsapp').value.trim();
   const email = document.getElementById('reg-email').value.trim().toLowerCase();
   const password = document.getElementById('reg-password').value;
+  const passwordConfirm = document.getElementById('reg-password-confirm').value;
 
-  if (!name || !whatsapp || !email || !password) {
+  if (!name || !whatsapp || !email || !password || !passwordConfirm) {
     alert("请填写所有必需的注册信息！");
+    return;
+  }
+
+  if (password !== passwordConfirm) {
+    alert("❌ 两次输入的密码不一致，请重新核对！");
+    const confirmEl = document.getElementById('reg-password-confirm');
+    if (confirmEl) confirmEl.focus();
     return;
   }
 

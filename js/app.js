@@ -247,11 +247,7 @@ const DEFAULT_ORDERS = [];
 function initDatabase() {
   try {
     const currentCourses = JSON.parse(localStorage.getItem("jack_courses"));
-    const needsReset = !currentCourses || 
-                       !Array.isArray(currentCourses) || 
-                       currentCourses.length < 4 || 
-                       !currentCourses.some(c => c.id === "sej-trial-f5") || 
-                       !currentCourses.some(c => c.id === "sej-obj-200");
+    const needsReset = !currentCourses || !Array.isArray(currentCourses);
     if (needsReset) {
       localStorage.setItem("jack_courses", JSON.stringify(DEFAULT_COURSES));
     } else {
@@ -472,7 +468,7 @@ const CourseDB = {
     return course;
   },
   delete: (id) => {
-    let courses = CourseDB.getAll() || [];
+    let courses = CourseDB.getRawAll() || [];
     courses = courses.filter(c => c.id !== id);
     localStorage.setItem("jack_courses", JSON.stringify(courses));
   }

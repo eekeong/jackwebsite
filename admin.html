@@ -626,8 +626,6 @@
                 <th class="px-4 py-3 font-semibold">学员全名 (Full Name)</th>
                 <th class="px-4 py-3 font-semibold">WhatsApp 电话</th>
                 <th class="px-4 py-3 font-semibold">电子邮箱 (Email Address)</th>
-                <th class="px-4 py-3 font-semibold">年级 (Grade)</th>
-                <th class="px-4 py-3 font-semibold">账号来源</th>
                 <th class="px-4 py-3 font-semibold text-center">已购订单数量</th>
               </tr>
             </thead>
@@ -1744,12 +1742,12 @@
         }
 
         tr.innerHTML = `
-          <td class="px-4 py-3"><span class="inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium bg-pink-500/10 text-pink-400 border border-pink-500/20">${c.form}</span></td>
-          <td class="px-4 py-3"><span class="inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium bg-purple-500/10 text-purple-400 border border-purple-500/20">${c.subject}</span></td>
+          <td class="px-4 py-3"><span class="inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium bg-pink-500/10 text-pink-400 border border-pink-500/20">${c.form || c.targetAudience || c.grade || 'Form 5'}</span></td>
+          <td class="px-4 py-3"><span class="inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium bg-purple-500/10 text-purple-400 border border-purple-500/20">${c.subject || 'Sejarah'}</span></td>
           <td class="px-4 py-3 font-semibold text-zinc-100">${c.title}</td>
           <td class="px-4 py-3 font-bold text-pinkBrand">RM ${displayPrice.toFixed(2)}</td>
           <td class="px-4 py-3 text-zinc-500 line-through">RM ${displayOriginalPrice.toFixed(2)}</td>
-          <td class="px-4 py-3"><span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${badgeColor}">${c.badge}</span></td>
+          <td class="px-4 py-3"><span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${badgeColor}">${c.badge || 'Hot'}</span></td>
           <td class="px-4 py-3">
             <div class="flex items-center gap-2">
               <button onclick="handleEditCourse('${c.id}')" class="inline-flex items-center gap-1 justify-center rounded-md text-xs font-medium bg-zinc-800 text-zinc-100 border border-zinc-700 px-2.5 py-1 hover:bg-zinc-700 transition-all">
@@ -1812,8 +1810,6 @@
           name: u.studentName || "系统学员",
           whatsapp: u.whatsapp || u.phone || "-",
           email: u.email,
-          grade: u.grade || "Form 5",
-          provider: u.provider || "系统注册",
           orderCount: 0
         };
       });
@@ -1827,8 +1823,6 @@
             name: o.studentName || "学员",
             whatsapp: o.whatsapp || o.phone || "-",
             email: o.email,
-            grade: o.grade || "Form 5",
-            provider: "在线报读",
             orderCount: 1
           };
         } else {
@@ -1846,8 +1840,6 @@
           <td class="px-4 py-3 font-semibold text-zinc-100">${s.name}</td>
           <td class="px-4 py-3 text-zinc-400 font-mono text-xs">${s.whatsapp}</td>
           <td class="px-4 py-3 text-zinc-400 font-mono text-xs">${s.email}</td>
-          <td class="px-4 py-3"><span class="inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium bg-pink-500/10 text-pink-400 border border-pink-500/20">${s.grade}</span></td>
-          <td class="px-4 py-3 text-zinc-400 text-xs">${s.provider}</td>
           <td class="px-4 py-3 text-center font-bold text-purple-400">${s.orderCount} 笔订单</td>
         `;
         studentsTbody.appendChild(tr);
