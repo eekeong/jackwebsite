@@ -225,12 +225,11 @@
         return;
       }
 
-      // 强制会员登录校验：未登录绝对不允许停留或进入结账页，直接硬重定向到注册/登录弹窗！
+      // 强制会员校验：未登录绝对不可进入结账页，直接硬重定向到【注册新账号】页面！
       const currentUser = window.StudentAuth ? window.StudentAuth.get() : null;
       if (!currentUser) {
         sessionStorage.setItem("jack_post_login_redirect", "checkout.html");
-        alert("🔐 您尚未注册/登录会员账号！报读前必须先注册或登录账号。");
-        window.location.href = "index.html?openAuth=1";
+        window.location.href = "index.html?openAuth=register";
         return;
       }
 

@@ -292,16 +292,15 @@
         }
       });
 
-      // 强制会员校验前往结账
+      // 强制检测非会员：直接弹出【注册新账号】页面
       window.handleProceedToCheckout = function () {
         const currentUser = window.StudentAuth ? window.StudentAuth.get() : null;
         if (!currentUser) {
-          sessionStorage.setItem("jack_post_login_redirect", "checkout.html");
-          alert("🔐 报读课程前必须先注册或登录系统账号！");
-          if (typeof openModal === 'function') {
-            openModal('loginRegisterModal');
+          if (typeof window.openStudentRegisterModal === 'function') {
+            window.openStudentRegisterModal('checkout.html');
           } else {
-            window.location.href = "index.html?openAuth=1";
+            sessionStorage.setItem("jack_post_login_redirect", "checkout.html");
+            window.location.href = "index.html?openAuth=register";
           }
           return;
         }
