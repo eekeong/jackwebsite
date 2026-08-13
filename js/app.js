@@ -66,7 +66,7 @@ const DEFAULT_COURSES = [
     teacher: "Jack 老师",
     coverImage: "images/Card_Photo/IMG_7567 (1).png",
     imgBack: "images/Card_Photo/IMG_7567 (1).png",
-    imgFront: 'images/Card_Photo/60.png',
+    imgFront: 'images/Card_Photo/IMG_7567 (1).png',
     notes: "Best Seller · 冲刺提分神器",
     badge: "Best Seller",
     badgeClass: "badge-hot",
@@ -563,15 +563,15 @@ const Cart = {
     localStorage.setItem("jack_cart", JSON.stringify(cart));
     Cart.updateUI();
   },
-  add: (courseId) => {
+  add: (courseId, silent = false) => {
     const cart = Cart.get();
     if (cart.includes(courseId)) {
-      alert("该课程已经在您的购物车中！");
-      return false;
+      if (!silent) alert("该课程已经在您的购物车中！");
+      return true;
     }
     cart.push(courseId);
     Cart.save(cart);
-    showFloatingNotification("已成功加入购物车！");
+    if (!silent) showFloatingNotification("已成功加入购物车！");
     return true;
   },
   remove: (courseId) => {

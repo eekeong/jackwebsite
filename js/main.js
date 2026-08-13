@@ -584,16 +584,24 @@ function addToCart(id) {
 }
 
 function buyNow(id) {
-  const centralId = getCentralProductId(id);
-  const cartItems = Cart.get();
-  if (!cartItems.includes(centralId)) {
-    cartItems.push(centralId);
-    Cart.save(cartItems);
+  if (id) {
+    const centralId = typeof getCentralProductId === 'function' ? getCentralProductId(id) : id;
+    Cart.add(centralId, true);
   }
-  showToast('⚡', '正在为您直达安全结账页...');
+  const currentUser = window.StudentAuth ? window.StudentAuth.get() : null;
+  if (!currentUser) {
+    if (typeof window.openStudentRegisterModal === 'function') {
+      window.openStudentRegisterModal('checkout.html');
+    } else {
+      sessionStorage.setItem("jack_post_login_redirect", "checkout.html");
+      window.location.href = "index.html?openAuth=register";
+    }
+    return;
+  }
+  showToast('⚡', '正在为您继续结账手续...');
   setTimeout(() => {
     window.location.href = 'checkout.html';
-  }, 500);
+  }, 300);
 }
 
 function removeFromCart(id) {

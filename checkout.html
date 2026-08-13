@@ -214,6 +214,7 @@
 
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script src="js/app.js?v=1.0.6"></script>
+  <script src="js/main.js?v=1.0.6"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const items = Cart.getDetails();
@@ -378,7 +379,7 @@
           currency: window.RazorpayConfig.currency || "MYR",
           name: window.RazorpayConfig.merchant_name || "万能教Jack老师",
           description: `课程报名: ${items.map(i => i.title || "课程").join(", ")} (订单: ${order.id})`,
-          image: "images/Card_Photo/60.png",
+          image: "images/Card_Photo/IMG_7567 (1).png",
           handler: function (response) {
             console.log("🎉 Razorpay 支付成功:", response);
             Cart.clear();

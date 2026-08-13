@@ -126,7 +126,7 @@
           ⚠️ <b>付款提醒</b>：请在点击结算前，确认每门课程的上课日期和 Form 年级。付款成功后将立即发送 WhatsApp 激活说明。
         </div>
 
-        <button onclick="handleProceedToCheckout()" class="btn btn-primary btn-full" style="font-size: 16px; border:none; cursor:pointer;">💳 前往安全结账 ➔</button>
+        <button onclick="handleProceedToCheckout()" class="btn btn-primary btn-full" style="font-size: 16px; border:none; cursor:pointer;">💳 继续结账手续 ➔</button>
         <a href="shop.html" class="btn btn-outline-purple btn-full btn-sm" style="margin-top: 10px;">继续选课</a>
       </aside>
     </div>
@@ -175,6 +175,7 @@
   </div>
 
   <script src="js/app.js?v=1.0.6"></script>
+  <script src="js/main.js?v=1.0.6"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const emptyView = document.getElementById("cart-empty-view");
@@ -216,7 +217,10 @@
           const timeVal = item.timeOption || (item.timeOptions ? item.timeOptions[0] : null) || item.time || "随买随看";
           const titleVal = item.title || "专属课程/教材";
           const priceVal = typeof item.price === "number" ? item.price : parseFloat(item.price || 0);
-          const coverImg = item.coverImage || "images/product-course.png";
+          let coverImg = item.coverImage || item.imgBack || (item.galleryMedia && item.galleryMedia[0] ? item.galleryMedia[0].src : null) || "images/product-course.png";
+          if (item.id === 'sej-regular' || (typeof item.id === 'string' && item.id.startsWith('sej-regular'))) {
+            coverImg = "images/Card_Photo/IMG_7567 (1).png";
+          }
 
           card.innerHTML = `
             <div style="width: 80px; height: 80px; background: #f9f9f9; border-radius: var(--radius-sm); border: 1px solid var(--border-color); display:flex; justify-content:center; align-items:center; overflow:hidden; flex-shrink:0;">
