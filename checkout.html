@@ -77,6 +77,8 @@
       <main class="checkout-form-box">
         <form id="checkout-main-form" onsubmit="handleCheckoutSubmit(event)">
 
+          <div id="autofill-banner"></div>
+
           <!-- Section 1: Student Information -->
           <div class="checkout-section-title">
             <span>1</span> 学生基本资料
@@ -223,6 +225,40 @@
         return;
       }
 
+      // 强制会员登录校验与自动填单逻辑
+      const currentUser = window.StudentAuth ? window.StudentAuth.get() : null;
+      const autofillBanner = document.getElementById("autofill-banner");
+
+      if (!currentUser) {
+        sessionStorage.setItem("jack_post_login_redirect", "checkout.html");
+        if (autofillBanner) {
+          autofillBanner.innerHTML = `
+            <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); color: #f87171; padding: 12px 16px; border-radius: 12px; font-size: 13px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔐 报读前必须先登录或注册学员系统账号！</span>
+              <button type="button" onclick="if(typeof openModal === 'function') openModal('loginRegisterModal')" style="background: var(--pink); color: #fff; border: none; padding: 6px 14px; border-radius: 8px; font-weight: 800; font-size: 12px; cursor: pointer;">免费注册/登录账号 →</button>
+            </div>
+          `;
+        }
+        // 自动唤起登录弹窗
+        setTimeout(() => {
+          if (typeof openModal === 'function') openModal('loginRegisterModal');
+        }, 500);
+      } else {
+        // 已登录学员：自动填充个人资料
+        if (document.getElementById("student-name")) document.getElementById("student-name").value = currentUser.studentName || currentUser.name || "";
+        if (document.getElementById("student-whatsapp")) document.getElementById("student-whatsapp").value = currentUser.whatsapp || currentUser.phone || "";
+        if (document.getElementById("student-email")) document.getElementById("student-email").value = currentUser.email || "";
+        if (document.getElementById("student-grade") && currentUser.grade) document.getElementById("student-grade").value = currentUser.grade;
+
+        if (autofillBanner) {
+          autofillBanner.innerHTML = `
+            <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399; padding: 12px 16px; border-radius: 12px; font-size: 13px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+              <span>✨ 已自动帮您预填账号注册资料 (${currentUser.studentName || currentUser.name || currentUser.email})</span>
+            </div>
+          `;
+        }
+      }
+
       // 渲染右侧发票大纲
       const invoiceContainer = document.getElementById("checkout-invoice-list");
       invoiceContainer.innerHTML = "";
@@ -297,6 +333,14 @@
     function handleCheckoutSubmit(e) {
       e.preventDefault();
 
+      // 未登录校验
+      if (!window.StudentAuth || !window.StudentAuth.get()) {
+        sessionStorage.setItem("jack_post_login_redirect", "checkout.html");
+        alert("🔐 报读前必须先登录或注册学员账号！");
+        if (typeof openModal === 'function') openModal('loginRegisterModal');
+        return;
+      }
+
       // 获取输入资料
       const studentName = (document.getElementById("student-name")?.value || "").trim();
       const parentName = (document.getElementById("parent-name")?.value || "").trim();
@@ -328,6 +372,10 @@
       const total = Cart.getTotal();
       const items = Cart.getDetails();
 
+      // 重点：立即向云端 Supabase 与 LocalStorage 创建订单记录（保证后台与云端 100% 实时收到数据记录！）
+      const initialStatus = (selectedMethod === "Manual Bank Transfer") ? "Pending" : "Paid";
+      const order = OrderDB.create(studentInfo, items, total, selectedMethod, initialStatus);
+
       // 实时呼叫真实 Razorpay 网关 SDK (手动转账除外)
       if (window.Razorpay && window.RazorpayConfig && selectedMethod !== "Manual Bank Transfer") {
         const amountInCents = Math.round(total * 100);
@@ -336,12 +384,10 @@
           amount: amountInCents,
           currency: window.RazorpayConfig.currency || "MYR",
           name: window.RazorpayConfig.merchant_name || "万能教Jack老师",
-          description: `课程报名: ${items.map(i => i.title || "课程").join(", ")}`,
+          description: `课程报名: ${items.map(i => i.title || "课程").join(", ")} (订单: ${order.id})`,
           image: "images/Card_Photo/60.png",
           handler: function (response) {
             console.log("🎉 Razorpay 支付成功:", response);
-            const payMethod = `${selectedMethod} (Razorpay: ${response.razorpay_payment_id || 'OK'})`;
-            const order = OrderDB.create(studentInfo, items, total, payMethod, 'Paid');
             Cart.clear();
             window.location.href = `success.html?orderId=${order.id}&payment_id=${response.razorpay_payment_id || ''}`;
           },
@@ -351,6 +397,7 @@
             contact: whatsapp
           },
           notes: {
+            order_id: order.id,
             student_name: studentName,
             whatsapp: whatsapp,
             courses: items.map(i => i.title).join(", ")
@@ -387,7 +434,7 @@
         <div style="text-align:center; padding: 40px 0;">
           <div class="rp-spinner"></div>
           <p style="margin-top:15px; font-family: var(--font-title); font-weight:700; font-size:14px; color:var(--white);">
-            正在安全呼叫 Razorpay 马来西亚付款网关...
+            正在安全呼叫付款网关处理订单 [${order.id}]...
           </p>
         </div>
       `;

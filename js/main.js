@@ -879,6 +879,14 @@ function handleModalRegister(e) {
   if (typeof showToast === 'function') {
     showToast('🎉', `注册成功！欢迎加入，${name}`);
   }
+
+  const postRedirectReg = sessionStorage.getItem("jack_post_login_redirect");
+  if (postRedirectReg) {
+    sessionStorage.removeItem("jack_post_login_redirect");
+    setTimeout(() => {
+      window.location.href = postRedirectReg;
+    }, 400);
+  }
 }
 
 function handleModalLogin(e) {
@@ -933,6 +941,14 @@ function handleModalLogin(e) {
 
   if (typeof showToast === 'function') {
     showToast('🎉', `登录成功！欢迎回来，${studentName}`);
+  }
+
+  const postRedirectLogin = sessionStorage.getItem("jack_post_login_redirect");
+  if (postRedirectLogin) {
+    sessionStorage.removeItem("jack_post_login_redirect");
+    setTimeout(() => {
+      window.location.href = postRedirectLogin;
+    }, 400);
   }
 }
 
