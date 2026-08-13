@@ -73,16 +73,15 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.location.search.includes('openAuth=')) {
     const isRegister = window.location.search.includes('openAuth=register');
     setTimeout(() => {
-      if (typeof openModal === 'function') {
-        openModal('loginRegisterModal');
-        if (isRegister && typeof switchAuthTab === 'function') {
-          switchAuthTab('register');
-        }
-        if (typeof showToast === 'function') {
-          showToast('🔐', '报读课程前必须先注册学员系统账号！');
-        }
+      ensureLoginRegisterModal();
+      openModal('loginRegisterModal');
+      if (isRegister && typeof switchAuthTab === 'function') {
+        switchAuthTab('register');
       }
-    }, 400);
+      if (typeof showToast === 'function') {
+        showToast('🔐', '报读课程前必须先注册学员系统账号！');
+      }
+    }, 200);
   }
   initChallengeBubbles();
   initDynamicSchedule();
@@ -862,16 +861,13 @@ function switchAuthTab(tab) {
 // 全局一键唤起【注册新会员】弹窗与设置结账自动带回
 window.openStudentRegisterModal = function(redirectUrl = 'checkout.html') {
   sessionStorage.setItem("jack_post_login_redirect", redirectUrl);
-  if (typeof openModal === 'function') {
-    openModal('loginRegisterModal');
-    if (typeof switchAuthTab === 'function') {
-      switchAuthTab('register');
-    }
-    const nameEl = document.getElementById('reg-fullname');
-    if (nameEl) setTimeout(() => nameEl.focus(), 300);
-  } else {
-    window.location.href = "index.html?openAuth=register";
+  ensureLoginRegisterModal();
+  openModal('loginRegisterModal');
+  if (typeof switchAuthTab === 'function') {
+    switchAuthTab('register');
   }
+  const nameEl = document.getElementById('reg-fullname');
+  if (nameEl) setTimeout(() => nameEl.focus(), 300);
 };
 
 function handleModalRegister(e) {
