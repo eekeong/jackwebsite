@@ -458,14 +458,32 @@ const CourseDB = {
     };
   },
   save: (course) => {
-    const courses = CourseDB.getAll() || [];
-    const index = courses.findIndex(c => c.id === course.id);
+    let baseId = course.id;
+    if (baseId === 'wanneng-book' || baseId === 'book') baseId = 'sej-obj-200';
+    if (baseId === 'wanneng-vip-bundle' || baseId === 'bundle') baseId = 'sej-bundle';
+    if (typeof baseId === "string" && baseId.startsWith('sej-live')) baseId = 'sej-regular';
+
+    const courses = CourseDB.getRawAll() || [];
+    const index = courses.findIndex(c => c && (c.id === course.id || c.id === baseId));
     if (index >= 0) {
       courses[index] = course;
     } else {
       courses.push(course);
     }
     localStorage.setItem("jack_courses", JSON.stringify(courses));
+
+    if (window.SupabaseConfig) {
+      fetch(`${window.SupabaseConfig.url}/rest/v1/jack_courses`, {
+        method: "POST",
+        headers: {
+          "apikey": window.SupabaseConfig.apiKey,
+          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`,
+          "Content-Type": "application/json",
+          "Prefer": "resolution=merge-duplicates"
+        },
+        body: JSON.stringify(course)
+      }).catch(e => console.warn("Supabase course save warning:", e));
+    }
     return course;
   },
   delete: function(id) {
