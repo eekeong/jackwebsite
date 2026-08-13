@@ -13,16 +13,16 @@
   <!-- Unified Top Navigation -->
   <nav class="navbar scrolled" id="navbar" role="navigation" aria-label="主导航">
     <div class="nav-container">
-      <a href="index.html" class="nav-logo" id="navLogo" aria-label="万能教 Jack 老师 首页">
+      <a href="./" class="nav-logo" id="navLogo" aria-label="万能教 Jack 老师 首页">
         <img src="images/Jack_logo.png" alt="万能教Jack老师" class="nav-logo-img" />
         <span class="nav-logo-main">万能教JACK老师</span>
       </a>
 
       <div class="nav-menu" role="menubar">
-        <a href="index.html" class="nav-link" role="menuitem">首页</a>
-        <a href="shop.html" class="nav-link" role="menuitem">课程</a>
-        <a href="schedule.html" class="nav-link" role="menuitem">上课时间</a>
-        <a href="index.html#faq" class="nav-link" role="menuitem">FAQ</a>
+        <a href="./" class="nav-link" role="menuitem">首页</a>
+        <a href="shop" class="nav-link" role="menuitem">课程</a>
+        <a href="schedule" class="nav-link" role="menuitem">上课时间</a>
+        <a href="./#faq" class="nav-link" role="menuitem">FAQ</a>
       </div>
 
       <div class="nav-actions">
@@ -139,7 +139,7 @@
         </div>
 
         <div style="display: flex; gap: 10px; align-items: center;">
-          <a href="shop.html" class="btn btn-outline-pink btn-sm" style="border-radius: var(--radius-sm);">继续选课</a>
+          <a href="shop" class="btn btn-outline-pink btn-sm" style="border-radius: var(--radius-sm);">继续选课</a>
           <button onclick="handleStudentLogout()" class="btn btn-outline btn-sm" style="border-radius: var(--radius-sm); border-color: rgba(255,255,255,0.2); color: var(--grey-muted);">退出账号</button>
         </div>
       </div>
@@ -226,7 +226,9 @@
 
       if (email === "admin@eduhero.com.my") {
         if (password === "eduhero") {
-          window.location.href = "admin.html";
+          sessionStorage.setItem("jack_admin_logged_in", "true");
+          localStorage.setItem("jack_admin_logged_in", "true");
+          window.location.href = "admin";
         } else {
           alert("Invalid admin password!");
         }
@@ -319,7 +321,7 @@
             <span style="font-size: 56px;">🛒</span>
             <h3 style="font-family: var(--font-title); font-size: 18px; color: var(--white); margin-top: 15px;">暂无历史课程报名记录</h3>
             <p style="color: var(--grey-muted); font-size: 13px; margin: 10px 0 25px 0;">赶快前往选课商城为自己挑选几门最强的 SPM 冲刺课程吧！</p>
-            <a href="shop.html" class="btn btn-primary" style="padding: 12px 28px;">👉 立即前往选课商城</a>
+            <a href="shop" class="btn btn-primary" style="padding: 12px 28px;">👉 立即前往选课商城</a>
           </div>
         `;
         return;

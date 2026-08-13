@@ -16,18 +16,18 @@
   <nav class="navbar scrolled" id="navbar" role="navigation" aria-label="主导航">
     <div class="nav-container">
       <!-- Logo -->
-      <a href="index.html" class="nav-logo" id="navLogo" aria-label="万能教 Jack 老师 首页">
+      <a href="./" class="nav-logo" id="navLogo" aria-label="万能教 Jack 老师 首页">
         <img src="images/Jack_logo.png" alt="万能教Jack老师" class="nav-logo-img" />
         <span class="nav-logo-main">万能教JACK老师</span>
       </a>
 
       <!-- Desktop Nav Links -->
       <div class="nav-menu" role="menubar">
-        <a href="index.html" class="nav-link" role="menuitem">首页</a>
-        <!-- <a href="about.html" class="nav-link" role="menuitem">关于</a> -->
-        <a href="shop.html" class="nav-link" role="menuitem">课程</a>
-        <a href="schedule.html" class="nav-link" role="menuitem">上课时间</a>
-        <a href="index.html#faq" class="nav-link" role="menuitem">FAQ</a>
+        <a href="./" class="nav-link" role="menuitem">首页</a>
+        <!-- <a href="about" class="nav-link" role="menuitem">关于</a> -->
+        <a href="shop" class="nav-link" role="menuitem">课程</a>
+        <a href="schedule" class="nav-link" role="menuitem">上课时间</a>
+        <a href="./#faq" class="nav-link" role="menuitem">FAQ</a>
       </div>
 
       <!-- Action Icons -->
@@ -588,7 +588,7 @@
         Cart.clear();
 
         // 成功跳转并附带订单 ID 展现发票详情
-        window.location.href = `success.html?orderId=${order.id}`;
+        window.location.href = `success?orderId=${order.id}`;
       }, 1500);
     };
   </script>

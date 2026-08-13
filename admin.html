@@ -12,7 +12,7 @@
       const isAdmin = sessionStorage.getItem("jack_admin_logged_in") === "true" || localStorage.getItem("jack_admin_logged_in") === "true";
       if (!isAdmin) {
         alert("🔐 访问受限：您必须先登录管理员账号才可以进入管理后台！");
-        window.location.href = "index.html?openAuth=login";
+        window.location.href = "./?openAuth=login";
       }
     })();
   </script>
@@ -79,7 +79,7 @@
   <!-- Header Navigation -->
   <header class="sticky top-0 z-50 w-full border-b border-zinc-800 bg-zinc-950/80 backdrop-blur">
     <div class="flex h-14 items-center justify-between px-6 max-w-[1400px] mx-auto">
-      <a href="index.html" class="flex items-center gap-2.5 group">
+      <a href="./" class="flex items-center gap-2.5 group">
         <img src="images/Jack_logo.png" alt="万能教Jack老师"
           class="w-8 h-8 rounded-full object-cover ring-1 ring-zinc-800 group-hover:ring-zinc-700 transition-all">
         <span class="font-extrabold text-sm tracking-tight text-zinc-100">
@@ -1181,7 +1181,7 @@
         subtitle: 'Form 1–5',
         imgBack: 'images/Card_Photo/IMG_7567 (1).png',
         imgFront: 'images/Card_Photo/IMG_7567 (1).png',
-        link: 'course-detail.html?id=sej-regular'
+        link: 'course-detail?id=sej-regular'
       },
       {
         id: 'sej-obj-200',
@@ -1189,7 +1189,7 @@
         subtitle: 'Form 5',
         imgBack: 'images/product-book.png',
         imgFront: 'images/Card_Photo/2.png',
-        link: 'course-detail.html?id=sej-obj-200'
+        link: 'course-detail?id=sej-obj-200'
       },
       {
         id: 'sej-trial-f5',
@@ -1197,7 +1197,7 @@
         subtitle: 'Form 5',
         imgBack: 'images/product-course.png',
         imgFront: 'images/Card_Photo/60.png',
-        link: 'course-detail.html?id=sej-trial-f5'
+        link: 'course-detail?id=sej-trial-f5'
       },
       {
         id: 'sej-bundle',
@@ -1205,7 +1205,7 @@
         subtitle: 'Form 4–5',
         imgBack: 'images/product-bundle.png',
         imgFront: 'images/Jack Ler2 (1).png',
-        link: 'course-detail.html?id=sej-bundle'
+        link: 'course-detail?id=sej-bundle'
       }
     ];
 
@@ -2734,7 +2734,7 @@
         alert("已安全退出管理员账号！");
       }
       setTimeout(() => {
-        window.location.href = "index.html";
+        window.location.href = "./";
       }, 300);
     };
   </script>

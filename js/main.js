@@ -591,16 +591,16 @@ function buyNow(id) {
   const currentUser = window.StudentAuth ? window.StudentAuth.get() : null;
   if (!currentUser) {
     if (typeof window.openStudentRegisterModal === 'function') {
-      window.openStudentRegisterModal('checkout.html');
+      window.openStudentRegisterModal('checkout');
     } else {
-      sessionStorage.setItem("jack_post_login_redirect", "checkout.html");
-      window.location.href = "index.html?openAuth=register";
+      sessionStorage.setItem("jack_post_login_redirect", "checkout");
+      window.location.href = "./?openAuth=register";
     }
     return;
   }
   showToast('⚡', '正在为您继续结账手续...');
   setTimeout(() => {
-    window.location.href = 'checkout.html';
+    window.location.href = 'checkout';
   }, 300);
 }
 
@@ -937,7 +937,7 @@ function handleModalLogin(e) {
     if (password === "eduhero") {
       sessionStorage.setItem("jack_admin_logged_in", "true");
       localStorage.setItem("jack_admin_logged_in", "true");
-      window.location.href = "admin.html";
+      window.location.href = "admin";
     } else {
       alert("❌ 管理员密码不正确！");
     }
@@ -999,7 +999,7 @@ function handleStudentLogout() {
     showToast('👋', '已成功退出账号');
   }
   setTimeout(() => {
-    window.location.href = 'index.html';
+    window.location.href = './';
   }, 300);
 }
 
