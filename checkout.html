@@ -225,38 +225,28 @@
         return;
       }
 
-      // 强制会员登录校验与自动填单逻辑
+      // 强制会员登录校验：未登录绝对不允许停留或进入结账页，直接硬重定向到注册/登录弹窗！
       const currentUser = window.StudentAuth ? window.StudentAuth.get() : null;
-      const autofillBanner = document.getElementById("autofill-banner");
-
       if (!currentUser) {
         sessionStorage.setItem("jack_post_login_redirect", "checkout.html");
-        if (autofillBanner) {
-          autofillBanner.innerHTML = `
-            <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); color: #f87171; padding: 12px 16px; border-radius: 12px; font-size: 13px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between;">
-              <span>🔐 报读前必须先登录或注册学员系统账号！</span>
-              <button type="button" onclick="if(typeof openModal === 'function') openModal('loginRegisterModal')" style="background: var(--pink); color: #fff; border: none; padding: 6px 14px; border-radius: 8px; font-weight: 800; font-size: 12px; cursor: pointer;">免费注册/登录账号 →</button>
-            </div>
-          `;
-        }
-        // 自动唤起登录弹窗
-        setTimeout(() => {
-          if (typeof openModal === 'function') openModal('loginRegisterModal');
-        }, 500);
-      } else {
-        // 已登录学员：自动填充个人资料
-        if (document.getElementById("student-name")) document.getElementById("student-name").value = currentUser.studentName || currentUser.name || "";
-        if (document.getElementById("student-whatsapp")) document.getElementById("student-whatsapp").value = currentUser.whatsapp || currentUser.phone || "";
-        if (document.getElementById("student-email")) document.getElementById("student-email").value = currentUser.email || "";
-        if (document.getElementById("student-grade") && currentUser.grade) document.getElementById("student-grade").value = currentUser.grade;
+        alert("🔐 您尚未注册/登录会员账号！报读前必须先注册或登录账号。");
+        window.location.href = "index.html?openAuth=1";
+        return;
+      }
 
-        if (autofillBanner) {
-          autofillBanner.innerHTML = `
-            <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399; padding: 12px 16px; border-radius: 12px; font-size: 13px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
-              <span>✨ 已自动帮您预填账号注册资料 (${currentUser.studentName || currentUser.name || currentUser.email})</span>
-            </div>
-          `;
-        }
+      // 已登录学员：自动填充个人资料
+      const autofillBanner = document.getElementById("autofill-banner");
+      if (document.getElementById("student-name")) document.getElementById("student-name").value = currentUser.studentName || currentUser.name || "";
+      if (document.getElementById("student-whatsapp")) document.getElementById("student-whatsapp").value = currentUser.whatsapp || currentUser.phone || "";
+      if (document.getElementById("student-email")) document.getElementById("student-email").value = currentUser.email || "";
+      if (document.getElementById("student-grade") && currentUser.grade) document.getElementById("student-grade").value = currentUser.grade;
+
+      if (autofillBanner) {
+        autofillBanner.innerHTML = `
+          <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399; padding: 12px 16px; border-radius: 12px; font-size: 13px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+            <span>✨ 已自动帮您预填账号注册资料 (${currentUser.studentName || currentUser.name || currentUser.email})</span>
+          </div>
+        `;
       }
 
       // 渲染右侧发票大纲

@@ -126,7 +126,7 @@
           ⚠️ <b>付款提醒</b>：请在点击结算前，确认每门课程的上课日期和 Form 年级。付款成功后将立即发送 WhatsApp 激活说明。
         </div>
 
-        <a href="checkout.html" class="btn btn-primary btn-full" style="font-size: 16px;">💳 前往安全结账 ➔</a>
+        <button onclick="handleProceedToCheckout()" class="btn btn-primary btn-full" style="font-size: 16px; border:none; cursor:pointer;">💳 前往安全结账 ➔</button>
         <a href="shop.html" class="btn btn-outline-purple btn-full btn-sm" style="margin-top: 10px;">继续选课</a>
       </aside>
     </div>
@@ -291,6 +291,22 @@
           promoStatusMsg.textContent = res.message;
         }
       });
+
+      // 强制会员校验前往结账
+      window.handleProceedToCheckout = function () {
+        const currentUser = window.StudentAuth ? window.StudentAuth.get() : null;
+        if (!currentUser) {
+          sessionStorage.setItem("jack_post_login_redirect", "checkout.html");
+          alert("🔐 报读课程前必须先注册或登录系统账号！");
+          if (typeof openModal === 'function') {
+            openModal('loginRegisterModal');
+          } else {
+            window.location.href = "index.html?openAuth=1";
+          }
+          return;
+        }
+        window.location.href = "checkout.html";
+      };
 
       // 处理移除优惠券
       window.handleRemovePromo = function () {

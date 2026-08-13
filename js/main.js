@@ -68,6 +68,18 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCartBadges();
   initSchoolVideo();
   initAchCardSlider();
+
+  // 检查是否带有强制登录/注册 URL 参数 (?openAuth=1)
+  if (window.location.search.includes('openAuth=1')) {
+    setTimeout(() => {
+      if (typeof openModal === 'function') {
+        openModal('loginRegisterModal');
+        if (typeof showToast === 'function') {
+          showToast('🔐', '报读课程前必须先注册或登录系统账号！');
+        }
+      }
+    }, 400);
+  }
   initChallengeBubbles();
   initDynamicSchedule();
 });
