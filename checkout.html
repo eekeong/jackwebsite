@@ -210,6 +210,7 @@
     </div>
   </div>
 
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script src="js/app.js?v=1.0.6"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -292,7 +293,7 @@
       document.getElementById("selected-payment-method").value = label;
     }
 
-    // 处理表单递交并拉起模拟 Razorpay
+    // 处理表单递交并拉起原生 Razorpay 收银台
     function handleCheckoutSubmit(e) {
       e.preventDefault();
 
@@ -308,6 +309,11 @@
       const advisorEl = document.getElementById("advisor-contact");
       const advisor = advisorEl ? advisorEl.checked : false;
 
+      if (!studentName || !whatsapp || !email) {
+        alert("请完整填写所有必需的学员联系信息！");
+        return;
+      }
+
       const studentInfo = {
         studentName,
         parentName,
@@ -322,13 +328,61 @@
       const total = Cart.getTotal();
       const items = Cart.getDetails();
 
-      // 拉起高保真收银台 modal
+      // 实时呼叫真实 Razorpay 网关 SDK (手动转账除外)
+      if (window.Razorpay && window.RazorpayConfig && selectedMethod !== "Manual Bank Transfer") {
+        const amountInCents = Math.round(total * 100);
+        const options = {
+          key: window.RazorpayConfig.key_id || "rzp_test_Sgr2dt2LBq1SIm",
+          amount: amountInCents,
+          currency: window.RazorpayConfig.currency || "MYR",
+          name: window.RazorpayConfig.merchant_name || "万能教Jack老师",
+          description: `课程报名: ${items.map(i => i.title || "课程").join(", ")}`,
+          image: "images/Card_Photo/60.png",
+          handler: function (response) {
+            console.log("🎉 Razorpay 支付成功:", response);
+            const payMethod = `${selectedMethod} (Razorpay: ${response.razorpay_payment_id || 'OK'})`;
+            const order = OrderDB.create(studentInfo, items, total, payMethod, 'Paid');
+            Cart.clear();
+            window.location.href = `success.html?orderId=${order.id}&payment_id=${response.razorpay_payment_id || ''}`;
+          },
+          prefill: {
+            name: studentName,
+            email: email,
+            contact: whatsapp
+          },
+          notes: {
+            student_name: studentName,
+            whatsapp: whatsapp,
+            courses: items.map(i => i.title).join(", ")
+          },
+          theme: {
+            color: window.RazorpayConfig.theme_color || "#fc0c97"
+          },
+          modal: {
+            ondismiss: function() {
+              console.log("Razorpay payment window closed");
+            }
+          }
+        };
+
+        try {
+          const rzp = new window.Razorpay(options);
+          rzp.on('payment.failed', function (response) {
+            alert(`❌ 支付未成功: ${response.error.description || '请重新尝试'}`);
+          });
+          rzp.open();
+          return;
+        } catch (err) {
+          console.warn("Razorpay SDK call fallback:", err);
+        }
+      }
+
+      // 线下转账或模拟调试面板
       const modalOverlay = document.getElementById("payment-modal-overlay");
       const modalBody = document.getElementById("rp-modal-body");
 
       modalOverlay.classList.add("active");
 
-      // 1. 展示 Spinner 加载状态 (感觉极具系统调用质感)
       modalBody.innerHTML = `
         <div style="text-align:center; padding: 40px 0;">
           <div class="rp-spinner"></div>
@@ -338,10 +392,9 @@
         </div>
       `;
 
-      // 2. 模拟 1.2 秒网络延迟后渲染出具体付款子面板
       setTimeout(() => {
         renderRazorpayPanel(studentInfo, items, total, selectedMethod, modalBody);
-      }, 1200);
+      }, 800);
     }
 
     // 渲染 Razorpay 付款内部交互

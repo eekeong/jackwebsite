@@ -48,6 +48,14 @@ window.safeLocalStorage = (function() {
 // Shadow standard localStorage with the safe wrapper
 const localStorage = window.safeLocalStorage;
 
+// Razorpay 付款网关全局配置
+window.RazorpayConfig = {
+  key_id: "rzp_test_Sgr2dt2LBq1SIm",
+  merchant_name: "万能教Jack老师",
+  currency: "MYR",
+  theme_color: "#fc0c97"
+};
+
 // 1. 初始化模拟本地数据库 (LocalStorage Seeds)
 const DEFAULT_COURSES = [
   {
