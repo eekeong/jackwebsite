@@ -37,7 +37,7 @@
 
     .detail-container {
       max-width: 1200px;
-      margin: 120px auto 60px auto;
+      margin: 80px auto 40px auto;
       padding: 0 24px;
     }
 
@@ -46,7 +46,7 @@
       font-size: 13px;
       font-weight: 600;
       color: var(--text-muted);
-      margin-bottom: 30px;
+      margin-bottom: 14px;
       font-family: var(--font-en);
     }
     .breadcrumbs a {
@@ -61,15 +61,15 @@
     /* ── TWO COLUMN HERO ── */
     .product-hero {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 60px;
-      margin-bottom: 80px;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 36px;
+      margin-bottom: 48px;
     }
 
     @media (max-width: 900px) {
       .product-hero {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 28px;
       }
     }
 
@@ -77,10 +77,11 @@
     .gallery-wrapper {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 12px;
     }
     .main-image-container {
       width: 100%;
+      max-height: 380px;
       aspect-ratio: 16/9;
       border-radius: var(--radius-lg);
       overflow: hidden;
@@ -98,16 +99,16 @@
     }
     .thumbnail-track {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       overflow-x: auto;
       scrollbar-width: none;
-      padding-bottom: 4px;
+      padding-bottom: 2px;
     }
     .thumbnail-track::-webkit-scrollbar { display: none; }
     .thumb-item {
-      width: 80px;
-      height: 80px;
-      border-radius: 12px;
+      width: 64px;
+      height: 64px;
+      border-radius: 10px;
       overflow: hidden;
       cursor: pointer;
       border: 2px solid transparent;
@@ -144,23 +145,23 @@
       text-transform: uppercase;
       color: var(--pink);
       background: var(--pink-light);
-      padding: 6px 12px;
+      padding: 4px 10px;
       border-radius: 6px;
-      margin-bottom: 16px;
+      margin-bottom: 10px;
       align-self: flex-start;
     }
     .product-title {
       font-family: var(--font-en);
-      font-size: clamp(28px, 4vw, 40px);
+      font-size: clamp(24px, 3.5vw, 34px);
       font-weight: 900;
-      line-height: 1.2;
-      margin: 0 0 8px 0;
+      line-height: 1.18;
+      margin: 0 0 4px 0;
       letter-spacing: -0.02em;
     }
     .product-subtitle {
-      font-size: 16px;
+      font-size: 14px;
       color: var(--text-muted);
-      margin: 0 0 24px 0;
+      margin: 0 0 12px 0;
       font-weight: 500;
     }
     
@@ -169,19 +170,19 @@
       align-items: baseline;
       justify-content: flex-start;
       gap: 12px;
-      margin-bottom: 32px;
-      padding-bottom: 24px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
       border-bottom: 1px solid var(--border-light);
     }
     .current-price {
       font-family: var(--font-en);
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 900;
       color: var(--pink);
     }
     .original-price {
       font-family: var(--font-en);
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 600;
       color: #bbbbbb;
       text-decoration: line-through;
@@ -190,10 +191,10 @@
     .meta-grid {
       display: grid;
       grid-template-columns: auto 1fr;
-      column-gap: 24px;
-      row-gap: 16px;
-      margin-bottom: 32px;
-      font-size: 14px;
+      column-gap: 18px;
+      row-gap: 8px;
+      margin-bottom: 14px;
+      font-size: 13.5px;
     }
     .meta-label {
       color: var(--text-muted);
@@ -207,16 +208,16 @@
     .features-list {
       list-style: none;
       padding: 0;
-      margin: 0 0 40px 0;
+      margin: 0 0 18px 0;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 8px;
     }
     .features-list li {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 14px;
+      gap: 8px;
+      font-size: 13.5px;
       font-weight: 600;
       color: var(--text-dark);
     }
@@ -227,8 +228,8 @@
 
     .cta-group {
       display: flex;
-      gap: 16px;
-      margin-top: auto;
+      gap: 12px;
+      margin-top: 6px;
     }
     .btn-buy {
       flex: 1;
@@ -236,8 +237,8 @@
       color: #fff;
       border: none;
       border-radius: 12px;
-      padding: 16px;
-      font-size: 16px;
+      padding: 13px;
+      font-size: 15px;
       font-weight: 800;
       font-family: var(--font-en);
       cursor: pointer;
@@ -253,8 +254,8 @@
       color: var(--text-dark);
       border: 2px solid var(--border-light);
       border-radius: 12px;
-      padding: 16px;
-      font-size: 16px;
+      padding: 13px;
+      font-size: 15px;
       font-weight: 800;
       font-family: var(--font-en);
       cursor: pointer;
@@ -266,16 +267,16 @@
 
     .plan-options {
       display: flex;
-      gap: 12px;
-      margin-bottom: 24px;
+      gap: 10px;
+      margin-bottom: 12px;
     }
     .plan-btn {
       flex: 1;
-      padding: 12px;
+      padding: 9px 12px;
       border: 2px solid var(--border-light);
-      border-radius: 12px;
+      border-radius: 10px;
       background: var(--detail-surface);
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 700;
       color: var(--text-muted);
       cursor: pointer;
