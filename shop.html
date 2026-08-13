@@ -601,17 +601,28 @@
         
         // Dynamically split title to apply highlight
         // Simple logic: If it contains '正课班', '宝典', '攻攻班', highlight that keyword and keep the rest.
-        if (rawTitle.includes('正课班')) {
-          titleLines = `<span class="title-line">Sejarah</span><span class="title-line highlight">正课班</span><span class="title-line" style="font-size:0.7em; margin-top:4px; font-weight:700;">${rawTitle.replace('Sejarah 正课班', '').replace('Sejarah正课班', '').trim()}</span>`;
+        if (rawTitle.includes('|')) {
+          const parts = rawTitle.split('|');
+          const blackPart = parts[0].trim();
+          const pinkPart = parts.slice(1).join('|').trim();
+          titleLines = `<span class="title-line">${blackPart}</span><span class="title-line highlight">${pinkPart}</span>`;
+        } else if (rawTitle.includes('正课班')) {
+          titleLines = `<span class="title-line">Sejarah</span><span class="title-line highlight">正课班</span>`;
         } else if (rawTitle.includes('200题宝典')) {
-          titleLines = `<span class="title-line">「会说话」Sejarah</span><span class="title-line highlight">OBJ 200题宝典</span><span class="title-line" style="font-size:0.7em; margin-top:4px; font-weight:700;">${rawTitle.replace('「会说话」Sejarah OBJ 200题宝典', '').trim()}</span>`;
+          titleLines = `<span class="title-line">「会说话」Sejarah</span><span class="title-line highlight">OBJ 200题宝典</span>`;
         } else if (rawTitle.includes('攻攻班')) {
-          titleLines = `<span class="title-line">Sejarah</span><span class="title-line highlight">SPM 攻攻班</span><span class="title-line" style="font-size:0.7em; margin-top:4px; font-weight:700;">${rawTitle.replace('Sejarah SPM 攻攻班', '').trim()}</span>`;
+          titleLines = `<span class="title-line">Sejarah</span><span class="title-line highlight">SPM 攻攻班</span>`;
         } else if (rawTitle.includes('万能宝典')) {
-          titleLines = `<span class="title-line">Sejarah</span><span class="title-line highlight">万能宝典</span><span class="title-line" style="font-size:0.7em; margin-top:4px; font-weight:700;">${rawTitle.replace('Sejarah 万能宝典', '').trim()}</span>`;
+          titleLines = `<span class="title-line">Sejarah</span><span class="title-line highlight">万能宝典</span>`;
         } else {
-          // generic formatting for unexpected titles
-          titleLines = `<span class="title-line highlight">${rawTitle}</span>`;
+          const spaceIdx = rawTitle.indexOf(' ');
+          if (spaceIdx > 0) {
+            const blackPart = rawTitle.substring(0, spaceIdx);
+            const pinkPart = rawTitle.substring(spaceIdx + 1);
+            titleLines = `<span class="title-line">${blackPart}</span><span class="title-line highlight">${pinkPart}</span>`;
+          } else {
+            titleLines = `<span class="title-line highlight">${rawTitle}</span>`;
+          }
         }
 
         const subtitle = course.notes || course.subtitle || '完整系统化课堂教学，稳步提升成绩。';
