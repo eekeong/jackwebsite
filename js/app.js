@@ -72,13 +72,13 @@ const DEFAULT_COURSES = [
     badgeClass: "badge-hot",
     targetAudience: "Form 1 - Form 5",
     pricingOptions: [
-      { name: "1个月体验", price: 89, originalPrice: 159 },
-      { name: "3个月套餐", price: 229, originalPrice: 477 }
+      { name: "1个月", price: 88, originalPrice: 108 },
+      { name: "3个月", price: 229, originalPrice: 477 }
     ],
     formOptions: ["Form 4", "Form 5"],
     timeOptions: ["星期四 8:00PM", "星期六 10:00AM"],
-    price1Month: 89,
-    originalPrice1Month: 159,
+    price1Month: 88,
+    originalPrice1Month: 108,
     price3Month: 229,
     originalPrice3Month: 477,
     teachingMethod: "Zoom 直播课",
@@ -391,6 +391,11 @@ const CourseDB = {
     let title = raw.title || "";
 
     if (raw.pricingOptions && raw.pricingOptions.length > 0) {
+      // Normalize option names for display consistency
+      raw.pricingOptions.forEach(opt => {
+        if (opt.name === "1个月通行证" || opt.name === "1个月体验") opt.name = "1个月";
+        if (opt.name === "3个月通行证" || opt.name === "3个月套餐") opt.name = "3个月";
+      });
       const idx = (optIndex >= 0 && optIndex < raw.pricingOptions.length) ? optIndex : 0;
       const opt = raw.pricingOptions[idx];
       price = opt.price;

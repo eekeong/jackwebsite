@@ -700,13 +700,17 @@
 
         <!-- Plan Options -->
         <div class="plan-options">
-          <button class="plan-btn active" onclick="selectPlan(this, 'RM49.00', 'RM99.00')">1个月通行证</button>
-          <button class="plan-btn" onclick="selectPlan(this, 'RM129.00', 'RM297.00')">3个月通行证</button>
+          <button class="plan-btn active" onclick="selectPlan(this, 0, 88, 108)">1个月</button>
+          <button class="plan-btn" onclick="selectPlan(this, 1, 229, 477)">3个月</button>
         </div>
 
-        <div class="price-block">
-          <span class="current-price">RM49.00</span>
-          <span class="original-price">RM99.00</span>
+        <div class="price-block" style="display:flex; align-items:baseline; flex-wrap:wrap; gap:8px;">
+          <span class="current-price">RM88.00</span>
+          <span class="original-price">RM108.00</span>
+          <span class="price-included-note" style="font-size: 13px; color: var(--grey-muted); margin-left: 4px; font-weight: 600;">学费+资料+报名费+邮费</span>
+        </div>
+        <div id="price-promo-subtext" style="font-size: 13px; color: var(--pink); font-weight: 800; margin-top: 6px; margin-bottom: 12px;">
+          第一个月原价RM108 现在新生福利 RM88！
         </div>
 
         <!-- 规格面板 (年级与时间) -->
@@ -1028,14 +1032,14 @@
         // Normalize options list
         let pricingOptions = course.pricingOptions || [];
         if (pricingOptions.length === 0) {
-          const p1 = course.price1Month || course.price || 0;
-          const o1 = course.originalPrice1Month || course.originalPrice || 0;
-          pricingOptions.push({ name: "1个月通行证", price: p1, originalPrice: o1 });
+          const p1 = course.price1Month || course.price || 88;
+          const o1 = course.originalPrice1Month || course.originalPrice || 108;
+          pricingOptions.push({ name: "1个月", price: p1, originalPrice: o1 });
           
-          const p3 = course.price3Month || 0;
-          const o3 = course.originalPrice3Month || 0;
+          const p3 = course.price3Month || 229;
+          const o3 = course.originalPrice3Month || 477;
           if (p3 > 0) {
-            pricingOptions.push({ name: "3个月通行证", price: p3, originalPrice: o3 });
+            pricingOptions.push({ name: "3个月", price: p3, originalPrice: o3 });
           }
         }
 
@@ -1070,6 +1074,16 @@
             originalPriceEl.textContent = `RM${origP.toFixed(2)}`;
           } else {
             originalPriceEl.style.display = "none";
+          }
+        }
+
+        const promoSubtextEl = document.getElementById('price-promo-subtext');
+        if (promoSubtextEl) {
+          if (selectedIdx === 0) {
+            promoSubtextEl.style.display = "block";
+            promoSubtextEl.textContent = `第一个月原价RM${origP > 0 ? origP : 108} 现在新生福利 RM${currentP.toFixed(0)}！`;
+          } else {
+            promoSubtextEl.style.display = "none";
           }
         }
         
@@ -1235,6 +1249,16 @@
           originalPriceEl.textContent = `RM${originalPrice.toFixed(2)}`;
         } else {
           originalPriceEl.style.display = "none";
+        }
+      }
+
+      const promoSubtextEl = document.getElementById('price-promo-subtext');
+      if (promoSubtextEl) {
+        if (index === 0) {
+          promoSubtextEl.style.display = "block";
+          promoSubtextEl.textContent = `第一个月原价RM${originalPrice > 0 ? originalPrice : 108} 现在新生福利 RM${price.toFixed(0)}！`;
+        } else {
+          promoSubtextEl.style.display = "none";
         }
       }
 
