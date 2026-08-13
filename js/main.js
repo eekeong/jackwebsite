@@ -935,9 +935,11 @@ function handleModalLogin(e) {
 
   if (email === "admin@eduhero.com.my") {
     if (password === "eduhero") {
+      sessionStorage.setItem("jack_admin_logged_in", "true");
+      localStorage.setItem("jack_admin_logged_in", "true");
       window.location.href = "admin.html";
     } else {
-      alert("Invalid admin password!");
+      alert("❌ 管理员密码不正确！");
     }
     return;
   }
