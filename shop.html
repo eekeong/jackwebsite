@@ -89,7 +89,7 @@
     .course-card {
       position: relative;
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
+      grid-template-columns: 1.1fr 0.9fr;
       min-height: 320px;
       background: #ffffff;
       border-radius: 26px;
@@ -99,13 +99,11 @@
       padding: 28px 28px 24px;
       text-decoration: none;
       color: inherit;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
       animation: shopCardFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
-    .course-card:hover { border-color: var(--pink); }
-
-    
+    .course-card:hover { border-color: var(--pink); box-shadow: 0 20px 45px rgba(252, 12, 151, 0.12); }
 
     .course-left {
       position: relative;
@@ -113,45 +111,38 @@
       display: flex;
       flex-direction: column;
       height: 100%;
+      padding-top: 4px;
     }
 
+    /* 1. Tag in Top Right Corner */
     .course-tag {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      z-index: 10;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      align-self: flex-start;
-      padding: 7px 14px;
+      padding: 6px 16px;
       border: 1.5px solid #f6bfdc;
       border-radius: 999px;
       color: var(--pink);
       font-size: 13px;
       font-weight: 700;
-      background: #fff;
-      margin-bottom: 18px;
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(252, 12, 151, 0.08);
+      margin-bottom: 0;
     }
 
-    .course-number {
-      position: absolute;
-      top: 10px;
-      right: 16px;
-      font-size: 84px;
-      line-height: 1;
-      font-weight: 900;
-      color: rgba(252, 12, 151, 0.08);
-      letter-spacing: -2px;
-      user-select: none;
-      pointer-events: none;
-      z-index: 1;
-    }
-
+    /* 2. Enlarged Title */
     .course-title {
       font-family: 'Nunito', 'Noto Sans SC', sans-serif;
-      font-size: 26px;
-      line-height: 1.2;
+      font-size: 34px;
+      line-height: 1.18;
       font-weight: 900;
       letter-spacing: -0.5px;
-      margin-bottom: 10px;
-      max-width: 300px;
+      margin-bottom: 12px;
+      max-width: 320px;
     }
 
     .course-title .highlight {
@@ -162,22 +153,27 @@
       display: block;
     }
 
-    .title-underline {
-      width: 34px;
-      height: 4px;
-      border-radius: 999px;
-      background: #f5c0dc;
-      margin: 14px 0 18px;
-    }
-
     .course-desc {
       color: #6b7280;
       font-size: 14px;
-      line-height: 1.6;
-      max-width: 290px;
-      margin-bottom: 22px;
+      line-height: 1.5;
+      max-width: 300px;
+      margin-bottom: 16px;
     }
 
+    /* 3. Enlarged Price */
+    .course-price {
+      font-weight: 900;
+      font-size: 26px;
+      color: var(--pink);
+      margin-top: auto;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    /* 4. Grade Badge Single Line (No Wrapping) */
     .grade-badge {
       display: inline-flex;
       align-items: center;
@@ -185,12 +181,18 @@
       align-self: flex-start;
       border: 1px solid #f1d5e3;
       border-radius: 12px;
-      padding: 8px 12px;
+      padding: 8px 14px;
       font-size: 13px;
       font-weight: 600;
       color: #1f2937;
       background: #fff;
-      margin-bottom: auto;
+      white-space: nowrap;
+      max-width: 100%;
+      margin-bottom: 4px;
+    }
+
+    .grade-badge span {
+      white-space: nowrap;
     }
 
     .grade-icon {
@@ -200,6 +202,7 @@
       border-radius: 4px;
       position: relative;
       opacity: 0.85;
+      flex-shrink: 0;
     }
 
     .grade-icon::before {
@@ -216,12 +219,14 @@
       border-radius: 0 0 2px 2px;
     }
 
-    .card-footer {
-      margin-top: 26px;
+    /* 5. Detail Link in Bottom Right Corner */
+    .card-footer-right {
+      position: absolute;
+      bottom: 22px;
+      right: 22px;
+      z-index: 10;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 12px;
     }
 
     .detail-link {
@@ -229,15 +234,12 @@
       font-weight: 800;
       font-size: 15px;
       text-decoration: none;
+      transition: transform 0.2s ease, color 0.2s ease;
     }
 
-    .arrow-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+    .course-card:hover .detail-link {
+      transform: translateX(4px);
+    }
       background: var(--pink);
       color: white;
       font-size: 18px;
@@ -633,27 +635,26 @@
         el.style.animationDelay = (index * 0.12) + 's';
         
         el.innerHTML = `
-          <div class="course-left">
-            <span class="course-tag">${tag}</span>
+          <span class="course-tag">${tag}</span>
 
+          <div class="course-left">
             <h3 class="course-title">${titleLines}</h3>
-            <div class="title-underline"></div>
             <p class="course-desc">${subtitle}</p>
 
-            <div style="font-weight: 900; font-size: 18px; color: var(--pink); margin-top: auto; margin-bottom: 12px;">RM ${course.price ? parseFloat(course.price).toFixed(2) : '0.00'} 起</div>
+            <div class="course-price">RM ${course.price ? parseFloat(course.price).toFixed(2) : '0.00'} 起</div>
 
-            <div class="grade-badge" style="margin-bottom: 0;">
+            <div class="grade-badge">
               <span class="grade-icon"></span>
-              <span>${form}</span>
-            </div>
-
-            <div class="card-footer">
-              <span class="detail-link">了解详情</span>
+              <span style="white-space: nowrap;">${form}</span>
             </div>
           </div>
 
           <div class="course-right" style="padding: 0;">
             ${imagesHtml}
+          </div>
+
+          <div class="card-footer-right">
+            <span class="detail-link">了解详情 →</span>
           </div>
         `;
         
