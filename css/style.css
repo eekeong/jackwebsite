@@ -6797,6 +6797,7 @@ body.light-theme .mobile-detail-cta {
   background-color: #25D366;
   color: #ffffff !important;
   border-radius: 50%;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6810,15 +6811,18 @@ body.light-theme .mobile-detail-cta {
 
 .whatsapp-float-btn:hover {
   transform: scale(1.12);
-  background-color: #20ba5a;
   box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6), 0 4px 12px rgba(0, 0, 0, 0.2);
   color: #ffffff !important;
 }
 
-.whatsapp-float-btn svg {
-  width: 34px;
-  height: 34px;
-  fill: currentColor;
+.whatsapp-float-btn svg,
+.whatsapp-float-btn img,
+.whatsapp-float-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
 }
 
 @keyframes wa-pulse {
@@ -6839,10 +6843,6 @@ body.light-theme .mobile-detail-cta {
     right: 18px;
     width: 52px;
     height: 52px;
-  }
-  .whatsapp-float-btn svg {
-    width: 28px;
-    height: 28px;
   }
 }
 
