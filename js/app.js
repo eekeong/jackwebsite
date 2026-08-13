@@ -387,7 +387,11 @@ const CourseDB = {
       const opt = raw.pricingOptions[idx];
       price = opt.price;
       originalPrice = opt.originalPrice;
-      title = `${raw.title} (${opt.name})`;
+      if (optIndex > 0) {
+        title = `${raw.title} (${opt.name})`;
+      } else {
+        title = raw.title;
+      }
     } else {
       const price1Month = typeof raw.price1Month === "number" ? raw.price1Month : (raw.price || 0);
       const originalPrice1Month = typeof raw.originalPrice1Month === "number" ? raw.originalPrice1Month : (raw.originalPrice || 0);
