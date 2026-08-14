@@ -430,6 +430,9 @@
       }
 
       /* Specific positioning adjustments for mobile only */
+      .hero-section-wrap {
+        padding-top: 85px !important;
+      }
       #float-spm {
         left: -10px !important;
       }
@@ -507,7 +510,7 @@
   <!-- =============================================
        1. HERO SECTION (Editorial Designer Style)
        ============================================= -->
-  <section style="padding: 25px 0 0 0; overflow: hidden; position: relative;">
+  <section class="hero-section-wrap" style="padding: 25px 0 0 0; overflow: hidden; position: relative;">
     <div class="container" style="max-width: 1100px; height: 100%;">
       <div style="display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center;" class="hero-grid">
 
@@ -563,7 +566,7 @@
             </div>
 
             <!-- Floating Label 1 -->
-            <div id="float-spm" style="position: absolute; top: 25%; left: -25px; z-index: 10;" class="hero-float-wrapper-1">
+            <div id="float-spm" style="position: absolute; top: calc(25% + 30px); left: -25px; z-index: 10;" class="hero-float-wrapper-1">
               <div class="animate-float-1"
                 style="background: #222; border-radius: 999px; padding: 10px 20px; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 8px; white-space: nowrap;">
                 <span style="width: 8px; height: 8px; border-radius: 50%; background: #22c55e;"></span>
