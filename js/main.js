@@ -891,7 +891,7 @@ window.openStudentRegisterModal = function(redirectUrl = 'https://wa.link/yusvrp
   if (nameEl) setTimeout(() => nameEl.focus(), 300);
 };
 
-function handleModalRegister(e) {
+async function handleModalRegister(e) {
   e.preventDefault();
   const name = document.getElementById('reg-fullname').value.trim();
   const whatsapp = document.getElementById('reg-whatsapp').value.trim();
@@ -911,17 +911,31 @@ function handleModalRegister(e) {
     return;
   }
 
+  if (password.length < 6) {
+    alert("❌ 密码至少需要 6 个字符！");
+    return;
+  }
+
   const userObj = {
     studentName: name,
     whatsapp: whatsapp,
     email: email,
     password: password,
     provider: '系统账号注册',
-    grade: 'Form 5',
-    loginTime: new Date().toLocaleString()
+    grade: 'Form 5'
   };
 
-  window.StudentAuth.registerUser(userObj);
+  try {
+    await window.StudentAuth.registerAsync(userObj);
+  } catch (err) {
+    if (err.message === 'EMAIL_ALREADY_REGISTERED') {
+      alert("❌ 该邮箱已经注册过账号，请直接登录！");
+    } else {
+      alert("❌ 注册失败，请稍后再试！");
+    }
+    return;
+  }
+
   closeModal('loginRegisterModal');
 
   if (typeof showToast === 'function') {
@@ -937,7 +951,7 @@ function handleModalRegister(e) {
   }
 }
 
-function handleModalLogin(e) {
+async function handleModalLogin(e) {
   e.preventDefault();
   const emailInput = document.getElementById('modal-login-email');
   const passwordInput = document.getElementById('modal-login-password');
@@ -946,10 +960,9 @@ function handleModalLogin(e) {
   const email = emailInput.value.trim().toLowerCase();
   const password = passwordInput.value;
 
-  if (email === "admin@eduhero.com.my") {
-    if (password === "eduhero") {
-      sessionStorage.setItem("jack_admin_logged_in", "true");
-      localStorage.setItem("jack_admin_logged_in", "true");
+  if (email === window.SupabaseAuth.ADMIN_EMAIL) {
+    const ok = await window.SupabaseAuth.signIn(email, password);
+    if (ok) {
       window.location.href = "admin.html";
     } else {
       alert("❌ 管理员密码不正确！");
@@ -957,39 +970,15 @@ function handleModalLogin(e) {
     return;
   }
 
-  const regUsers = window.StudentAuth ? window.StudentAuth.getRegisteredUsers() : [];
-  const foundUser = regUsers.find(u => u.email && u.email.toLowerCase() === email);
+  const foundUser = await window.StudentAuth.loginAsync(email, password);
 
   if (!foundUser) {
-    alert("❌ 找不到该邮箱对应的账号，请先点击上方“注册新账号”！");
-    if (typeof switchAuthTab === 'function') {
-      switchAuthTab('register');
-      const regEmail = document.getElementById('reg-email');
-      if (regEmail) regEmail.value = email;
-    }
-    return;
-  }
-
-  if (foundUser.password && foundUser.password !== password) {
-    alert("❌ 登录密码不正确，请重新输入！");
+    alert("❌ 邮箱或密码不正确，若还没有账号请先点击上方“注册新账号”！");
     passwordInput.value = "";
-    passwordInput.focus();
     return;
   }
 
-  const studentName = foundUser.studentName || foundUser.name || email.split('@')[0] || "学员";
-  const whatsapp = foundUser.whatsapp || "";
-
-  const user = {
-    studentName: studentName,
-    whatsapp: whatsapp,
-    email: email,
-    provider: foundUser.provider || '系统账号',
-    grade: foundUser.grade || 'Form 5',
-    loginTime: new Date().toLocaleString()
-  };
-
-  window.StudentAuth.set(user);
+  const studentName = foundUser.studentName || email.split('@')[0] || "学员";
   closeModal('loginRegisterModal');
 
   if (typeof showToast === 'function') {

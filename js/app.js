@@ -354,8 +354,7 @@ const CourseDB = {
       fetch(`${window.SupabaseConfig.url}/rest/v1/jack_courses`, {
         method: "POST",
         headers: {
-          "apikey": window.SupabaseConfig.apiKey,
-          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`,
+          ...window.SupabaseConfig.authHeaders(),
           "Content-Type": "application/json",
           "Prefer": "resolution=merge-duplicates"
         },
@@ -397,8 +396,7 @@ const CourseDB = {
       fetch(`${window.SupabaseConfig.url}/rest/v1/jack_courses?id=eq.${encodeURIComponent(id)}`, {
         method: "DELETE",
         headers: {
-          "apikey": window.SupabaseConfig.apiKey,
-          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+          ...window.SupabaseConfig.authHeaders()
         }
       }).catch(e => console.warn("Supabase course delete warning:", e));
 
@@ -406,8 +404,7 @@ const CourseDB = {
         fetch(`${window.SupabaseConfig.url}/rest/v1/jack_courses?id=eq.${encodeURIComponent(baseId)}`, {
           method: "DELETE",
           headers: {
-            "apikey": window.SupabaseConfig.apiKey,
-            "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+          ...window.SupabaseConfig.authHeaders()
           }
         }).catch(e => console.warn("Supabase course delete warning:", e));
       }
@@ -418,8 +415,7 @@ const CourseDB = {
     try {
       const res = await fetch(`${window.SupabaseConfig.url}/rest/v1/jack_courses?select=*`, {
         headers: {
-          "apikey": window.SupabaseConfig.apiKey,
-          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+          ...window.SupabaseConfig.authHeaders()
         }
       });
       if (res.ok) {
@@ -627,8 +623,7 @@ const OrderDB = {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
-            "apikey": window.SupabaseConfig.apiKey,
-            "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+          ...window.SupabaseConfig.authHeaders()
           },
           body: JSON.stringify({ status: status })
         }).catch(e => console.warn("Supabase order status update warning:", e));
@@ -645,8 +640,7 @@ const OrderDB = {
       fetch(`${window.SupabaseConfig.url}/rest/v1/jack_orders?id=eq.${encodeURIComponent(orderId)}`, {
         method: "DELETE",
         headers: {
-          "apikey": window.SupabaseConfig.apiKey,
-          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+          ...window.SupabaseConfig.authHeaders()
         }
       }).catch(e => console.warn("Supabase order delete warning:", e));
     }
@@ -709,8 +703,7 @@ const HeroCardDB = {
         fetch(`${window.SupabaseConfig.url}/rest/v1/jack_hero_cards`, {
           method: "POST",
           headers: {
-            "apikey": window.SupabaseConfig.apiKey,
-            "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`,
+          ...window.SupabaseConfig.authHeaders(),
             "Content-Type": "application/json",
             "Prefer": "resolution=merge-duplicates"
           },
@@ -731,8 +724,7 @@ const HeroCardDB = {
       fetch(`${window.SupabaseConfig.url}/rest/v1/jack_hero_cards?id=eq.${encodeURIComponent(id)}`, {
         method: "DELETE",
         headers: {
-          "apikey": window.SupabaseConfig.apiKey,
-          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+          ...window.SupabaseConfig.authHeaders()
         }
       }).catch(e => console.warn("Supabase hero delete warning:", e));
     }
@@ -742,8 +734,7 @@ const HeroCardDB = {
     try {
       const res = await fetch(`${window.SupabaseConfig.url}/rest/v1/jack_hero_cards?select=*`, {
         headers: {
-          "apikey": window.SupabaseConfig.apiKey,
-          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+          ...window.SupabaseConfig.authHeaders()
         }
       });
       if (res.ok) {
@@ -842,8 +833,7 @@ const ScheduleDB = {
         fetch(`${window.SupabaseConfig.url}/rest/v1/jack_schedules`, {
           method: "POST",
           headers: {
-            "apikey": window.SupabaseConfig.apiKey,
-            "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`,
+          ...window.SupabaseConfig.authHeaders(),
             "Content-Type": "application/json",
             "Prefer": "resolution=merge-duplicates"
           },
@@ -864,8 +854,7 @@ const ScheduleDB = {
       fetch(`${window.SupabaseConfig.url}/rest/v1/jack_schedules?id=eq.${encodeURIComponent(id)}`, {
         method: "DELETE",
         headers: {
-          "apikey": window.SupabaseConfig.apiKey,
-          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+          ...window.SupabaseConfig.authHeaders()
         }
       }).catch(e => console.warn("Supabase schedule delete warning:", e));
     }
@@ -875,8 +864,7 @@ const ScheduleDB = {
     try {
       const res = await fetch(`${window.SupabaseConfig.url}/rest/v1/jack_schedules?select=*`, {
         headers: {
-          "apikey": window.SupabaseConfig.apiKey,
-          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+          ...window.SupabaseConfig.authHeaders()
         }
       });
       if (res.ok) {
@@ -974,8 +962,7 @@ const TestimonialDB = {
         fetch(`${window.SupabaseConfig.url}/rest/v1/jack_testimonials`, {
           method: "POST",
           headers: {
-            "apikey": window.SupabaseConfig.apiKey,
-            "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`,
+          ...window.SupabaseConfig.authHeaders(),
             "Content-Type": "application/json",
             "Prefer": "resolution=merge-duplicates"
           },
@@ -996,8 +983,7 @@ const TestimonialDB = {
       fetch(`${window.SupabaseConfig.url}/rest/v1/jack_testimonials?id=eq.${encodeURIComponent(id)}`, {
         method: "DELETE",
         headers: {
-          "apikey": window.SupabaseConfig.apiKey,
-          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+          ...window.SupabaseConfig.authHeaders()
         }
       }).catch(e => console.warn("Supabase testi delete warning:", e));
     }
@@ -1007,8 +993,7 @@ const TestimonialDB = {
     try {
       const res = await fetch(`${window.SupabaseConfig.url}/rest/v1/jack_testimonials?select=*`, {
         headers: {
-          "apikey": window.SupabaseConfig.apiKey,
-          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+          ...window.SupabaseConfig.authHeaders()
         }
       });
       if (res.ok) {
@@ -1155,8 +1140,7 @@ const ScrollingTestimonialDB = {
         fetch(`${window.SupabaseConfig.url}/rest/v1/jack_scrolling_testimonials`, {
           method: "POST",
           headers: {
-            "apikey": window.SupabaseConfig.apiKey,
-            "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`,
+          ...window.SupabaseConfig.authHeaders(),
             "Content-Type": "application/json",
             "Prefer": "resolution=merge-duplicates"
           },
@@ -1177,8 +1161,7 @@ const ScrollingTestimonialDB = {
       fetch(`${window.SupabaseConfig.url}/rest/v1/jack_scrolling_testimonials?id=eq.${encodeURIComponent(id)}`, {
         method: "DELETE",
         headers: {
-          "apikey": window.SupabaseConfig.apiKey,
-          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+          ...window.SupabaseConfig.authHeaders()
         }
       }).catch(e => console.warn("Supabase scrolling delete warning:", e));
     }
@@ -1188,8 +1171,7 @@ const ScrollingTestimonialDB = {
     try {
       const res = await fetch(`${window.SupabaseConfig.url}/rest/v1/jack_scrolling_testimonials?select=*`, {
         headers: {
-          "apikey": window.SupabaseConfig.apiKey,
-          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+          ...window.SupabaseConfig.authHeaders()
         }
       });
       if (res.ok) {
@@ -1253,40 +1235,73 @@ function showFloatingNotification(message) {
 // ==========================================
 window.SupabaseConfig = {
   url: "https://kgxphklbclfalmuclclw.supabase.co",
-  apiKey: "sb_publishable_Xo9854KTwiPDgpPeFUJtzQ_JfJWQFZf"
+  apiKey: "sb_publishable_Xo9854KTwiPDgpPeFUJtzQ_JfJWQFZf",
+  // Returns the headers to use for a Supabase REST call. If an admin session is
+  // active, its access token is sent so the request runs as the authenticated
+  // (admin) role; otherwise it falls back to the public anon key. Server-side
+  // RLS policies are the real enforcement boundary — this only picks the token.
+  authHeaders: function(extra) {
+    const token = window.sessionStorage.getItem("jack_admin_access_token");
+    return Object.assign({
+      "apikey": this.apiKey,
+      "Authorization": `Bearer ${token || this.apiKey}`
+    }, extra || {});
+  }
+};
+
+// ==========================================
+// SUPABASE AUTH — real backend-verified admin login
+// ==========================================
+window.SupabaseAuth = {
+  ADMIN_EMAIL: "admin@eduhero.com.my",
+  signIn: async function(email, password) {
+    try {
+      const res = await fetch(`${window.SupabaseConfig.url}/auth/v1/token?grant_type=password`, {
+        method: "POST",
+        headers: {
+          "apikey": window.SupabaseConfig.apiKey,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json().catch(() => null);
+      if (!res.ok || !data || !data.access_token) return false;
+      window.sessionStorage.setItem("jack_admin_access_token", data.access_token);
+      window.sessionStorage.setItem("jack_admin_refresh_token", data.refresh_token || "");
+      return true;
+    } catch (e) {
+      console.warn("Supabase admin sign-in warning:", e);
+      return false;
+    }
+  },
+  signOut: function() {
+    const token = window.sessionStorage.getItem("jack_admin_access_token");
+    if (token) {
+      fetch(`${window.SupabaseConfig.url}/auth/v1/logout`, {
+        method: "POST",
+        headers: {
+          "apikey": window.SupabaseConfig.apiKey,
+          "Authorization": `Bearer ${token}`
+        }
+      }).catch(() => {});
+    }
+    window.sessionStorage.removeItem("jack_admin_access_token");
+    window.sessionStorage.removeItem("jack_admin_refresh_token");
+  },
+  isLoggedIn: function() {
+    return !!window.sessionStorage.getItem("jack_admin_access_token");
+  }
 };
 
 window.SupabaseSync = {
-  pushStudent: function(userObj) {
-    if (!userObj || !userObj.email) return;
-    fetch(`${window.SupabaseConfig.url}/rest/v1/jack_students`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "apikey": window.SupabaseConfig.apiKey,
-        "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`,
-        "Prefer": "resolution=merge-duplicates"
-      },
-      body: JSON.stringify({
-        name: userObj.studentName || userObj.name || "学员",
-        whatsapp: userObj.whatsapp || userObj.phone || "",
-        email: userObj.email.toLowerCase(),
-        password: userObj.password || "",
-        grade: userObj.grade || "Form 5",
-        provider: userObj.provider || "系统注册"
-      })
-    }).catch(e => console.warn("Supabase student push async warning:", e));
-  },
   pushOrder: function(orderObj) {
     if (!orderObj || !orderObj.id) return;
     fetch(`${window.SupabaseConfig.url}/rest/v1/jack_orders`, {
       method: "POST",
-      headers: {
+      headers: window.SupabaseConfig.authHeaders({
         "Content-Type": "application/json",
-        "apikey": window.SupabaseConfig.apiKey,
-        "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`,
-        "Prefer": "resolution=merge-duplicates"
-      },
+        "Prefer": "return=minimal"
+      }),
       body: JSON.stringify({
         id: orderObj.id,
         date: orderObj.date || new Date().toISOString().split('T')[0],
@@ -1297,7 +1312,7 @@ window.SupabaseSync = {
         courses: orderObj.courses || [],
         total: orderObj.total || 0,
         method: orderObj.method || "Online Payment",
-        status: orderObj.status || "Paid"
+        status: orderObj.status || "Pending"
       })
     }).catch(e => console.warn("Supabase order push async warning:", e));
   }
@@ -1305,6 +1320,9 @@ window.SupabaseSync = {
 
 // ==========================================
 // UNIFIED STUDENT AUTHENTICATION & SESSION ENGINE
+// Registration/login are verified server-side via SECURITY DEFINER RPCs
+// (register_student / login_student) — passwords are hashed in the database
+// and are never fetched to or compared on the client.
 // ==========================================
 window.StudentAuth = {
   get: function() {
@@ -1320,9 +1338,6 @@ window.StudentAuth = {
     try {
       window.localStorage.setItem("jack_current_student", JSON.stringify(userObj));
     } catch(e) {}
-    if (window.SupabaseSync && userObj) {
-      window.SupabaseSync.pushStudent(userObj);
-    }
     if (typeof window.updateStudentLoginButtons === 'function') {
       window.updateStudentLoginButtons();
     }
@@ -1335,65 +1350,66 @@ window.StudentAuth = {
       window.updateStudentLoginButtons();
     }
   },
-  getRegisteredUsers: function() {
-    try {
-      const users = window.localStorage.getItem("jack_registered_users");
-      return users ? JSON.parse(users) : [];
-    } catch(e) {
-      return [];
+  // Returns the student profile (no password) on success, or throws an Error
+  // with a short code (EMAIL_REQUIRED / PASSWORD_TOO_SHORT / EMAIL_ALREADY_REGISTERED).
+  registerAsync: async function(userObj) {
+    const res = await fetch(`${window.SupabaseConfig.url}/rest/v1/rpc/register_student`, {
+      method: "POST",
+      headers: window.SupabaseConfig.authHeaders({ "Content-Type": "application/json" }),
+      body: JSON.stringify({
+        p_name: userObj.studentName || userObj.name || "学员",
+        p_whatsapp: userObj.whatsapp || userObj.phone || "",
+        p_email: (userObj.email || "").toLowerCase(),
+        p_password: userObj.password || "",
+        p_grade: userObj.grade || "Form 5",
+        p_provider: userObj.provider || "系统注册"
+      })
+    });
+    const data = await res.json().catch(() => null);
+    if (!res.ok) {
+      const code = (data && data.message) || "REGISTER_FAILED";
+      throw new Error(code);
     }
+    const profile = { studentName: data.name, whatsapp: data.whatsapp, email: data.email, grade: data.grade, provider: data.provider };
+    this.set(profile);
+    return profile;
   },
-  registerUser: function(userObj) {
-    const users = this.getRegisteredUsers();
-    const existingIndex = users.findIndex(u => u.email && u.email.toLowerCase() === userObj.email.toLowerCase());
-    if (existingIndex >= 0) {
-      users[existingIndex] = { ...users[existingIndex], ...userObj };
-    } else {
-      users.push(userObj);
-    }
-    try {
-      window.localStorage.setItem("jack_registered_users", JSON.stringify(users));
-    } catch(e) {}
-    if (window.SupabaseSync) {
-      window.SupabaseSync.pushStudent(userObj);
-    }
-    this.set(userObj);
+  // Returns the student profile (no password) on success, or null on invalid credentials.
+  loginAsync: async function(email, password) {
+    const res = await fetch(`${window.SupabaseConfig.url}/rest/v1/rpc/login_student`, {
+      method: "POST",
+      headers: window.SupabaseConfig.authHeaders({ "Content-Type": "application/json" }),
+      body: JSON.stringify({ p_email: (email || "").toLowerCase(), p_password: password || "" })
+    });
+    const data = await res.json().catch(() => null);
+    if (!res.ok || !data) return null;
+    const profile = { studentName: data.name, whatsapp: data.whatsapp, email: data.email, grade: data.grade, provider: data.provider };
+    this.set(profile);
+    return profile;
   },
-  syncStudentsFromCloud: async function() {
-    if (!window.SupabaseConfig) return;
+  // Admin-only: full student directory, readable only with a valid admin session
+  // (RLS returns an empty list for anyone without the authenticated/admin role).
+  adminCache: [],
+  fetchAllForAdmin: async function() {
     try {
       const res = await fetch(`${window.SupabaseConfig.url}/rest/v1/jack_students?select=*`, {
-        headers: {
-          "apikey": window.SupabaseConfig.apiKey,
-          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
-        }
+        headers: window.SupabaseConfig.authHeaders()
       });
       if (res.ok) {
-        const cloudStudents = await res.json();
-        if (Array.isArray(cloudStudents) && cloudStudents.length > 0) {
-          const localUsers = JSON.parse(localStorage.getItem("jack_registered_users") || "[]");
-          const merged = [...localUsers];
-          cloudStudents.forEach(cs => {
-            if (!cs.email) return;
-            const idx = merged.findIndex(u => u.email && u.email.toLowerCase() === cs.email.toLowerCase());
-            const userObj = {
-              studentName: cs.name || cs.student_name || "学员",
-              whatsapp: cs.whatsapp || "",
-              email: cs.email.toLowerCase(),
-              password: cs.password || "",
-              grade: cs.grade || "Form 5",
-              provider: cs.provider || "系统注册"
-            };
-            if (idx >= 0) {
-              merged[idx] = { ...merged[idx], ...userObj };
-            } else {
-              merged.push(userObj);
-            }
-          });
-          localStorage.setItem("jack_registered_users", JSON.stringify(merged));
+        const rows = await res.json();
+        if (Array.isArray(rows)) {
+          this.adminCache = rows.map(r => ({
+            studentName: r.name || "系统学员",
+            whatsapp: r.whatsapp || "-",
+            email: r.email,
+            grade: r.grade || "Form 5"
+          }));
         }
       }
-    } catch(e) {}
+    } catch (e) {
+      console.warn("Admin student directory fetch warning:", e);
+    }
+    return this.adminCache;
   }
 };
 
@@ -1437,7 +1453,7 @@ async function syncAllDataFromCloud() {
   if (HeroCardDB.syncFromCloud) HeroCardDB.syncFromCloud();
   if (TestimonialDB.syncFromCloud) TestimonialDB.syncFromCloud();
   if (ScrollingTestimonialDB.syncFromCloud) ScrollingTestimonialDB.syncFromCloud();
-  if (StudentAuth.syncStudentsFromCloud) StudentAuth.syncStudentsFromCloud();
+  // Student directory is no longer synced client-side; register_student/login_student RPCs handle it server-side.
 }
 
 document.addEventListener("DOMContentLoaded", () => {
