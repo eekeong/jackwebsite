@@ -598,9 +598,9 @@ function buyNow(id) {
     }
     return;
   }
-  showToast('⚡', '正在为您继续结账手续...');
+  showToast('⚡', '正在为您跳转 WhatsApp 客服...');
   setTimeout(() => {
-    window.location.href = 'checkout';
+    window.location.href = 'https://wa.link/yusvrp';
   }, 300);
 }
 

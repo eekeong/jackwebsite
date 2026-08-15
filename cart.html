@@ -299,7 +299,7 @@
         }
       });
 
-      // 强制检测非会员：直接弹出【注册新账号】页面并跳转 WhatsApp
+      // 无论会员或非会员，点击【继续结账】均直接跳转 WhatsApp 链接
       window.handleProceedToCheckout = function () {
         const currentUser = window.StudentAuth ? window.StudentAuth.get() : null;
         if (!currentUser) {
@@ -311,7 +311,7 @@
           }
           return;
         }
-        window.location.href = "checkout";
+        window.location.href = "https://wa.link/yusvrp";
       };
 
       // 处理移除优惠券
