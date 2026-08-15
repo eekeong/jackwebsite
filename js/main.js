@@ -685,18 +685,31 @@ function renderCartItems() {
 }
 
 /* --------------------------------------------------
-   CHECKOUT (Go to Local Premium Checkout Page)
+   CHECKOUT (Go to WhatsApp for Consultation/Enrollment)
    -------------------------------------------------- */
 function proceedCheckout() {
   const items = Cart.getDetails();
   if (items.length === 0) return;
 
   closeModal('cartModal');
-  showToast('💳', '正在前往收银结算台...');
-
+  const currentUser = window.StudentAuth ? window.StudentAuth.get() : null;
+  if (!currentUser) {
+    if (typeof window.openStudentRegisterModal === 'function') {
+      window.openStudentRegisterModal('https://wa.link/yusvrp');
+    } else {
+      sessionStorage.setItem("jack_post_login_redirect", "https://wa.link/yusvrp");
+      if (typeof openLogin === 'function') {
+        openLogin();
+      } else {
+        window.location.href = "index.html?openAuth=register";
+      }
+    }
+    return;
+  }
+  showToast('💬', '正在为您跳转 WhatsApp 客服...');
   setTimeout(() => {
-    window.location.href = 'checkout.html';
-  }, 600);
+    window.location.href = 'https://wa.link/yusvrp';
+  }, 300);
 }
 
 /* --------------------------------------------------

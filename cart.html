@@ -297,19 +297,23 @@
         }
       });
 
-      // 点击【继续结账】引导进入结账收银台
+      // 点击【继续结账】跳转 WhatsApp 链接
       window.handleProceedToCheckout = function () {
         const currentUser = window.StudentAuth ? window.StudentAuth.get() : null;
         if (!currentUser) {
-          sessionStorage.setItem("jack_post_login_redirect", "checkout.html");
-          if (typeof openLogin === 'function') {
-            openLogin();
+          if (typeof window.openStudentRegisterModal === 'function') {
+            window.openStudentRegisterModal('https://wa.link/yusvrp');
           } else {
-            window.location.href = "checkout.html";
+            sessionStorage.setItem("jack_post_login_redirect", "https://wa.link/yusvrp");
+            if (typeof openLogin === 'function') {
+              openLogin();
+            } else {
+              window.location.href = "index.html?openAuth=register";
+            }
           }
           return;
         }
-        window.location.href = "checkout.html";
+        window.location.href = "https://wa.link/yusvrp";
       };
 
       // 处理移除优惠券
