@@ -20,7 +20,7 @@
     href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Nunito:wght@400;600;700;800;900;1000&display=swap"
     rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/style.css?v=1.2.0" />
+  <link rel="stylesheet" href="css/style.css?v=1.3.0" />
 </head>
 
 <body>
@@ -87,7 +87,7 @@
        ============================================= -->
   <section class="hero-v2" id="home" aria-label="主页横幅">
     <!-- Hero Background Video — School tour clip, autoplay, loop, muted, click-through -->
-    <video class="hero-video-bg" autoplay muted loop playsinline disablePictureInPicture>
+    <video class="hero-video-bg" autoplay muted loop playsinline disablePictureInPicture preload="metadata">
       <source src="images/5月27日.mp4" type="video/mp4">
       您的浏览器不支持播放该视频。
     </video>
@@ -551,11 +551,19 @@
         <!-- Left Side: Auto-playing Tour Video -->
         <div class="school-video-wrap fade-in">
           <div class="school-video-container">
-            <video id="schoolTourVideo" class="school-video" autoplay muted loop playsinline preload="metadata">
+            <video id="schoolTourVideo" class="school-video" muted loop playsinline preload="metadata">
               <source src="images/jack-seminar.mp4" type="video/mp4">
               您的浏览器不支持播放该视频。
             </video>
-            <button class="video-mute-btn" id="videoMuteBtn" aria-label="静音切换">
+            <button class="video-play-overlay" id="videoPlayOverlay" aria-label="播放视频" type="button">
+              <span class="play-icon-circle">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z"></path>
+                </svg>
+              </span>
+              <span>点击播放视频</span>
+            </button>
+            <button class="video-mute-btn" id="videoMuteBtn" aria-label="静音切换" style="display:none;">
               <!-- Unmuted State (Sound ON) -->
               <svg id="unmuteIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">

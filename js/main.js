@@ -1171,24 +1171,25 @@ function escapeHtml(str) {
 }
 
 /* --------------------------------------------------
-   SCHOOL TOUR VIDEO AUTOPLAY & MUTE CONTROLS
+   SCHOOL TOUR VIDEO — CLICK-TO-PLAY & MUTE CONTROLS
+   The video file is 50MB+, so it must never be fetched until the
+   visitor explicitly taps the play overlay (no autoplay / no
+   scroll-triggered autoplay).
    -------------------------------------------------- */
 function initSchoolVideo() {
   const video = document.getElementById('schoolTourVideo');
+  const playOverlay = document.getElementById('videoPlayOverlay');
   const muteBtn = document.getElementById('videoMuteBtn');
   const muteIcon = document.getElementById('muteIcon');
   const unmuteIcon = document.getElementById('unmuteIcon');
   const muteBtnText = document.getElementById('muteBtnText');
 
-  if (!video || !muteBtn) return;
+  if (!video || !playOverlay || !muteBtn) return;
 
-  // Make sure standard controls are disabled & loop/playsinline are active
   video.removeAttribute('controls');
   video.setAttribute('loop', '');
   video.setAttribute('playsinline', '');
-
-  // Request: default is mute off (sound on)
-  video.muted = false;
+  video.muted = true;
 
   const updateUI = () => {
     if (video.muted) {
@@ -1202,72 +1203,21 @@ function initSchoolVideo() {
     }
   };
 
-  // Sync initial UI
   updateUI();
 
-  const playVideoSafely = () => {
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.then(() => {
-        updateUI();
-      }).catch(error => {
-        console.log("Unmuted autoplay prevented by browser policy. Falling back to muted autoplay...");
-        video.muted = true;
-        updateUI();
-        video.play().catch(err => {
-          console.error("Muted autoplay also failed:", err);
-        });
-      });
-    }
-  };
+  playOverlay.addEventListener('click', () => {
+    video.play().catch(err => console.log('Play prevented:', err));
+    playOverlay.style.display = 'none';
+    muteBtn.style.display = 'inline-flex';
+  });
 
-  // Setup Intersection Observer to play only when scrolled to
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          playVideoSafely();
-        } else {
-          video.pause();
-        }
-      });
-    }, {
-      threshold: 0.15
-    });
-    observer.observe(video);
-  } else {
-    // Fallback if IntersectionObserver is not supported
-    playVideoSafely();
-  }
-
-  // Handle manual Mute Button Toggle
   muteBtn.addEventListener('click', () => {
     video.muted = !video.muted;
     updateUI();
-    
-    // Ensure the video plays if it was paused
     if (video.paused) {
       video.play().catch(err => console.error("Play failed on user toggle:", err));
     }
   });
-
-  // progressive unmute on click inside the school tour video section only
-  const schoolTourSection = document.getElementById('school-tour');
-  const unmuteOnInteraction = () => {
-    if (video.muted) {
-      video.muted = false;
-      updateUI();
-    }
-    if (schoolTourSection) {
-      schoolTourSection.removeEventListener('click', unmuteOnInteraction);
-      schoolTourSection.removeEventListener('touchstart', unmuteOnInteraction);
-    }
-  };
-
-  if (schoolTourSection) {
-    schoolTourSection.addEventListener('click', unmuteOnInteraction, { once: true });
-    schoolTourSection.addEventListener('touchstart', unmuteOnInteraction, { once: true });
-  }
 }
 
 /* --------------------------------------------------
