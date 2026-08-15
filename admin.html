@@ -1134,6 +1134,10 @@
       }
     });
 
+    window.addEventListener('jack_courses_synced', () => {
+      renderAdminDashboard();
+    });
+
     // 切换后台 Tab 标签
     function switchAdminTab(tabName, element) {
       document.querySelectorAll(".sidebar-link").forEach(link => {
@@ -1181,34 +1185,10 @@
       {
         id: 'sej-regular',
         title: 'Sejarah 正课班',
-        subtitle: 'Form 1–5',
+        subtitle: 'Form 1, Form 2, Form 3, Form 4, Form 5',
         imgBack: 'images/Card_Photo/IMG_7567 (1).png',
         imgFront: 'images/Card_Photo/IMG_7567 (1).png',
-        link: 'course-detail?id=sej-regular'
-      },
-      {
-        id: 'sej-obj-200',
-        title: '「会说话」Sejarah OBJ 200题宝典',
-        subtitle: 'Form 5',
-        imgBack: 'images/product-book.png',
-        imgFront: 'images/Card_Photo/2.png',
-        link: 'course-detail?id=sej-obj-200'
-      },
-      {
-        id: 'sej-trial-f5',
-        title: 'Sejarah SPM 攻攻班',
-        subtitle: 'Form 5',
-        imgBack: 'images/product-course.png',
-        imgFront: 'images/Card_Photo/60.png',
-        link: 'course-detail?id=sej-trial-f5'
-      },
-      {
-        id: 'sej-bundle',
-        title: 'Sejarah 万能宝典',
-        subtitle: 'Form 4–5',
-        imgBack: 'images/product-bundle.png',
-        imgFront: 'images/Jack Ler2 (1).png',
-        link: 'course-detail?id=sej-bundle'
+        link: 'course-detail.html?id=sej-regular'
       }
     ];
 

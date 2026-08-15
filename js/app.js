@@ -66,21 +66,25 @@ const DEFAULT_COURSES = [
     teacher: "Jack 老师",
     coverImage: "images/Card_Photo/IMG_7567 (1).png",
     imgBack: "images/Card_Photo/IMG_7567 (1).png",
-    imgFront: 'images/Card_Photo/IMG_7567 (1).png',
-    notes: "Best Seller · 冲刺提分神器",
+    imgFront: "images/Card_Photo/IMG_7567 (1).png",
+    notes: "打好基础最好的选择!",
+    subtitle: "打好基础最好的选择!",
     badge: "Best Seller",
     badgeClass: "badge-hot",
-    targetAudience: "Form 1 - Form 5",
+    targetAudience: "Form 1, Form 2, Form 3, Form 4, Form 5",
+    form: "Form 1, Form 2, Form 3, Form 4, Form 5",
     pricingOptions: [
       { name: "1个月", price: 88, originalPrice: 108 },
       { name: "3个月", price: 229, originalPrice: 477 }
     ],
-    formOptions: ["Form 4", "Form 5"],
+    formOptions: ["Form 1", "Form 2", "Form 3", "Form 4", "Form 5"],
     timeOptions: ["星期四 8:00PM", "星期六 10:00AM"],
     price1Month: 88,
     originalPrice1Month: 108,
     price3Month: 229,
     originalPrice3Month: 477,
+    price: 88,
+    originalPrice: 108,
     teachingMethod: "Zoom 直播课",
     duration: "1.5 小时",
     features: [
@@ -92,158 +96,10 @@ const DEFAULT_COURSES = [
     descAboutText: "这是一门专为想要冲刺高分的同学设计的精品课。由 Jack 老师主讲，通过独特的故事化教学方法 and 口诀记忆法，将硬核大纲简化，帮助基础薄弱的学生在最短的时间内理清逻辑、快速提分。",
     descSyllabusTitle: "上课大纲",
     descSyllabusText: "第一阶段：核心概念重点剖析\n第二阶段：历年考题解题模板套路讲解\n第三阶段：丢分盲区及考场答题注意事项",
-    testimonials: [
-      {
-        type: "image",
-        src: 'images/Card_Photo/60.png',
-        text: "“老师的故事法太好玩了，口诀也非常顺口。本来不及格的历史这次竟然拿到了A-，真的太不可思议了！”",
-        name: "张同学 (Form 5)"
-      },
-      {
-        type: "image",
-        src: "images/Card_Photo/2.png",
-        text: "“以前总觉得Sejarah要背很多字，上完课后发现其实是有套路的，写少少字拿满分的感觉太棒了！”",
-        name: "林同学 (Form 5)"
-      }
-    ],
-    faqs: [
-      { q: "如果有课程冲突没法看直播怎么办？", a: "不用担心，所有直播课程在结束后都会上传高清回放。" }
-    ]
-  },
-  {
-    id: "sej-obj-200",
-    title: "「会说话」Sejarah OBJ 200题宝典",
-    subject: "Sejarah",
-    type: "Study Material",
-    teacher: "Jack 老师",
-    coverImage: "images/product-book.png",
-    imgBack: "images/product-book.png",
-    imgFront: "images/Card_Photo/2.png",
-    notes: "选择题速提宝典",
-    badge: "OBJ 必刷题",
-    badgeClass: "badge-new",
-    targetAudience: "Form 5 学生",
-    pricingOptions: [
-      { name: "200题实体宝典 (附带声波扫码教学)", price: 45, originalPrice: 79 }
-    ],
-    formOptions: ["Form 5"],
-    timeOptions: ["随买随看，随时温习"],
-    price1Month: 45,
-    originalPrice1Month: 79,
-    price3Month: 0,
-    originalPrice3Month: 0,
-    teachingMethod: "扫码音频解题",
-    duration: "随时自主温习",
-    features: [
-      "精选 200 道 SPM 必刷选择题",
-      "独家声波二维码，扫码即听老师音频详解",
-      "高品质纸张印刷直邮寄送"
-    ],
-    descAboutTitle: "关于本宝典",
-    descAboutText: "「会说话」历史客观选择题 200 题宝典是由 Jack 老师倾力打造的备考神器。精选了 200 道历年最经典、最具代表性的客观题。不仅有详尽的纸质解析，每道题旁边更印有专属声波二维码，微信扫码即可播放 Jack 老师亲述的秒杀技巧与背景故事，随时随地开启高效复习！",
-    descSyllabusTitle: "宝典大纲",
-    descSyllabusText: "第一篇章：中四核心考点选择题精炼\n第二篇章：中五核心考点选择题精炼\n第三篇章：选择题常见陷阱与快速排除法",
-    testimonials: [
-      {
-        type: "image",
-        src: 'images/Card_Photo/60.png',
-        text: "“这本选择题宝典太方便了，扫一下就能听老师讲解，以前选择题拿不到15分，这次模拟考直接拿了32分！”",
-        name: "李同学 (Form 5)"
-      }
-    ],
-    faqs: [
-      { q: "付款后如何收到实体宝典？", a: "我们将在您下单后的 2-3 个工作日内安排快递寄送书本到您填写的地址。" }
-    ]
-  },
-  {
-    id: "sej-trial-f5",
-    title: "Sejarah SPM 攻攻班",
-    subject: "Sejarah",
-    type: "Live Class",
-    teacher: "Jack 老师",
-    coverImage: "images/product-course.png",
-    imgBack: "images/product-course.png",
-    imgFront: "images/Card_Photo/60.png",
-    notes: "SPM 考前冲刺拿分神班",
-    badge: "Hot Release",
-    badgeClass: "badge-hot",
-    targetAudience: "Form 5 学生",
-    pricingOptions: [
-      { name: "1个月体验", price: 49, originalPrice: 99 },
-      { name: "3个月全包特惠", price: 119, originalPrice: 297 }
-    ],
-    formOptions: ["Form 5"],
-    timeOptions: ["星期日 8:00PM - 9:30PM"],
-    price1Month: 49,
-    originalPrice1Month: 99,
-    price3Month: 119,
-    originalPrice3Month: 297,
-    teachingMethod: "Zoom 直播课",
-    duration: "1.5 小时",
-    features: [
-      "精准锁定 2026 各州预测试卷热门考点",
-      "传授独家‘乱乱写’满分得分点套路",
-      "无限次高清重播回放权限至考试结束"
-    ],
-    descAboutTitle: "关于本课程",
-    descAboutText: "专为 Form 5 学生打造的考前冲刺攻攻班！紧扣 SPM 官方最新命题大纲，精选全国各州考前模拟卷，直击出题人逻辑。通过高强度的互动直播和核心得分模板套路，让基础在低分徘徊的学生能在最短的考前冲刺阶段掌握拿分绝招，打破不及格的宿命，稳拿 A-！",
-    descSyllabusTitle: "冲刺大纲",
-    descSyllabusText: "中四重要篇章预测考点攻关与 KBAT 解法\n中五热门章节论述题高分万能模板默写\nSPM 历史 Paper 2 结构题答题结构剖析",
-    testimonials: [
-      {
-        type: "image",
-        src: 'images/Card_Photo/2.png',
-        text: "“跟着老师攻攻班两个星期，原本完全不会写的 KBAT 题突然知道怎么下笔了，写的句式考官直接给满分！”",
-        name: "陈同学 (Form 5)"
-      }
-    ],
-    faqs: [
-      { q: "错过了直播可以看回放吗？", a: "可以的，所有的直播在课程结束后的 24 小时内均会上传高清无插水录播回放，并且支持无限次重播。" }
-    ]
-  },
-  {
-    id: "sej-bundle",
-    title: "Sejarah 万能宝典",
-    subject: "Sejarah",
-    type: "VIP Bundle",
-    teacher: "Jack 老师",
-    coverImage: "images/product-bundle.png",
-    imgBack: "images/product-bundle.png",
-    imgFront: "images/Jack Ler2 (1).png",
-    notes: "SPM 历史终极大礼包，超高性价比",
-    badge: "VIP Save 50%",
-    badgeClass: "badge-hot",
-    targetAudience: "Form 4 & Form 5 学生",
-    pricingOptions: [
-      { name: "VIP 全包 (含笔记+录播)", price: 199, originalPrice: 399 }
-    ],
-    formOptions: ["Form 4", "Form 5"],
-    timeOptions: ["随买随看，无需固定时间"],
-    price1Month: 199,
-    originalPrice1Month: 399,
-    price3Month: 0,
-    originalPrice3Month: 0,
-    teachingMethod: "随买随看",
-    duration: "自主掌握进度",
-    features: [
-      "包含《历史秘笈》与《乱乱写》两本实体笔记本直邮",
-      "中四中五核心专题网课包随买随看",
-      "永久加入助教极速答疑群"
-    ],
-    descAboutTitle: "关于本套餐",
-    descAboutText: "最划算的选择！一次拿齐 Jack 老师专属实体笔记本与核心专题录像网课，节省更多，学习更系统。无论是平时复习还是考前救命，都是您 SPM 历史拿 A 的终极全包选择！",
-    descSyllabusTitle: "学习内容",
-    descSyllabusText: "《Jack老师历史秘笈》专属笔记本一册\n《万能乱乱写》核心 KBAT 笔记本一册\n中四专题 1–10 网课与讲座回放资源包\n中五专题 1–10 网课与讲座回放资源包",
-    testimonials: [
-      {
-        type: "image",
-        src: 'images/Card_Photo/60.png',
-        text: "“两本实体笔记本真的设计得太漂亮了，配着老师的专题网课学习，以前觉得最难的一章，20分钟就通透了！”",
-        name: "徐同学 (Form 5)"
-      }
-    ],
-    faqs: [
-      { q: "讲义是实体寄送的吗？", a: "是的，VIP 套餐中包含的专属《历史秘笈》与《乱乱写》笔记本是实体彩色印刷的，下单后 2-3 个工作日内会包邮快递到您家。" }
+    testimonials: [],
+    faqs: [],
+    galleryMedia: [
+      { type: "image", src: "images/Card_Photo/IMG_7567 (1).png" }
     ]
   }
 ];
@@ -576,6 +432,9 @@ const CourseDB = {
           }
           if (typeof window.renderCourseDetailData === 'function') {
             window.renderCourseDetailData();
+          }
+          if (typeof window.renderAdminDashboard === 'function') {
+            window.renderAdminDashboard();
           }
         }
       }
