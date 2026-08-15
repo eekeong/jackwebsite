@@ -176,22 +176,30 @@
       gap: 4px;
     }
 
-    /* 4. Grade Badge Single Line (No Wrapping) */
+    /* 4. Grade Badge and Footer Row */
+    .course-footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 14px;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
     .grade-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      align-self: flex-start;
       border: 1px solid #f1d5e3;
       border-radius: 12px;
-      padding: 8px 14px;
+      padding: 7px 14px;
       font-size: 13px;
       font-weight: 600;
       color: #1f2937;
       background: #fff;
       white-space: nowrap;
       max-width: 100%;
-      margin-bottom: 4px;
     }
 
     .grade-badge span {
@@ -222,14 +230,11 @@
       border-radius: 0 0 2px 2px;
     }
 
-    /* 5. Detail Link in Bottom Right Corner */
+    /* 5. Detail Link in Footer */
     .card-footer-right {
-      position: absolute;
-      bottom: 22px;
-      right: 22px;
-      z-index: 10;
       display: flex;
       align-items: center;
+      margin-left: auto;
     }
 
     .detail-link {
@@ -237,14 +242,13 @@
       font-weight: 800;
       font-size: 15px;
       text-decoration: none;
+      white-space: nowrap;
       transition: transform 0.2s ease, color 0.2s ease;
     }
 
     .course-card:hover .detail-link {
       transform: translateX(4px);
     }
-    
-    
 
     .course-right {
       position: relative;
@@ -260,11 +264,11 @@
       position: relative;
       z-index: 2;
       width: 100%;
+      max-width: 260px;
       aspect-ratio: 1 / 1;
-      object-fit: cover;
+      object-fit: contain;
       border-radius: 16px;
-      background: #f8f8f8;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+      background: transparent;
     }
 
     /* responsive */
@@ -289,26 +293,32 @@
     @media (max-width: 768px) {
       .course-grid {
         grid-template-columns: 1fr;
+        max-width: 520px;
+        margin: 0 auto;
       }
 
       .course-card {
-        padding: 22px;
+        padding: 24px 20px;
         min-height: auto;
       }
 
       .course-title {
-        font-size: 24px;
+        font-size: 26px;
       }
 
-      .course-number {
-        font-size: 64px;
-        top: 10px;
-        right: 12px;
+      .course-right {
+        min-height: 190px;
+      }
+
+      .course-img-back,
+      .course-img-front {
+        width: 160px !important;
+        max-height: 180px !important;
       }
 
       .course-image {
         width: 100%;
-        max-width: 300px;
+        max-width: 240px;
         margin: 0 auto;
       }
     }
@@ -331,8 +341,8 @@
     .course-img-back,
     .course-img-front {
       position: absolute;
-      width: 140px;
-      max-height: 180px;
+      width: 150px;
+      max-height: 190px;
       height: auto;
       object-fit: contain;
       transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -348,12 +358,6 @@
     }
     .course-card:hover .course-img-front {
       transform: rotate(5deg) scale(1.05) translateX(15px);
-    }
-    @media (max-width: 768px) {
-      .course-img-back,
-      .course-img-front {
-        width: 100px;
-      }
     }
   </style>
 </head>
@@ -595,18 +599,23 @@
         }
 
         const subtitle = course.notes || course.subtitle || '完整系统化课堂教学，稳步提升成绩。';
-        const form = course.form || 'Form 1 - 5';
+        const rawForm = course.form || 'Form 1 - 5 适用';
+        let displayForm = rawForm;
+        if (displayForm.includes('Form 1') && displayForm.includes('Form 5')) {
+          displayForm = 'Form 1 - 5 适用';
+        }
+
         const imgBack = course.imgBack || course.coverImage || course.image || 'images/product-bundle.png';
         const imgFront = course.imgFront || '';
 
         // Generate dynamic HTML for double image layer overlay
-        const imagesHtml = imgFront 
+        const imagesHtml = (imgFront && imgFront !== imgBack)
           ? `<div class="course-image-container">
                <img class="course-img-back" src="${imgBack}" alt="${course.title}" onerror="this.src='images/product-bundle.png';">
                <img class="course-img-front" src="${imgFront}" alt="${course.title}" onerror="this.style.display='none';">
              </div>`
           : `<div class="course-image-container">
-               <img class="course-image" src="${imgBack}" alt="${course.title}" style="width: 100%; height: auto; max-height: 200px; object-fit: contain;" onerror="this.src='images/product-bundle.png';">
+               <img class="course-image" src="${imgBack}" alt="${course.title}" onerror="this.src='images/product-bundle.png';">
              </div>`;
 
         const el = document.createElement('a');
@@ -623,18 +632,19 @@
 
             <div class="course-price">RM ${course.price ? parseFloat(course.price).toFixed(2) : '0.00'} 起</div>
 
-            <div class="grade-badge">
-              <span class="grade-icon"></span>
-              <span style="white-space: nowrap;">${form}</span>
+            <div class="course-footer-row">
+              <div class="grade-badge">
+                <span class="grade-icon"></span>
+                <span>${displayForm}</span>
+              </div>
+              <div class="card-footer-right">
+                <span class="detail-link">了解详情 →</span>
+              </div>
             </div>
           </div>
 
           <div class="course-right" style="padding: 0;">
             ${imagesHtml}
-          </div>
-
-          <div class="card-footer-right">
-            <span class="detail-link">了解详情 →</span>
           </div>
         `;
         
