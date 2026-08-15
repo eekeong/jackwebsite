@@ -359,6 +359,13 @@ const CourseDB = {
           "Prefer": "resolution=merge-duplicates"
         },
         body: JSON.stringify(course)
+      }).then(res => {
+        if (!res.ok) {
+          res.text().then(t => console.error("Supabase course save FAILED — this course only saved locally, not to the cloud:", res.status, t));
+          if (typeof window.showToast === 'function') {
+            window.showToast('⚠️', '课程未能同步到云端，其他人暂时看不到这次修改，请重新登录管理员账号后再试一次');
+          }
+        }
       }).catch(e => console.warn("Supabase course save warning:", e));
     }
     return course;
