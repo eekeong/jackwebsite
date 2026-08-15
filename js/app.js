@@ -267,14 +267,19 @@ function initDatabase() {
           c.pricingOptions = [];
           const p1 = c.price1Month || c.price || 0;
           const o1 = c.originalPrice1Month || c.originalPrice || 0;
-          c.pricingOptions.push({ name: "1个月通行证", price: p1, originalPrice: o1 });
+          c.pricingOptions.push({ name: "1个月", price: p1, originalPrice: o1 });
           
           const p3 = c.price3Month || 0;
           const o3 = c.originalPrice3Month || 0;
           if (p3 > 0) {
-            c.pricingOptions.push({ name: "3个月通行证", price: p3, originalPrice: o3 });
+            c.pricingOptions.push({ name: "3个月", price: p3, originalPrice: o3 });
           }
           changed = true;
+        } else {
+          c.pricingOptions.forEach(opt => {
+            if (opt.name === "1个月通行证" || opt.name === "1个月体验") { opt.name = "1个月"; changed = true; }
+            if (opt.name === "3个月通行证" || opt.name === "3个月套餐") { opt.name = "3个月"; changed = true; }
+          });
         }
         // 2. 补全 timeOptions
         if (!c.timeOptions || !Array.isArray(c.timeOptions)) {
