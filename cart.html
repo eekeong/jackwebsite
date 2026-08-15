@@ -299,14 +299,14 @@
         }
       });
 
-      // 强制检测非会员：直接弹出【注册新账号】页面
+      // 强制检测非会员：直接弹出【注册新账号】页面并跳转 WhatsApp
       window.handleProceedToCheckout = function () {
         const currentUser = window.StudentAuth ? window.StudentAuth.get() : null;
         if (!currentUser) {
           if (typeof window.openStudentRegisterModal === 'function') {
-            window.openStudentRegisterModal('checkout');
+            window.openStudentRegisterModal('https://wa.link/yusvrp');
           } else {
-            sessionStorage.setItem("jack_post_login_redirect", "checkout");
+            sessionStorage.setItem("jack_post_login_redirect", "https://wa.link/yusvrp");
             window.location.href = "./?openAuth=register";
           }
           return;

@@ -591,9 +591,9 @@ function buyNow(id) {
   const currentUser = window.StudentAuth ? window.StudentAuth.get() : null;
   if (!currentUser) {
     if (typeof window.openStudentRegisterModal === 'function') {
-      window.openStudentRegisterModal('checkout');
+      window.openStudentRegisterModal('https://wa.link/yusvrp');
     } else {
-      sessionStorage.setItem("jack_post_login_redirect", "checkout");
+      sessionStorage.setItem("jack_post_login_redirect", "https://wa.link/yusvrp");
       window.location.href = "./?openAuth=register";
     }
     return;
@@ -867,7 +867,7 @@ function switchAuthTab(tab) {
 }
 
 // 全局一键唤起【注册新会员】弹窗与设置结账自动带回
-window.openStudentRegisterModal = function(redirectUrl = 'checkout.html') {
+window.openStudentRegisterModal = function(redirectUrl = 'https://wa.link/yusvrp') {
   sessionStorage.setItem("jack_post_login_redirect", redirectUrl);
   ensureLoginRegisterModal();
   openModal('loginRegisterModal');
