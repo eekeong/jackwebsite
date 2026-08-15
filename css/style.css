@@ -6985,3 +6985,76 @@ body.light-theme .mobile-detail-cta {
   color: var(--white);
 }
 
+/* ==========================================
+   WHATSAPP FLOAT BUTTON & MOBILE STICKY OVERLAP PREVENTION
+   ========================================== */
+.whatsapp-float-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 60px;
+  height: 60px;
+  background: #25D366;
+  border-radius: 50%;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, bottom 0.3s ease;
+  cursor: pointer;
+}
+
+.whatsapp-float-btn:hover {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.5);
+}
+
+.whatsapp-float-img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .whatsapp-float-btn {
+    bottom: 85px !important;
+    right: 16px !important;
+    width: 52px !important;
+    height: 52px !important;
+  }
+  .whatsapp-float-img {
+    width: 30px !important;
+    height: 30px !important;
+  }
+}
+
+/* ==========================================
+   MODAL RESPONSIVE MAX-HEIGHT & KEYBOARD SCROLLING
+   ========================================== */
+.modal-overlay,
+.modal-backdrop,
+.auth-modal-overlay,
+#loginRegisterModal,
+#scheduleDetailModal,
+#payment-modal-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+.modal-card,
+.modal-content,
+.auth-modal-box,
+.checkout-form-box,
+.schedule-modal-content {
+  max-height: 88vh;
+  max-width: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+}
+
+

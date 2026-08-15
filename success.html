@@ -24,11 +24,10 @@
 
       <!-- Desktop Nav Links -->
       <div class="nav-menu" role="menubar">
-        <a href="./" class="nav-link" role="menuitem">首页</a>
-        <!-- <a href="about" class="nav-link" role="menuitem">关于</a> -->
-        <a href="shop" class="nav-link" role="menuitem">课程</a>
-        <a href="schedule" class="nav-link" role="menuitem">上课时间</a>
-        <a href="./#faq" class="nav-link" role="menuitem">FAQ</a>
+        <a href="index.html" class="nav-link" role="menuitem">首页</a>
+        <a href="shop.html" class="nav-link" role="menuitem">课程</a>
+        <a href="schedule.html" class="nav-link" role="menuitem">上课时间</a>
+        <a href="index.html#faq" class="nav-link" role="menuitem">FAQ</a>
       </div>
 
       <!-- Action Icons -->
@@ -61,12 +60,11 @@
 
   <!-- Mobile Dropdown Menu (Unified) -->
   <div class="mobile-menu" id="mobileMenu" role="menu" aria-hidden="true">
-    <a href="./" role="menuitem" onclick="closeMobileMenu()">首页</a>
-    <!-- <a href="about" role="menuitem" onclick="closeMobileMenu()">关于</a> -->
-    <a href="shop" role="menuitem" onclick="closeMobileMenu()">课程</a>
-    <a href="schedule" role="menuitem" onclick="closeMobileMenu()">上课时间</a>
-    <a href="./#faq" role="menuitem" onclick="closeMobileMenu()">FAQ</a>
-    <a href="shop" role="menuitem" onclick="closeMobileMenu()"
+    <a href="index.html" role="menuitem" onclick="closeMobileMenu()">首页</a>
+    <a href="shop.html" role="menuitem" onclick="closeMobileMenu()">课程</a>
+    <a href="schedule.html" role="menuitem" onclick="closeMobileMenu()">上课时间</a>
+    <a href="index.html#faq" role="menuitem" onclick="closeMobileMenu()">FAQ</a>
+    <a href="shop.html" role="menuitem" onclick="closeMobileMenu()"
       style="color: var(--pink); margin-top: 8px; display: block; font-size: 0.95rem;">立即选课 →</a>
   </div>
 
@@ -163,22 +161,14 @@
     document.addEventListener("DOMContentLoaded", () => {
       // 1. 获取 URL 中的订单编号，优先精准定位
       const params = new URLSearchParams(window.location.search);
-      let orderId = params.get("orderId");
+      let orderId = params.get("orderId") || sessionStorage.getItem("jack_latest_order_id");
 
       let order = null;
       if (orderId) {
         order = OrderDB.getById(orderId);
       }
 
-      // 2. 如果 URL 无 orderId 或找不到该 ID，自动降级获取最新一笔已完单数据
-      if (!order) {
-        const allOrders = OrderDB.getAll();
-        if (allOrders && allOrders.length > 0) {
-          order = allOrders[0];
-        }
-      }
-
-      // 3. 如果数据库中完全没有订单，展示优雅的无订单提示
+      // 2. 如果未找到指定订单或直接访问，展示友好提示，杜绝泄露他人数据
       if (!order) {
         const receiptBox = document.querySelector(".checkout-form-box");
         if (receiptBox) {
@@ -186,8 +176,8 @@
             <div style="text-align:center; padding: 40px 20px;">
               <span style="font-size: 56px;">📄</span>
               <h2 style="font-family: var(--font-title); font-size: 20px; color: var(--text-main); margin-top: 15px;">暂无有效订单凭证</h2>
-              <p style="color: var(--grey-muted); font-size: 14px; margin: 10px 0 25px 0;">您尚未提交任何课程报名订单或订单已被重置。</p>
-              <a href="shop" class="btn btn-primary" style="padding: 12px 28px;">👉 前往课程商城选课</a>
+              <p style="color: var(--grey-muted); font-size: 14px; margin: 10px 0 25px 0;">您尚未在当前会话提交课程报名订单，或该凭证不存在。</p>
+              <a href="shop.html" class="btn btn-primary" style="padding: 12px 28px;">👉 前往课程商城选课</a>
             </div>
           `;
         }

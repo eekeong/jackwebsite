@@ -937,7 +937,7 @@ function handleModalLogin(e) {
     if (password === "eduhero") {
       sessionStorage.setItem("jack_admin_logged_in", "true");
       localStorage.setItem("jack_admin_logged_in", "true");
-      window.location.href = "admin";
+      window.location.href = "admin.html";
     } else {
       alert("❌ 管理员密码不正确！");
     }
@@ -947,29 +947,32 @@ function handleModalLogin(e) {
   const regUsers = window.StudentAuth ? window.StudentAuth.getRegisteredUsers() : [];
   const foundUser = regUsers.find(u => u.email && u.email.toLowerCase() === email);
 
-  let studentName = email.split('@')[0] || "学员";
-  let whatsapp = "";
-
-  if (foundUser) {
-    studentName = foundUser.studentName || studentName;
-    whatsapp = foundUser.whatsapp || "";
-  } else {
-    try {
-      const orders = window.OrderDB ? window.OrderDB.getAll() : [];
-      const foundOrder = orders.find(o => o.email && o.email.toLowerCase() === email);
-      if (foundOrder && foundOrder.studentName) {
-        studentName = foundOrder.studentName;
-        whatsapp = foundOrder.phone || "";
-      }
-    } catch(err) {}
+  if (!foundUser) {
+    alert("❌ 找不到该邮箱对应的账号，请先点击上方“注册新账号”！");
+    if (typeof switchAuthTab === 'function') {
+      switchAuthTab('register');
+      const regEmail = document.getElementById('reg-email');
+      if (regEmail) regEmail.value = email;
+    }
+    return;
   }
+
+  if (foundUser.password && foundUser.password !== password) {
+    alert("❌ 登录密码不正确，请重新输入！");
+    passwordInput.value = "";
+    passwordInput.focus();
+    return;
+  }
+
+  const studentName = foundUser.studentName || foundUser.name || email.split('@')[0] || "学员";
+  const whatsapp = foundUser.whatsapp || "";
 
   const user = {
     studentName: studentName,
     whatsapp: whatsapp,
     email: email,
-    provider: '系统账号',
-    grade: 'Form 5',
+    provider: foundUser.provider || '系统账号',
+    grade: foundUser.grade || 'Form 5',
     loginTime: new Date().toLocaleString()
   };
 

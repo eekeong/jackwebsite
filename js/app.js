@@ -556,6 +556,32 @@ const CourseDB = {
         }).catch(e => console.warn("Supabase course delete warning:", e));
       }
     }
+  },
+  syncFromCloud: async function() {
+    if (!window.SupabaseConfig) return;
+    try {
+      const res = await fetch(`${window.SupabaseConfig.url}/rest/v1/jack_courses?select=*`, {
+        headers: {
+          "apikey": window.SupabaseConfig.apiKey,
+          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+        }
+      });
+      if (res.ok) {
+        const cloudCourses = await res.json();
+        if (Array.isArray(cloudCourses) && cloudCourses.length > 0) {
+          localStorage.setItem("jack_courses", JSON.stringify(cloudCourses));
+          window.dispatchEvent(new CustomEvent("jack_courses_synced", { detail: cloudCourses }));
+          if (typeof window.renderShopCards === 'function') {
+            window.renderShopCards();
+          }
+          if (typeof window.renderCourseDetailData === 'function') {
+            window.renderCourseDetailData();
+          }
+        }
+      }
+    } catch(e) {
+      console.warn("Supabase courses sync warning:", e);
+    }
   }
 };
 
@@ -672,7 +698,7 @@ const OrderDB = {
     }
   },
   getById: (id) => (OrderDB.getAll() || []).find(o => o.id === id),
-  create: (studentInfo, cartItems, totalAmount, paymentMethod, status = "Paid") => {
+  create: (studentInfo, cartItems, totalAmount, paymentMethod, status = "Pending") => {
     const orders = OrderDB.getAll() || [];
     const newOrderId = `JK-${new Date().toISOString().slice(0,10).replace(/-/g,'')}-${String(orders.length + 1).padStart(3, '0')}`;
     
@@ -685,6 +711,7 @@ const OrderDB = {
       grade: studentInfo.grade,
       school: studentInfo.school || "无学校备注",
       courses: cartItems.map(c => c.title || ""),
+      courseIds: cartItems.map(c => c.id || ""),
       total: parseFloat(totalAmount.toFixed(2)),
       method: paymentMethod,
       status: status,
@@ -698,26 +725,20 @@ const OrderDB = {
       window.SupabaseSync.pushOrder(newOrder);
     }
     
-    // 如果是成功支付，需要更新该学生的已购课程资料到已登录状态，以便在 Student Dashboard 浏览
-    let studentCourses = [];
-    try {
-      studentCourses = JSON.parse(localStorage.getItem(`student_courses_${studentInfo.email}`)) || [];
-    } catch(e) {
-      studentCourses = [];
-    }
-    cartItems.forEach(item => {
-      if (item && item.id && !studentCourses.includes(item.id)) {
-        studentCourses.push(item.id);
+    if (status === "Paid") {
+      let studentCourses = [];
+      try {
+        studentCourses = JSON.parse(localStorage.getItem(`student_courses_${studentInfo.email}`)) || [];
+      } catch(e) {
+        studentCourses = [];
       }
-    });
-    localStorage.setItem(`student_courses_${studentInfo.email}`, JSON.stringify(studentCourses));
-    
-    // 设置为当前激活的学生会话
-    localStorage.setItem("jack_current_student", JSON.stringify({
-      email: studentInfo.email,
-      name: studentInfo.studentName,
-      grade: studentInfo.grade
-    }));
+      cartItems.forEach(item => {
+        if (item && item.id && !studentCourses.includes(item.id)) {
+          studentCourses.push(item.id);
+        }
+      });
+      localStorage.setItem(`student_courses_${studentInfo.email}`, JSON.stringify(studentCourses));
+    }
     
     return newOrder;
   },
@@ -727,6 +748,32 @@ const OrderDB = {
     if (index >= 0) {
       orders[index].status = status;
       localStorage.setItem("jack_orders", JSON.stringify(orders));
+
+      if (status === "Paid" && orders[index].email) {
+        const email = orders[index].email.toLowerCase();
+        let studentCourses = [];
+        try {
+          studentCourses = JSON.parse(localStorage.getItem(`student_courses_${email}`)) || [];
+        } catch(e) {}
+        if (Array.isArray(orders[index].courseIds)) {
+          orders[index].courseIds.forEach(id => {
+            if (id && !studentCourses.includes(id)) studentCourses.push(id);
+          });
+        }
+        localStorage.setItem(`student_courses_${email}`, JSON.stringify(studentCourses));
+      }
+
+      if (window.SupabaseConfig) {
+        fetch(`${window.SupabaseConfig.url}/rest/v1/jack_orders?id=eq.${encodeURIComponent(orderId)}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "apikey": window.SupabaseConfig.apiKey,
+            "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+          },
+          body: JSON.stringify({ status: status })
+        }).catch(e => console.warn("Supabase order status update warning:", e));
+      }
       return true;
     }
     return false;
@@ -735,6 +782,15 @@ const OrderDB = {
     let orders = OrderDB.getAll() || [];
     orders = orders.filter(o => o.id !== orderId);
     localStorage.setItem("jack_orders", JSON.stringify(orders));
+    if (window.SupabaseConfig) {
+      fetch(`${window.SupabaseConfig.url}/rest/v1/jack_orders?id=eq.${encodeURIComponent(orderId)}`, {
+        method: "DELETE",
+        headers: {
+          "apikey": window.SupabaseConfig.apiKey,
+          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+        }
+      }).catch(e => console.warn("Supabase order delete warning:", e));
+    }
   }
 };
 
@@ -767,13 +823,11 @@ const HeroCardDB = {
       const data = localStorage.getItem("jack_hero_cards");
       let parsed = JSON.parse(data);
       if (Array.isArray(parsed)) {
-        // Strict filter to discard any null, undefined, or incomplete cards
         parsed = parsed.filter(c => c && c.id && c.title && c.desc && c.image);
         if (parsed.length > 0) {
           return parsed;
         }
       }
-      // Auto self-heal if the storage is corrupted or empty
       localStorage.setItem("jack_hero_cards", JSON.stringify(DEFAULT_HERO_CARDS));
       return DEFAULT_HERO_CARDS;
     } catch (e) {
@@ -792,6 +846,18 @@ const HeroCardDB = {
     }
     try {
       localStorage.setItem("jack_hero_cards", JSON.stringify(cards));
+      if (window.SupabaseConfig) {
+        fetch(`${window.SupabaseConfig.url}/rest/v1/jack_hero_cards`, {
+          method: "POST",
+          headers: {
+            "apikey": window.SupabaseConfig.apiKey,
+            "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`,
+            "Content-Type": "application/json",
+            "Prefer": "resolution=merge-duplicates"
+          },
+          body: JSON.stringify(card)
+        }).catch(e => console.warn("Supabase hero save warning:", e));
+      }
       return card;
     } catch (e) {
       console.error("Storage quota exceeded inside HeroCardDB.save:", e);
@@ -802,6 +868,36 @@ const HeroCardDB = {
     let cards = this.getAll();
     cards = cards.filter(c => c.id !== id);
     localStorage.setItem("jack_hero_cards", JSON.stringify(cards));
+    if (window.SupabaseConfig) {
+      fetch(`${window.SupabaseConfig.url}/rest/v1/jack_hero_cards?id=eq.${encodeURIComponent(id)}`, {
+        method: "DELETE",
+        headers: {
+          "apikey": window.SupabaseConfig.apiKey,
+          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+        }
+      }).catch(e => console.warn("Supabase hero delete warning:", e));
+    }
+  },
+  syncFromCloud: async function() {
+    if (!window.SupabaseConfig) return;
+    try {
+      const res = await fetch(`${window.SupabaseConfig.url}/rest/v1/jack_hero_cards?select=*`, {
+        headers: {
+          "apikey": window.SupabaseConfig.apiKey,
+          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+        }
+      });
+      if (res.ok) {
+        const cloudData = await res.json();
+        if (Array.isArray(cloudData) && cloudData.length > 0) {
+          localStorage.setItem("jack_hero_cards", JSON.stringify(cloudData));
+          window.dispatchEvent(new CustomEvent("jack_hero_cards_synced", { detail: cloudData }));
+          if (typeof window.initAchCardSlider === 'function') {
+            window.initAchCardSlider();
+          }
+        }
+      }
+    } catch(e) {}
   }
 };
 
@@ -883,6 +979,18 @@ const ScheduleDB = {
     }
     try {
       localStorage.setItem("jack_schedules", JSON.stringify(items));
+      if (window.SupabaseConfig) {
+        fetch(`${window.SupabaseConfig.url}/rest/v1/jack_schedules`, {
+          method: "POST",
+          headers: {
+            "apikey": window.SupabaseConfig.apiKey,
+            "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`,
+            "Content-Type": "application/json",
+            "Prefer": "resolution=merge-duplicates"
+          },
+          body: JSON.stringify(item)
+        }).catch(e => console.warn("Supabase schedule save warning:", e));
+      }
       return item;
     } catch (e) {
       console.error("Storage quota exceeded inside ScheduleDB.save:", e);
@@ -893,6 +1001,39 @@ const ScheduleDB = {
     let items = this.getAll();
     items = items.filter(s => s.id !== id);
     localStorage.setItem("jack_schedules", JSON.stringify(items));
+    if (window.SupabaseConfig) {
+      fetch(`${window.SupabaseConfig.url}/rest/v1/jack_schedules?id=eq.${encodeURIComponent(id)}`, {
+        method: "DELETE",
+        headers: {
+          "apikey": window.SupabaseConfig.apiKey,
+          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+        }
+      }).catch(e => console.warn("Supabase schedule delete warning:", e));
+    }
+  },
+  syncFromCloud: async function() {
+    if (!window.SupabaseConfig) return;
+    try {
+      const res = await fetch(`${window.SupabaseConfig.url}/rest/v1/jack_schedules?select=*`, {
+        headers: {
+          "apikey": window.SupabaseConfig.apiKey,
+          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+        }
+      });
+      if (res.ok) {
+        const cloudData = await res.json();
+        if (Array.isArray(cloudData) && cloudData.length > 0) {
+          localStorage.setItem("jack_schedules", JSON.stringify(cloudData));
+          window.dispatchEvent(new CustomEvent("jack_schedules_synced", { detail: cloudData }));
+          if (typeof window.renderWeeklyTimetable === 'function') {
+            window.renderWeeklyTimetable();
+          }
+          if (typeof window.initDynamicSchedule === 'function') {
+            window.initDynamicSchedule();
+          }
+        }
+      }
+    } catch(e) {}
   }
 };
 
@@ -970,6 +1111,18 @@ const TestimonialDB = {
     }
     try {
       localStorage.setItem("jack_testimonials", JSON.stringify(testimonials));
+      if (window.SupabaseConfig) {
+        fetch(`${window.SupabaseConfig.url}/rest/v1/jack_testimonials`, {
+          method: "POST",
+          headers: {
+            "apikey": window.SupabaseConfig.apiKey,
+            "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`,
+            "Content-Type": "application/json",
+            "Prefer": "resolution=merge-duplicates"
+          },
+          body: JSON.stringify(testi)
+        }).catch(e => console.warn("Supabase testi save warning:", e));
+      }
       return testi;
     } catch (e) {
       console.error("Storage quota exceeded inside TestimonialDB.save:", e);
@@ -980,6 +1133,33 @@ const TestimonialDB = {
     let testimonials = this.getAll();
     testimonials = testimonials.filter(t => t.id !== id);
     localStorage.setItem("jack_testimonials", JSON.stringify(testimonials));
+    if (window.SupabaseConfig) {
+      fetch(`${window.SupabaseConfig.url}/rest/v1/jack_testimonials?id=eq.${encodeURIComponent(id)}`, {
+        method: "DELETE",
+        headers: {
+          "apikey": window.SupabaseConfig.apiKey,
+          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+        }
+      }).catch(e => console.warn("Supabase testi delete warning:", e));
+    }
+  },
+  syncFromCloud: async function() {
+    if (!window.SupabaseConfig) return;
+    try {
+      const res = await fetch(`${window.SupabaseConfig.url}/rest/v1/jack_testimonials?select=*`, {
+        headers: {
+          "apikey": window.SupabaseConfig.apiKey,
+          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+        }
+      });
+      if (res.ok) {
+        const cloudData = await res.json();
+        if (Array.isArray(cloudData) && cloudData.length > 0) {
+          localStorage.setItem("jack_testimonials", JSON.stringify(cloudData));
+          window.dispatchEvent(new CustomEvent("jack_testimonials_synced", { detail: cloudData }));
+        }
+      }
+    } catch(e) {}
   }
 };
 
@@ -1076,7 +1256,6 @@ const ScrollingTestimonialDB = {
       if (Array.isArray(parsed)) {
         parsed = parsed.filter(t => t && t.id && t.text && t.name);
 
-        // Self-healing: Reset if the data contains old placeholders, ERP texts, or Saman Malik as Customer Support Lead
         const hasLegacyData = parsed.some(t => 
           t.text.includes("ERP") || 
           t.text.includes("exceptional") || 
@@ -1113,6 +1292,18 @@ const ScrollingTestimonialDB = {
     }
     try {
       localStorage.setItem("jack_scrolling_testimonials", JSON.stringify(list));
+      if (window.SupabaseConfig) {
+        fetch(`${window.SupabaseConfig.url}/rest/v1/jack_scrolling_testimonials`, {
+          method: "POST",
+          headers: {
+            "apikey": window.SupabaseConfig.apiKey,
+            "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`,
+            "Content-Type": "application/json",
+            "Prefer": "resolution=merge-duplicates"
+          },
+          body: JSON.stringify(testi)
+        }).catch(e => console.warn("Supabase scrolling save warning:", e));
+      }
       return testi;
     } catch (e) {
       console.error("Storage quota exceeded inside ScrollingTestimonialDB.save:", e);
@@ -1123,6 +1314,33 @@ const ScrollingTestimonialDB = {
     let list = this.getAll();
     list = list.filter(t => t.id !== id);
     localStorage.setItem("jack_scrolling_testimonials", JSON.stringify(list));
+    if (window.SupabaseConfig) {
+      fetch(`${window.SupabaseConfig.url}/rest/v1/jack_scrolling_testimonials?id=eq.${encodeURIComponent(id)}`, {
+        method: "DELETE",
+        headers: {
+          "apikey": window.SupabaseConfig.apiKey,
+          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+        }
+      }).catch(e => console.warn("Supabase scrolling delete warning:", e));
+    }
+  },
+  syncFromCloud: async function() {
+    if (!window.SupabaseConfig) return;
+    try {
+      const res = await fetch(`${window.SupabaseConfig.url}/rest/v1/jack_scrolling_testimonials?select=*`, {
+        headers: {
+          "apikey": window.SupabaseConfig.apiKey,
+          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+        }
+      });
+      if (res.ok) {
+        const cloudData = await res.json();
+        if (Array.isArray(cloudData) && cloudData.length > 0) {
+          localStorage.setItem("jack_scrolling_testimonials", JSON.stringify(cloudData));
+          window.dispatchEvent(new CustomEvent("jack_scrolling_testimonials_synced", { detail: cloudData }));
+        }
+      }
+    } catch(e) {}
   }
 };
 
@@ -1157,13 +1375,11 @@ function showFloatingNotification(message) {
   notification.textContent = message;
   document.body.appendChild(notification);
   
-  // 触发动画
   setTimeout(() => {
     notification.style.opacity = "1";
     notification.style.transform = "translateY(0)";
   }, 10);
   
-  // 消失淡出
   setTimeout(() => {
     notification.style.opacity = "0";
     notification.style.transform = "translateY(-10px)";
@@ -1283,6 +1499,42 @@ window.StudentAuth = {
       window.SupabaseSync.pushStudent(userObj);
     }
     this.set(userObj);
+  },
+  syncStudentsFromCloud: async function() {
+    if (!window.SupabaseConfig) return;
+    try {
+      const res = await fetch(`${window.SupabaseConfig.url}/rest/v1/jack_students?select=*`, {
+        headers: {
+          "apikey": window.SupabaseConfig.apiKey,
+          "Authorization": `Bearer ${window.SupabaseConfig.apiKey}`
+        }
+      });
+      if (res.ok) {
+        const cloudStudents = await res.json();
+        if (Array.isArray(cloudStudents) && cloudStudents.length > 0) {
+          const localUsers = JSON.parse(localStorage.getItem("jack_registered_users") || "[]");
+          const merged = [...localUsers];
+          cloudStudents.forEach(cs => {
+            if (!cs.email) return;
+            const idx = merged.findIndex(u => u.email && u.email.toLowerCase() === cs.email.toLowerCase());
+            const userObj = {
+              studentName: cs.name || cs.student_name || "学员",
+              whatsapp: cs.whatsapp || "",
+              email: cs.email.toLowerCase(),
+              password: cs.password || "",
+              grade: cs.grade || "Form 5",
+              provider: cs.provider || "系统注册"
+            };
+            if (idx >= 0) {
+              merged[idx] = { ...merged[idx], ...userObj };
+            } else {
+              merged.push(userObj);
+            }
+          });
+          localStorage.setItem("jack_registered_users", JSON.stringify(merged));
+        }
+      }
+    } catch(e) {}
   }
 };
 
@@ -1319,10 +1571,20 @@ window.updateStudentLoginButtons = function() {
   }
 };
 
-// 页面加载时自动初始化购物车数量、学生状态与 WhatsApp 浮动按钮
+// 页面加载时自动执行全站多端云同步
+async function syncAllDataFromCloud() {
+  if (CourseDB.syncFromCloud) CourseDB.syncFromCloud();
+  if (ScheduleDB.syncFromCloud) ScheduleDB.syncFromCloud();
+  if (HeroCardDB.syncFromCloud) HeroCardDB.syncFromCloud();
+  if (TestimonialDB.syncFromCloud) TestimonialDB.syncFromCloud();
+  if (ScrollingTestimonialDB.syncFromCloud) ScrollingTestimonialDB.syncFromCloud();
+  if (StudentAuth.syncStudentsFromCloud) StudentAuth.syncStudentsFromCloud();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   Cart.updateUI();
   window.updateStudentLoginButtons();
+  syncAllDataFromCloud();
 
   // 自动添加右下角 WhatsApp Floating Button (管理后台隐藏)
   const isAdmin = window.location.pathname.includes("admin.html");

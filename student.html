@@ -22,10 +22,10 @@
       </a>
 
       <div class="nav-menu" role="menubar">
-        <a href="./" class="nav-link" role="menuitem">首页</a>
-        <a href="shop" class="nav-link" role="menuitem">课程</a>
-        <a href="schedule" class="nav-link" role="menuitem">上课时间</a>
-        <a href="./#faq" class="nav-link" role="menuitem">FAQ</a>
+        <a href="index.html" class="nav-link" role="menuitem">首页</a>
+        <a href="shop.html" class="nav-link" role="menuitem">课程</a>
+        <a href="schedule.html" class="nav-link" role="menuitem">上课时间</a>
+        <a href="index.html#faq" class="nav-link" role="menuitem">FAQ</a>
       </div>
 
       <div class="nav-actions">
@@ -142,7 +142,7 @@
         </div>
 
         <div style="display: flex; gap: 10px; align-items: center;">
-          <a href="shop" class="btn btn-outline-pink btn-sm" style="border-radius: var(--radius-sm);">继续选课</a>
+          <a href="shop.html" class="btn btn-outline-pink btn-sm" style="border-radius: var(--radius-sm);">继续选课</a>
           <button onclick="handleStudentLogout()" class="btn btn-outline btn-sm" style="border-radius: var(--radius-sm); border-color: rgba(255,255,255,0.2); color: var(--grey-muted);">退出账号</button>
         </div>
       </div>
@@ -231,9 +231,9 @@
         if (password === "eduhero") {
           sessionStorage.setItem("jack_admin_logged_in", "true");
           localStorage.setItem("jack_admin_logged_in", "true");
-          window.location.href = "admin";
+          window.location.href = "admin.html";
         } else {
-          alert("Invalid admin password!");
+          alert("❌ 管理员密码错误！");
         }
         return;
       }
@@ -241,29 +241,30 @@
       const regUsers = window.StudentAuth ? window.StudentAuth.getRegisteredUsers() : [];
       const foundUser = regUsers.find(u => u.email && u.email.toLowerCase() === email);
 
-      let studentName = email.split('@')[0] || "学员";
-      let whatsapp = "";
-
-      if (foundUser) {
-        studentName = foundUser.studentName || studentName;
-        whatsapp = foundUser.whatsapp || "";
-      } else {
-        try {
-          const orders = window.OrderDB ? window.OrderDB.getAll() : [];
-          const foundOrder = orders.find(o => o.email && o.email.toLowerCase() === email);
-          if (foundOrder && foundOrder.studentName) {
-            studentName = foundOrder.studentName;
-            whatsapp = foundOrder.phone || "";
-          }
-        } catch(err) {}
+      if (!foundUser) {
+        alert("❌ 找不到该邮箱对应的账号，请先点击“注册新账号”！");
+        switchPageAuthTab('register');
+        const regEmail = document.getElementById("pg-reg-email");
+        if (regEmail) regEmail.value = email;
+        return;
       }
+
+      if (foundUser.password && foundUser.password !== password) {
+        alert("❌ 登录密码不正确，请重新输入！");
+        document.getElementById("pg-login-password").value = "";
+        document.getElementById("pg-login-password").focus();
+        return;
+      }
+
+      const studentName = foundUser.studentName || foundUser.name || email.split('@')[0] || "学员";
+      const whatsapp = foundUser.whatsapp || "";
 
       const userObj = {
         studentName: studentName,
         whatsapp: whatsapp,
         email: email,
-        provider: '系统账号',
-        grade: 'Form 5',
+        provider: foundUser.provider || '系统账号',
+        grade: foundUser.grade || 'Form 5',
         loginTime: new Date().toLocaleString()
       };
 
@@ -304,7 +305,7 @@
 
       const allOrders = OrderDB.getAll() || [];
       
-      // 比对属于该学生的订单（按 email 或 studentName 匹配，若无精准匹配则展示该用户建立的订单或公共演示订单）
+      // 仅展示属于当前登录学员本人的订单（严格按 email 或真实名字匹配，杜绝泄露他人数据）
       const userOrders = allOrders.filter(o => {
         if (!o) return false;
         if (email && o.email && o.email.toLowerCase() === email.toLowerCase()) return true;
@@ -312,8 +313,7 @@
         return false;
       });
 
-      // 如果是测试 demo 用户，若没有找到精确的则兜底匹配所有符合展示条件的订单
-      const displayOrders = userOrders.length > 0 ? userOrders : allOrders;
+      const displayOrders = userOrders;
 
       countEl.textContent = `共 ${displayOrders.length} 笔订单`;
       container.innerHTML = "";
@@ -324,7 +324,7 @@
             <span style="font-size: 56px;">🛒</span>
             <h3 style="font-family: var(--font-title); font-size: 18px; color: var(--white); margin-top: 15px;">暂无历史课程报名记录</h3>
             <p style="color: var(--grey-muted); font-size: 13px; margin: 10px 0 25px 0;">赶快前往选课商城为自己挑选几门最强的 SPM 冲刺课程吧！</p>
-            <a href="shop" class="btn btn-primary" style="padding: 12px 28px;">👉 立即前往选课商城</a>
+            <a href="shop.html" class="btn btn-primary" style="padding: 12px 28px;">👉 立即前往选课商城</a>
           </div>
         `;
         return;

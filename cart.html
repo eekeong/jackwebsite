@@ -26,11 +26,10 @@
 
       <!-- Desktop Nav Links -->
       <div class="nav-menu" role="menubar">
-        <a href="./" class="nav-link" role="menuitem">首页</a>
-        <!-- <a href="about" class="nav-link" role="menuitem">关于</a> -->
-        <a href="shop" class="nav-link" role="menuitem">课程</a>
-        <a href="schedule" class="nav-link" role="menuitem">上课时间</a>
-        <a href="./#faq" class="nav-link" role="menuitem">FAQ</a>
+        <a href="index.html" class="nav-link" role="menuitem">首页</a>
+        <a href="shop.html" class="nav-link" role="menuitem">课程</a>
+        <a href="schedule.html" class="nav-link" role="menuitem">上课时间</a>
+        <a href="index.html#faq" class="nav-link" role="menuitem">FAQ</a>
       </div>
 
       <!-- Action Icons -->
@@ -63,12 +62,11 @@
 
   <!-- Mobile Dropdown Menu (Unified) -->
   <div class="mobile-menu" id="mobileMenu" role="menu" aria-hidden="true">
-    <a href="./" role="menuitem" onclick="closeMobileMenu()">首页</a>
-    <!-- <a href="about" role="menuitem" onclick="closeMobileMenu()">关于</a> -->
-    <a href="shop" role="menuitem" onclick="closeMobileMenu()">课程</a>
-    <a href="schedule" role="menuitem" onclick="closeMobileMenu()">上课时间</a>
-    <a href="./#faq" role="menuitem" onclick="closeMobileMenu()">FAQ</a>
-    <a href="shop" role="menuitem" onclick="closeMobileMenu()"
+    <a href="index.html" role="menuitem" onclick="closeMobileMenu()">首页</a>
+    <a href="shop.html" role="menuitem" onclick="closeMobileMenu()">课程</a>
+    <a href="schedule.html" role="menuitem" onclick="closeMobileMenu()">上课时间</a>
+    <a href="index.html#faq" role="menuitem" onclick="closeMobileMenu()">FAQ</a>
+    <a href="shop.html" role="menuitem" onclick="closeMobileMenu()"
       style="color: var(--pink); margin-top: 8px; display: block; font-size: 0.95rem;">立即选课 →</a>
   </div>
 
@@ -84,7 +82,7 @@
       <h2 style="font-family: var(--font-title); font-size: 20px; color: var(--text-main); margin-top: 20px;">您的购物车空空如也！
       </h2>
       <p style="color: var(--grey-muted); font-size:14px; margin: 10px 0 25px 0;">赶快去我们的课程商城为自己挑选几门最强 Sejarah 冲刺课程吧！</p>
-      <a href="shop" class="btn btn-primary" style="padding: 12px 30px;">👉 立即前往课程商城选课</a>
+      <a href="shop.html" class="btn btn-primary" style="padding: 12px 30px;">👉 立即前往课程商城选课</a>
     </div>
 
     <!-- Active Cart Layout -->
@@ -130,14 +128,14 @@
         </div>
 
         <button onclick="handleProceedToCheckout()" class="btn btn-primary btn-full" style="font-size: 16px; border:none; cursor:pointer;">💳 继续结账手续 ➔</button>
-        <a href="shop" class="btn btn-outline-purple btn-full btn-sm" style="margin-top: 10px;">继续选课</a>
+        <a href="shop.html" class="btn btn-outline-purple btn-full btn-sm" style="margin-top: 10px;">继续选课</a>
       </aside>
     </div>
   </div>
 
   <!-- Mobile Bottom Sticky Navigation Bar -->
   <div class="bottom-sticky-bar">
-    <a href="./" class="sticky-nav-item">
+    <a href="index.html" class="sticky-nav-item">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
         stroke-linecap="round" stroke-linejoin="round">
         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
@@ -299,19 +297,19 @@
         }
       });
 
-      // 无论会员或非会员，点击【继续结账】均直接跳转 WhatsApp 链接
+      // 点击【继续结账】引导进入结账收银台
       window.handleProceedToCheckout = function () {
         const currentUser = window.StudentAuth ? window.StudentAuth.get() : null;
         if (!currentUser) {
-          if (typeof window.openStudentRegisterModal === 'function') {
-            window.openStudentRegisterModal('https://wa.link/yusvrp');
+          sessionStorage.setItem("jack_post_login_redirect", "checkout.html");
+          if (typeof openLogin === 'function') {
+            openLogin();
           } else {
-            sessionStorage.setItem("jack_post_login_redirect", "https://wa.link/yusvrp");
-            window.location.href = "./?openAuth=register";
+            window.location.href = "checkout.html";
           }
           return;
         }
-        window.location.href = "https://wa.link/yusvrp";
+        window.location.href = "checkout.html";
       };
 
       // 处理移除优惠券

@@ -622,11 +622,10 @@
       </a>
 
       <div class="nav-menu" role="menubar">
-        <a href="./" class="nav-link" role="menuitem">首页</a>
-        <!-- <a href="about" class="nav-link" role="menuitem">关于</a> -->
-        <a href="shop" class="nav-link nav-link-active" role="menuitem">课程</a>
-        <a href="schedule" class="nav-link" role="menuitem">上课时间</a>
-        <a href="./#faq" class="nav-link" role="menuitem">FAQ</a>
+        <a href="index.html" class="nav-link" role="menuitem">首页</a>
+        <a href="shop.html" class="nav-link nav-link-active" role="menuitem">课程</a>
+        <a href="schedule.html" class="nav-link" role="menuitem">上课时间</a>
+        <a href="index.html#faq" class="nav-link" role="menuitem">FAQ</a>
       </div>
 
       <div class="nav-actions">
@@ -651,11 +650,10 @@
   </nav>
 
   <div class="mobile-menu" id="mobileMenu" role="menu" aria-hidden="true">
-    <a href="./" role="menuitem" onclick="closeMobileMenu()">首页</a>
-    <!-- <a href="about" role="menuitem" onclick="closeMobileMenu()">关于</a> -->
-    <a href="shop" role="menuitem" onclick="closeMobileMenu()" style="color: var(--pink);">课程</a>
-    <a href="schedule" role="menuitem" onclick="closeMobileMenu()">上课时间</a>
-    <a href="./#faq" role="menuitem" onclick="closeMobileMenu()">FAQ</a>
+    <a href="index.html" role="menuitem" onclick="closeMobileMenu()">首页</a>
+    <a href="shop.html" role="menuitem" onclick="closeMobileMenu()" style="color: var(--pink);">课程</a>
+    <a href="schedule.html" role="menuitem" onclick="closeMobileMenu()">上课时间</a>
+    <a href="index.html#faq" role="menuitem" onclick="closeMobileMenu()">FAQ</a>
   </div>
 
   <!-- =============================================
@@ -665,7 +663,7 @@
     
     <!-- Breadcrumbs -->
     <div class="breadcrumbs">
-      <a href="./">首页</a> / <a href="shop">课程</a> / <span style="color:#111;">Sejarah正课班</span>
+      <a href="index.html">首页</a> / <a href="shop.html">课程</a> / <span style="color:#111;">Sejarah正课班</span>
     </div>
 
     <!-- Hero Section -->
@@ -751,7 +749,7 @@
     </section>
 
     <!-- Tabs Section -->
-    <section class="tabs-wrapper" style="display: none;">
+    <section class="tabs-wrapper" style="display: block;">
       <div class="tabs-nav">
         <button class="tab-btn active" onclick="switchTab(this, 'tab-desc')">课程详情 (Description)</button>
         <button class="tab-btn" onclick="switchTab(this, 'tab-review')">学员见证</button>
@@ -905,8 +903,8 @@
       item.classList.toggle('open');
     }
 
-    // Dynamic Loader on DOMContentLoaded
-    document.addEventListener('DOMContentLoaded', () => {
+    // Dynamic Loader on DOMContentLoaded & Cloud Sync
+    window.renderCourseDetailData = function() {
       // 1. Get Course ID from URL
       const params = new URLSearchParams(window.location.search);
       let courseId = params.get('id') || 'sej-regular';
@@ -919,8 +917,6 @@
       // 2. Fetch Course Data from DB
       const course = CourseDB.getById(courseId);
       if (!course) {
-        alert("抱歉，该课程不存在或已下架！");
-        window.location.href = 'shop.html';
         return;
       }
       currentCourseId = baseCourseId;
@@ -1232,9 +1228,15 @@
         }
       }
 
-
-
       Cart.updateUI();
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      window.renderCourseDetailData();
+    });
+
+    window.addEventListener('jack_courses_synced', () => {
+      window.renderCourseDetailData();
     });
 
     // Helper: pricing plan selector toggles
