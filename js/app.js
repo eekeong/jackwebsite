@@ -1264,6 +1264,9 @@ window.SupabaseConfig = {
 window.SupabaseStorage = {
   BUCKET: "course-media",
   uploadFile: async function(file, folder) {
+    if (window.SupabaseAuth) {
+      await window.SupabaseAuth.ensureFreshToken();
+    }
     const token = window.sessionStorage.getItem("jack_admin_access_token");
     if (!token) throw new Error("请先重新登录管理员账号再上传");
     const safeName = (file.name || "file").replace(/[^a-zA-Z0-9._-]/g, "_");
@@ -1290,6 +1293,12 @@ window.SupabaseStorage = {
 // ==========================================
 window.SupabaseAuth = {
   ADMIN_EMAIL: "admin@eduhero.com.my",
+  _storeSession: function(data) {
+    window.sessionStorage.setItem("jack_admin_access_token", data.access_token);
+    window.sessionStorage.setItem("jack_admin_refresh_token", data.refresh_token || "");
+    const expiresAt = Math.floor(Date.now() / 1000) + (data.expires_in || 3600);
+    window.sessionStorage.setItem("jack_admin_token_expires_at", String(expiresAt));
+  },
   signIn: async function(email, password) {
     try {
       const res = await fetch(`${window.SupabaseConfig.url}/auth/v1/token?grant_type=password`, {
@@ -1302,11 +1311,43 @@ window.SupabaseAuth = {
       });
       const data = await res.json().catch(() => null);
       if (!res.ok || !data || !data.access_token) return false;
-      window.sessionStorage.setItem("jack_admin_access_token", data.access_token);
-      window.sessionStorage.setItem("jack_admin_refresh_token", data.refresh_token || "");
+      this._storeSession(data);
       return true;
     } catch (e) {
       console.warn("Supabase admin sign-in warning:", e);
+      return false;
+    }
+  },
+  // The access token expires after ~1 hour. Call this before/during any admin
+  // session activity so a long editing session (or a tab left open) doesn't
+  // suddenly start failing every request with a 401/403 "exp claim" error.
+  ensureFreshToken: async function() {
+    const token = window.sessionStorage.getItem("jack_admin_access_token");
+    if (!token) return false;
+    const expiresAt = parseInt(window.sessionStorage.getItem("jack_admin_token_expires_at") || "0", 10);
+    const now = Math.floor(Date.now() / 1000);
+    if (expiresAt - now > 300) return true; // still valid for >5 more minutes
+
+    const refreshToken = window.sessionStorage.getItem("jack_admin_refresh_token");
+    if (!refreshToken) return false;
+    try {
+      const res = await fetch(`${window.SupabaseConfig.url}/auth/v1/token?grant_type=refresh_token`, {
+        method: "POST",
+        headers: {
+          "apikey": window.SupabaseConfig.apiKey,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ refresh_token: refreshToken })
+      });
+      const data = await res.json().catch(() => null);
+      if (!res.ok || !data || !data.access_token) {
+        this.signOut();
+        return false;
+      }
+      this._storeSession(data);
+      return true;
+    } catch (e) {
+      console.warn("Supabase admin token refresh warning:", e);
       return false;
     }
   },
@@ -1323,6 +1364,7 @@ window.SupabaseAuth = {
     }
     window.sessionStorage.removeItem("jack_admin_access_token");
     window.sessionStorage.removeItem("jack_admin_refresh_token");
+    window.sessionStorage.removeItem("jack_admin_token_expires_at");
   },
   isLoggedIn: function() {
     return !!window.sessionStorage.getItem("jack_admin_access_token");

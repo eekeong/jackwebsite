@@ -1100,7 +1100,7 @@
     </main>
   </div>
 
-  <script src="js/app.js?v=1.4.0"></script>
+  <script src="js/app.js?v=1.5.0"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       // Seed shop cards in admin if not present
@@ -1116,6 +1116,15 @@
       }
       if (window.lucide) {
         window.lucide.createIcons();
+      }
+
+      // The admin session token expires after ~1 hour. Refresh it now (in
+      // case the tab was left open from an earlier session) and keep
+      // refreshing periodically so a long editing session doesn't suddenly
+      // start failing with a 401/403 "exp claim" error mid-work.
+      if (window.SupabaseAuth) {
+        window.SupabaseAuth.ensureFreshToken();
+        setInterval(() => window.SupabaseAuth.ensureFreshToken(), 5 * 60 * 1000);
       }
     });
 
