@@ -706,13 +706,9 @@
           <button class="plan-btn" onclick="selectPlan(this, 1, 229, 477)">3个月</button>
         </div>
 
-        <div class="price-block" style="display:flex; align-items:baseline; flex-wrap:wrap; gap:8px;">
+        <div class="price-block" style="display:flex; align-items:baseline; flex-wrap:wrap; gap:8px; margin-bottom: 12px;">
           <span class="current-price">RM88.00</span>
           <span class="original-price">RM108.00</span>
-          <span class="price-included-note" style="font-size: 13px; color: #666666; margin-left: 6px; font-weight: 700;">(学费+资料+报名费+邮费)</span>
-        </div>
-        <div id="price-promo-subtext" style="font-size: 13px; color: var(--pink); font-weight: 800; margin-top: 6px; margin-bottom: 12px;">
-          第一个月原价RM108 现在新生福利 RM88！
         </div>
 
         <!-- 规格面板 (年级与时间) -->
@@ -1009,16 +1005,6 @@
           }
         }
 
-        const promoSubtextEl = document.getElementById('price-promo-subtext');
-        if (promoSubtextEl) {
-          if (selectedIdx === 0) {
-            promoSubtextEl.style.display = "block";
-            promoSubtextEl.textContent = `第一个月原价RM${origP > 0 ? origP : 108} 现在新生福利 RM${currentP.toFixed(0)}！`;
-          } else {
-            promoSubtextEl.style.display = "none";
-          }
-        }
-        
         // Update active index
         window.selectedPlanIndex = selectedIdx;
         updateCtaButtons(pricingOptions);
@@ -1190,15 +1176,6 @@
         }
       }
 
-      const promoSubtextEl = document.getElementById('price-promo-subtext');
-      if (promoSubtextEl) {
-        if (index === 0) {
-          promoSubtextEl.style.display = "block";
-          promoSubtextEl.textContent = `第一个月原价RM${originalPrice > 0 ? originalPrice : 108} 现在新生福利 RM${price.toFixed(0)}！`;
-        } else {
-          promoSubtextEl.style.display = "none";
-        }
-      }
 
       const course = CourseDB.getById(currentCourseId);
       let pricingOptions = course ? (course.pricingOptions || []) : [];
