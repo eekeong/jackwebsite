@@ -383,35 +383,14 @@
             <!-- Section 2: Pricing & Details -->
             <div class="course-form-panel space-y-4 pt-4 border-t border-zinc-800 mt-4" id="panel-pricing">
               <h4 class="text-pinkBrand font-bold text-sm">2. Pricing & Highlights</h4>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="space-y-1">
-                  <label class="text-xs font-medium text-zinc-300" for="add-price1month">1 个月套餐优惠价 (RM) *</label>
-                  <input type="number" step="0.01" id="add-price1month"
-                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
-                    placeholder="例：49.00" required>
-                </div>
-                <div class="space-y-1">
-                  <label class="text-xs font-medium text-zinc-300" for="add-price1month-orig">1 个月套餐原价 (RM) *</label>
-                  <input type="number" step="0.01" id="add-price1month-orig"
-                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
-                    placeholder="例：99.00" required>
-                </div>
-              </div>
 
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="space-y-1">
-                  <label class="text-xs font-medium text-zinc-300" for="add-price3month">3 个月套餐优惠价 (RM) <span>(非套餐填0)</span> *</label>
-                  <input type="number" step="0.01" id="add-price3month"
-                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
-                    value="0" required>
-                </div>
-                <div class="space-y-1">
-                  <label class="text-xs font-medium text-zinc-300" for="add-price3month-orig">3 个月套餐原价 (RM) <span>(非套餐填0)</span> *</label>
-                  <input type="number" step="0.01" id="add-price3month-orig"
-                    class="flex h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-400"
-                    value="0" required>
-                </div>
+              <div class="flex items-center justify-between border-b border-zinc-800 pt-2 pb-1">
+                <label class="text-xs font-medium text-zinc-300">套餐价格选项 (学员报名时会看到这些选项，名称可自由填写，套餐数量不限) *</label>
+                <button type="button" onclick="window.addPricingRow()" class="text-xs text-pink-400 hover:text-pink-300 flex items-center gap-1 bg-pink-500/10 px-2 py-1 rounded border border-pink-500/20">
+                  <i data-lucide="plus" class="w-3 h-3"></i> 加新套餐
+                </button>
               </div>
+              <div id="pricing-options-container" class="space-y-2"></div>
 
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="space-y-1">
@@ -1177,7 +1156,14 @@
           testiContainer.innerHTML = "";
           window.addTestimonialRow(); // Add one default empty row
         }
-        
+
+        // Clear and pre-populate dynamic pricing tiers container
+        const pricingContainer = document.getElementById("pricing-options-container");
+        if (pricingContainer) {
+          pricingContainer.innerHTML = "";
+          window.addPricingRow("1个月"); // Add one default empty tier
+        }
+
         // Reset subtabs
         const firstTabBtn = document.querySelector(".course-form-tab-btn");
         if (firstTabBtn) switchCourseFormTab('basic', firstTabBtn);
@@ -1217,17 +1203,27 @@
       const imgBack = document.getElementById("add-img-back").value.trim();
       const imgFront = document.getElementById("add-img-front").value.trim();
 
-      // 1. Get prices from static HTML inputs
-      const price1Month = parseFloat(document.getElementById("add-price1month").value) || 0;
-      const originalPrice1Month = parseFloat(document.getElementById("add-price1month-orig").value) || 0;
-      const price3Month = parseFloat(document.getElementById("add-price3month").value) || 0;
-      const originalPrice3Month = parseFloat(document.getElementById("add-price3month-orig").value) || 0;
-
+      // 1. Get prices from the dynamic pricing tier rows (any number of freely-named tiers)
       const pricingOptions = [];
-      pricingOptions.push({ name: "1个月通行证", price: price1Month, originalPrice: originalPrice1Month });
-      if (price3Month > 0) {
-        pricingOptions.push({ name: "3个月通行证", price: price3Month, originalPrice: originalPrice3Month });
+      document.querySelectorAll("#pricing-options-container > div").forEach(row => {
+        const pName = row.querySelector("[data-price-name]").value.trim();
+        const pPrice = parseFloat(row.querySelector("[data-price-value]").value) || 0;
+        const pOriginal = parseFloat(row.querySelector("[data-price-original]").value) || 0;
+        if (pName) {
+          pricingOptions.push({ name: pName, price: pPrice, originalPrice: pOriginal });
+        }
+      });
+      if (pricingOptions.length === 0) {
+        alert("请至少添加一个套餐价格选项！");
+        return;
       }
+
+      // Keep the legacy flat fields populated (mirrors tier 1 / tier 2) so older
+      // code paths that fall back to price1Month/price3Month still work sensibly.
+      const price1Month = pricingOptions[0].price;
+      const originalPrice1Month = pricingOptions[0].originalPrice;
+      const price3Month = pricingOptions.length > 1 ? pricingOptions[1].price : 0;
+      const originalPrice3Month = pricingOptions.length > 1 ? pricingOptions[1].originalPrice : 0;
 
       const addTeachingMethodEl = document.getElementById("add-teaching-method");
       const teachingMethod = addTeachingMethodEl ? addTeachingMethodEl.value.trim() : "Zoom 直播授课";
@@ -1388,31 +1384,22 @@
       document.getElementById("add-img-back").value = course.imgBack || course.image || "";
       document.getElementById("add-img-front").value = course.imgFront || "";
 
-      // Tab 2 fields
-      // Tab 2 fields - pricing inputs populating
-      let p1 = course.price1Month || course.price || 0;
-      let o1 = course.originalPrice1Month || course.originalPrice || 0;
-      let p3 = course.price3Month || 0;
-      let o3 = course.originalPrice3Month || 0;
-
-      if (course.pricingOptions && course.pricingOptions.length > 0) {
-        const opt1 = course.pricingOptions[0];
-        p1 = opt1.price;
-        o1 = opt1.originalPrice;
-        if (course.pricingOptions.length > 1) {
-          const opt2 = course.pricingOptions[1];
-          p3 = opt2.price;
-          o3 = opt2.originalPrice;
+      // Tab 2 fields - pricing tier rows populating (any number of freely-named tiers)
+      const pricingContainer = document.getElementById("pricing-options-container");
+      if (pricingContainer) {
+        pricingContainer.innerHTML = "";
+        if (course.pricingOptions && course.pricingOptions.length > 0) {
+          course.pricingOptions.forEach(opt => {
+            window.addPricingRow(opt.name || "", opt.price || 0, opt.originalPrice || 0);
+          });
         } else {
-          p3 = 0;
-          o3 = 0;
+          // Legacy course saved before pricing tiers existed — rebuild from the old flat fields
+          window.addPricingRow("1个月", course.price1Month || course.price || 0, course.originalPrice1Month || course.originalPrice || 0);
+          if (course.price3Month > 0) {
+            window.addPricingRow("3个月", course.price3Month, course.originalPrice3Month || 0);
+          }
         }
       }
-
-      document.getElementById("add-price1month").value = p1;
-      document.getElementById("add-price1month-orig").value = o1;
-      document.getElementById("add-price3month").value = p3;
-      document.getElementById("add-price3month-orig").value = o3;
 
       const addTeachingMethodEl = document.getElementById("add-teaching-method");
       if (addTeachingMethodEl) addTeachingMethodEl.value = course.teachingMethod || "";
@@ -1513,26 +1500,31 @@
       reader.readAsDataURL(file);
     };
 
-    // Video Upload (warns about local video file limits and inserts target)
-    window.handleVideoUpload = function (input, targetInputId) {
+    // Video Upload — uploads the actual file to Supabase Storage and puts
+    // the resulting public URL into the target field (no more base64).
+    window.handleVideoUpload = async function (input, targetInputId) {
       const file = input.files[0];
       if (!file) return;
 
-      if (file.size > 2 * 1024 * 1024) {
-        alert("提示：Video大小已超过 2MB。在 LocalStorage 容量（5MB）有限的情况下，强烈推荐直接填写本地相对路径（如 images/SMJK HWA LIAN JACK CROP.mp4）或使用 2MB 以内的短Video以防爆仓！");
-      }
+      const inputEl = document.getElementById(targetInputId);
+      const originalValue = inputEl.value;
+      inputEl.value = "⏳ 上传中，请稍候...";
+      inputEl.disabled = true;
 
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        document.getElementById(targetInputId).value = e.target.result;
-        
-        const inputEl = document.getElementById(targetInputId);
+      try {
+        const url = await window.SupabaseStorage.uploadFile(file, "gallery");
+        inputEl.value = url;
         inputEl.classList.add("ring-2", "ring-emerald-500");
         setTimeout(() => {
           inputEl.classList.remove("ring-2", "ring-emerald-500");
         }, 1500);
-      };
-      reader.readAsDataURL(file);
+      } catch (err) {
+        inputEl.value = originalValue;
+        alert("❌ 视频上传失败，请检查网络后重试（如果刚好登录超时，请重新登录管理员账号）。\n" + err.message);
+      } finally {
+        inputEl.disabled = false;
+        input.value = "";
+      }
     };
 
     // Dynamic element-based image compression upload helper
@@ -1574,24 +1566,29 @@
       reader.readAsDataURL(file);
     };
 
-    // Dynamic element-based video upload helper
-    window.handleVideoUploadForElement = function (input, targetInputEl) {
+    // Dynamic element-based video upload helper — uploads to Supabase Storage
+    window.handleVideoUploadForElement = async function (input, targetInputEl) {
       const file = input.files[0];
       if (!file) return;
 
-      if (file.size > 2 * 1024 * 1024) {
-        alert("提示：Video大小已超过 2MB。在 LocalStorage 容量有限的情况下，建议控制在 2MB 以内的短Video以防写入失败！");
-      }
-      
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        targetInputEl.value = e.target.result;
+      const originalValue = targetInputEl.value;
+      targetInputEl.value = "⏳ 上传中，请稍候...";
+      targetInputEl.disabled = true;
+
+      try {
+        const url = await window.SupabaseStorage.uploadFile(file, "testimonials");
+        targetInputEl.value = url;
         targetInputEl.classList.add("ring-2", "ring-emerald-500");
         setTimeout(() => {
           targetInputEl.classList.remove("ring-2", "ring-emerald-500");
         }, 1500);
-      };
-      reader.readAsDataURL(file);
+      } catch (err) {
+        targetInputEl.value = originalValue;
+        alert("❌ 视频上传失败，请检查网络后重试（如果刚好登录超时，请重新登录管理员账号）。\n" + err.message);
+      } finally {
+        targetInputEl.disabled = false;
+        input.value = "";
+      }
     };
 
     // Add dynamic testimonial row
@@ -1649,7 +1646,41 @@
         </div>
       `;
       container.appendChild(row);
-      
+
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+    };
+
+    // Add dynamic pricing tier row (name is free text — not limited to 1/3 months)
+    window.addPricingRow = function(name = "", price = "", originalPrice = "") {
+      const container = document.getElementById("pricing-options-container");
+      if (!container) return;
+
+      const rowId = `price-row-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
+
+      const row = document.createElement("div");
+      row.id = rowId;
+      row.className = "bg-zinc-950 border border-zinc-800 p-3 rounded-lg relative grid grid-cols-1 md:grid-cols-3 gap-2";
+      row.innerHTML = `
+        <button type="button" onclick="document.getElementById('${rowId}').remove()" class="absolute top-2 right-2 text-zinc-500 hover:text-red-400">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <div class="space-y-1">
+          <label class="text-[10px] font-semibold text-zinc-300">套餐名称 (学员会看到) *</label>
+          <input type="text" data-price-name class="flex h-8 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2 py-1 text-xs text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-1" placeholder="如：1个月 / 3个月 / 单次体验" value="${name}" required>
+        </div>
+        <div class="space-y-1">
+          <label class="text-[10px] font-semibold text-zinc-300">优惠价 (RM) *</label>
+          <input type="number" step="0.01" data-price-value class="flex h-8 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2 py-1 text-xs text-zinc-100 focus:outline-none focus:ring-1" placeholder="例：49.00" value="${price}" required>
+        </div>
+        <div class="space-y-1">
+          <label class="text-[10px] font-semibold text-zinc-300">原价 (RM，选填，用于显示划线价)</label>
+          <input type="number" step="0.01" data-price-original class="flex h-8 w-full rounded-md border border-zinc-800 bg-zinc-900 px-2 py-1 text-xs text-zinc-100 focus:outline-none focus:ring-1" placeholder="例：99.00" value="${originalPrice}">
+        </div>
+      `;
+      container.appendChild(row);
+
       if (window.lucide) {
         window.lucide.createIcons();
       }
@@ -2341,8 +2372,8 @@
       }
     };
 
-    // Process uploaded video file
-    window.handleTestimonialVideoUpload = function (input) {
+    // Process uploaded video file — uploads to Supabase Storage
+    window.handleTestimonialVideoUpload = async function (input) {
       const file = input.files[0];
       const statusLabel = document.getElementById("testimonial-vid-upload-status");
 
@@ -2352,23 +2383,18 @@
         return;
       }
 
-      if (file.size > 5 * 1024 * 1024) {
-        alert("⚠️ Video文件过大！\n由于浏览器本地数据额度只有 5MB，极其建议采用方法 B 直接填写Video相对地址 (如 images/testimonials/video/xxx.mp4)！");
-      }
+      statusLabel.textContent = "⏳ 上传中，请稍候...";
 
-      statusLabel.textContent = "本地Video读取编码中...";
-
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        uploadedTestimonialVidBase64 = e.target.result;
-        statusLabel.textContent = "Video读取编码处理成功！";
+      try {
+        const url = await window.SupabaseStorage.uploadFile(file, "testimonials");
+        uploadedTestimonialVidBase64 = url;
+        statusLabel.textContent = "Video上传成功！";
         document.getElementById("testimonial-vid-path").value = "";
-      };
-      reader.onerror = function () {
-        alert("Video加载解析失败，请重试！");
-        statusLabel.textContent = "加载失败";
-      };
-      reader.readAsDataURL(file);
+      } catch (err) {
+        uploadedTestimonialVidBase64 = "";
+        alert("❌ Video上传失败，请检查网络后重试（如果刚好登录超时，请重新登录管理员账号）。\n" + err.message);
+        statusLabel.textContent = "上传失败";
+      }
     };
 
     // Compress and read video poster

@@ -1257,6 +1257,35 @@ window.SupabaseConfig = {
 };
 
 // ==========================================
+// SUPABASE STORAGE — real file uploads (videos/images as actual files,
+// not base64 text). Only an admin session can upload; the bucket is
+// publicly readable so the resulting URL works for every visitor.
+// ==========================================
+window.SupabaseStorage = {
+  BUCKET: "course-media",
+  uploadFile: async function(file, folder) {
+    const token = window.sessionStorage.getItem("jack_admin_access_token");
+    if (!token) throw new Error("请先重新登录管理员账号再上传");
+    const safeName = (file.name || "file").replace(/[^a-zA-Z0-9._-]/g, "_");
+    const path = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}-${safeName}`;
+    const res = await fetch(`${window.SupabaseConfig.url}/storage/v1/object/${this.BUCKET}/${path}`, {
+      method: "POST",
+      headers: {
+        "apikey": window.SupabaseConfig.apiKey,
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": file.type || "application/octet-stream"
+      },
+      body: file
+    });
+    if (!res.ok) {
+      const t = await res.text().catch(() => "");
+      throw new Error(`上传失败 (${res.status}): ${t}`);
+    }
+    return `${window.SupabaseConfig.url}/storage/v1/object/public/${this.BUCKET}/${path}`;
+  }
+};
+
+// ==========================================
 // SUPABASE AUTH — real backend-verified admin login
 // ==========================================
 window.SupabaseAuth = {
