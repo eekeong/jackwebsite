@@ -48,6 +48,30 @@ window.safeLocalStorage = (function() {
 // Shadow standard localStorage with the safe wrapper
 const localStorage = window.safeLocalStorage;
 
+// ==========================================
+// GOOGLE TAG MANAGER — dataLayer event tracking
+// ==========================================
+window.dataLayer = window.dataLayer || [];
+window.pushAnalyticsEvent = function(eventName, data) {
+  try {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(Object.assign({ event: eventName }, data || {}));
+  } catch (e) {}
+};
+
+// Site-wide WhatsApp click tracking — catches every wa.link button/link
+// (floating button, nav, footer, cart, course pages, ...) without needing
+// to touch each one individually.
+document.addEventListener("click", function (e) {
+  const link = e.target.closest('a[href*="wa.link"]');
+  if (!link) return;
+  window.pushAnalyticsEvent("whatsapp_click", {
+    link_url: link.href,
+    link_text: (link.textContent || "").trim().slice(0, 100),
+    page_path: window.location.pathname
+  });
+}, true);
+
 // Razorpay 付款网关全局配置
 window.RazorpayConfig = {
   key_id: "rzp_test_Sgr2dt2LBq1SIm",
@@ -586,8 +610,18 @@ const OrderDB = {
     if (window.SupabaseSync) {
       window.SupabaseSync.pushOrder(newOrder);
     }
-    
+
+    const analyticsPayload = {
+      transaction_id: newOrder.id,
+      value: newOrder.total,
+      currency: "MYR",
+      payment_method: newOrder.method,
+      items: cartItems.map(c => ({ item_id: c.id, item_name: c.title }))
+    };
+    window.pushAnalyticsEvent("place_order", analyticsPayload);
     if (status === "Paid") {
+      window.pushAnalyticsEvent("purchase", analyticsPayload);
+
       let studentCourses = [];
       try {
         studentCourses = JSON.parse(localStorage.getItem(`student_courses_${studentInfo.email}`)) || [];
@@ -608,8 +642,19 @@ const OrderDB = {
     const orders = OrderDB.getAll() || [];
     const index = orders.findIndex(o => o.id === orderId);
     if (index >= 0) {
+      const wasAlreadyPaid = orders[index].status === "Paid";
       orders[index].status = status;
       localStorage.setItem("jack_orders", JSON.stringify(orders));
+
+      if (status === "Paid" && !wasAlreadyPaid) {
+        window.pushAnalyticsEvent("purchase", {
+          transaction_id: orders[index].id,
+          value: orders[index].total,
+          currency: "MYR",
+          payment_method: orders[index].method,
+          items: (orders[index].courseIds || []).map((id, i) => ({ item_id: id, item_name: (orders[index].courses || [])[i] || "" }))
+        });
+      }
 
       if (status === "Paid" && orders[index].email) {
         const email = orders[index].email.toLowerCase();
